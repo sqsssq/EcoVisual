@@ -1,0 +1,246 @@
+html {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+body {
+    margin: 0%;
+    height: 100%;
+    width: 100%;
+    background-color: rgb(247, 242, 242);
+}
+
+.tooltip {
+    font-family: simsun;
+    font-size: 16px;
+    width: 120;
+    height: auto;
+    position: absolute;
+    text-align: center;
+    border-style: solid;
+    border-width: 1px;
+    background-color: white;
+    border-radius: 5px;
+}
+
+#Tree {
+    height: 209px;
+    width: 471px;
+    background-color: white;
+}
+
+.topFramework {
+    float: left;
+}
+
+#left {
+    height: 100%;
+    width: 20%;
+}
+
+#right {
+    height: 100%;
+    width: 80%;
+}
+
+.framework {
+    margin-top: 5px;
+    margin-left: 5px;
+    float: left;
+}
+
+.frameworkTitle {
+    height: 30px;
+    width: 100%;
+    /* background-color: darkgray; */
+    /* background-color: rgb(180, 180, 180); */
+    background-color: #dfdede;
+    border: solid;
+    border-width: 0px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+.frameworkBody {
+    height: calc(100% - 30px);
+    width: 100%;
+    background-color: white;
+    border: solid;
+    border-width: 0px;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+#DataView {
+    height: calc(17% - 10px);
+    width: calc(100% - 5px);
+}
+
+#CodeSelect {
+    height: calc(43.4% - 10px);
+    width: calc(100% - 5px);
+}
+
+#ScatterVis {
+    height: calc(39.5% - 5px);
+    width: calc(100% - 5px);
+}
+
+#TreeVis {
+    height: calc(40% - 10px);
+    width: calc(60% - 10px);
+}
+
+#SunVis {
+    height: calc(40% - 10px);
+    width: calc(40% - 5px);
+}
+
+#Sun {
+    height: calc(100% - 30px);
+    width: 100%;
+}
+
+#tempVis1 {
+    height: calc(60% - 10px);
+    width: calc(100% - 10px);
+}
+
+
+#tempVis2 {
+    height: calc(40% - 10px);
+    width: calc(50% - 10px);
+}
+
+#tempVis3 {
+    height: calc(100% - 10px);
+    width: calc(100% - 10px);
+}
+
+#Tsne {
+    width: 100%;
+    height: 100%;
+}
+
+.node {
+    font: 12px sans-serif;
+}
+
+.link {
+    fill: none;
+    /* stroke: #ccc; */
+    /* stroke-width: 1.5px; */
+}
+
+#chart {
+    width: 100%;
+    height: 100%;
+}
+
+#Word {
+    font-size: 120%;
+    color: rgb(27, 27, 27);
+    font-weight: 600;
+}
+
+#SankeyViewB {
+    height: 30px;
+    width: 100%;
+    
+    color: whitesmoke;
+    font-size: 140%;
+    height: 30px;
+    width: 100%;
+    /* background-color: rgb(180, 180, 180); */
+    background-color: #0a3c75;
+    border: solid;
+    border-width: 0px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    
+}
+
+#textId {
+    height: 30px;
+    width: 200px;
+    position: absolute;
+    top: 430px;
+    left: 20px;
+    font-size: 25px;
+}
+
+#FindButton {
+    height: 35px;
+    width: 100px;
+    position: absolute;
+    top: 430px;
+    left: 250px;
+    border-radius: 3px;
+    font-size: 20px;
+}
+
+#DataD {
+    font-size: 20px;
+    line-height: 35px;
+    text-align: center;
+}
+
+#DataA {
+    font-size: 15px;
+    line-height: 30px
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: black;
+    stroke-width: 0.3;
+    shape-rendering: crispEdges;
+}
+
+.axis text {
+    font-family: sans-serif;
+    font-size: 11px;
+}
+
+#JqScroll {
+    border: 1px solid none;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    width: 100%;
+    height: 100%;
+    overflow: scroll;
+}
+
+#JqTitle {
+    border: 1px solid white;
+    width: 100%;
+    height: 7%;
+}
+
+#Lun_select {
+    /* border: 0.1px solid black; */
+    width: 80px;
+    height: 25px;
+    position: absolute;
+    top: 105px;
+    left: 90px;
+}
+
+#clear_But {
+    width: 80px;
+    height: 25px;
+    position: absolute;
+    top: 103px;
+    left: 240px;
+    font-size: 14px;
+    border: 0px;
+    border-radius: 5px;
+}
+
+#topt {
+    position: fixed;
+    top: 0;
+    z-index: 1;
+}

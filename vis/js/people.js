@@ -1,0 +1,572 @@
+var p_width = 911;
+var p_height = 306
+
+var judge_cir_line = 0
+
+var d_num = 0
+
+var peo_svg = d3.select("#Tree").append('svg')
+    .attr('width', p_width)
+    .attr('height', p_height)
+
+var lc_p_g = 0;
+
+lc_p_g = peo_svg.append('g')
+
+var peo_g = 0;
+
+var nam = 0;
+
+function Paintjudge(name) {
+    nam = name;
+    d3.csv('data/box.csv', function (data) {
+        if (peo_g != 0) peo_g.remove();
+
+        peo_g = peo_svg.append('g')
+            .attr("transform", "translate(" + 0 + "," + 45 + ")")
+
+        // console.log(data)
+        p_data = []
+
+        var p_max = -100000
+        var p_min = 100000
+
+        for (var d in data) {
+            if (data[d].code == name) {
+                p_ = {}
+                p_['name'] = name
+                p_['judge'] = [parseInt(data[d]['1']), parseInt(data[d]['2']), parseInt(data[d]['3']), parseInt(data[d]['4']), parseInt(data[d]['5'])]
+                p_['price'] = parseFloat(data[d]['91'])
+                if (p_max < parseFloat(data[d]['91'])) p_max = parseFloat(data[d]['91'])
+                if (p_min > parseFloat(data[d]['91'])) p_min = parseFloat(data[d]['91'])
+                p_['lun'] = data[d]['biao']
+                p_data.push(p_)
+            }
+            // console.log(data[d])
+        }
+        // console.log(p_data)
+
+        var p_xscale = d3.scale.linear()
+            .domain([1, 20])
+            .range([30, 880])
+
+        // var p_yscale = d3.scale.linear()
+        //     .domain([parseInt(p_min), parseInt(p_max)])
+        //     // .domain([-50, 150])
+        //     .range([255, 0])
+
+        if (parseInt(p_min) > 0) p_min = 0
+        if (parseInt(p_max) < 0) p_max = 0
+
+        var p_yscale = d3.scale.linear()
+            .domain([parseInt(p_min), parseInt(p_max)])
+            // .domain([-50, 150])
+            .range([245, 0])
+
+
+        line_data = []
+        var dif_max = -100000
+        var dif_min = 100000
+
+        for (var i = 1; i < 20; ++i) {
+            // console.log(p_data[i])
+            l = {}
+            l['x1'] = parseInt(p_data[i - 1]['lun'])
+            l['y1'] = p_data[i - 1]['price']
+            l['x2'] = parseInt(p_data[i]['lun'])
+            l['y2'] = p_data[i]['price']
+            var dif = 0;
+            for (var j = 0; j <= 4; ++j) {
+                dif += (p_data[i]['judge'][j] - p_data[i - 1]['judge'][j]) * (p_data[i]['judge'][j] - p_data[i - 1]['judge'][j]);
+                if (dif_max < dif) dif_max = dif
+                if (dif_min > dif) dif_min = dif
+            }
+            l['w'] = Math.sqrt(dif);
+            line_data.push(l)
+        }
+
+        // console.log(dif_min)
+
+        var l_scale = d3.scale.linear()
+            .domain([parseFloat(dif_min), parseFloat(dif_max)])
+            .range([1, 10])
+
+        peo_g.selectAll('#peo_l')
+            .attr('id', 'peo_l')
+            .data(line_data)
+            .enter()
+            .append('g')
+            .append('line')
+            .attr('x1', d => {
+                return p_xscale(d.x1);
+            })
+            .attr('y1', d => {
+                return p_yscale(d.y1)
+            })
+            .attr('x2', d => {
+                return p_xscale(d.x2)
+            })
+            .attr('y2', d => {
+                return p_yscale(d.y2)
+            })
+            .attr('fill', 'none')
+            .attr('stroke-width', d => {
+                return l_scale(d.w)
+            })
+            .attr('stroke', '#0a3c75')
+
+        peo_g.selectAll('#x_line')
+            .attr('id', 'x_line')
+            .data(p_data)
+            .enter()
+            .append('g')
+            .append('line')
+            .attr('x1', d => {
+                return p_xscale(d.lun)
+            })
+            .attr('y1', d => {
+                return p_yscale(d.price)
+            })
+            .attr('x2', d => {
+                return p_xscale(d.lun)
+            })
+            .attr('y2', d => {
+                // return 260;
+                return p_yscale(0)
+            })
+            .attr('fill', 'none')
+            .attr('stroke', '#0a3c75')
+            .attr('stroke-width', 0.1)
+            .attr('stroke-opacity', 0.4)
+            .attr('stroke-dasharray', 5.5)
+
+
+        var xAxis = d3.svg.axis().scale(p_xscale).ticks(20).tickFormat(d3.format("d")).orient("bottom");
+        var yAxis = d3.svg.axis().scale(p_yscale).ticks(0).tickFormat(d3.format("d")).orient("left"); //添加一个g用于放x轴
+
+        peo_g.append("g")
+            .attr("class", "axis")
+            // .attr("transform", "translate(" + 0 + "," + 255 + ")")
+            .attr("transform", "translate(" + 0 + "," + p_yscale(0) + ")")
+            .attr("stroke-width", 0.1)
+            .call(xAxis)
+            .append('text')
+            .text('轮数')
+            // .attr("transform", "rotate(-90)") //text旋转-90°
+            .attr("text-anchor", "end") //字体尾部对齐
+            .attr("dx", "82.5em")
+            .attr("dy", "0.5em") //沿y轴平移一个字体的大小
+        peo_g.append("g")
+            .attr("class", "axis")
+            .attr("transform", "translate(" + 30 + "," + 0 + ")")
+            .call(yAxis)
+            .append('text')
+            .text('总收益')
+            .attr("transform", "rotate(-90)") //text旋转-90°
+            .attr("text-anchor", "end") //字体尾部对齐
+            .attr("dx", "-2em")
+            .attr("dy", "-1em") //沿y轴平移一个字体的大小;
+
+        peo_g.selectAll('#peo_cir')
+            .attr('id', 'peo_cir')
+            .data(p_data)
+            .enter()
+            .append('g')
+            .append('circle')
+            .attr('cx', d => {
+                return p_xscale(d.lun)
+            })
+            .attr('cy', d => {
+                return p_yscale(d.price)
+            })
+            .attr('r', 4.5)
+            .attr('fill', d => {
+                return "white";
+            })
+            .attr('stroke', 'red')
+            .attr('stroke-width', 1)
+            .on('click', d => {
+                peo_t.style('opacity', 0)
+            })
+            .on('dblclick', d => {
+                peo_t.style('opacity', 1)
+            })
+
+        var peo_t = peo_g.selectAll('#p_text')
+            .attr('id', 'p_text')
+            .data(p_data)
+            .enter()
+            .append('g')
+            .append('text')
+            .attr('x', d => {
+                return p_xscale(d.lun)
+            })
+            .attr('y', d => {
+                return p_yscale(d.price)
+            })
+
+            .attr('fill', 'black')
+            .attr('font-size', '12px')
+            .attr('text-anchor', 'middle')
+            .attr("font-family", "courier")
+            // .attr('dx', '')
+            .attr('dy', '-0.4em')
+            .text(d => {
+                return parseInt(d.price)
+            })
+        peo_g.append('text')
+            .attr('x', 800)
+            .attr('y', -22)
+            .attr('fill', 'black')
+            .attr('font-size', '15px')
+            .attr('text-anchor', 'middle')
+            .attr("font-family", "courier")
+            // .attr('dx', '')
+            .attr('dy', '-0.4em')
+            .text("People: " + name)
+            .on('click', d => {
+                judge_cir_line = 1;
+                PaintCir(name)
+                PaintLine(0)
+            })
+    })
+}
+
+function Paintjudge_2(name) {
+    // nam = name;
+    d3.csv('data/box.csv', function (data) {
+        if (peo_g != 0) peo_g.remove();
+
+        peo_g = peo_svg.append('g')
+            .attr("transform", "translate(" + 0 + "," + 45 + ")")
+
+        // console.log(data)
+        p_data = []
+        var p1_data = []
+
+        var p_max = -100000
+        var p_min = 100000
+
+        for (var select_name in name) {
+            p_data.push([])
+            for (var d in data) {
+                if (data[d].code == name[select_name]) {
+                    p_ = {}
+                    p_['name'] = name
+                    p_['judge'] = [parseInt(data[d]['1']), parseInt(data[d]['2']), parseInt(data[d]['3']), parseInt(data[d]['4']), parseInt(data[d]['5'])]
+                    p_['price'] = parseFloat(data[d]['91'])
+                    if (p_max < parseFloat(data[d]['91'])) p_max = parseFloat(data[d]['91'])
+                    if (p_min > parseFloat(data[d]['91'])) p_min = parseFloat(data[d]['91'])
+                    p_['lun'] = data[d]['biao']
+                    p_data[select_name].push(p_)
+                }
+            }
+            // console.log(data[d])
+            // if (data[d].code == name[1]) {
+            //     p_ = {}
+            //     p_['name'] = name
+            //     p_['judge'] = [parseInt(data[d]['1']), parseInt(data[d]['2']), parseInt(data[d]['3']), parseInt(data[d]['4']), parseInt(data[d]['5'])]
+            //     p_['price'] = parseFloat(data[d]['91'])
+            //     if (p_max < parseFloat(data[d]['91'])) p_max = parseFloat(data[d]['91'])
+            //     if (p_min > parseFloat(data[d]['91'])) p_min = parseFloat(data[d]['91'])
+            //     p_['lun'] = data[d]['biao']
+            //     p1_data.push(p_)
+            // }
+        }
+        console.log(p_data)
+
+        var p_xscale = d3.scale.linear()
+            .domain([1, 20])
+            .range([30, 880])
+
+        // var p_yscale = d3.scale.linear()
+        //     .domain([parseInt(p_min), parseInt(p_max)])
+        //     // .domain([-50, 150])
+        //     .range([255, 0])
+
+        if (parseInt(p_min) > 0) p_min = 0
+        if (parseInt(p_max) < 0) p_max = 0
+
+        var p_yscale = d3.scale.linear()
+            .domain([parseInt(p_min), parseInt(p_max)])
+            // .domain([-50, 150])
+            .range([245, 0])
+
+
+        line_data = []
+        line1_data = []
+        var dif_max = -100000
+        var dif_min = 100000
+
+        for (var p_data_num in p_data) {
+            // console.log(p_data)
+            line_data.push([])
+            for (var i = 1; i < 20; ++i) {
+                l = {}
+                l['x1'] = parseInt(p_data[p_data_num][i - 1]['lun'])
+                l['y1'] = p_data[p_data_num][i - 1]['price']
+                l['x2'] = parseInt(p_data[p_data_num][i]['lun'])
+                l['y2'] = p_data[p_data_num][i]['price']
+                var dif = 0;
+                for (var j = 0; j <= 4; ++j) {
+                    dif += (p_data[p_data_num][i]['judge'][j] - p_data[p_data_num][i - 1]['judge'][j]) * (p_data[p_data_num][i]['judge'][j] - p_data[p_data_num][i - 1]['judge'][j]);
+                    if (dif_max < dif) dif_max = dif
+                    if (dif_min > dif) dif_min = dif
+                }
+                l['w'] = Math.sqrt(dif);
+                line_data[p_data_num].push(l)
+            }
+        }
+
+        // for (var i = 1; i < 20; ++i) {
+        //     // console.log(p_data[i])
+        //     l = {}
+        //     l['x1'] = parseInt(p1_data[i - 1]['lun'])
+        //     l['y1'] = p1_data[i - 1]['price']
+        //     l['x2'] = parseInt(p1_data[i]['lun'])
+        //     l['y2'] = p1_data[i]['price']
+        //     var dif = 0;
+        //     for (var j = 0; j <= 4; ++j) {
+        //         dif += (p1_data[i]['judge'][j] - p1_data[i - 1]['judge'][j]) * (p1_data[i]['judge'][j] - p1_data[i - 1]['judge'][j]);
+        //         if (dif_max < dif) dif_max = dif
+        //         if (dif_min > dif) dif_min = dif
+        //     }
+        //     l['w'] = Math.sqrt(dif);
+        //     line1_data.push(l)
+        // }
+
+        // console.log(dif_min)
+
+        var l_scale = d3.scale.linear()
+            .domain([parseFloat(dif_min), parseFloat(dif_max)])
+            .range([1, 10])
+
+        for (var peo_num in line_data) {
+            peo_g.selectAll('#peo_l')
+                .attr('id', 'peo_l')
+                .data(line_data[peo_num])
+                .enter()
+                .append('g')
+                .append('line')
+                .attr('x1', d => {
+                    return p_xscale(d.x1);
+                })
+                .attr('y1', d => {
+                    return p_yscale(d.y1)
+                })
+                .attr('x2', d => {
+                    return p_xscale(d.x2)
+                })
+                .attr('y2', d => {
+                    return p_yscale(d.y2)
+                })
+                .attr('fill', 'none')
+                .attr('stroke-width', d => {
+                    return l_scale(d.w)
+                })
+                .attr('stroke', '#0a3c75')
+
+            peo_g.selectAll('#x_line')
+                .attr('id', 'x_line')
+                .data(p_data[peo_num])
+                .enter()
+                .append('g')
+                .append('line')
+                .attr('x1', d => {
+                    return p_xscale(d.lun)
+                })
+                .attr('y1', d => {
+                    return p_yscale(d.price)
+                })
+                .attr('x2', d => {
+                    return p_xscale(d.lun)
+                })
+                .attr('y2', d => {
+                    // return 260;
+                    return p_yscale(0)
+                })
+                .attr('fill', 'none')
+                .attr('stroke', '#0a3c75')
+                .attr('stroke-width', 0.1)
+                .attr('stroke-opacity', 0.4)
+                .attr('stroke-dasharray', 5.5)
+
+                peo_g.selectAll('#peo_cir')
+            .attr('id', 'peo_cir')
+            .data(p_data[peo_num])
+            .enter()
+            .append('g')
+            .append('circle')
+            .attr('cx', d => {
+                return p_xscale(d.lun)
+            })
+            .attr('cy', d => {
+                return p_yscale(d.price)
+            })
+            .attr('r', 4.5)
+            .attr('fill', d => {
+                return "white";
+            })
+            .attr('stroke', 'red')
+            .attr('stroke-width', 1)
+            .on('click', d => {
+                peo_t.style('opacity', 0)
+            })
+            .on('dblclick', d => {
+                peo_t.style('opacity', 1)
+            })
+
+        // var peo_t = peo_g.selectAll('#p_text')
+        //     .attr('id', 'p_text')
+        //     .data(p_data[peo_num])
+        //     .enter()
+        //     .append('g')
+        //     .append('text')
+        //     .attr('x', d => {
+        //         return p_xscale(d.lun)
+        //     })
+        //     .attr('y', d => {
+        //         return p_yscale(d.price)
+        //     })
+
+        //     .attr('fill', 'black')
+        //     .attr('font-size', '12px')
+        //     .attr('text-anchor', 'middle')
+        //     .attr("font-family", "courier")
+        //     // .attr('dx', '')
+        //     .attr('dy', '-0.4em')
+        //     .text(d => {
+        //         return parseInt(d.price)
+        //     })
+        }
+
+
+        var xAxis = d3.svg.axis().scale(p_xscale).ticks(20).tickFormat(d3.format("d")).orient("bottom");
+        var yAxis = d3.svg.axis().scale(p_yscale).ticks(0).tickFormat(d3.format("d")).orient("left"); //添加一个g用于放x轴
+
+        peo_g.append("g")
+            .attr("class", "axis")
+            // .attr("transform", "translate(" + 0 + "," + 255 + ")")
+            .attr("transform", "translate(" + 0 + "," + p_yscale(0) + ")")
+            .attr("stroke-width", 0.1)
+            .call(xAxis)
+            .append('text')
+            .text('轮数')
+            // .attr("transform", "rotate(-90)") //text旋转-90°
+            .attr("text-anchor", "end") //字体尾部对齐
+            .attr("dx", "82.5em")
+            .attr("dy", "0.5em") //沿y轴平移一个字体的大小
+        peo_g.append("g")
+            .attr("class", "axis")
+            .attr("transform", "translate(" + 30 + "," + 0 + ")")
+            .call(yAxis)
+            .append('text')
+            .text('总收益')
+            .attr("transform", "rotate(-90)") //text旋转-90°
+            .attr("text-anchor", "end") //字体尾部对齐
+            .attr("dx", "-2em")
+            .attr("dy", "-1em") //沿y轴平移一个字体的大小;
+
+        
+
+
+        peo_g.selectAll('#peo_cir')
+            .attr('id', 'peo_cir')
+            .data(p1_data)
+            .enter()
+            .append('g')
+            .append('circle')
+            .attr('cx', d => {
+                return p_xscale(d.lun)
+            })
+            .attr('cy', d => {
+                return p_yscale(d.price)
+            })
+            .attr('r', 4.5)
+            .attr('fill', d => {
+                return "white";
+            })
+            .attr('stroke', 'red')
+            .attr('stroke-width', 1)
+            .on('click', d => {
+                peo_t.style('opacity', 0)
+            })
+            .on('dblclick', d => {
+                peo_t.style('opacity', 1)
+            })
+
+        // var peo_t = peo_g.selectAll('#p_text')
+        //     .attr('id', 'p_text')
+        //     .data(p1_data)
+        //     .enter()
+        //     .append('g')
+        //     .append('text')
+        //     .attr('x', d => {
+        //         return p_xscale(d.lun)
+        //     })
+        //     .attr('y', d => {
+        //         return p_yscale(d.price)
+        //     })
+
+        //     .attr('fill', 'black')
+        //     .attr('font-size', '12px')
+        //     .attr('text-anchor', 'middle')
+        //     .attr("font-family", "courier")
+        //     // .attr('dx', '')
+        //     .attr('dy', '-0.4em')
+        //     .text(d => {
+        //         return parseInt(d.price)
+        //     })
+        peo_g.append('text')
+            .attr('x', 800)
+            .attr('y', -22)
+            .attr('fill', 'black')
+            .attr('font-size', '15px')
+            .attr('text-anchor', 'middle')
+            .attr("font-family", "courier")
+            // .attr('dx', '')
+            .attr('dy', '-0.4em')
+            .text("People: " + name)
+            .on('click', d => {
+                judge_cir_line = 1;
+                PaintCir(name)
+                PaintLine(0)
+            })
+    })
+}
+
+var line_un = 0;
+
+function PaintLine(p) {
+    if (line_un != 0) line_un.remove()
+
+    line_un = lc_p_g.append('g')
+
+    // line_un.append('line')
+    // .attr('x1', 0 + p * 80)
+    // .attr('y1', 22)
+    // .attr('x2', 80 + p * 80)
+    // .attr('y2', 22)
+    // .attr('fill', 'none')
+    // .attr('stroke', '#0a3c75')
+    // .attr('stroke-width', 2)
+
+    var ll = 0,
+        rr = 0
+    if (p == 0) ll = 50, rr = 15
+    else ll = 60, rr = 70
+
+    line_un.append('rect')
+        .attr('x', rr)
+        .attr('y', 2)
+        .attr('height', 20)
+        .attr('width', ll)
+        .attr('fill', 'black')
+        .attr('fill-opacity', 0.2)
+        .attr('rx', 10)
+}
+
+if (peo_g == 0 && judge_cir_line == 0 && d_num == 0) {
+    Paintjudge('g7uoijja');
+    PaintLine(0)
+}

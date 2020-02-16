@@ -1,0 +1,123 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>vis</title>
+    
+    <link href="index.css" rel="stylesheet" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+        integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+        crossorigin="" />
+    <script src="lib/echarts.min.js"></script>
+    <script src="lib/js/jquery.min.js"></script>
+    <link rel="stylesheet" href="lib/js/jquery-ui.css" />
+    <script src="lib/js/jquery.min.js"></script>
+    <script src="lib/js/jquery-ui.js"></script>
+    <script src="http://d3js.org/d3.v4.min.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <script src="lib/jquery.min.js"></script>
+    <script src="lib/jquery.js"></script>
+    <script src="lib/jquery.SuperSlide.2.1.1.js"></script>
+</head>
+
+<body>
+    <div id="left" class="topFramework">
+        <div id="DataView" class="framework">
+            <div id="Word" class="frameworkTitle">
+                &nbsp;&nbsp;数据
+            </div>
+            <div class="frameworkBody">
+                <span id="DataD">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;情境模拟与真实努力任务实验</br></span>
+                <span id="DataA">&nbsp;&nbsp;参与人数：304&nbsp;&nbsp;实验轮数：20&nbsp;&nbsp;实验环节：14</br></span>
+                <span id="DataA">&nbsp;&nbsp;选择轮数：&nbsp;
+                    <select id="Lun_select" onclick="get()">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                    </select>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;清除：
+                    <button type="button" id="clear_But" onclick="clear_pic(number)">Clear</button></span>
+            </div>
+        </div>
+        <div id="CodeSelect" class="framework">
+            <div id="Word" class="frameworkTitle">
+                &nbsp;&nbsp;基础信息
+            </div>
+            <div class="frameworkBody">
+                <!-- <div id="JqTitle"></div> -->
+                <div id="JqScroll"></div>
+                <!-- <input type="text" value="" id="textId" class="textClass" name="textName">
+                <button type="button" id="FindButton" onClick="getValue()">搜索</button> -->
+            </div>
+        </div>
+        <div id="ScatterVis" class="framework">
+            <div id="Word" class="frameworkTitle">
+                &nbsp;&nbsp;决策分类
+            </div>
+            <div class="frameworkBody">
+                <div id="Tsne"></div>
+            </div>
+        </div>
+    </div>
+    <div id="right" class="topFramework">
+            <div id="tempVis1" class="framework">
+                    <!-- <div id="SankeyViewB"> -->
+                    <div id="Word" class="frameworkTitle">
+                        &nbsp;&nbsp;实验流程
+                    </div>
+                    <div class="frameworkBody">
+                        <div id="chart"></div>
+        
+                    </div>
+                </div>
+        <div id="TreeVis" class="framework">
+            <div id="Word" class="frameworkTitle">
+                &nbsp;&nbsp;财富/决策
+                
+            </div>
+            <div class="frameworkBody">
+                <div id="Tree"></div>
+            </div>
+        </div>
+        <div id="SunVis" class="framework">
+            <div id="Word" class="frameworkTitle">
+                &nbsp;&nbsp;背景分类
+            </div>
+            <div id="Sun" class="frameworkBody">
+
+            </div>
+        </div>
+        
+    </div>
+    <script src="js/Scatter.js"></script>
+    <script src="js/San.js"></script>
+    <script src="js/codeselect.js"></script>
+    <script src="js/Lun_select.js"></script>
+    <script src="js/people.js"></script>
+    <script src="js/people2.js"></script>
+    <script src="js/cir_line_select.js"></script>
+    <script src="js/Icicle.js"></script>
+</body>
+
+
+</html>
