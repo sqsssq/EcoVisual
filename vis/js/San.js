@@ -1,5 +1,5 @@
 //#region define
-var width = 1516,
+var width = 1540,
     height = 480;
 
 var padding = {
@@ -23,7 +23,7 @@ var steplen = 8
 
 var number = 1;
 
-var rectStep = 142;
+var rectStep = 132;
 var rectWidth = 40;
 var LineName = 0;
 var L = 0;
@@ -35,7 +35,7 @@ var orange_rect = 0;
 // var color = ['#59e6f8', '#00FA9A', '#551A8B', '#00688B']
 var color = ['#037ef3', '#f85a40', '#0a8ea0', '#ffc845']
 
-var title = ['工作', '健康投资', '财产保险', '借贷机会', '投资', '风险投资', '负面冲击', '买彩票', '生病', '失业']
+var title = ['工作', '健康投资', '财产保险', '借贷机会', '投资', '风险投资', '负面冲击', '买彩票', '生病', '失业', '财富分级', '风险偏好']
 
 var Rect_data = -1;
 //#endregion
@@ -124,7 +124,7 @@ var LinePaint_2 = function (path, dia, color) {
 }
 
 
-function PathCalc(p, n, x) {
+var PathCalc = function (p, n, x) {
     var path = []
     var p_n = {}
     var dia_path = []
@@ -133,7 +133,7 @@ function PathCalc(p, n, x) {
         for (var i in p) {
 
             p_n[i] = p[i]
-            for (var j = 1; j <= 9; ++j) {
+            for (var j = 1; j <= 11; ++j) {
                 a = {}
                 // console.log(i)
                 a['name'] = i
@@ -173,7 +173,7 @@ function PathCalc(p, n, x) {
             // console.log(p[i][n])
             if (p[i][n].n == x) {
                 p_n[i] = p[i]
-                for (var j = 1; j <= 9; ++j) {
+                for (var j = 1; j <= 11; ++j) {
                     a = {}
                     a['name'] = i
                     a["x1"] = p[i][j - 1].x;
@@ -438,7 +438,7 @@ function PaintZhe(d1) {
                 num_sum[d1[i].biao].push(d1[i]);
         }
 
-        console.log(num_sum);
+        // console.log(num_sum);
 
 
         var line_num_sum = []
@@ -460,7 +460,7 @@ function PaintZhe(d1) {
             line_num_sum.push([i, num_s * 1.0 / (num_sum[i].length * num_sum[i].length)])
         }
 
-        console.log(line_num_sum)
+        // console.log(line_num_sum)
 
         var line_ = []
         var l__ = []
@@ -509,7 +509,7 @@ function PaintZhe(d1) {
 
         var Xscale = d3.scale.linear()
             .domain([0, 21])
-            .range([50, 1300])
+            .range([50, 1500])
         var Yscale = d3.scale.linear()
             .domain([zmin, zmax])
             .range([height - 410 - 10, height - 410 - 46]);
@@ -544,7 +544,7 @@ function PaintZhe(d1) {
             .attr("dy", "-1em") //沿y轴平移一个字体的大小;
         zg.append("g")
             .attr("class", "axis")
-            .attr("transform", "translate(" + 1300 + "," + 0 + ")")
+            .attr("transform", "translate(" + 1500 + "," + 0 + ")")
             .call(y2Axis)
             .append('text')
             .text('基尼')
@@ -619,12 +619,7 @@ function PaintZhe(d1) {
                 return "black";
             })
             .attr("stroke-width", 0.5);
-
-
-
     })
-
-
 }
 
 function PaintTypeZ(d) {
@@ -681,7 +676,7 @@ function PaintTypeZ(d) {
         }
     }
 
-    console.log(num_sum);
+    // console.log(num_sum);
 
 
     var line_num_sum = []
@@ -709,13 +704,13 @@ function PaintTypeZ(d) {
         line_num_sum.push([i, num_s * 1.0 / (num_sum[i].length * num_sum[i].length)])
     }
 
-    console.log(line_num_sum)
+    // console.log(line_num_sum)
 
     var line_ = []
     var l__ = []
 
     for (var i = 1; i <= 10; ++i) {
-        console.log(num_sum[i])
+        // console.log(num_sum[i])
         line_.push([i, parseFloat(num_sum[i][num_sum[i].length - 1])])
         line_.push([i, parseFloat(num_sum[i][0])])
         line_.push([i, parseFloat(num_sum[i][parseInt(num_sum[i].length * 2 / 4) - 1])])
@@ -756,7 +751,7 @@ function PaintTypeZ(d) {
 
     var Xscale = d3.scale.linear()
         .domain([1, 10])
-        .range([20, 1300])
+        .range([20, 1205])
     var Yscale = d3.scale.linear()
         // .domain([zmin, zmax])
         .domain([-emax, emax])
@@ -777,11 +772,11 @@ function PaintTypeZ(d) {
         .attr("stroke-width", 0.1)
         .call(xAxis)
         .append('text')
-        .text('过程')
-        // .attr("transform", "rotate(-90)") //text旋转-90°
-        .attr("text-anchor", "end") //字体尾部对齐
-        .attr("dx", "120.2em")
-        .attr("dy", "0.5em") //沿y轴平移一个字体的大小
+    // .text('过程')
+    // // .attr("transform", "rotate(-90)") //text旋转-90°
+    // .attr("text-anchor", "end") //字体尾部对齐
+    // .attr("dx", "120.2em")
+    // .attr("dy", "0.5em") //沿y轴平移一个字体的大小
     type_g.append("g")
         .attr("class", "axis")
         .attr("transform", "translate(" + 20 + "," + 0 + ")")
@@ -792,16 +787,16 @@ function PaintTypeZ(d) {
         .attr("text-anchor", "end") //字体尾部对齐
         .attr("dx", "-2em")
         .attr("dy", "-1em") //沿y轴平移一个字体的大小;
-    // type_g.append("g")
-    //     .attr("class", "axis")
-    //     .attr("transform", "translate(" + 1300 + "," + 0 + ")")
-    //     .call(y2Axis)
-    //     .append('text')
-    //     .text('总收益')
-    //     .attr("transform", "rotate(-90)") //text旋转-90°
-    //     .attr("text-anchor", "end") //字体尾部对齐
-    //     .attr("dx", "-2em")
-    //     .attr("dy", "-1em") //沿y轴平移一个字体的大小;
+    type_g.append("g")
+        .attr("class", "axis")
+        .attr("transform", "translate(" + 1205 + "," + 0 + ")")
+        .call(y2Axis)
+        .append('text')
+        .text('基尼')
+        .attr("transform", "rotate(-90)") //text旋转-90°
+        .attr("text-anchor", "end") //字体尾部对齐
+        .attr("dx", "-2em")
+        .attr("dy", "-1em") //沿y轴平移一个字体的大小;
 
     var L_path = d3.svg.line()
         .x(d => {
@@ -1060,7 +1055,7 @@ function PaintRect(num) {
     if (num == 20) coorp = "data/Scatter/20.json";
     d3.csv("data/box.csv", function (d1) {
         // d3.json(coorp, function (coor) {
-        d3.json('data/Scatter/newScatter.json', function (coor) {
+        d3.json('data/Scatter/xxxx.json', function (coor) {
             if (Rect_g != 0) Rect_g.remove()
             if (text_g != 0) text_g.remove()
 
@@ -1152,9 +1147,21 @@ function PaintRect(num) {
                 ext.push(t)
             }
 
+
+            ext.push([100, 100, 104, 0])
+            var t = []
+            for (var k = 0; k < 7; ++k) {
+                t[k] = 0
+            }
+            for (var k = 0; k < 304; ++k) {
+                t[parseInt(d[k].risk)]++;
+            }
+            ext.push(t)
+
+
             var type = []
 
-            for (var i = 1; i <= 9; ++i) {
+            for (var i = 1; i <= 11; ++i) {
                 var n = 0;
                 for (j in ext[i]) {
                     a = {}
@@ -1181,7 +1188,31 @@ function PaintRect(num) {
                 "n": 0
             })
 
-            //#region 画rect格
+            // type.push({
+            //     "x": 10,
+            //     "start": 0,
+            //     "end": 100,
+            //     "n": 0
+            // }, {
+            //     "x": 10,
+            //     "start": 101,
+            //     "end": 200,
+            //     "n": 1
+            // }, {
+            //     "x": 10,
+            //     "start": 200,
+            //     "end": 300,
+            //     "n": 2
+            // })
+
+            var colora = "#FFFFFF"
+            var colorb = "blue"
+
+            let colorx = d3.interpolate(colora, colorb);
+            var color_scale = d3.scale.linear()
+                .domain([0, 6])
+                .range([0, 1])
+
             Rect_g.selectAll(".recta")
                 .attr("class", "recta")
                 .data(type)
@@ -1205,21 +1236,27 @@ function PaintRect(num) {
                 .attr("stroke", "blue")
                 .attr("stroke-width", 0.5)
                 .attr("fill", d => {
-                    return color[d.n];
+                    if (d.x != 11)
+                        return color[d.n];
+                    console.log(d.n)
+                    return colorx(color_scale(parseInt(d.n)))
                 })
-                .attr("fill-opacity", 0.2)
+                .attr("fill-opacity", d => {
+                    if (d.x != 11)
+                        return 0.2
+                    else
+                        return 0.5
+                })
                 .on("click", d => {
                     if (Rect_data == -1) {
                         Rect_data = p;
                     }
                     RectMove(Rect_data, d)
                 })
-            //#endregion
 
             // ------------------------------------------------
 
             var p = {}
-
 
             for (var i in d) {
                 p[d[i].code] = {};
@@ -1252,6 +1289,32 @@ function PaintRect(num) {
                 }
             }
 
+            var l_sort = []
+
+            for (var i in d) {
+                l_sort.push(parseFloat(d[i][10]))
+            }
+
+            l_sort.sort(function (a, b) {
+                return a - b;
+            })
+
+            var l_sort_label = {}
+            var l_sort_label_2 = {}
+
+            for (var i in l_sort) {
+                // console.log(l_sort[i]);
+                l_sort_label_2[l_sort[i]] = i
+                if (i <= 100)
+                    l_sort_label[l_sort[i]] = 0
+                else if (i <= 200)
+                    l_sort_label[l_sort[i]] = 1
+                else if (i <= 304)
+                    l_sort_label[l_sort[i]] = 2
+            }
+
+            console.log(l_sort_label_2)
+
             for (var i in d) {
                 a = {}
                 a["x"] = 0;
@@ -1264,6 +1327,62 @@ function PaintRect(num) {
                 p[d[i].code][0] = a;
                 work.push(a);
             }
+
+            var cnt = 0,
+                k = 10;
+            for (var i in d) {
+                a = {}
+                if (l_sort_label[parseFloat(d[i][k])] == 0) {
+                    a["x"] = k;
+                    // a["y"] = cnt++;
+                    a["y"] = parseInt(l_sort_label_2[parseFloat(d[i][k])])
+                    a["v"] = parseFloat(d[i][k]);
+                    a["n"] = l_sort_label[parseFloat(d[i][k])];
+                    a["id"] = d[i].code;
+                    a["label"] = coor[i].label;
+                    p[d[i].code][k] = a;
+                } else {
+                    a["x"] = k;
+                    ext[k][l_sort_label[parseFloat(d[i][k])] - 1]++;
+                    // console.log(ext[k][d[i][k] - 1])
+                    // a["y"] = ext[k][l_sort_label[parseFloat(d[i][k])] - 1];
+                    a["y"] = parseInt(l_sort_label_2[parseFloat(d[i][k])])
+                    a["v"] = parseFloat(d[i][k]);
+                    a["n"] = l_sort_label[parseFloat(d[i][k])];
+                    a["id"] = d[i].code;
+                    a["label"] = coor[i].label;
+                    p[d[i].code][k] = a;
+                }
+                work.push(a);
+            }
+
+            var cnt = 0,
+                k = "risk";
+            for (var i in d) {
+                console.log(d[i][k])
+                a = {}
+                if (d[i][k] == 0) {
+                    a["x"] = 11;
+                    a["y"] = cnt++;
+                    a["v"] = parseFloat(d[i][10]);
+                    a["n"] = parseInt(d[i][k]);
+                    a["id"] = d[i].code;
+                    a["label"] = coor[i].label;
+                    p[d[i].code][11] = a;
+                } else {
+                    a["x"] = 11;
+                    ext[11][d[i][k] - 1]++;
+                    // console.log(ext[k][d[i][k] - 1])
+                    a["y"] = ext[11][d[i][k] - 1];
+                    a["v"] = parseFloat(d[i][10]);
+                    a["n"] = parseInt(d[i][k]);
+                    a["id"] = d[i].code;
+                    a["label"] = coor[i].label;
+                    p[d[i].code][11] = a;
+                }
+                work.push(a);
+            }
+
 
             // 格内划线     
             Rect_g.selectAll(".line")
@@ -1344,7 +1463,7 @@ function PaintIn(num) {
     if (num == 19) coorp = "data/Scatter/19.json";
     if (num == 20) coorp = "data/Scatter/20.json";
     d3.csv("data/box.csv", function (d1) {
-        d3.json('data/Scatter/newScatter.json', function (coor) {
+        d3.json('data/Scatter/xxxx.json', function (coor) {
 
             PaintZhe(d1)
 
@@ -1920,7 +2039,7 @@ function Pic_legend() {
 function Lun(num) {
     var scale = d3.scale.linear()
         .domain([0, 21])
-        .range([50, 1300])
+        .range([50, 1500])
 
     var k = []
     for (var i = 1; i <= 20; ++i) k.push(i);
@@ -1952,7 +2071,7 @@ function RedLun(num) {
     // console.log(num)
     var scale = d3.scale.linear()
         .domain([0, 21])
-        .range([50, 1300])
+        .range([50, 1500])
     var red_ = cirg.append('g')
         .append('circle')
         .attr('cx', scale(num))
@@ -1968,15 +2087,15 @@ function Connect(num) {
     var diagonal = d3.svg.diagonal();
     var scale = d3.scale.linear()
         .domain([0, 21])
-        .range([50, 1300])
+        .range([50, 1500])
 
 
     var trian = [
-        [10, 70],
+        [10, 65],
         [scale(num) - 6, 40],
         [scale(num), 25],
         [scale(num) + 6, 40],
-        [1343, 70],
+        [1524, 65],
     ]
 
     con_g.append('g')
@@ -1984,7 +2103,7 @@ function Connect(num) {
         .attr('x1', scale(num) - 6)
         .attr('y1', 40)
         .attr('x2', 10)
-        .attr('y2', 70)
+        .attr('y2', 65)
         .attr('stroke', 'blue')
         .attr('stroke-width', 1)
         .attr('stroke-opacity', 0.7)
@@ -1993,8 +2112,8 @@ function Connect(num) {
         .append('line')
         .attr('x1', scale(num) + 6)
         .attr('y1', 40)
-        .attr('x2', 1343)
-        .attr('y2', 70)
+        .attr('x2', 1524)
+        .attr('y2', 65)
         .attr('stroke', 'blue')
         .attr('stroke-width', 1)
         .attr('stroke-opacity', 0.7)
@@ -2022,7 +2141,7 @@ function Connect(num) {
     con_g.append('g')
         .append('line')
         .attr('x1', 10)
-        .attr('y1', 70)
+        .attr('y1', 65)
         .attr('x2', 10)
         .attr('y2', 477)
         .attr('stroke', 'blue')
@@ -2031,9 +2150,9 @@ function Connect(num) {
 
     con_g.append('g')
         .append('line')
-        .attr('x1', 1343)
-        .attr('y1', 70)
-        .attr('x2', 1343)
+        .attr('x1', 1524)
+        .attr('y1', 65)
+        .attr('x2', 1524)
         .attr('y2', 477)
         .attr('stroke', 'blue')
         .attr('stroke-width', 1)
@@ -2044,7 +2163,7 @@ function Connect(num) {
         .append('line')
         .attr('x1', 10)
         .attr('y1', 477)
-        .attr('x2', 1343)
+        .attr('x2', 1524)
         .attr('y2', 477)
         .attr('stroke', 'blue')
         .attr('stroke-width', 1)
