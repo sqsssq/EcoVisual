@@ -36,8 +36,26 @@ var orange_rect = 0;
 var color = ['#037ef3', '#f85a40', '#0a8ea0', '#ffc845']
 
 var title = ['工作', '健康投资', '财产保险', '借贷机会', '投资', '风险投资', '负面冲击', '买彩票', '生病', '失业', '财富分级', '风险偏好']
-
+var title_tip = [
+    [],
+    ['投资0', '投资5', '投资10'],
+    ['不购买', '购买'],
+    ['不借', '借'],
+    ['不投资', '投资'],
+    ['不投资', '投资'],
+    ['无', '小', '中', '大'],
+    ['未买+未中', '未买+中', '买+未中', '买+中'],
+    ['无病', '小病', '中病', '大病'],
+    ['未失业', '失业'],
+    ['财富低', '财富中', '财富高'],
+    ['风险偏好0', '风险偏好1', '风险偏好2', '风险偏好3', '风险偏好4', '风险偏好5']
+]
 var Rect_data = -1;
+
+var tooltip = d3.select("body")
+    .append("div")
+    .attr("class", "tooltip")
+    .style("opacity", 0.0)
 //#endregion
 
 function Paint() {
@@ -1252,6 +1270,19 @@ function PaintRect(num) {
                         Rect_data = p;
                     }
                     RectMove(Rect_data, d)
+                })
+                .on("mouseover", d => {
+                    tooltip.html("过程：" + title[d.x] + "</br>" + "状态：" + title_tip[d.x][d.n])
+                        .style("left", (d3.event.pageX - 15) + "px")
+                        .style("top", (d3.event.pageY + 20) + "px")
+                        .style("opacity", 1.0)
+                })
+                .on("mousemove", d => {
+                    tooltip.style("left", (d3.event.pageX - 15) + "px")
+                        .style("top", (d3.event.pageY + 20) + "px")
+                })
+                .on("mouseout", d => {
+                    tooltip.style("opacity", 0.0)
                 })
 
             // ------------------------------------------------
