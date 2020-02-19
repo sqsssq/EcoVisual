@@ -8,7 +8,7 @@ body {
     margin: 0%;
     height: 100%;
     width: 100%;
-    background-color: rgb(247, 242, 242);
+    background-color: rgb(255, 255, 255);
 }
 
 /* .tooltip {
@@ -74,6 +74,9 @@ body {
     margin-top: 5px;
     margin-left: 5px;
     float: left;
+    background-color: #fff;
+    border: solid 1px transparent;
+    border-color: #ddd
 }
 
 .frameworkTitle {
@@ -81,15 +84,23 @@ body {
     width: 100%;
     /* background-color: darkgray; */
     /* background-color: rgb(180, 180, 180); */
-    background-color: #dfdede;
+    /* background-color: #dfdede; */
     border: solid;
     border-width: 0px;
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
+    border-bottom: solid 1px transparent;
+    /* padding: 8px 15px; */
+    font-size: 18px;
+    font-weight: 100;
+    border-color: #ddd;
+    background-color: #f5f5f5;
+    color: #444;
+    padding: 1px
 }
 
 .frameworkBody {
-    height: calc(100% - 30px);
+    height: calc(100% - 35px);
     width: 100%;
     background-color: white;
     border: solid;
@@ -124,7 +135,7 @@ body {
 }
 
 #Sun {
-    height: calc(100% - 30px);
+    height: calc(100% - 35px);
     width: 100%;
 }
 
@@ -165,15 +176,15 @@ body {
 }
 
 #Word {
-    font-size: 120%;
+    /* font-size: 120%; */
     color: rgb(27, 27, 27);
-    font-weight: 600;
+    font-weight: 500;
 }
 
 #SankeyViewB {
     height: 30px;
     width: 100%;
-    
+
     color: whitesmoke;
     font-size: 140%;
     height: 30px;
@@ -184,7 +195,7 @@ body {
     border-width: 0px;
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
-    
+
 }
 
 #textId {
@@ -269,4 +280,105 @@ body {
     position: fixed;
     top: 0;
     z-index: 1;
+}
+
+/* css 代码  */
+.highcharts-figure,
+.highcharts-data-table table {
+    min-width: 320px;
+    max-width: 800px;
+    margin: 1em auto;
+}
+
+#container {
+    /* height: 300px; */height: calc(100% - 35px)
+}
+
+.controls {
+    text-align: right;
+    /* margin-bottom: 1rem; */
+    /* padding: 0 0px; */
+}
+
+.controls small {
+    opacity: 0.5;
+    line-height: 1.5rem;
+    font-size: 0.8rem;
+}
+
+.button-row {
+    
+    text-align: right;
+    font-size: 0;
+    margin-left: 0.5rem;
+    white-space: nowrap;
+}
+
+.button-row button {
+    font-size: 1rem;
+    background: #f8f8f8;
+    transition: background 150ms;
+    border: 1px solid #999;
+    display: inline-block;
+    font-size: 12pt;
+    line-height: 16pt;
+    margin-left: -1px;
+    color: #555;
+}
+
+.button-row button:first-child {
+    border-top-left-radius: 0.3em;
+    border-bottom-left-radius: 0.3em;
+}
+
+.button-row button:last-child {
+    border-top-right-radius: 0.3em;
+    border-bottom-right-radius: 0.3em;
+}
+
+.button-row button[disabled] {
+    background: rgb(124, 181, 236);
+    color: white;
+    ;
+}
+
+.button-row button:hover {
+    background: #ccc;
+    outline: none;
+}
+
+.highcharts-data-table table {
+    font-family: Verdana, sans-serif;
+    border-collapse: collapse;
+    border: 1px solid #EBEBEB;
+    margin: 10px auto;
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+}
+
+.highcharts-data-table caption {
+    padding: 1em 0;
+    font-size: 1.2em;
+    color: #555;
+}
+
+.highcharts-data-table th {
+    font-weight: 600;
+    padding: 0.5em;
+}
+
+.highcharts-data-table td,
+.highcharts-data-table th,
+.highcharts-data-table caption {
+    padding: 0.5em;
+}
+
+.highcharts-data-table thead tr,
+.highcharts-data-table tr:nth-child(even) {
+    background: #f8f8f8;
+}
+
+.highcharts-data-table tr:hover {
+    background: #f1f7ff;
 }

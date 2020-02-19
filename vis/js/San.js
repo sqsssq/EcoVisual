@@ -33,7 +33,8 @@ var orange_rect = 0;
 // var color = ['#f7ab1e', '#2e5077', '#ec7505', '#07b27c']
 // var color = ['#ff7473', '#ffc952', '#47b8e0', '#34314c']
 // var color = ['#59e6f8', '#00FA9A', '#551A8B', '#00688B']
-var color = ['#037ef3', '#f85a40', '#0a8ea0', '#ffc845']
+// var color = ['#037ef3', '#f85a40', '#0a8ea0', '#ffc845']
+color = ['#eeeeee', '#00adb5', '#393e46', '#222831']
 
 var title = ['工作', '健康投资', '财产保险', '借贷机会', '投资', '风险投资', '负面冲击', '买彩票', '生病', '失业', '财富分级', '风险偏好']
 var title_tip = [
@@ -65,7 +66,6 @@ function Paint() {
 }
 
 // 画连接线
-
 var LinePaint = function (path, dia, color) {
     // console.log(path)
     // LineName = Rect_g.selectAll(".lineW")
@@ -115,7 +115,7 @@ var LinePaint = function (path, dia, color) {
         })
         .attr('fill', 'none')
         .attr('stroke', 'black')
-        .attr('stroke-width', 1)
+        .attr('stroke-width', 0.7)
         .attr('stroke-opacity', 0.1)
 }
 
@@ -140,7 +140,6 @@ var LinePaint_2 = function (path, dia, color) {
         .attr('stroke-width', 1)
         .attr('stroke-opacity', 0.3)
 }
-
 
 var PathCalc = function (p, n, x) {
     var path = []
@@ -231,7 +230,6 @@ var PathCalc = function (p, n, x) {
     // Rect_data = p_n;
     return [path, p_n, dia_path]
 }
-
 
 function RectMove(data, d) {
 
@@ -1223,13 +1221,13 @@ function PaintRect(num) {
             //     "n": 2
             // })
 
-            var colora = "#FFFFFF"
-            var colorb = "blue"
+            // var colora = "#FFFFFF"
+            // var colorb = "blue"
 
-            let colorx = d3.interpolate(colora, colorb);
-            var color_scale = d3.scale.linear()
-                .domain([0, 6])
-                .range([0, 1])
+            // let colorx = d3.interpolate(colora, colorb);
+            // var color_scale = d3.scale.linear()
+            //     .domain([0, 6])
+            //     .range([0, 1])
 
             Rect_g.selectAll(".recta")
                 .attr("class", "recta")
@@ -1251,19 +1249,30 @@ function PaintRect(num) {
                 .attr("height", d => {
                     return (d.end - d.start) * bei;
                 })
-                .attr("stroke", "blue")
+                .attr("stroke", d => {
+                    return "black"
+                })
                 .attr("stroke-width", 0.5)
                 .attr("fill", d => {
+                    // if (d.x != 11)
+                    // return color[d.n];
+                    // console.log(d.n)
+                    var colora = "#FFFFFF"
+                    var colorb = "blue"
+
+                    let colorx = d3.interpolate(colora, colorb);
+                    var color_scale = d3.scale.linear()
+                        .domain([-2, 8])
+                        .range([0, 1])
                     if (d.x != 11)
-                        return color[d.n];
-                    console.log(d.n)
+                    return colorx(color_scale(parseInt(d.n * 2)))
                     return colorx(color_scale(parseInt(d.n)))
                 })
                 .attr("fill-opacity", d => {
                     if (d.x != 11)
-                        return 0.2
+                        return 1
                     else
-                        return 0.5
+                        return 1
                 })
                 .on("click", d => {
                     if (Rect_data == -1) {
@@ -1344,7 +1353,7 @@ function PaintRect(num) {
                     l_sort_label[l_sort[i]] = 2
             }
 
-            console.log(l_sort_label_2)
+            // console.log(l_sort_label_2)
 
             for (var i in d) {
                 a = {}
@@ -1390,7 +1399,7 @@ function PaintRect(num) {
             var cnt = 0,
                 k = "risk";
             for (var i in d) {
-                console.log(d[i][k])
+                // console.log(d[i][k])
                 a = {}
                 if (d[i][k] == 0) {
                     a["x"] = 11;
@@ -2135,7 +2144,7 @@ function Connect(num) {
         .attr('y1', 40)
         .attr('x2', 10)
         .attr('y2', 65)
-        .attr('stroke', 'blue')
+        .attr('stroke', 'yellow')
         .attr('stroke-width', 1)
         .attr('stroke-opacity', 0.7)
 
@@ -2145,7 +2154,7 @@ function Connect(num) {
         .attr('y1', 40)
         .attr('x2', 1524)
         .attr('y2', 65)
-        .attr('stroke', 'blue')
+        .attr('stroke', 'yellow')
         .attr('stroke-width', 1)
         .attr('stroke-opacity', 0.7)
 
@@ -2155,7 +2164,7 @@ function Connect(num) {
         .attr('y1', 40)
         .attr('x2', scale(num))
         .attr('y2', 25)
-        .attr('stroke', 'blue')
+        .attr('stroke', 'yellow')
         .attr('stroke-width', 1)
         .attr('stroke-opacity', 0.7)
 
@@ -2165,7 +2174,7 @@ function Connect(num) {
         .attr('y1', 40)
         .attr('x2', scale(num))
         .attr('y2', 25)
-        .attr('stroke', 'blue')
+        .attr('stroke', 'yellow')
         .attr('stroke-width', 1)
         .attr('stroke-opacity', 0.7)
 
@@ -2175,7 +2184,7 @@ function Connect(num) {
         .attr('y1', 65)
         .attr('x2', 10)
         .attr('y2', 477)
-        .attr('stroke', 'blue')
+        .attr('stroke', 'yellow')
         .attr('stroke-width', 1)
         .attr('stroke-opacity', 0.7)
 
@@ -2185,7 +2194,7 @@ function Connect(num) {
         .attr('y1', 65)
         .attr('x2', 1524)
         .attr('y2', 477)
-        .attr('stroke', 'blue')
+        .attr('stroke', 'yellow')
         .attr('stroke-width', 1)
         .attr('stroke-opacity', 0.7)
 
@@ -2196,7 +2205,7 @@ function Connect(num) {
         .attr('y1', 477)
         .attr('x2', 1524)
         .attr('y2', 477)
-        .attr('stroke', 'blue')
+        .attr('stroke', 'yellow')
         .attr('stroke-width', 1)
         .attr('stroke-opacity', 0.7)
 
@@ -2216,8 +2225,8 @@ function Connect(num) {
         // d 是 path data的缩写 将data数据传人
         .attr("d", area_(trian)) // d = "M1,0L20,40L40,50L100,100L0,200"
         // 填充颜色
-        .style("fill", "blue")
-        .attr('fill-opacity', 0.07)
+        .style("fill", "#FFFF00")
+        .attr('fill-opacity', 0.1)
 
     // con_g.append('g')
     //     .append('line')
