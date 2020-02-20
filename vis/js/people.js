@@ -27,12 +27,14 @@ function Paintjudge(name) {
 
         // console.log(data)
         p_data = []
+        pie_data = []
 
         var p_max = -100000
         var p_min = 100000
 
         for (var d in data) {
             if (data[d].code == name) {
+                pie_data.push(data[d])
                 p_ = {}
                 p_['name'] = name
                 p_['judge'] = [parseInt(data[d]['1']), parseInt(data[d]['2']), parseInt(data[d]['3']), parseInt(data[d]['4']), parseInt(data[d]['5'])]
@@ -44,7 +46,6 @@ function Paintjudge(name) {
             }
             // console.log(data[d])
         }
-        // console.log(p_data)
 
         var p_xscale = d3.scale.linear()
             .domain([1, 20])
@@ -205,15 +206,15 @@ function Paintjudge(name) {
                 return p_yscale(d.price)
             })
 
-            .attr('fill', 'black')
-            .attr('font-size', '12px')
-            .attr('text-anchor', 'middle')
-            .attr("font-family", "courier")
-            // .attr('dx', '')
-            .attr('dy', '-0.4em')
-            .text(d => {
-                return parseInt(d.price)
-            })
+            // .attr('fill', 'black')
+            // .attr('font-size', '12px')
+            // .attr('text-anchor', 'middle')
+            // .attr("font-family", "courier")
+            // // .attr('dx', '')
+            // .attr('dy', '-0.4em')
+            // .text(d => {
+            //     return parseInt(d.price)
+            // })
         peo_g.append('text')
             .attr('x', 800)
             .attr('y', -22)
@@ -318,25 +319,6 @@ function Paintjudge_2(name) {
             }
         }
 
-        // for (var i = 1; i < 20; ++i) {
-        //     // console.log(p_data[i])
-        //     l = {}
-        //     l['x1'] = parseInt(p1_data[i - 1]['lun'])
-        //     l['y1'] = p1_data[i - 1]['price']
-        //     l['x2'] = parseInt(p1_data[i]['lun'])
-        //     l['y2'] = p1_data[i]['price']
-        //     var dif = 0;
-        //     for (var j = 0; j <= 4; ++j) {
-        //         dif += (p1_data[i]['judge'][j] - p1_data[i - 1]['judge'][j]) * (p1_data[i]['judge'][j] - p1_data[i - 1]['judge'][j]);
-        //         if (dif_max < dif) dif_max = dif
-        //         if (dif_min > dif) dif_min = dif
-        //     }
-        //     l['w'] = Math.sqrt(dif);
-        //     line1_data.push(l)
-        // }
-
-        // console.log(dif_min)
-
         var l_scale = d3.scale.linear()
             .domain([parseFloat(dif_min), parseFloat(dif_max)])
             .range([1, 10])
@@ -416,28 +398,6 @@ function Paintjudge_2(name) {
                 peo_t.style('opacity', 1)
             })
 
-        // var peo_t = peo_g.selectAll('#p_text')
-        //     .attr('id', 'p_text')
-        //     .data(p_data[peo_num])
-        //     .enter()
-        //     .append('g')
-        //     .append('text')
-        //     .attr('x', d => {
-        //         return p_xscale(d.lun)
-        //     })
-        //     .attr('y', d => {
-        //         return p_yscale(d.price)
-        //     })
-
-        //     .attr('fill', 'black')
-        //     .attr('font-size', '12px')
-        //     .attr('text-anchor', 'middle')
-        //     .attr("font-family", "courier")
-        //     // .attr('dx', '')
-        //     .attr('dy', '-0.4em')
-        //     .text(d => {
-        //         return parseInt(d.price)
-        //     })
         }
 
 

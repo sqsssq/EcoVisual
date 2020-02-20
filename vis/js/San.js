@@ -541,13 +541,14 @@ function PaintZhe(d1) {
             .attr("class", "axis")
             .attr("transform", "translate(" + 0 + "," + (Yscale(0)) + ")")
             .attr("stroke-width", 0.1)
+            .attr('stroke', 'red')
             .call(xAxis)
             .append('text')
-            .text('轮数')
+            // .text('轮数')
             // .attr("transform", "rotate(-90)") //text旋转-90°
-            .attr("text-anchor", "end") //字体尾部对齐
-            .attr("dx", "121em")
-            .attr("dy", "0.5em") //沿y轴平移一个字体的大小
+            // .attr("text-anchor", "end") //字体尾部对齐
+            // .attr("dx", "121em")
+            // .attr("dy", "0.5em") //沿y轴平移一个字体的大小
         zg.append("g")
             .attr("class", "axis")
             .attr("transform", "translate(" + 50 + "," + 0 + ")")
@@ -610,7 +611,7 @@ function PaintZhe(d1) {
                 return Yscale(d[1])
             })
             .attr("stroke", d => {
-                return "black";
+                return "blue";
             })
             .attr("stroke-width", 0.5);
 
@@ -632,7 +633,7 @@ function PaintZhe(d1) {
                 return Yscale(d.y2)
             })
             .attr("stroke", d => {
-                return "black";
+                return "blue";
             })
             .attr("stroke-width", 0.5);
     })
@@ -856,7 +857,7 @@ function PaintTypeZ(d) {
             return Yscale(d[1])
         })
         .attr("stroke", d => {
-            return "black";
+            return "blue";
         })
         .attr("stroke-width", 0.5);
 
@@ -878,7 +879,7 @@ function PaintTypeZ(d) {
             return Yscale(d.y2)
         })
         .attr("stroke", d => {
-            return "black";
+            return "blue";
         })
         .attr("stroke-width", 0.5);
 
@@ -1071,7 +1072,7 @@ function PaintRect(num) {
     if (num == 20) coorp = "data/Scatter/20.json";
     d3.csv("data/box.csv", function (d1) {
         // d3.json(coorp, function (coor) {
-        d3.json('data/Scatter/xxxx.json', function (coor) {
+        d3.json('data/Scatter/newScatter.json', function (coor) {
             if (Rect_g != 0) Rect_g.remove()
             if (text_g != 0) text_g.remove()
 
