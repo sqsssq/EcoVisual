@@ -115,9 +115,9 @@ function Peo_gain_loss(num) {
             .attr("height", 20)
             .attr("fill", d => {
                 if (parseFloat(d[91]) >= 0)
-                    return 'red'
-                else
                     return '#00FF00'
+                else
+                    return 'red'
             })
             .attr('fill-opacity', 0.4)
         // .attr("stroke-width", 0.5)

@@ -541,7 +541,7 @@ function PaintZhe(d1) {
             .attr("class", "axis")
             .attr("transform", "translate(" + 0 + "," + (Yscale(0)) + ")")
             .attr("stroke-width", 0.1)
-            .attr('stroke', 'red')
+            .attr('stroke', '#00FF00')
             .call(xAxis)
             .append('text')
             // .text('轮数')
@@ -831,7 +831,7 @@ function PaintTypeZ(d) {
         .attr('d', L_path(line_num_sum))
         .attr("fill", 'none')
         .attr('stroke-width', 0.1)
-        .attr('stroke', 'red')
+        .attr('stroke', '#00FF00')
         .attr("stroke-dasharray", function (d, i) {
             // if(i==0){
             return "5,5";
@@ -1458,9 +1458,9 @@ function PaintRect(num) {
                 })
                 .attr("stroke", d => {
                     if (d.v >= 0)
-                        return "red";
-                    else
                         return "#00FF00";
+                    else
+                        return "red";
                 })
                 .attr("stroke-width", 1);
 
@@ -2226,7 +2226,7 @@ function Connect(num) {
         // d 是 path data的缩写 将data数据传人
         .attr("d", area_(trian)) // d = "M1,0L20,40L40,50L100,100L0,200"
         // 填充颜色
-        .style("fill", "#FFFF00")
+        .style("fill", "tomato")
         .attr('fill-opacity', 0.1)
 
     // con_g.append('g')

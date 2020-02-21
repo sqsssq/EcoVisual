@@ -7,7 +7,7 @@ var colors = Highcharts.getOptions().colors,
         color: colors[2]
     }],
     data = [{
-            name: "贫困",
+            name: "生小/中/大病",
             id: "15",
             value: 518,
             color: colors[0],
@@ -15,120 +15,123 @@ var colors = Highcharts.getOptions().colors,
             low: 3738,
             high: 4256
         }, {
-            name: "中等",
+            name: "不生病",
             id: "14",
             value: 115,
             color: colors[0],
             x: -5,
             low: 3623,
             high: 3738
-        }, {
-            name: "贫困",
-            id: "13",
-            value: 218,
-            color: colors[0],
-            x: -5,
-            low: 3405,
-            high: 3623
-        }, {
-            name: "贫困",
-            id: "12",
-            value: 445,
-            color: colors[0],
-            x: -5,
-            low: 2960,
-            high: 3405
-        }, {
-            name: "中等",
+        }, 
+        // {
+        //     name: "贫困",
+        //     id: "13",
+        //     value: 218,
+        //     color: colors[0],
+        //     x: -5,
+        //     low: 3405,
+        //     high: 3623
+        // }, {
+        //     name: "贫困",
+        //     id: "12",
+        //     value: 445,
+        //     color: colors[0],
+        //     x: -5,
+        //     low: 2960,
+        //     high: 3405
+        // }, 
+        {
+            name: "生小/中/大病",
             id: "11",
             value: 651,
             color: colors[0],
-            x: -4,
+            x: -5,
             low: 2309,
             high: 2960
         }, {
-            name: "富裕",
+            name: "不生病",
             id: "10",
             value: 234,
             color: colors[0],
-            x: -4,
+            x: -5,
             low: 2075,
             high: 2309
-        }, {
-            name: "富裕",
-            id: "9",
-            value: 1470,
-            color: colors[0],
-            x: -4,
-            low: 605,
-            high: 2075
-        }, {
-            name: "富裕",
-            id: "8",
-            value: 605,
-            color: colors[0],
-            x: -4,
-            low: 0,
-            high: 605
-        },
+        }, 
+        // {
+        //     name: "富裕",
+        //     id: "9",
+        //     value: 1470,
+        //     color: colors[0],
+        //     x: -5,
+        //     low: 605,
+        //     high: 2075
+        // }, {
+        //     name: "富裕",
+        //     id: "8",
+        //     value: 605,
+        //     color: colors[0],
+        //     x: -5,
+        //     low: 0,
+        //     high: 605
+        // },
         {
-            name: "起始财富 < 1",
+            name: "健康投资5/10",
             id: "7",
             value: 633,
             color: colors[0],
-            x: -3,
+            x: -4,
             low: 3623,
             high: 4256
         }, {
-            name: "生病 < 3",
+            name: "不进行健康投资",
             id: "6",
             value: 663,
             color: colors[0],
-            x: -3,
+            x: -4,
             low: 2960,
             high: 3623
         }, {
-            name: "生病 < 1",
+            name: "受到小/中/大负面冲击",
             id: "5",
             value: 885,
             color: colors[0],
-            x: -3,
+            x: -4,
             low: 2075,
             high: 2960
         }, {
-            name: "生病 < 1",
+            name: "未受到负面冲击",
             id: "4",
             value: 2075,
             color: colors[0],
-            x: -3,
+            x: -4,
             low: 0,
             high: 2075
         }, {
-            name: "健康投资 < 1",
+            name: "生中病或大病",
             id: "3",
             value: 1296,
             color: colors[0],
-            x: -2,
+            x: -3,
             low: 2960,
             high: 4256
         }, {
-            name: "负面冲击 < 1",
+            name: "生小病或无病",
             id: "2",
             value: 2960,
             color: colors[0],
-            x: -2,
+            x: -3,
             low: 0,
             high: 2960
         },
-        // {
-        //     name: "生病 < 2",
-        //     id: "1",
-        //     value: 4256,
-        //     color: colors[4],
-        //     x: -2,
-        //     low: 0,
-        //     high: 4256
-        // }
+        {
+            name: "",
+            id: "1",
+            value: 4256,
+            color: colors[4],
+            x: -2,
+            low: 0,
+            high: 4256
+        }
     ];
 
 // Add new series type for the flame series

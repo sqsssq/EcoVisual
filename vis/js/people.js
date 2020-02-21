@@ -206,15 +206,15 @@ function Paintjudge(name) {
                 return p_yscale(d.price)
             })
 
-            // .attr('fill', 'black')
-            // .attr('font-size', '12px')
-            // .attr('text-anchor', 'middle')
-            // .attr("font-family", "courier")
-            // // .attr('dx', '')
-            // .attr('dy', '-0.4em')
-            // .text(d => {
-            //     return parseInt(d.price)
-            // })
+        // .attr('fill', 'black')
+        // .attr('font-size', '12px')
+        // .attr('text-anchor', 'middle')
+        // .attr("font-family", "courier")
+        // // .attr('dx', '')
+        // .attr('dy', '-0.4em')
+        // .text(d => {
+        //     return parseInt(d.price)
+        // })
         peo_g.append('text')
             .attr('x', 800)
             .attr('y', -22)
@@ -230,6 +230,73 @@ function Paintjudge(name) {
                 PaintCir(name)
                 PaintLine(0)
             })
+
+        // draw pie
+        var pie = d3.layout.pie()
+        var dataset = [1, 1, 1, 1, 1, 1, 1, 1, 1]
+        var piedata = pie(dataset)
+
+
+        for (var k in pie_data) {
+            pie_d = []
+            var pie_min = 9999,
+                pie_max = -9999
+            for (var i = 1; i <= 9; ++i) {
+                if (i == 1) {
+                    pie_d.push(parseFloat(pie_data[k][11]) - parseFloat(pie_data[k].work))
+                    if (pie_max < parseFloat(pie_data[k][11]) - parseFloat(pie_data[k].work))
+                        pie_max = parseFloat(pie_data[k][11]) - parseFloat(pie_data[k].work)
+                    if (pie_min > parseFloat(pie_data[k][11]) - parseFloat(pie_data[k].work))
+                        pie_min = parseFloat(pie_data[k][11]) - parseFloat(pie_data[k].work)
+                } else {
+                    // console.log(parseFloat(pie_data[k][i * 10 + 1]));
+                    pie_d.push(parseFloat(pie_data[k][i * 10 + 1]) - parseFloat(pie_data[k][(i - 1) * 10 + 1]))
+                    if (pie_max < parseFloat(pie_data[k][i * 10 + 1]) - parseFloat(pie_data[k][(i - 1) * 10 + 1]))
+                        pie_max = parseFloat(pie_data[k][i * 10 + 1]) - parseFloat(pie_data[k][(i - 1) * 10 + 1])
+                    if (pie_min > parseFloat(pie_data[k][i * 10 + 1]) - parseFloat(pie_data[k][(i - 1) * 10 + 1]))
+                        pie_min = parseFloat(pie_data[k][i * 10 + 1]) - parseFloat(pie_data[k][(i - 1) * 10 + 1])
+                }
+            }
+            var zheng_scale = d3.scale.linear()
+                .domain([0, pie_max])
+                .range([4.5, 20])
+            var fu_scale = d3.scale.linear()
+                .domain([0, pie_min])
+                .range([4.5, 20])
+            for (var i = 0; i < 9; ++i) {
+                var pie_f
+                if (pie_d[i] <= 0)
+                    pie_f = fu_scale(pie_d[i])
+                else
+                    pie_f = zheng_scale(pie_d[i])
+
+                var arc = d3.svg.arc()
+                    .innerRadius(4.5)
+                    .outerRadius(pie_f)
+
+                var arc_data = {
+                    startAngle: Math.PI * (i) * 2 / 9,
+                    endAngle: Math.PI * (i + 1) * 2 / 9
+                }
+                console.log(k)
+                var kkk = 200
+                peo_g.append('g')
+                    .append('path')
+                    .attr('d', arc(arc_data))
+                    .attr('transform', 'translate('+ p_xscale(parseInt(k) + 1) + ',' + p_yscale(p_data[k].price) + ')')
+                    // .attr('stroke', 'black')
+                    // .attr('stroke-width', '3px')
+                    .attr('fill', (d) => {
+                        if (pie_d[i] < 0)
+                            return 'red'
+                        else
+                            return '#00FF00'
+                    })
+                // break
+            }
+            console.log(pie_d);
+            // break
+        }
     })
 }
 
@@ -373,30 +440,30 @@ function Paintjudge_2(name) {
                 .attr('stroke-opacity', 0.4)
                 .attr('stroke-dasharray', 5.5)
 
-                peo_g.selectAll('#peo_cir')
-            .attr('id', 'peo_cir')
-            .data(p_data[peo_num])
-            .enter()
-            .append('g')
-            .append('circle')
-            .attr('cx', d => {
-                return p_xscale(d.lun)
-            })
-            .attr('cy', d => {
-                return p_yscale(d.price)
-            })
-            .attr('r', 4.5)
-            .attr('fill', d => {
-                return "white";
-            })
-            .attr('stroke', 'red')
-            .attr('stroke-width', 1)
-            .on('click', d => {
-                peo_t.style('opacity', 0)
-            })
-            .on('dblclick', d => {
-                peo_t.style('opacity', 1)
-            })
+            peo_g.selectAll('#peo_cir')
+                .attr('id', 'peo_cir')
+                .data(p_data[peo_num])
+                .enter()
+                .append('g')
+                .append('circle')
+                .attr('cx', d => {
+                    return p_xscale(d.lun)
+                })
+                .attr('cy', d => {
+                    return p_yscale(d.price)
+                })
+                .attr('r', 4.5)
+                .attr('fill', d => {
+                    return "white";
+                })
+                .attr('stroke', 'red')
+                .attr('stroke-width', 1)
+                .on('click', d => {
+                    peo_t.style('opacity', 0)
+                })
+                .on('dblclick', d => {
+                    peo_t.style('opacity', 1)
+                })
 
         }
 
@@ -427,7 +494,7 @@ function Paintjudge_2(name) {
             .attr("dx", "-2em")
             .attr("dy", "-1em") //沿y轴平移一个字体的大小;
 
-        
+
 
 
         peo_g.selectAll('#peo_cir')
