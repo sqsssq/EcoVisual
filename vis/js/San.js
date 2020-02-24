@@ -1084,6 +1084,13 @@ function PaintRect(num) {
                 text_g = svg.append('g')
                     .attr("transform", "translate(" + 0 + "," + -5 + ")");
 
+                var code_Label = {} // 记录当前散点图中对应id的label
+                for (var i in coor) {
+                    if (parseInt(coor[i].l) == num) {
+                        code_Label[coor[i].id] = coor[i].label
+                    }
+                }
+                
                 var d = []
                 for (var i in d1) {
                     if (parseInt(d1[i].biao) == num)
@@ -1260,98 +1267,80 @@ function PaintRect(num) {
                         }
                         // console.log(code_Num)
                     }
-                    console.log(RectOuterData)
                 }
-
-
-
-                work = []
-                final = []
-
-                // 格内数据
-                var ext = []
-                ext.push([0, 0])
-
-                for (var i = 1; i <= 9; ++i) {
-                    var t = []
-                    for (var k = 0; k < 4; ++k) {
-                        t[k] = 0
-                    }
-                    for (var k = 0; k < 304; ++k) {
-                        t[parseInt(d[k][i])]++;
-                    }
-                    ext.push(t)
-                }
-
-
-                ext.push([100, 100, 104, 0])
-                var t = []
-                for (var k = 0; k < 7; ++k) {
-                    t[k] = 0
-                }
-                for (var k = 0; k < 304; ++k) {
-                    t[parseInt(d[k].risk)]++;
-                }
-                ext.push(t)
-
-
-                var type = []
-
-                for (var i = 1; i <= 11; ++i) {
-                    var n = 0;
-                    for (j in ext[i]) {
+                var Sankey_Rect = []
+                for (var i in RectOuterData) {
+                    var s_num = 0;
+                    for (var j in RectOuterData[i]) {
                         a = {}
-                        a["x"] = i;
-                        a["n"] = n;
-                        n++;
-                        // if (t[i][j] == 0) continue;
-                        if (j == 0) {
-                            a["start"] = 0;
-                            a["end"] = ext[i][0];
-                        } else {
-                            a["start"] = ext[i][j - 1];
-                            ext[i][j] = ext[i][j - 1] + ext[i][j];
-                            a["end"] = ext[i][j];
-                        }
-                        type.push(a);
+                        a["x"] = i - 1
+                        a["n"] = j
+                        a["start"] = s_num
+                        s_num += RectOuterData[i][j].member.length
+                        a["end"] = s_num;
+                        Sankey_Rect.push(a)
                     }
                 }
+                console.log(RectOuterData)
 
-                type.push({
-                    "x": 0,
-                    "start": 0,
-                    "end": 304,
-                    "n": 0
-                })
+                // work = []
+                // final = []
+                // // 格内数据
+                // var ext = []
+                // ext.push([0, 0])
+                // for (var i = 1; i <= 9; ++i) {
+                //     var t = []
+                //     for (var k = 0; k < 4; ++k) {
+                //         t[k] = 0
+                //     }
+                //     for (var k = 0; k < 304; ++k) {
+                //         t[parseInt(d[k][i])]++;
+                //     }
+                //     ext.push(t)
+                // }
+                // ext.push([100, 100, 104, 0])
+                // var t = []
+                // for (var k = 0; k < 7; ++k) {
+                //     t[k] = 0
+                // }
+                // for (var k = 0; k < 304; ++k) {
+                //     t[parseInt(d[k].risk)]++;
+                // }
+                // ext.push(t)
+                // var type = []
+                // for (var i = 1; i <= 11; ++i) {
+                //     var n = 0;
+                //     for (j in ext[i]) {
+                //         a = {}
+                //         a["x"] = i;
+                //         a["n"] = n;
+                //         n++;
+                //         // if (t[i][j] == 0) continue;
+                //         if (j == 0) {
+                //             a["start"] = 0;
+                //             a["end"] = ext[i][0];
+                //         } else {
+                //             a["start"] = ext[i][j - 1];
+                //             ext[i][j] = ext[i][j - 1] + ext[i][j];
+                //             a["end"] = ext[i][j];
+                //         }
+                //         type.push(a);
+                //     }
+                // }
 
                 // type.push({
-                //     "x": 10,
+                //     "x": 0,
                 //     "start": 0,
-                //     "end": 100,
+                //     "end": 304,
                 //     "n": 0
-                // }, {
-                //     "x": 10,
-                //     "start": 101,
-                //     "end": 200,
-                //     "n": 1
-                // }, {
-                //     "x": 10,
-                //     "start": 200,
-                //     "end": 300,
-                //     "n": 2
                 // })
+                // console.log(type);
 
-                // var colora = "#FFFFFF"
-                // var colorb = "blue"
 
-                // let colorx = d3.interpolate(colora, colorb);
-                // var color_scale = d3.scale.linear()
-                //     .domain([0, 6])
-                //     .range([0, 1])
-
+                // 画桑基块
                 Rect_g.selectAll(".recta")
                     .attr("class", "recta")
-                    .data(type)
+                    .data(Sankey_Rect)
                     .enter()
                     .append("rect")
                     .attr("x", (d, i) => {
@@ -1400,154 +1389,178 @@ function PaintRect(num) {
                         }
                         RectMove(Rect_data, d)
                     })
-                    .on("mouseover", d => {
-                        tooltip.html("过程：" + title[d.x] + "</br>" + "状态：" + title_tip[d.x][d.n])
-                            .style("left", (d3.event.pageX - 15) + "px")
-                            .style("top", (d3.event.pageY + 20) + "px")
-                            .style("opacity", 1.0)
-                    })
-                    .on("mousemove", d => {
-                        tooltip.style("left", (d3.event.pageX - 15) + "px")
-                            .style("top", (d3.event.pageY + 20) + "px")
-                    })
-                    .on("mouseout", d => {
-                        tooltip.style("opacity", 0.0)
-                    })
+                    // .on("mouseover", d => {
+                    //     tooltip.html("过程：" + title[d.x] + "</br>" + "状态：" + title_tip[d.x][d.n])
+                    //         .style("left", (d3.event.pageX - 15) + "px")
+                    //         .style("top", (d3.event.pageY + 20) + "px")
+                    //         .style("opacity", 1.0)
+                    // })
+                    // .on("mousemove", d => {
+                    //     tooltip.style("left", (d3.event.pageX - 15) + "px")
+                    //         .style("top", (d3.event.pageY + 20) + "px")
+                    // })
+                    // .on("mouseout", d => {
+                    //     tooltip.style("opacity", 0.0)
+                    // })
 
-                // ------------------------------------------------
-
-                var p = {}
-
+                var Rect_Line_Data = []; // 块内横线的数据
+                var p = {}; // 计算连接线
+                
                 for (var i in d) {
                     p[d[i].code] = {};
                 }
-
-                for (var k = 1; k <= 9; ++k) {
-                    var cnt = 0;
-                    for (var i in d) {
-                        a = {}
-                        if (d[i][k] == 0) {
-                            a["x"] = k;
-                            a["y"] = cnt++;
-                            a["v"] = parseFloat(d[i][k * 10 + 1]);
-                            a["n"] = parseInt(d[i][k]);
-                            a["id"] = d[i].code;
-                            a["label"] = coor[i].label;
-                            p[d[i].code][k] = a;
-                        } else {
-                            a["x"] = k;
-                            ext[k][d[i][k] - 1]++;
-                            // console.log(ext[k][d[i][k] - 1])
-                            a["y"] = ext[k][d[i][k] - 1];
-                            a["v"] = parseFloat(d[i][k * 10 + 1]);
-                            a["n"] = parseInt(d[i][k]);
-                            a["id"] = d[i].code;
-                            a["label"] = coor[i].label;
-                            p[d[i].code][k] = a;
+                for (var i in RectOuterData) {
+                    var s_num = 0;
+                    for (var j in RectOuterData[i]) {
+                        for (var k in RectOuterData[i][j].member) {
+                            var a = {
+                                "x": i - 1, // 第几列
+                                "y": parseInt(k) + s_num, // 第几行
+                                "v": parseFloat(RectOuterData[i][j]["member"][k][i * 10 + 9]), // 长度
+                                "n": parseInt(j),
+                                "id": RectOuterData[i][j]["member"][k].code,
+                                "label": code_Label[RectOuterData[i][j]["member"][k].code]
+                            }
+                            p[a.id][i - 1] = a;
+                            Rect_Line_Data.push(a)
                         }
-                        work.push(a);
+                        s_num += RectOuterData[i][j].member.length
                     }
                 }
+                console.log(Rect_Line_Data)
 
-                var l_sort = []
+                // var p = {}
 
-                for (var i in d) {
-                    l_sort.push(parseFloat(d[i][10]))
-                }
+                // for (var i in d) {
+                //     p[d[i].code] = {};
+                // }
 
-                l_sort.sort(function (a, b) {
-                    return a - b;
-                })
+                // for (var k = 1; k <= 9; ++k) {
+                //     var cnt = 0;
+                //     for (var i in d) {
+                //         a = {}
+                //         if (d[i][k] == 0) {
+                //             a["x"] = k;
+                //             a["y"] = cnt++;
+                //             a["v"] = parseFloat(d[i][k * 10 + 1]);
+                //             a["n"] = parseInt(d[i][k]);
+                //             a["id"] = d[i].code;
+                //             a["label"] = coor[i].label;
+                //             p[d[i].code][k] = a;
+                //         } else {
+                //             a["x"] = k;
+                //             ext[k][d[i][k] - 1]++;
+                //             // console.log(ext[k][d[i][k] - 1])
+                //             a["y"] = ext[k][d[i][k] - 1];
+                //             a["v"] = parseFloat(d[i][k * 10 + 1]);
+                //             a["n"] = parseInt(d[i][k]);
+                //             a["id"] = d[i].code;
+                //             a["label"] = coor[i].label;
+                //             p[d[i].code][k] = a;
+                //         }
+                //         work.push(a);
+                //     }
+                // }
 
-                var l_sort_label = {}
-                var l_sort_label_2 = {}
+                // var l_sort = []
 
-                for (var i in l_sort) {
-                    // console.log(l_sort[i]);
-                    l_sort_label_2[l_sort[i]] = i
-                    if (i <= 100)
-                        l_sort_label[l_sort[i]] = 0
-                    else if (i <= 200)
-                        l_sort_label[l_sort[i]] = 1
-                    else if (i <= 304)
-                        l_sort_label[l_sort[i]] = 2
-                }
+                // for (var i in d) {
+                //     l_sort.push(parseFloat(d[i][10]))
+                // }
 
-                // console.log(l_sort_label_2)
+                // l_sort.sort(function (a, b) {
+                //     return a - b;
+                // })
 
-                for (var i in d) {
-                    a = {}
-                    a["x"] = 0;
-                    a["y"] = parseInt(p[d[i].code][1].y);
-                    a["v"] = parseFloat(d[i].work);
-                    a["n"] = 0;
-                    a["id"] = d[i].code;
-                    a["label"] = coor[i].label;
-                    // p[d[i].code] = {};
-                    p[d[i].code][0] = a;
-                    work.push(a);
-                }
+                // var l_sort_label = {}
+                // var l_sort_label_2 = {}
 
-                var cnt = 0,
-                    k = 10;
-                for (var i in d) {
-                    a = {}
-                    if (l_sort_label[parseFloat(d[i][k])] == 0) {
-                        a["x"] = k;
-                        // a["y"] = cnt++;
-                        a["y"] = parseInt(l_sort_label_2[parseFloat(d[i][k])])
-                        a["v"] = parseFloat(d[i][k]);
-                        a["n"] = l_sort_label[parseFloat(d[i][k])];
-                        a["id"] = d[i].code;
-                        a["label"] = coor[i].label;
-                        p[d[i].code][k] = a;
-                    } else {
-                        a["x"] = k;
-                        ext[k][l_sort_label[parseFloat(d[i][k])] - 1]++;
-                        // console.log(ext[k][d[i][k] - 1])
-                        // a["y"] = ext[k][l_sort_label[parseFloat(d[i][k])] - 1];
-                        a["y"] = parseInt(l_sort_label_2[parseFloat(d[i][k])])
-                        a["v"] = parseFloat(d[i][k]);
-                        a["n"] = l_sort_label[parseFloat(d[i][k])];
-                        a["id"] = d[i].code;
-                        a["label"] = coor[i].label;
-                        p[d[i].code][k] = a;
-                    }
-                    work.push(a);
-                }
+                // for (var i in l_sort) {
+                //     // console.log(l_sort[i]);
+                //     l_sort_label_2[l_sort[i]] = i
+                //     if (i <= 100)
+                //         l_sort_label[l_sort[i]] = 0
+                //     else if (i <= 200)
+                //         l_sort_label[l_sort[i]] = 1
+                //     else if (i <= 304)
+                //         l_sort_label[l_sort[i]] = 2
+                // }
 
-                var cnt = 0,
-                    k = "risk";
-                for (var i in d) {
-                    // console.log(d[i][k])
-                    a = {}
-                    if (d[i][k] == 0) {
-                        a["x"] = 11;
-                        a["y"] = cnt++;
-                        a["v"] = parseFloat(d[i][10]);
-                        a["n"] = parseInt(d[i][k]);
-                        a["id"] = d[i].code;
-                        a["label"] = coor[i].label;
-                        p[d[i].code][11] = a;
-                    } else {
-                        a["x"] = 11;
-                        ext[11][d[i][k] - 1]++;
-                        // console.log(ext[k][d[i][k] - 1])
-                        a["y"] = ext[11][d[i][k] - 1];
-                        a["v"] = parseFloat(d[i][10]);
-                        a["n"] = parseInt(d[i][k]);
-                        a["id"] = d[i].code;
-                        a["label"] = coor[i].label;
-                        p[d[i].code][11] = a;
-                    }
-                    work.push(a);
-                }
+                // // console.log(l_sort_label_2)
+
+                // for (var i in d) {
+                //     a = {}
+                //     a["x"] = 0;
+                //     a["y"] = parseInt(p[d[i].code][1].y);
+                //     a["v"] = parseFloat(d[i].work);
+                //     a["n"] = 0;
+                //     a["id"] = d[i].code;
+                //     a["label"] = coor[i].label;
+                //     // p[d[i].code] = {};
+                //     p[d[i].code][0] = a;
+                //     work.push(a);
+                // }
+
+                // var cnt = 0,
+                //     k = 10;
+                // for (var i in d) {
+                //     a = {}
+                //     if (l_sort_label[parseFloat(d[i][k])] == 0) {
+                //         a["x"] = k;
+                //         // a["y"] = cnt++;
+                //         a["y"] = parseInt(l_sort_label_2[parseFloat(d[i][k])])
+                //         a["v"] = parseFloat(d[i][k]);
+                //         a["n"] = l_sort_label[parseFloat(d[i][k])];
+                //         a["id"] = d[i].code;
+                //         a["label"] = coor[i].label;
+                //         p[d[i].code][k] = a;
+                //     } else {
+                //         a["x"] = k;
+                //         ext[k][l_sort_label[parseFloat(d[i][k])] - 1]++;
+                //         // console.log(ext[k][d[i][k] - 1])
+                //         // a["y"] = ext[k][l_sort_label[parseFloat(d[i][k])] - 1];
+                //         a["y"] = parseInt(l_sort_label_2[parseFloat(d[i][k])])
+                //         a["v"] = parseFloat(d[i][k]);
+                //         a["n"] = l_sort_label[parseFloat(d[i][k])];
+                //         a["id"] = d[i].code;
+                //         a["label"] = coor[i].label;
+                //         p[d[i].code][k] = a;
+                //     }
+                //     work.push(a);
+                // }
+
+                // var cnt = 0,
+                //     k = "risk";
+                // for (var i in d) {
+                //     // console.log(d[i][k])
+                //     a = {}
+                //     if (d[i][k] == 0) {
+                //         a["x"] = 11;
+                //         a["y"] = cnt++;
+                //         a["v"] = parseFloat(d[i][10]);
+                //         a["n"] = parseInt(d[i][k]);
+                //         a["id"] = d[i].code;
+                //         a["label"] = coor[i].label;
+                //         p[d[i].code][11] = a;
+                //     } else {
+                //         a["x"] = 11;
+                //         ext[11][d[i][k] - 1]++;
+                //         // console.log(ext[k][d[i][k] - 1])
+                //         a["y"] = ext[11][d[i][k] - 1];
+                //         a["v"] = parseFloat(d[i][10]);
+                //         a["n"] = parseInt(d[i][k]);
+                //         a["id"] = d[i].code;
+                //         a["label"] = coor[i].label;
+                //         p[d[i].code][11] = a;
+                //     }
+                //     work.push(a);
+                // }
 
 
                 // 格内划线     
                 Rect_g.selectAll(".line")
                     .attr("class", "line")
-                    .data(work)
+                    .data(Rect_Line_Data)
                     .enter()
                     .append("line")
                     .attr("x1", (d, i) => {
@@ -1590,7 +1603,7 @@ function PaintRect(num) {
 
                 PaintTypeZ(d)
 
-                // return p;
+                // // return p;
                 ScatterPaint(coor, p, num)
             })
         })
