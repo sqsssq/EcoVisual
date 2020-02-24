@@ -278,7 +278,7 @@ function Paintjudge(name) {
                     startAngle: Math.PI * (i) * 2 / 9,
                     endAngle: Math.PI * (i + 1) * 2 / 9
                 }
-                console.log(k)
+                // console.log(k)
                 var kkk = 200
                 peo_g.append('g')
                     .append('path')
@@ -294,7 +294,7 @@ function Paintjudge(name) {
                     })
                 // break
             }
-            console.log(pie_d);
+            // console.log(pie_d);
             // break
         }
     })

@@ -544,11 +544,11 @@ function PaintZhe(d1) {
             .attr('stroke', '#00FF00')
             .call(xAxis)
             .append('text')
-            // .text('轮数')
-            // .attr("transform", "rotate(-90)") //text旋转-90°
-            // .attr("text-anchor", "end") //字体尾部对齐
-            // .attr("dx", "121em")
-            // .attr("dy", "0.5em") //沿y轴平移一个字体的大小
+        // .text('轮数')
+        // .attr("transform", "rotate(-90)") //text旋转-90°
+        // .attr("text-anchor", "end") //字体尾部对齐
+        // .attr("dx", "121em")
+        // .attr("dy", "0.5em") //沿y轴平移一个字体的大小
         zg.append("g")
             .attr("class", "axis")
             .attr("transform", "translate(" + 50 + "," + 0 + ")")
@@ -1073,406 +1073,526 @@ function PaintRect(num) {
     d3.csv("data/box.csv", function (d1) {
         // d3.json(coorp, function (coor) {
         d3.json('data/Scatter/newScatter.json', function (coor) {
-            if (Rect_g != 0) Rect_g.remove()
-            if (text_g != 0) text_g.remove()
+            d3.csv("data/box_calc.csv", function (RectInData) {
 
-            Rect_g = svg.append('g')
-                .attr("transform", "translate(" + 0 + "," + -15 + ")");
+                if (Rect_g != 0) Rect_g.remove()
+                if (text_g != 0) text_g.remove()
 
-            text_g = svg.append('g')
-                .attr("transform", "translate(" + 0 + "," + -5 + ")");
+                Rect_g = svg.append('g')
+                    .attr("transform", "translate(" + 0 + "," + -15 + ")");
 
-            var d = []
-            for (var i in d1) {
-                if (parseInt(d1[i].biao) == num)
-                    d.push(d1[i])
-            }
+                text_g = svg.append('g')
+                    .attr("transform", "translate(" + 0 + "," + -5 + ")");
 
-            var textk = text_g.selectAll('#textk')
-                .attr("id", "trextk")
-                .data(title)
-                .enter()
-                .append('text')
-                .attr('fill', 'black')
-                .attr('font-size', '15px')
-                .attr('text-anchor', 'middle')
-                .attr("font-family", "courier")
-                .attr('x', function (d, i) {
-                    return padding.left + i * rectStep;
+                var d = []
+                for (var i in d1) {
+                    if (parseInt(d1[i].biao) == num)
+                        d.push(d1[i])
+                }
+
+                var textk = text_g.selectAll('#textk')
+                    .attr("id", "trextk")
+                    .data(title)
+                    .enter()
+                    .append('text')
+                    .attr('fill', 'black')
+                    .attr('font-size', '15px')
+                    .attr('text-anchor', 'middle')
+                    .attr("font-family", "courier")
+                    .attr('x', function (d, i) {
+                        return padding.left + i * rectStep;
+                    })
+                    .attr('y', function (d) {
+                        return height - padding.bottom + 3;
+                    })
+                    .attr('dx', rectWidth / 2) //dx是相对于x平移的大小
+                    .attr('dy', '1em') //dy是相对于y平移的大小
+                    .text(function (d) {
+                        return d;
+                    })
+
+                let minx = 999;
+                let maxx = 0
+
+                for (var i = 0; i < 304; ++i) {
+                    // console.log(d[i][91])
+                    if (parseFloat(d[i].work) > maxx) maxx = parseFloat(d[i].work);
+                    if (parseFloat(d[i].work) < minx) minx = parseFloat(d[i].work);
+
+                    if (parseFloat(d[i][21]) > maxx) maxx = parseFloat(d[i][21]);
+                    if (parseFloat(d[i][21]) < minx) minx = parseFloat(d[i][21]);
+                    if (parseFloat(d[i][11]) > maxx) maxx = parseFloat(d[i][11]);
+                    if (parseFloat(d[i][11]) < minx) minx = parseFloat(d[i][11]);
+                    if (parseFloat(d[i][31]) > maxx) maxx = parseFloat(d[i][31]);
+                    if (parseFloat(d[i][31]) < minx) minx = parseFloat(d[i][31]);
+                    if (parseFloat(d[i][41]) > maxx) maxx = parseFloat(d[i][41]);
+                    if (parseFloat(d[i][41]) < minx) minx = parseFloat(d[i][41]);
+                    if (parseFloat(d[i][51]) > maxx) maxx = parseFloat(d[i][51]);
+                    if (parseFloat(d[i][51]) < minx) minx = parseFloat(d[i][51]);
+                    if (parseFloat(d[i][61]) > maxx) maxx = parseFloat(d[i][61]);
+                    if (parseFloat(d[i][61]) < minx) minx = parseFloat(d[i][61]);
+                    if (parseFloat(d[i][71]) > maxx) maxx = parseFloat(d[i][71]);
+                    if (parseFloat(d[i][71]) < minx) minx = parseFloat(d[i][71]);
+                    if (parseFloat(d[i][81]) > maxx) maxx = parseFloat(d[i][81]);
+                    if (parseFloat(d[i][81]) < minx) minx = parseFloat(d[i][81]);
+                    if (parseFloat(d[i][91]) > maxx) maxx = parseFloat(d[i][91]);
+                    if (parseFloat(d[i][91]) < minx) minx = parseFloat(d[i][91]);
+                }
+                // 计算比例尺
+                var linearF = d3.scale.linear()
+                    .domain([0, minx])
+                    .range([0, 39])
+
+                var linearZ = d3.scale.linear()
+                    .domain([0, maxx])
+                    .range([0, 39])
+
+                // console.log(d)
+
+                // 减少杂化
+                let RectInnerData = []
+                for (var i in RectInData) {
+                    if (parseInt(RectInData[i].biao) == num) {
+                        RectInnerData.push(RectInData[i])
+                    }
+                }
+                var sort_ten = [] // 第十列排序
+                var sort_ten_inner = {}
+                var code_Num = {} // 记录编号排布
+                for (var i in RectInnerData) {
+                    sort_ten.push(parseFloat(RectInnerData[i][119]))
+                    code_Num[RectInnerData[i].code] = i
+                }
+                sort_ten.sort(function (a, b) {
+                    return a - b;
                 })
-                .attr('y', function (d) {
-                    return height - padding.bottom + 3;
-                })
-                .attr('dx', rectWidth / 2) //dx是相对于x平移的大小
-                .attr('dy', '1em') //dy是相对于y平移的大小
-                .text(function (d) {
-                    return d;
-                })
+                for (var i in sort_ten) {
+                    sort_ten_inner[sort_ten[i]] = i;
+                }
+                for (var i in RectInnerData) {
+                    if (parseInt(sort_ten_inner[RectInnerData[i][119]]) <= 100)
+                        RectInnerData[i][11] = 0;
+                    else if (parseInt(sort_ten_inner[RectInnerData[i][119]]) <= 200)
+                        RectInnerData[i][11] = 1;
+                    else
+                        RectInnerData[i][11] = 2
+                }
+                let RectOuterData = []
+                RectOuterData[1] = []
+                RectOuterData[1][0] = {
+                    'val': 0,
+                    'member': []
+                }
+                for (var i in RectInnerData) {
+                    RectOuterData[1][RectInnerData[i][1]]['member'].push(RectInnerData[i])
+                    RectOuterData[1][RectInnerData[i][1]].val += parseInt(code_Num[RectInnerData[i].code])
+                }
+                for (var i in RectOuterData[1]) {
+                    RectOuterData[1][i].val /= RectOuterData[1][i]["member"].length
+                }
+                for (var t = 1; t <= 20; ++t) {
+                    for (var k = 2; k <= 12; ++k) {
+                        // console.log(k)
+                        if (typeof (RectOuterData[k]) == "undefined")
+                            RectOuterData[k] = []
+                        for (var i in RectOuterData[k - 1]) {
+                            for (var j in RectOuterData[k - 1][i]["member"]) {
+                                RectOuterData[k][RectOuterData[k - 1][i]["member"][j][k]] = {
+                                    "val": 0,
+                                    "member": []
+                                }
+                            }
+                        }
+                        for (var i in RectOuterData[k - 1]) {
+                            for (var j in RectOuterData[k - 1][i]["member"]) {
+                                // RectOuterData[k - 1][i]["member"][j][k] 对应的分类
+                                RectOuterData[k][RectOuterData[k - 1][i]["member"][j][k]].val += parseInt(code_Num[RectOuterData[k - 1][i]["member"][j]["code"]])
+                                RectOuterData[k][RectOuterData[k - 1][i]["member"][j][k]].member.push(RectOuterData[k - 1][i]["member"][j])
+                            }
+                        }
+                        for (var i in RectOuterData[k]) {
+                            RectOuterData[k][i].val /= RectOuterData[k][i]["member"].length
+                        }
+                        RectOuterData[k].sort(function (a, b) {
+                            return a.val - b.val;
+                        })
+                        for (var i in RectOuterData[k]) {
+                            for (var j in RectOuterData[k][i]["member"]) {
+                                if (i == 0)
+                                    code_Num[RectOuterData[k][i]["member"][j].code] = parseInt(j)
+                                else
+                                    code_Num[RectOuterData[k][i]["member"][j].code] = parseInt(j) + RectOuterData[k][i]["member"].length
+                            }
+                        }
+                        // console.log(code_Num)
+                    }
+                    for (var k = 11; k >= 1; --k) {
+                        for (var i in RectOuterData[k + 1]) {
+                            for (var j in RectOuterData[k + 1][i]["member"]) {
+                                RectOuterData[k][RectOuterData[k + 1][i]["member"][j][k]] = {
+                                    "val": 0,
+                                    "member": []
+                                }
+                            }
+                        }
+                        for (var i in RectOuterData[k + 1]) {
+                            for (var j in RectOuterData[k + 1][i]["member"]) {
+                                // RectOuterData[k - 1][i]["member"][j][k] 对应的分类
+                                // if (typeof (RectOuterData[k][RectOuterData[k - 1][i]["member"][j][k]]) == "undefined")
+                                // console.log("i = " + i + "; j = " + j)
+                                RectOuterData[k][RectOuterData[k + 1][i]["member"][j][k]].val += parseInt(code_Num[RectOuterData[k + 1][i]["member"][j]["code"]])
+                                RectOuterData[k][RectOuterData[k + 1][i]["member"][j][k]].member.push(RectOuterData[k + 1][i]["member"][j])
+                            }
+                        }
+                        for (var i in RectOuterData[k]) {
+                            RectOuterData[k][i].val /= RectOuterData[k][i]["member"].length
+                        }
+                        RectOuterData[k].sort(function (a, b) {
+                            return a.val - b.val;
+                        })
+                        for (var i in RectOuterData[k]) {
+                            for (var j in RectOuterData[k][i]["member"]) {
+                                if (i == 0)
+                                    code_Num[RectOuterData[k][i]["member"][j].code] = parseInt(j)
+                                else
+                                    code_Num[RectOuterData[k][i]["member"][j].code] = parseInt(j) + RectOuterData[k][i]["member"].length
+                            }
+                        }
+                        // console.log(code_Num)
+                    }
+                    console.log(RectOuterData)
+                }
 
-            let minx = 999;
-            let maxx = 0
-
-            for (var i = 0; i < 304; ++i) {
-                // console.log(d[i][91])
-                if (parseFloat(d[i].work) > maxx) maxx = parseFloat(d[i].work);
-                if (parseFloat(d[i].work) < minx) minx = parseFloat(d[i].work);
-
-                if (parseFloat(d[i][21]) > maxx) maxx = parseFloat(d[i][21]);
-                if (parseFloat(d[i][21]) < minx) minx = parseFloat(d[i][21]);
-                if (parseFloat(d[i][11]) > maxx) maxx = parseFloat(d[i][11]);
-                if (parseFloat(d[i][11]) < minx) minx = parseFloat(d[i][11]);
-                if (parseFloat(d[i][31]) > maxx) maxx = parseFloat(d[i][31]);
-                if (parseFloat(d[i][31]) < minx) minx = parseFloat(d[i][31]);
-                if (parseFloat(d[i][41]) > maxx) maxx = parseFloat(d[i][41]);
-                if (parseFloat(d[i][41]) < minx) minx = parseFloat(d[i][41]);
-                if (parseFloat(d[i][51]) > maxx) maxx = parseFloat(d[i][51]);
-                if (parseFloat(d[i][51]) < minx) minx = parseFloat(d[i][51]);
-                if (parseFloat(d[i][61]) > maxx) maxx = parseFloat(d[i][61]);
-                if (parseFloat(d[i][61]) < minx) minx = parseFloat(d[i][61]);
-                if (parseFloat(d[i][71]) > maxx) maxx = parseFloat(d[i][71]);
-                if (parseFloat(d[i][71]) < minx) minx = parseFloat(d[i][71]);
-                if (parseFloat(d[i][81]) > maxx) maxx = parseFloat(d[i][81]);
-                if (parseFloat(d[i][81]) < minx) minx = parseFloat(d[i][81]);
-                if (parseFloat(d[i][91]) > maxx) maxx = parseFloat(d[i][91]);
-                if (parseFloat(d[i][91]) < minx) minx = parseFloat(d[i][91]);
-            }
-            // 计算比例尺
-            var linearF = d3.scale.linear()
-                .domain([0, minx])
-                .range([0, 39])
-
-            var linearZ = d3.scale.linear()
-                .domain([0, maxx])
-                .range([0, 39])
 
 
-            work = []
-            final = []
+                work = []
+                final = []
 
-            // 格内数据
-            var ext = []
-            ext.push([0, 0])
+                // 格内数据
+                var ext = []
+                ext.push([0, 0])
 
-            for (var i = 1; i <= 9; ++i) {
+                for (var i = 1; i <= 9; ++i) {
+                    var t = []
+                    for (var k = 0; k < 4; ++k) {
+                        t[k] = 0
+                    }
+                    for (var k = 0; k < 304; ++k) {
+                        t[parseInt(d[k][i])]++;
+                    }
+                    ext.push(t)
+                }
+
+
+                ext.push([100, 100, 104, 0])
                 var t = []
-                for (var k = 0; k < 4; ++k) {
+                for (var k = 0; k < 7; ++k) {
                     t[k] = 0
                 }
                 for (var k = 0; k < 304; ++k) {
-                    t[parseInt(d[k][i])]++;
+                    t[parseInt(d[k].risk)]++;
                 }
                 ext.push(t)
-            }
 
 
-            ext.push([100, 100, 104, 0])
-            var t = []
-            for (var k = 0; k < 7; ++k) {
-                t[k] = 0
-            }
-            for (var k = 0; k < 304; ++k) {
-                t[parseInt(d[k].risk)]++;
-            }
-            ext.push(t)
+                var type = []
 
-
-            var type = []
-
-            for (var i = 1; i <= 11; ++i) {
-                var n = 0;
-                for (j in ext[i]) {
-                    a = {}
-                    a["x"] = i;
-                    a["n"] = n;
-                    n++;
-                    // if (t[i][j] == 0) continue;
-                    if (j == 0) {
-                        a["start"] = 0;
-                        a["end"] = ext[i][0];
-                    } else {
-                        a["start"] = ext[i][j - 1];
-                        ext[i][j] = ext[i][j - 1] + ext[i][j];
-                        a["end"] = ext[i][j];
+                for (var i = 1; i <= 11; ++i) {
+                    var n = 0;
+                    for (j in ext[i]) {
+                        a = {}
+                        a["x"] = i;
+                        a["n"] = n;
+                        n++;
+                        // if (t[i][j] == 0) continue;
+                        if (j == 0) {
+                            a["start"] = 0;
+                            a["end"] = ext[i][0];
+                        } else {
+                            a["start"] = ext[i][j - 1];
+                            ext[i][j] = ext[i][j - 1] + ext[i][j];
+                            a["end"] = ext[i][j];
+                        }
+                        type.push(a);
                     }
-                    type.push(a);
                 }
-            }
 
-            type.push({
-                "x": 0,
-                "start": 0,
-                "end": 304,
-                "n": 0
-            })
+                type.push({
+                    "x": 0,
+                    "start": 0,
+                    "end": 304,
+                    "n": 0
+                })
 
-            // type.push({
-            //     "x": 10,
-            //     "start": 0,
-            //     "end": 100,
-            //     "n": 0
-            // }, {
-            //     "x": 10,
-            //     "start": 101,
-            //     "end": 200,
-            //     "n": 1
-            // }, {
-            //     "x": 10,
-            //     "start": 200,
-            //     "end": 300,
-            //     "n": 2
-            // })
+                // type.push({
+                //     "x": 10,
+                //     "start": 0,
+                //     "end": 100,
+                //     "n": 0
+                // }, {
+                //     "x": 10,
+                //     "start": 101,
+                //     "end": 200,
+                //     "n": 1
+                // }, {
+                //     "x": 10,
+                //     "start": 200,
+                //     "end": 300,
+                //     "n": 2
+                // })
 
-            // var colora = "#FFFFFF"
-            // var colorb = "blue"
+                // var colora = "#FFFFFF"
+                // var colorb = "blue"
 
-            // let colorx = d3.interpolate(colora, colorb);
-            // var color_scale = d3.scale.linear()
-            //     .domain([0, 6])
-            //     .range([0, 1])
+                // let colorx = d3.interpolate(colora, colorb);
+                // var color_scale = d3.scale.linear()
+                //     .domain([0, 6])
+                //     .range([0, 1])
 
-            Rect_g.selectAll(".recta")
-                .attr("class", "recta")
-                .data(type)
-                .enter()
-                .append("rect")
-                .attr("x", (d, i) => {
-                    return padding.left + d.x * rectStep;
-                })
-                .attr("y", d => {
-                    // console.log(d);
-                    var tt = 0;
-                    if (d.x == 0) tt = 3 * steplen / 2;
-                    if (d.x == 2 || d.x == 3 || d.x == 4 || d.x == 5 || d.x == 9) tt = steplen
-                    return height - padding.top - 364 + d.start * bei + d.n * steplen + tt - 10;
-                })
-                // .attr("rx", 5)
-                .attr("width", rectWidth)
-                .attr("height", d => {
-                    return (d.end - d.start) * bei;
-                })
-                .attr("stroke", d => {
-                    return "black"
-                })
-                .attr("stroke-width", 0.5)
-                .attr("fill", d => {
-                    // if (d.x != 11)
-                    // return color[d.n];
-                    // console.log(d.n)
-                    var colora = "#FFFFFF"
-                    var colorb = "blue"
+                Rect_g.selectAll(".recta")
+                    .attr("class", "recta")
+                    .data(type)
+                    .enter()
+                    .append("rect")
+                    .attr("x", (d, i) => {
+                        return padding.left + d.x * rectStep;
+                    })
+                    .attr("y", d => {
+                        // console.log(d);
+                        var tt = 0;
+                        if (d.x == 0) tt = 3 * steplen / 2;
+                        if (d.x == 2 || d.x == 3 || d.x == 4 || d.x == 5 || d.x == 9) tt = steplen
+                        return height - padding.top - 364 + d.start * bei + d.n * steplen + tt - 10;
+                    })
+                    // .attr("rx", 5)
+                    .attr("width", rectWidth)
+                    .attr("height", d => {
+                        return (d.end - d.start) * bei;
+                    })
+                    .attr("stroke", d => {
+                        return "black"
+                    })
+                    .attr("stroke-width", 0.5)
+                    .attr("fill", d => {
+                        // if (d.x != 11)
+                        // return color[d.n];
+                        // console.log(d.n)
+                        var colora = "#FFFFFF"
+                        var colorb = "blue"
 
-                    let colorx = d3.interpolate(colora, colorb);
-                    var color_scale = d3.scale.linear()
-                        .domain([-2, 8])
-                        .range([0, 1])
-                    if (d.x != 11)
-                    return colorx(color_scale(parseInt(d.n * 2)))
-                    return colorx(color_scale(parseInt(d.n)))
-                })
-                .attr("fill-opacity", d => {
-                    if (d.x != 11)
-                        return 1
-                    else
-                        return 1
-                })
-                .on("click", d => {
-                    if (Rect_data == -1) {
-                        Rect_data = p;
+                        let colorx = d3.interpolate(colora, colorb);
+                        var color_scale = d3.scale.linear()
+                            .domain([-2, 8])
+                            .range([0, 1])
+                        if (d.x != 11)
+                            return colorx(color_scale(parseInt(d.n * 2)))
+                        return colorx(color_scale(parseInt(d.n)))
+                    })
+                    .attr("fill-opacity", d => {
+                        if (d.x != 11)
+                            return 1
+                        else
+                            return 1
+                    })
+                    .on("click", d => {
+                        if (Rect_data == -1) {
+                            Rect_data = p;
+                        }
+                        RectMove(Rect_data, d)
+                    })
+                    .on("mouseover", d => {
+                        tooltip.html("过程：" + title[d.x] + "</br>" + "状态：" + title_tip[d.x][d.n])
+                            .style("left", (d3.event.pageX - 15) + "px")
+                            .style("top", (d3.event.pageY + 20) + "px")
+                            .style("opacity", 1.0)
+                    })
+                    .on("mousemove", d => {
+                        tooltip.style("left", (d3.event.pageX - 15) + "px")
+                            .style("top", (d3.event.pageY + 20) + "px")
+                    })
+                    .on("mouseout", d => {
+                        tooltip.style("opacity", 0.0)
+                    })
+
+                // ------------------------------------------------
+
+                var p = {}
+
+                for (var i in d) {
+                    p[d[i].code] = {};
+                }
+
+                for (var k = 1; k <= 9; ++k) {
+                    var cnt = 0;
+                    for (var i in d) {
+                        a = {}
+                        if (d[i][k] == 0) {
+                            a["x"] = k;
+                            a["y"] = cnt++;
+                            a["v"] = parseFloat(d[i][k * 10 + 1]);
+                            a["n"] = parseInt(d[i][k]);
+                            a["id"] = d[i].code;
+                            a["label"] = coor[i].label;
+                            p[d[i].code][k] = a;
+                        } else {
+                            a["x"] = k;
+                            ext[k][d[i][k] - 1]++;
+                            // console.log(ext[k][d[i][k] - 1])
+                            a["y"] = ext[k][d[i][k] - 1];
+                            a["v"] = parseFloat(d[i][k * 10 + 1]);
+                            a["n"] = parseInt(d[i][k]);
+                            a["id"] = d[i].code;
+                            a["label"] = coor[i].label;
+                            p[d[i].code][k] = a;
+                        }
+                        work.push(a);
                     }
-                    RectMove(Rect_data, d)
-                })
-                .on("mouseover", d => {
-                    tooltip.html("过程：" + title[d.x] + "</br>" + "状态：" + title_tip[d.x][d.n])
-                        .style("left", (d3.event.pageX - 15) + "px")
-                        .style("top", (d3.event.pageY + 20) + "px")
-                        .style("opacity", 1.0)
-                })
-                .on("mousemove", d => {
-                    tooltip.style("left", (d3.event.pageX - 15) + "px")
-                        .style("top", (d3.event.pageY + 20) + "px")
-                })
-                .on("mouseout", d => {
-                    tooltip.style("opacity", 0.0)
+                }
+
+                var l_sort = []
+
+                for (var i in d) {
+                    l_sort.push(parseFloat(d[i][10]))
+                }
+
+                l_sort.sort(function (a, b) {
+                    return a - b;
                 })
 
-            // ------------------------------------------------
+                var l_sort_label = {}
+                var l_sort_label_2 = {}
 
-            var p = {}
+                for (var i in l_sort) {
+                    // console.log(l_sort[i]);
+                    l_sort_label_2[l_sort[i]] = i
+                    if (i <= 100)
+                        l_sort_label[l_sort[i]] = 0
+                    else if (i <= 200)
+                        l_sort_label[l_sort[i]] = 1
+                    else if (i <= 304)
+                        l_sort_label[l_sort[i]] = 2
+                }
 
-            for (var i in d) {
-                p[d[i].code] = {};
-            }
+                // console.log(l_sort_label_2)
 
-            for (var k = 1; k <= 9; ++k) {
-                var cnt = 0;
                 for (var i in d) {
                     a = {}
-                    if (d[i][k] == 0) {
+                    a["x"] = 0;
+                    a["y"] = parseInt(p[d[i].code][1].y);
+                    a["v"] = parseFloat(d[i].work);
+                    a["n"] = 0;
+                    a["id"] = d[i].code;
+                    a["label"] = coor[i].label;
+                    // p[d[i].code] = {};
+                    p[d[i].code][0] = a;
+                    work.push(a);
+                }
+
+                var cnt = 0,
+                    k = 10;
+                for (var i in d) {
+                    a = {}
+                    if (l_sort_label[parseFloat(d[i][k])] == 0) {
                         a["x"] = k;
-                        a["y"] = cnt++;
-                        a["v"] = parseFloat(d[i][k * 10 + 1]);
-                        a["n"] = parseInt(d[i][k]);
+                        // a["y"] = cnt++;
+                        a["y"] = parseInt(l_sort_label_2[parseFloat(d[i][k])])
+                        a["v"] = parseFloat(d[i][k]);
+                        a["n"] = l_sort_label[parseFloat(d[i][k])];
                         a["id"] = d[i].code;
                         a["label"] = coor[i].label;
                         p[d[i].code][k] = a;
                     } else {
                         a["x"] = k;
-                        ext[k][d[i][k] - 1]++;
+                        ext[k][l_sort_label[parseFloat(d[i][k])] - 1]++;
                         // console.log(ext[k][d[i][k] - 1])
-                        a["y"] = ext[k][d[i][k] - 1];
-                        a["v"] = parseFloat(d[i][k * 10 + 1]);
-                        a["n"] = parseInt(d[i][k]);
+                        // a["y"] = ext[k][l_sort_label[parseFloat(d[i][k])] - 1];
+                        a["y"] = parseInt(l_sort_label_2[parseFloat(d[i][k])])
+                        a["v"] = parseFloat(d[i][k]);
+                        a["n"] = l_sort_label[parseFloat(d[i][k])];
                         a["id"] = d[i].code;
                         a["label"] = coor[i].label;
                         p[d[i].code][k] = a;
                     }
                     work.push(a);
                 }
-            }
 
-            var l_sort = []
+                var cnt = 0,
+                    k = "risk";
+                for (var i in d) {
+                    // console.log(d[i][k])
+                    a = {}
+                    if (d[i][k] == 0) {
+                        a["x"] = 11;
+                        a["y"] = cnt++;
+                        a["v"] = parseFloat(d[i][10]);
+                        a["n"] = parseInt(d[i][k]);
+                        a["id"] = d[i].code;
+                        a["label"] = coor[i].label;
+                        p[d[i].code][11] = a;
+                    } else {
+                        a["x"] = 11;
+                        ext[11][d[i][k] - 1]++;
+                        // console.log(ext[k][d[i][k] - 1])
+                        a["y"] = ext[11][d[i][k] - 1];
+                        a["v"] = parseFloat(d[i][10]);
+                        a["n"] = parseInt(d[i][k]);
+                        a["id"] = d[i].code;
+                        a["label"] = coor[i].label;
+                        p[d[i].code][11] = a;
+                    }
+                    work.push(a);
+                }
 
-            for (var i in d) {
-                l_sort.push(parseFloat(d[i][10]))
-            }
 
-            l_sort.sort(function (a, b) {
-                return a - b;
+                // 格内划线     
+                Rect_g.selectAll(".line")
+                    .attr("class", "line")
+                    .data(work)
+                    .enter()
+                    .append("line")
+                    .attr("x1", (d, i) => {
+                        return padding.left + d.x * rectStep + 0.5;
+                    })
+                    .attr("y1", (d, i) => {
+                        // console.log(d)
+                        var tt = 0;
+                        if (d.x == 0) tt = 3 * steplen / 2;
+                        if (d.x == 2 || d.x == 3 || d.x == 4 || d.x == 5 || d.x == 9) tt = steplen
+                        return d.y * bei + height - padding.top - 364 + d.n * steplen + tt - 10;
+                    })
+                    .attr("x2", (d, i) => {
+                        var len;
+                        if (d.v >= 0)
+                            len = linearZ(d.v);
+                        else if (d.v <= 0)
+                            len = linearF(d.v);
+                        return padding.left + d.x * rectStep + len + 0.5;
+                    })
+                    .attr("y2", (d, i) => {
+
+                        var tt = 0;
+                        if (d.x == 0) tt = 3 * steplen / 2;
+                        if (d.x == 2 || d.x == 3 || d.x == 4 || d.x == 5 || d.x == 9) tt = steplen
+                        return d.y * bei + height - padding.top - 364 + d.n * steplen + tt - 10;
+                    })
+                    .attr("stroke", d => {
+                        if (d.v >= 0)
+                            return "#00FF00";
+                        else
+                            return "red";
+                    })
+                    .attr("stroke-width", 1);
+
+
+                var path = PathCalc(p, -1, -1);
+
+                LinePaint(path[0], path[2], "black")
+
+                PaintTypeZ(d)
+
+                // return p;
+                ScatterPaint(coor, p, num)
             })
-
-            var l_sort_label = {}
-            var l_sort_label_2 = {}
-
-            for (var i in l_sort) {
-                // console.log(l_sort[i]);
-                l_sort_label_2[l_sort[i]] = i
-                if (i <= 100)
-                    l_sort_label[l_sort[i]] = 0
-                else if (i <= 200)
-                    l_sort_label[l_sort[i]] = 1
-                else if (i <= 304)
-                    l_sort_label[l_sort[i]] = 2
-            }
-
-            // console.log(l_sort_label_2)
-
-            for (var i in d) {
-                a = {}
-                a["x"] = 0;
-                a["y"] = parseInt(p[d[i].code][1].y);
-                a["v"] = parseFloat(d[i].work);
-                a["n"] = 0;
-                a["id"] = d[i].code;
-                a["label"] = coor[i].label;
-                // p[d[i].code] = {};
-                p[d[i].code][0] = a;
-                work.push(a);
-            }
-
-            var cnt = 0,
-                k = 10;
-            for (var i in d) {
-                a = {}
-                if (l_sort_label[parseFloat(d[i][k])] == 0) {
-                    a["x"] = k;
-                    // a["y"] = cnt++;
-                    a["y"] = parseInt(l_sort_label_2[parseFloat(d[i][k])])
-                    a["v"] = parseFloat(d[i][k]);
-                    a["n"] = l_sort_label[parseFloat(d[i][k])];
-                    a["id"] = d[i].code;
-                    a["label"] = coor[i].label;
-                    p[d[i].code][k] = a;
-                } else {
-                    a["x"] = k;
-                    ext[k][l_sort_label[parseFloat(d[i][k])] - 1]++;
-                    // console.log(ext[k][d[i][k] - 1])
-                    // a["y"] = ext[k][l_sort_label[parseFloat(d[i][k])] - 1];
-                    a["y"] = parseInt(l_sort_label_2[parseFloat(d[i][k])])
-                    a["v"] = parseFloat(d[i][k]);
-                    a["n"] = l_sort_label[parseFloat(d[i][k])];
-                    a["id"] = d[i].code;
-                    a["label"] = coor[i].label;
-                    p[d[i].code][k] = a;
-                }
-                work.push(a);
-            }
-
-            var cnt = 0,
-                k = "risk";
-            for (var i in d) {
-                // console.log(d[i][k])
-                a = {}
-                if (d[i][k] == 0) {
-                    a["x"] = 11;
-                    a["y"] = cnt++;
-                    a["v"] = parseFloat(d[i][10]);
-                    a["n"] = parseInt(d[i][k]);
-                    a["id"] = d[i].code;
-                    a["label"] = coor[i].label;
-                    p[d[i].code][11] = a;
-                } else {
-                    a["x"] = 11;
-                    ext[11][d[i][k] - 1]++;
-                    // console.log(ext[k][d[i][k] - 1])
-                    a["y"] = ext[11][d[i][k] - 1];
-                    a["v"] = parseFloat(d[i][10]);
-                    a["n"] = parseInt(d[i][k]);
-                    a["id"] = d[i].code;
-                    a["label"] = coor[i].label;
-                    p[d[i].code][11] = a;
-                }
-                work.push(a);
-            }
-
-
-            // 格内划线     
-            Rect_g.selectAll(".line")
-                .attr("class", "line")
-                .data(work)
-                .enter()
-                .append("line")
-                .attr("x1", (d, i) => {
-                    return padding.left + d.x * rectStep + 0.5;
-                })
-                .attr("y1", (d, i) => {
-                    // console.log(d)
-                    var tt = 0;
-                    if (d.x == 0) tt = 3 * steplen / 2;
-                    if (d.x == 2 || d.x == 3 || d.x == 4 || d.x == 5 || d.x == 9) tt = steplen
-                    return d.y * bei + height - padding.top - 364 + d.n * steplen + tt - 10;
-                })
-                .attr("x2", (d, i) => {
-                    var len;
-                    if (d.v >= 0)
-                        len = linearZ(d.v);
-                    else if (d.v <= 0)
-                        len = linearF(d.v);
-                    return padding.left + d.x * rectStep + len + 0.5;
-                })
-                .attr("y2", (d, i) => {
-
-                    var tt = 0;
-                    if (d.x == 0) tt = 3 * steplen / 2;
-                    if (d.x == 2 || d.x == 3 || d.x == 4 || d.x == 5 || d.x == 9) tt = steplen
-                    return d.y * bei + height - padding.top - 364 + d.n * steplen + tt - 10;
-                })
-                .attr("stroke", d => {
-                    if (d.v >= 0)
-                        return "#00FF00";
-                    else
-                        return "red";
-                })
-                .attr("stroke-width", 1);
-
-
-            var path = PathCalc(p, -1, -1);
-
-            LinePaint(path[0], path[2], "black")
-
-            PaintTypeZ(d)
-
-            // return p;
-            ScatterPaint(coor, p, num)
         })
     })
 }

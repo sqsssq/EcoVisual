@@ -31,7 +31,7 @@ PP()
 function ScatterPaint(coor, p, num) {
     // PP()
 
-    console.log(num)
+    // console.log(num)
 
     if (tcircle != 0) tcircle.remove()
     if (r != 0) r.remove()
