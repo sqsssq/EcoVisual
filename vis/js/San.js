@@ -57,6 +57,8 @@ var tooltip = d3.select("body")
     .append("div")
     .attr("class", "tooltip")
     .style("opacity", 0.0)
+
+var People_Data;
 //#endregion
 
 function Paint() {
@@ -150,9 +152,9 @@ var PathCalc = function (p, n, x) {
         for (var i in p) {
 
             p_n[i] = p[i]
+            
             for (var j = 1; j <= 11; ++j) {
                 a = {}
-                // console.log(i)
                 a['name'] = i
                 a["x1"] = p[i][j - 1].x;
                 a["y1"] = p[i][j - 1].y;
@@ -290,6 +292,10 @@ function RectOut(num) {
     if (r_s_g != 0) {
         r_s_g.remove()
         r_s_g = 0;
+    }
+    if (line_g != 0) {
+        line_g.remove();
+        line_g = 0;
     }
     name_in = []
     // judge_cir_line = 0
@@ -1268,6 +1274,41 @@ function PaintRect(num) {
                         // console.log(code_Num)
                     }
                 }
+                //  for (var k = 2; k <= 12; ++k) {
+                //         // console.log(k)
+                //         if (typeof (RectOuterData[k]) == "undefined")
+                //             RectOuterData[k] = []
+                //         for (var i in RectOuterData[k - 1]) {
+                //             for (var j in RectOuterData[k - 1][i]["member"]) {
+                //                 RectOuterData[k][RectOuterData[k - 1][i]["member"][j][k]] = {
+                //                     "val": 0,
+                //                     "member": []
+                //                 }
+                //             }
+                //         }
+                //         for (var i in RectOuterData[k - 1]) {
+                //             for (var j in RectOuterData[k - 1][i]["member"]) {
+                //                 // RectOuterData[k - 1][i]["member"][j][k] 对应的分类
+                //                 RectOuterData[k][RectOuterData[k - 1][i]["member"][j][k]].val += parseInt(code_Num[RectOuterData[k - 1][i]["member"][j]["code"]])
+                //                 RectOuterData[k][RectOuterData[k - 1][i]["member"][j][k]].member.push(RectOuterData[k - 1][i]["member"][j])
+                //             }
+                //         }
+                //         for (var i in RectOuterData[k]) {
+                //             RectOuterData[k][i].val /= RectOuterData[k][i]["member"].length
+                //         }
+                //         RectOuterData[k].sort(function (a, b) {
+                //             return a.val - b.val;
+                //         })
+                //         for (var i in RectOuterData[k]) {
+                //             for (var j in RectOuterData[k][i]["member"]) {
+                //                 if (i == 0)
+                //                     code_Num[RectOuterData[k][i]["member"][j].code] = parseInt(j)
+                //                 else
+                //                     code_Num[RectOuterData[k][i]["member"][j].code] = parseInt(j) + RectOuterData[k][i]["member"].length
+                //             }
+                //         }
+                //         // console.log(code_Num)
+                //     }
                 var Sankey_Rect = []
                 for (var i in RectOuterData) {
                     var s_num = 0;
@@ -1281,7 +1322,6 @@ function PaintRect(num) {
                         Sankey_Rect.push(a)
                     }
                 }
-                console.log(RectOuterData)
 
                 // work = []
                 // final = []
@@ -1427,7 +1467,7 @@ function PaintRect(num) {
                         s_num += RectOuterData[i][j].member.length
                     }
                 }
-                console.log(Rect_Line_Data)
+                // console.log(Rect_Line_Data)
 
                 // var p = {}
 
@@ -1604,7 +1644,8 @@ function PaintRect(num) {
                 PaintTypeZ(d)
 
                 // // return p;
-                ScatterPaint(coor, p, num)
+                // ScatterPaint(coor, p, num)
+                ScatterPaint_gain_loss(coor, p, d1)
             })
         })
     })

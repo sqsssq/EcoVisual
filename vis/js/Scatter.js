@@ -19,12 +19,10 @@ function PP() {
 
 var pr = [];
 
-var coor = [];
+var coort = [];
 
 var tcircle = 0;
 var flag = -1;
-
-
 
 PP()
 
@@ -32,6 +30,7 @@ function ScatterPaint(coor, p, num) {
     // PP()
 
     // console.log(num)
+    coort = coor
 
     if (tcircle != 0) tcircle.remove()
     if (r != 0) r.remove()
@@ -91,12 +90,12 @@ function ScatterPaint(coor, p, num) {
             // if (d.l == num)
             return yScale(d.y);
         })
-        .attr("r", 2)
+        .attr("r", 1)
         // .attr('stroke', d => {
         //     return color[d.label]
         // })
         // .attr('stroke-width', 0.8)
-        .attr('fill-opacity', 0.3)
+        .attr('fill-opacity', 1)
         .on("mouseover", function (d, i) {
             // console.log(d)
             d3.select(this)
@@ -216,15 +215,25 @@ function ScatterPaint_gain_loss(coor, p, num_coor) {
 
     // var color = ['#00a676', '#f9c80e', '#3abeff', '#df19c1', '#ff206e', '#f08700', '#0091c9']
     var color = ['#2fe9b3', '#2f8fe9', '#c32fe9', '#e92f9c', '#2E8B57', '#e4e92f', '#FFFACD']
+    var a = d3.rgb(255, 0, 0); //红色
+    // var b = d3.rgb(0, 255, 0); //绿色
+    var b = '#00FF00'
+
+    var compute = d3.interpolate(a, b);
+
+    var linear = d3.scale.linear()
+        .domain([-550, 550])
+        .range([0, 1]);
     tcircle = ssvg.selectAll("circle")
         .data(coor)
         .enter()
         .append("circle")
         .attr("fill", (d, i) => {
             if (num_coor[i][91] <= 0)
-                return '#00FF00'
-            else
                 return 'red'
+            // return compute(linear(parseFloat(num_coor[i][91])))
+            else
+                return '#00FF00'
         })
         .attr("fill-opacity", "1")
         .attr("id", "circleid")
@@ -235,14 +244,14 @@ function ScatterPaint_gain_loss(coor, p, num_coor) {
         .attr("cy", function (d) {
             return yScale(d.y);
         })
-        .attr("r", 2)
-        .attr('stroke', (d, i) => {
-            if (num_coor[i][91] <= 0)
-                return '#00FF00'
-            else
-                return 'red'
-        })
-        .attr('stroke-width', 0.8)
+        .attr("r", 1)
+        // .attr('stroke', (d, i) => {
+        //     if (num_coor[i][91] <= 0)
+        //         return '#00FF00'
+        //     else
+        //         return 'red'
+        // })
+        // .attr('stroke-width', 0.8)
         .attr('fill-opacity', 1)
         .on("mouseover", function (d, i) {
             // console.log(d)

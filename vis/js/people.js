@@ -232,43 +232,66 @@ function Paintjudge(name) {
             })
 
         // draw pie
-        var pie = d3.layout.pie()
-        var dataset = [1, 1, 1, 1, 1, 1, 1, 1, 1]
-        var piedata = pie(dataset)
+        // console.log(pie_data)
 
 
-        for (var k in pie_data) {
-            pie_d = []
-            var pie_min = 9999,
-                pie_max = -9999
+        var pie_min = 9999,
+            pie_max = -9999
+        for (var k in pie_data)
             for (var i = 1; i <= 9; ++i) {
                 if (i == 1) {
-                    pie_d.push(parseFloat(pie_data[k][11]) - parseFloat(pie_data[k].work))
                     if (pie_max < parseFloat(pie_data[k][11]) - parseFloat(pie_data[k].work))
                         pie_max = parseFloat(pie_data[k][11]) - parseFloat(pie_data[k].work)
                     if (pie_min > parseFloat(pie_data[k][11]) - parseFloat(pie_data[k].work))
                         pie_min = parseFloat(pie_data[k][11]) - parseFloat(pie_data[k].work)
                 } else {
-                    // console.log(parseFloat(pie_data[k][i * 10 + 1]));
-                    pie_d.push(parseFloat(pie_data[k][i * 10 + 1]) - parseFloat(pie_data[k][(i - 1) * 10 + 1]))
                     if (pie_max < parseFloat(pie_data[k][i * 10 + 1]) - parseFloat(pie_data[k][(i - 1) * 10 + 1]))
                         pie_max = parseFloat(pie_data[k][i * 10 + 1]) - parseFloat(pie_data[k][(i - 1) * 10 + 1])
                     if (pie_min > parseFloat(pie_data[k][i * 10 + 1]) - parseFloat(pie_data[k][(i - 1) * 10 + 1]))
                         pie_min = parseFloat(pie_data[k][i * 10 + 1]) - parseFloat(pie_data[k][(i - 1) * 10 + 1])
                 }
             }
-            var zheng_scale = d3.scale.linear()
-                .domain([0, pie_max])
-                .range([4.5, 20])
-            var fu_scale = d3.scale.linear()
-                .domain([0, pie_min])
-                .range([4.5, 20])
+        var pie_scale;
+        if (Math.abs(pie_min) > Math.abs(pie_max))
+        pie_scale = Math.abs(pie_min)
+        else
+        pie_scale = Math.abs(pie_max)
+        var p_scale = d3.scale.linear()
+            .domain([0, pie_scale])
+            .range([4.5, 20])
+        var fu_scale = d3.scale.linear()
+            .domain([0, pie_min])
+            .range([4.5, 20])
+
+
+        for (var k in pie_data) {
+            pie_d = []
+            // var pie_min = 9999,
+            //     pie_max = -9999
+            for (var i = 1; i <= 9; ++i) {
+                if (i == 1) {
+                    pie_d.push(parseFloat(pie_data[k][11]) - parseFloat(pie_data[k].work))
+                    // if (pie_max < parseFloat(pie_data[k][11]) - parseFloat(pie_data[k].work))
+                    //     pie_max = parseFloat(pie_data[k][11]) - parseFloat(pie_data[k].work)
+                    // if (pie_min > parseFloat(pie_data[k][11]) - parseFloat(pie_data[k].work))
+                    //     pie_min = parseFloat(pie_data[k][11]) - parseFloat(pie_data[k].work)
+                } else {
+                    // console.log(parseFloat(pie_data[k][i * 10 + 1]));
+                    pie_d.push(parseFloat(pie_data[k][i * 10 + 1]) - parseFloat(pie_data[k][(i - 1) * 10 + 1]))
+                    // if (pie_max < parseFloat(pie_data[k][i * 10 + 1]) - parseFloat(pie_data[k][(i - 1) * 10 + 1]))
+                    //     pie_max = parseFloat(pie_data[k][i * 10 + 1]) - parseFloat(pie_data[k][(i - 1) * 10 + 1])
+                    // if (pie_min > parseFloat(pie_data[k][i * 10 + 1]) - parseFloat(pie_data[k][(i - 1) * 10 + 1]))
+                    //     pie_min = parseFloat(pie_data[k][i * 10 + 1]) - parseFloat(pie_data[k][(i - 1) * 10 + 1])
+                }
+            }
+
             for (var i = 0; i < 9; ++i) {
                 var pie_f
-                if (pie_d[i] <= 0)
-                    pie_f = fu_scale(pie_d[i])
-                else
-                    pie_f = zheng_scale(pie_d[i])
+                pie_f = p_scale(Math.abs(pie_d[i]))
+                // if (pie_d[i] <= 0)
+                //     pie_f = fu_scale(pie_d[i])
+                // else
+                //     pie_f = zheng_scale(pie_d[i])
 
                 var arc = d3.svg.arc()
                     .innerRadius(4.5)
@@ -283,7 +306,7 @@ function Paintjudge(name) {
                 peo_g.append('g')
                     .append('path')
                     .attr('d', arc(arc_data))
-                    .attr('transform', 'translate('+ p_xscale(parseInt(k) + 1) + ',' + p_yscale(p_data[k].price) + ')')
+                    .attr('transform', 'translate(' + p_xscale(parseInt(k) + 1) + ',' + p_yscale(p_data[k].price) + ')')
                     // .attr('stroke', 'black')
                     // .attr('stroke-width', '3px')
                     .attr('fill', (d) => {
@@ -292,6 +315,8 @@ function Paintjudge(name) {
                         else
                             return '#00FF00'
                     })
+                    .attr('stroke', 'black')
+                    .attr('stroke-width', 01)
                 // break
             }
             // console.log(pie_d);
