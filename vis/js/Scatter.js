@@ -23,8 +23,59 @@ var coort = [];
 
 var tcircle = 0;
 var flag = -1;
+var heatmapInstance = 0;
 
 PP()
+
+function DrawHeat(data, h_data) {
+    if (heatmapInstance != 0)
+    {
+        heatmapInstance.remove();
+        heatmapInstance = 0;
+    }
+    heatmapInstance = h337.create({
+        container: document.querySelector("#Tsne")
+    })
+    var points = []
+    var max = 0;
+    var padding = {
+        top: 5,
+        right: 10,
+        bottom: 5,
+        left: 10
+    };
+
+    var xAxisWidth = widtha - padding.right;
+    var yAxisWidth = heighta - padding.bottom;
+    var xScale = d3.scale.linear()
+        .domain([d3.min(data, function (d) {
+            return d.x;
+        }), d3.max(data, function (d) {
+            return d.x;
+        }) * 1.2])
+        .range([padding.left, xAxisWidth]);
+    var yScale = d3.scale.linear()
+        .domain([d3.min(data, function (d) {
+            return d.y;
+        }), d3.max(data, function (d) {
+            return d.y;
+        })])
+        .range([padding.top, yAxisWidth]);
+    for (i in data) {
+        if (max < parseFloat(h_data[i][91]))
+        max = parseFloat(h_data[i][91])
+        points.push({
+            x: padding.left + xScale(data[i].x),
+            y: yScale(data[i].y),
+            value: parseFloat(h_data[i][91])
+        })
+    }
+    var heat_data ={
+        max: max,
+        data: points
+    }
+    heatmapInstance.setData(heat_data)
+}
 
 function ScatterPaint(coor, p, num) {
     // PP()
@@ -34,6 +85,9 @@ function ScatterPaint(coor, p, num) {
 
     if (tcircle != 0) tcircle.remove()
     if (r != 0) r.remove()
+
+    DrawHeat(coor)
+
     var padding = {
         top: 5,
         right: 10,
@@ -187,7 +241,6 @@ function ScatterPaint_gain_loss(coor, p, num_coor) {
     if (tcircle != 0) tcircle.remove()
     if (r != 0) r.remove()
 
-    console.log(num_coor)
     var padding = {
         top: 5,
         right: 10,
@@ -211,6 +264,8 @@ function ScatterPaint_gain_loss(coor, p, num_coor) {
             return d.y;
         })])
         .range([padding.top, yAxisWidth]);
+
+    DrawHeat(coor, num_coor)
 
 
     // var color = ['#00a676', '#f9c80e', '#3abeff', '#df19c1', '#ff206e', '#f08700', '#0091c9']
