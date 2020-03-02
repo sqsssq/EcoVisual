@@ -116,6 +116,37 @@ function Paintjudge(name) {
             })
             .attr('stroke', '#0a3c75')
 
+        var cur = (p_max - p_min) / 5
+
+        var h_line = []
+        for (var i = 0; i <= 4; ++i) {
+            h_line.push([parseFloat(p_xscale(1)), parseFloat(p_xscale(20))])
+        }
+        peo_g.selectAll('#x_line')
+            .attr('id', 'x_line')
+            .data(h_line)
+            .enter()
+            .append('g')
+            .append('line')
+            .attr('x1', d => {
+                return d[0]
+            })
+            .attr('y1', (d, i) => {
+                return p_yscale(parseFloat(p_min + i * cur))
+            })
+            .attr('x2', d => {
+                return d[1]
+            })
+            .attr('y2', (d, i) => {
+                console.log(d)
+                return p_yscale(parseFloat(p_min + i * cur))
+            })
+            .attr('fill', 'none')
+            .attr('stroke', '#0a3c75')
+            .attr('stroke-width', 0.1)
+            .attr('stroke-opacity', 0.4)
+            .attr('stroke-dasharray', 5.5)
+
         peo_g.selectAll('#x_line')
             .attr('id', 'x_line')
             .data(p_data)
@@ -123,17 +154,23 @@ function Paintjudge(name) {
             .append('g')
             .append('line')
             .attr('x1', d => {
-                return p_xscale(d.lun)
+                if (d.lun != 1)
+                    return p_xscale(d.lun)
             })
             .attr('y1', d => {
-                return p_yscale(d.price)
+                if (d.lun != 1)
+                    // return p_yscale(d.price)
+                    return p_yscale(parseInt(p_min))
             })
             .attr('x2', d => {
-                return p_xscale(d.lun)
+                if (d.lun != 1)
+                    return p_xscale(d.lun)
             })
             .attr('y2', d => {
-                // return 260;
-                return p_yscale(0)
+                if (d.lun != 1)
+                    // return 260;
+                    // return p_yscale(0)
+                    return p_yscale(parseInt(p_max))
             })
             .attr('fill', 'none')
             .attr('stroke', '#0a3c75')
@@ -143,7 +180,7 @@ function Paintjudge(name) {
 
 
         var xAxis = d3.svg.axis().scale(p_xscale).ticks(20).tickFormat(d3.format("d")).orient("bottom");
-        var yAxis = d3.svg.axis().scale(p_yscale).ticks(0).tickFormat(d3.format("d")).orient("left"); //添加一个g用于放x轴
+        var yAxis = d3.svg.axis().scale(p_yscale).ticks(10).tickFormat(d3.format()).orient("left"); //添加一个g用于放x轴
 
         peo_g.append("g")
             .attr("class", "axis")
@@ -232,9 +269,6 @@ function Paintjudge(name) {
             })
 
         // draw pie
-        // console.log(pie_data)
-
-
         var pie_min = 9999,
             pie_max = -9999
         for (var k in pie_data)
@@ -253,9 +287,9 @@ function Paintjudge(name) {
             }
         var pie_scale;
         if (Math.abs(pie_min) > Math.abs(pie_max))
-        pie_scale = Math.abs(pie_min)
+            pie_scale = Math.abs(pie_min)
         else
-        pie_scale = Math.abs(pie_max)
+            pie_scale = Math.abs(pie_max)
         var p_scale = d3.scale.linear()
             .domain([0, pie_scale])
             .range([4.5, 20])

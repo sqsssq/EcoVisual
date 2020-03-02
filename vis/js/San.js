@@ -51,6 +51,20 @@ var title_tip = [
     ['财富低', '财富中', '财富高'],
     ['风险偏好0', '风险偏好1', '风险偏好2', '风险偏好3', '风险偏好4', '风险偏好5']
 ]
+var title_tip_symbol = [
+    ['💼'],
+    ['🚫', '💲', '💲'],
+    ['🚫', '💲'],
+    ['🚫', '🎟'],
+    ['🚫', '💰'],
+    ['🚫', '💰'],
+    ['🚫', '⚡', '⚡', '⚡'],
+    ['🈚', '🈚', '🈚', '🈶'],
+    ['🚫', '🚑', '🚑', '🚑'],
+    ['⭕', '❌'],
+    ['低', '中', '高'],
+    ['0', '1', '2', '3', '4', '5']
+]
 var Rect_data = -1;
 
 var tooltip = d3.select("body")
@@ -1078,14 +1092,14 @@ function PaintRect(num) {
     if (num == 20) coorp = "data/Scatter/20.json";
     d3.csv("data/box.csv", function (d1) {
         // d3.json(coorp, function (coor) {
-        d3.json('data/Scatter/newScatter.json', function (coor) {
+        d3.json('data/Scatter/tsne_s.json', function (coor) {
             d3.csv("data/box_calc.csv", function (RectInData) {
 
                 if (Rect_g != 0) Rect_g.remove()
                 if (text_g != 0) text_g.remove()
 
                 Rect_g = svg.append('g')
-                    .attr("transform", "translate(" + 0 + "," + -15 + ")");
+                    .attr("tratsne_xnsform", "translate(" + 0 + "," + -15 + ")");
 
                 text_g = svg.append('g')
                     .attr("transform", "translate(" + 0 + "," + -5 + ")");
@@ -1102,6 +1116,8 @@ function PaintRect(num) {
                     if (parseInt(d1[i].biao) == num)
                         d.push(d1[i])
                 }
+
+                console.log(d)
 
                 var textk = text_g.selectAll('#textk')
                     .attr("id", "trextk")
@@ -1645,7 +1661,7 @@ function PaintRect(num) {
 
                 // // return p;
                 // ScatterPaint(coor, p, num)
-                ScatterPaint_gain_loss(coor, p, d1)
+                ScatterPaint_gain_loss(coor, p, d1, num)
             })
         })
     })
