@@ -323,7 +323,6 @@ function ScatterPaint_gain_loss(coor, p, num_coor, num) {
             return xScale(d)
         })
         .attr('y2', (d, i) => {
-            console.log(d)
             return yScale(max_y)
         })
         .attr('fill', 'none')

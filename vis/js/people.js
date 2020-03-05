@@ -16,6 +16,7 @@ lc_p_g = peo_svg.append('g')
 var peo_g = 0;
 
 var nam = 0;
+var color = ['#00a676', '#f9c80e', '#3abeff', '#df19c1', '#ff206e', '#f08700', '#0091c9', '#2fe9b3', '#2f8fe9', '#c32fe9', '#e92f9c', '#2E8B57', '#e4e92f', '#FFFACD']
 
 function Paintjudge(name) {
     nam = name;
@@ -37,11 +38,12 @@ function Paintjudge(name) {
                 pie_data.push(data[d])
                 p_ = {}
                 p_['name'] = name
-                p_['judge'] = [parseInt(data[d]['1']), parseInt(data[d]['2']), parseInt(data[d]['3']), parseInt(data[d]['4']), parseInt(data[d]['5'])]
+                p_['judge'] = [parseInt(data[d]['1']), parseInt(data[d]['2']), parseInt(data[d]['3']), parseInt(data[d]['4']), parseInt(data[d]['5']), parseInt(data[d]['6']), parseInt(data[d]['7']), parseInt(data[d]['8']), parseInt(data[d][9]), parseInt(data[d]['risk'])]
                 p_['price'] = parseFloat(data[d]['91'])
                 if (p_max < parseFloat(data[d]['91'])) p_max = parseFloat(data[d]['91'])
                 if (p_min > parseFloat(data[d]['91'])) p_min = parseFloat(data[d]['91'])
                 p_['lun'] = data[d]['biao']
+                p_['sum'] = data[d]
                 p_data.push(p_)
             }
             // console.log(data[d])
@@ -77,20 +79,22 @@ function Paintjudge(name) {
             l['x2'] = parseInt(p_data[i]['lun'])
             l['y2'] = p_data[i]['price']
             var dif = 0;
-            for (var j = 0; j <= 4; ++j) {
+            for (var j = 0; j <= 9; ++j) {
                 dif += (p_data[i]['judge'][j] - p_data[i - 1]['judge'][j]) * (p_data[i]['judge'][j] - p_data[i - 1]['judge'][j]);
                 if (dif_max < dif) dif_max = dif
                 if (dif_min > dif) dif_min = dif
             }
-            l['w'] = Math.sqrt(dif);
+            l['w'] = (dif);
             line_data.push(l)
         }
+        // console.log(line_data)
 
         // console.log(dif_min)
+        // console.log(dif_max)
 
         var l_scale = d3.scale.linear()
             .domain([parseFloat(dif_min), parseFloat(dif_max)])
-            .range([1, 10])
+            .range([1, 6])
 
         peo_g.selectAll('#peo_l')
             .attr('id', 'peo_l')
@@ -119,7 +123,7 @@ function Paintjudge(name) {
         var cur = (p_max - p_min) / 5
 
         var h_line = []
-        for (var i = 0; i <= 4; ++i) {
+        for (var i = 0; i <= 5; ++i) {
             h_line.push([parseFloat(p_xscale(1)), parseFloat(p_xscale(20))])
         }
         peo_g.selectAll('#x_line')
@@ -138,7 +142,7 @@ function Paintjudge(name) {
                 return d[1]
             })
             .attr('y2', (d, i) => {
-                console.log(d)
+                // console.log(d)
                 return p_yscale(parseFloat(p_min + i * cur))
             })
             .attr('fill', 'none')
@@ -223,11 +227,37 @@ function Paintjudge(name) {
             })
             .attr('stroke', 'red')
             .attr('stroke-width', 1)
-            .on('click', d => {
-                peo_t.style('opacity', 0)
+            .on("mouseover", (d, i) => {
+                // console.log(d.sum.work)
+                var x_d = []
+                for (var i = 1; i <= 9; ++i) {
+                    if (i == 1) {
+                        x_d.push(Math.round(parseFloat(d.sum[11]) - parseFloat(d.sum.work)))
+                        // if (pie_max < parseFloat(pie_data[k][11]) - parseFloat(pie_data[k].work))
+                        //     pie_max = parseFloat(pie_data[k][11]) - parseFloat(pie_data[k].work)
+                        // if (pie_min > parseFloat(pie_data[k][11]) - parseFloat(pie_data[k].work))
+                        //     pie_min = parseFloat(pie_data[k][11]) - parseFloat(pie_data[k].work)
+                    } else {
+                        // console.log(parseFloat(pie_data[k][i * 10 + 1]));
+                        x_d.push(Math.round(parseFloat(d.sum[i * 10 + 1]) - parseFloat(d.sum[(i - 1) * 10 + 1]), 2))
+                        // if (pie_max < parseFloat(pie_data[k][i * 10 + 1]) - parseFloat(pie_data[k][(i - 1) * 10 + 1]))
+                        //     pie_max = parseFloat(pie_data[k][i * 10 + 1]) - parseFloat(pie_data[k][(i - 1) * 10 + 1])
+                        // if (pie_min > parseFloat(pie_data[k][i * 10 + 1]) - parseFloat(pie_data[k][(i - 1) * 10 + 1]))
+                        //     pie_min = parseFloat(pie_data[k][i * 10 + 1]) - parseFloat(pie_data[k][(i - 1) * 10 + 1])
+                    }
+                }
+                tooltip.html("第" + (i + 1) + '轮' + "</br>" + "工作：" + (x_d[0] + 30) + "</br>" + "损耗：-30" + "</br>" + title[1] + ": " + x_d[1] + "</br>" + title[2] + ": " + x_d[2] + "</br>" + title[3] + ": " + x_d[3] 
+                + "</br>" + title[4] + ": " + x_d[4] + "</br>" + title[5] + ": " + x_d[5] + "</br>" + title[6] + ": " + x_d[6] + "</br>" + title[7] + ": " + x_d[7] + "</br>" + title[8] + ": " + x_d[8] + "</br>")
+                    .style("left", (d3.event.pageX - 15) + "px")
+                    .style("top", (d3.event.pageY + 20) + "px")
+                    .style("opacity", 1.0)
             })
-            .on('dblclick', d => {
-                peo_t.style('opacity', 1)
+            .on("mousemove", d => {
+                tooltip.style("left", (d3.event.pageX - 15) + "px")
+                    .style("top", (d3.event.pageY + 20) + "px")
+            })
+            .on("mouseout", d => {
+                tooltip.style("opacity", 0.0)
             })
 
         var peo_t = peo_g.selectAll('#p_text')
@@ -293,9 +323,6 @@ function Paintjudge(name) {
         var p_scale = d3.scale.linear()
             .domain([0, pie_scale])
             .range([4.5, 20])
-        var fu_scale = d3.scale.linear()
-            .domain([0, pie_min])
-            .range([4.5, 20])
 
 
         for (var k in pie_data) {
@@ -350,7 +377,7 @@ function Paintjudge(name) {
                             return '#00FF00'
                     })
                     .attr('stroke', 'black')
-                    .attr('stroke-width', 01)
+                    .attr('stroke-width', 0.5)
                 // break
             }
             // console.log(pie_d);
@@ -370,17 +397,20 @@ function Paintjudge_2(name) {
         // console.log(data)
         p_data = []
         var p1_data = []
+        var pie_data = []
 
         var p_max = -100000
         var p_min = 100000
 
         for (var select_name in name) {
             p_data.push([])
+            pie_data.push([])
             for (var d in data) {
                 if (data[d].code == name[select_name]) {
+                    pie_data[select_name].push(data[d])
                     p_ = {}
                     p_['name'] = name
-                    p_['judge'] = [parseInt(data[d]['1']), parseInt(data[d]['2']), parseInt(data[d]['3']), parseInt(data[d]['4']), parseInt(data[d]['5'])]
+                    p_['judge'] = [parseInt(data[d]['1']), parseInt(data[d]['2']), parseInt(data[d]['3']), parseInt(data[d]['4']), parseInt(data[d]['5']), parseInt(data[d]['6']), parseInt(data[d]['7']), parseInt(data[d]['8']), parseInt(data[d][9]), parseInt(data[d]['risk'])]
                     p_['price'] = parseFloat(data[d]['91'])
                     if (p_max < parseFloat(data[d]['91'])) p_max = parseFloat(data[d]['91'])
                     if (p_min > parseFloat(data[d]['91'])) p_min = parseFloat(data[d]['91'])
@@ -435,7 +465,7 @@ function Paintjudge_2(name) {
                 l['x2'] = parseInt(p_data[p_data_num][i]['lun'])
                 l['y2'] = p_data[p_data_num][i]['price']
                 var dif = 0;
-                for (var j = 0; j <= 4; ++j) {
+                for (var j = 0; j <= 9; ++j) {
                     dif += (p_data[p_data_num][i]['judge'][j] - p_data[p_data_num][i - 1]['judge'][j]) * (p_data[p_data_num][i]['judge'][j] - p_data[p_data_num][i - 1]['judge'][j]);
                     if (dif_max < dif) dif_max = dif
                     if (dif_min > dif) dif_min = dif
@@ -444,6 +474,34 @@ function Paintjudge_2(name) {
                 line_data[p_data_num].push(l)
             }
         }
+
+        var pie_min = 9999,
+            pie_max = -9999
+        for (var j in pie_data) {
+            for (var k in pie_data[j])
+                for (var i = 1; i <= 9; ++i) {
+                    if (i == 1) {
+                        if (pie_max < parseFloat(pie_data[j][k][11]) - parseFloat(pie_data[j][k].work))
+                            pie_max = parseFloat(pie_data[j][k][11]) - parseFloat(pie_data[j][k].work)
+                        if (pie_min > parseFloat(pie_data[j][k][11]) - parseFloat(pie_data[j][k].work))
+                            pie_min = parseFloat(pie_data[j][k][11]) - parseFloat(pie_data[j][k].work)
+                    } else {
+                        if (pie_max < parseFloat(pie_data[j][k][i * 10 + 1]) - parseFloat(pie_data[j][k][(i - 1) * 10 + 1]))
+                            pie_max = parseFloat(pie_data[j][k][i * 10 + 1]) - parseFloat(pie_data[j][k][(i - 1) * 10 + 1])
+                        if (pie_min > parseFloat(pie_data[j][k][i * 10 + 1]) - parseFloat(pie_data[j][k][(i - 1) * 10 + 1]))
+                            pie_min = parseFloat(pie_data[j][k][i * 10 + 1]) - parseFloat(pie_data[j][k][(i - 1) * 10 + 1])
+                    }
+                }
+        }
+
+        var pie_scale;
+        if (Math.abs(pie_min) > Math.abs(pie_max))
+            pie_scale = Math.abs(pie_min)
+        else
+            pie_scale = Math.abs(pie_max)
+        var p_scale = d3.scale.linear()
+            .domain([0, pie_scale])
+            .range([4.5, 20])
 
         var l_scale = d3.scale.linear()
             .domain([parseFloat(dif_min), parseFloat(dif_max)])
@@ -472,7 +530,10 @@ function Paintjudge_2(name) {
                 .attr('stroke-width', d => {
                     return l_scale(d.w)
                 })
-                .attr('stroke', '#0a3c75')
+                // .attr('stroke', '#0a3c75')
+                .attr('stroke', (d, i) => {
+                    return color[peo_num % color.length]
+                })
 
             peo_g.selectAll('#x_line')
                 .attr('id', 'x_line')
@@ -523,6 +584,54 @@ function Paintjudge_2(name) {
                 .on('dblclick', d => {
                     peo_t.style('opacity', 1)
                 })
+
+            for (var k in pie_data[peo_num]) {
+                pie_d = []
+                // var pie_min = 9999,
+                //     pie_max = -9999
+                for (var i = 1; i <= 9; ++i) {
+                    if (i == 1) {
+                        pie_d.push(parseFloat(pie_data[peo_num][k][11]) - parseFloat(pie_data[peo_num][k].work))
+                    } else {
+                        pie_d.push(parseFloat(pie_data[peo_num][k][i * 10 + 1]) - parseFloat(pie_data[peo_num][k][(i - 1) * 10 + 1]))
+                    }
+                }
+
+                for (var i = 0; i < 9; ++i) {
+                    var pie_f
+                    pie_f = p_scale(Math.abs(pie_d[i]))
+                    // if (pie_d[i] <= 0)
+                    //     pie_f = fu_scale(pie_d[i])
+                    // else
+                    //     pie_f = zheng_scale(pie_d[i])
+
+                    var arc = d3.svg.arc()
+                        .innerRadius(4.5)
+                        .outerRadius(pie_f)
+
+                    var arc_data = {
+                        startAngle: Math.PI * (i) * 2 / 9,
+                        endAngle: Math.PI * (i + 1) * 2 / 9
+                    }
+                    // console.log(k)
+                    var kkk = 200
+                    peo_g.append('g')
+                        .append('path')
+                        .attr('d', arc(arc_data))
+                        .attr('transform', 'translate(' + p_xscale(parseInt(k) + 1) + ',' + p_yscale(p_data[peo_num][k].price) + ')')
+                        // .attr('stroke', 'black')
+                        // .attr('stroke-width', '3px')
+                        .attr('fill', (d) => {
+                            if (pie_d[i] < 0)
+                                return 'red'
+                            else
+                                return '#00FF00'
+                        })
+                        .attr('stroke', 'black')
+                        .attr('stroke-width', 0.5)
+                    // break
+                }
+            }
 
         }
 

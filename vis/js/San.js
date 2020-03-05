@@ -38,7 +38,7 @@ color = ['#eeeeee', '#00adb5', '#393e46', '#222831']
 
 var title = ['工作', '健康投资', '财产保险', '借贷机会', '投资', '风险投资', '负面冲击', '买彩票', '生病', '失业', '财富分级', '风险偏好']
 var title_tip = [
-    [],
+    ['能力弱', '能力中', '能力强'],
     ['投资0', '投资5', '投资10'],
     ['不购买', '购买'],
     ['不借', '借'],
@@ -52,18 +52,18 @@ var title_tip = [
     ['风险偏好0', '风险偏好1', '风险偏好2', '风险偏好3', '风险偏好4', '风险偏好5']
 ]
 var title_tip_symbol = [
-    ['💼'],
-    ['🚫', '💲', '💲'],
-    ['🚫', '💲'],
-    ['🚫', '🎟'],
+    ['💼', '💼', '💼'],
+    ['🚫', '￥', '￥'],
+    ['🚫', '￥'],
+    ['🚫', '💠'],
     ['🚫', '💰'],
     ['🚫', '💰'],
     ['🚫', '⚡', '⚡', '⚡'],
     ['🈚', '🈚', '🈚', '🈶'],
     ['🚫', '🚑', '🚑', '🚑'],
     ['⭕', '❌'],
-    ['低', '中', '高'],
-    ['0', '1', '2', '3', '4', '5']
+    ['🔺', '🔸', '🔻'],
+    ['0', '1', '2', '3', '4', '5', '6']
 ]
 var Rect_data = -1;
 
@@ -98,7 +98,7 @@ var LinePaint = function (path, dia, color) {
     //         var tt = 0;
     //         if (d.x1 == 0) tt = 3 * steplen / 2;
     //         if (d.x1 == 2 || d.x1 == 3 || d.x1 == 4 || d.x1 == 5 || d.x1 == 9) tt = steplen
-    //         return d.y1 * bei + height - padding.top - 364 + d.n1 * steplen + tt - 10;
+    //         return d.y1 * bei + height - padding.top - 375 + d.n1 * steplen + tt - 10;
     //     })
     //     .attr("x2", (d, i) => {
     //         return padding.left + d.x2 * rectStep;
@@ -107,7 +107,7 @@ var LinePaint = function (path, dia, color) {
     //         var tt = 0;
     //         if (d.x2 == 0) tt = 3 * steplen / 2;
     //         if (d.x2 == 2 || d.x2 == 3 || d.x2 == 4 || d.x2 == 5 || d.x2 == 9) tt = steplen
-    //         return d.y2 * bei + height - padding.top - 364 + d.n2 * steplen + tt - 10;
+    //         return d.y2 * bei + height - padding.top - 375 + d.n2 * steplen + tt - 10;
     //     })
     //     .attr("stroke", color)
     //     .attr("stroke-width", 1)
@@ -166,7 +166,7 @@ var PathCalc = function (p, n, x) {
         for (var i in p) {
 
             p_n[i] = p[i]
-            
+
             for (var j = 1; j <= 11; ++j) {
                 a = {}
                 a['name'] = i
@@ -179,22 +179,22 @@ var PathCalc = function (p, n, x) {
                 path.push(a);
 
                 var tt = 0;
-                if (a['x1'] == 0) tt = 3 * steplen / 2;
+                // if (a['x1'] == 0) tt = 3 * steplen / 2;
                 if (a['x1'] == 2 || a['x1'] == 3 || a['x1'] == 4 || a['x1'] == 5 || a['x1'] == 9) tt = steplen
 
                 var ttt = 0;
-                if (a['x2'] == 0) ttt = 3 * steplen / 2;
+                // if (a['x2'] == 0) ttt = 3 * steplen / 2;
                 if (a['x2'] == 2 || a['x2'] == 3 || a['x2'] == 4 || a['x2'] == 5 || a['x2'] == 9) ttt = steplen
 
-                //return d.y1 * bei + height - padding.top - 364 + d.n1 * steplen + tt - 10;
+                //return d.y1 * bei + height - padding.top - 375 + d.n1 * steplen + tt - 10;
 
                 b = {
                     source: {
-                        x: a['y1'] * bei + height - padding.top - 364 + a['n1'] * steplen + tt - 10,
+                        x: a['y1'] * bei + height - padding.top - 375 + a['n1'] * steplen + tt - 10,
                         y: padding.left + a['x1'] * rectStep + 40
                     },
                     target: {
-                        x: a['y2'] * bei + height - padding.top - 364 + a['n2'] * steplen + ttt - 10,
+                        x: a['y2'] * bei + height - padding.top - 375 + a['n2'] * steplen + ttt - 10,
                         y: padding.left + a['x2'] * rectStep
                     }
                 }
@@ -218,22 +218,22 @@ var PathCalc = function (p, n, x) {
                     path.push(a);
 
                     var tt = 0;
-                    if (a['x1'] == 0) tt = 3 * steplen / 2;
+                    // if (a['x1'] == 0) tt = 3 * steplen / 2;
                     if (a['x1'] == 2 || a['x1'] == 3 || a['x1'] == 4 || a['x1'] == 5 || a['x1'] == 9) tt = steplen
 
                     var ttt = 0;
-                    if (a['x2'] == 0) ttt = 3 * steplen / 2;
+                    // if (a['x2'] == 0) ttt = 3 * steplen / 2;
                     if (a['x2'] == 2 || a['x2'] == 3 || a['x2'] == 4 || a['x2'] == 5 || a['x2'] == 9) ttt = steplen
 
-                    //return d.y1 * bei + height - padding.top - 364 + d.n1 * steplen + tt - 10;
+                    //return d.y1 * bei + height - padding.top - 375 + d.n1 * steplen + tt - 10;
 
                     b = {
                         source: {
-                            x: a['y1'] * bei + height - padding.top - 364 + a['n1'] * steplen + tt - 10,
+                            x: a['y1'] * bei + height - padding.top - 375 + a['n1'] * steplen + tt - 10,
                             y: padding.left + a['x1'] * rectStep + 40
                         },
                         target: {
-                            x: a['y2'] * bei + height - padding.top - 364 + a['n2'] * steplen + ttt - 10,
+                            x: a['y2'] * bei + height - padding.top - 375 + a['n2'] * steplen + ttt - 10,
                             y: padding.left + a['x2'] * rectStep
                         }
                     }
@@ -254,11 +254,11 @@ function RectMove(data, d) {
         L = 1;
     }
     var tt = 0;
-    if (d.x == 0) tt = 3 * steplen / 2;
+    // if (d.x == 0) tt = 3 * steplen / 2;
     if (d.x == 2 || d.x == 3 || d.x == 4 || d.x == 5 || d.x == 9) tt = steplen
     orange_rect = Rect_g.append("rect")
         .attr("x", padding.left + d.x * rectStep)
-        .attr("y", height - padding.top - 364 + d.start * bei + d.n * steplen + tt - 10)
+        .attr("y", height - padding.top - 375 + d.start * bei + d.n * steplen + tt - 10)
         .attr("width", rectWidth)
         .attr("height", (d.end - d.start) * bei)
         .attr("fill-opacity", 0.0)
@@ -851,7 +851,7 @@ function PaintTypeZ(d) {
         .attr('d', L_path(line_num_sum))
         .attr("fill", 'none')
         .attr('stroke-width', 0.1)
-        .attr('stroke', '#00FF00')
+        .attr('stroke', 'red')
         .attr("stroke-dasharray", function (d, i) {
             // if(i==0){
             return "5,5";
@@ -1110,14 +1110,12 @@ function PaintRect(num) {
                         code_Label[coor[i].id] = coor[i].label
                     }
                 }
-                
+
                 var d = []
                 for (var i in d1) {
                     if (parseInt(d1[i].biao) == num)
                         d.push(d1[i])
                 }
-
-                console.log(d)
 
                 var textk = text_g.selectAll('#textk')
                     .attr("id", "trextk")
@@ -1176,8 +1174,6 @@ function PaintRect(num) {
                     .domain([0, maxx])
                     .range([0, 39])
 
-                // console.log(d)
-
                 // 减少杂化
                 let RectInnerData = []
                 for (var i in RectInData) {
@@ -1186,17 +1182,25 @@ function PaintRect(num) {
                     }
                 }
                 var sort_ten = [] // 第十列排序
+                var sort_one = []
                 var sort_ten_inner = {}
+                var sort_one_inner = {}
                 var code_Num = {} // 记录编号排布
+                console.log(RectInnerData)
                 for (var i in RectInnerData) {
                     sort_ten.push(parseFloat(RectInnerData[i][119]))
+                    sort_one.push(parseFloat(RectInnerData[i][29]) - parseFloat(RectInnerData[i][19]))
                     code_Num[RectInnerData[i].code] = i
                 }
                 sort_ten.sort(function (a, b) {
                     return a - b;
                 })
+                sort_one.sort(function (a, b) {
+                    return a - b;
+                })
                 for (var i in sort_ten) {
                     sort_ten_inner[sort_ten[i]] = i;
+                    sort_one_inner[sort_one[i]] = i;
                 }
                 for (var i in RectInnerData) {
                     if (parseInt(sort_ten_inner[RectInnerData[i][119]]) <= 100)
@@ -1205,10 +1209,33 @@ function PaintRect(num) {
                         RectInnerData[i][11] = 1;
                     else
                         RectInnerData[i][11] = 2
+                    
+                    if (parseInt(sort_one_inner[parseFloat(RectInnerData[i][29]) - parseFloat(RectInnerData[i][19])]) <= 100)
+                        RectInnerData[i][1] = 0;
+                    else if (parseInt(sort_one_inner[parseFloat(RectInnerData[i][29]) - parseFloat(RectInnerData[i][19])]) <= 200)
+                        RectInnerData[i][1] = 1;
+                    else
+                        RectInnerData[i][1] = 2;
+                    
                 }
+                for (var i in RectInnerData) {
+                    for (var j = 1; j <= 12; ++j) {
+                        RectInnerData[i][j * 10 + 7] = title_tip_symbol[parseInt(j - 1)][parseInt(RectInnerData[i][j])]
+                        RectInnerData[i][j * 10 + 8] = title_tip[parseInt(j - 1)][parseInt(RectInnerData[i][j])]
+                    }
+                }
+                // console.log(RectInnerData)
                 let RectOuterData = []
                 RectOuterData[1] = []
                 RectOuterData[1][0] = {
+                    'val': 0,
+                    'member': []
+                }
+                RectOuterData[1][1] = {
+                    'val': 0,
+                    'member': []
+                }
+                RectOuterData[1][2] = {
                     'val': 0,
                     'member': []
                 }
@@ -1329,11 +1356,15 @@ function PaintRect(num) {
                 for (var i in RectOuterData) {
                     var s_num = 0;
                     for (var j in RectOuterData[i]) {
+                        // console.log( RectOuterData[i][j].member[0])
                         a = {}
                         a["x"] = i - 1
                         a["n"] = j
                         a["start"] = s_num
                         s_num += RectOuterData[i][j].member.length
+                        a['tip'] = RectOuterData[i][j].member[0][i * 10 + 8]
+                        a['symbol'] = RectOuterData[i][j].member[0][i * 10 + 7]
+                        a['weight'] = RectOuterData[i][j].member[0][i]
                         a["end"] = s_num;
                         Sankey_Rect.push(a)
                     }
@@ -1392,6 +1423,13 @@ function PaintRect(num) {
                 // })
                 // console.log(type);
 
+                console.log(Sankey_Rect)
+
+                var Font_scale = d3.scale.linear()
+                .domain([1, 3])
+                .range([15, 20])
+
+
 
                 // 画桑基块
                 Rect_g.selectAll(".recta")
@@ -1405,9 +1443,9 @@ function PaintRect(num) {
                     .attr("y", d => {
                         // console.log(d);
                         var tt = 0;
-                        if (d.x == 0) tt = 3 * steplen / 2;
+                        // // if (d.x == 0) tt = 3 * steplen / 2;
                         if (d.x == 2 || d.x == 3 || d.x == 4 || d.x == 5 || d.x == 9) tt = steplen
-                        return height - padding.top - 364 + d.start * bei + d.n * steplen + tt - 10;
+                        return height - padding.top - 375 + d.start * bei + d.n * steplen + tt - 10;
                     })
                     // .attr("rx", 5)
                     .attr("width", rectWidth)
@@ -1430,8 +1468,8 @@ function PaintRect(num) {
                             .domain([-2, 8])
                             .range([0, 1])
                         if (d.x != 11)
-                            return colorx(color_scale(parseInt(d.n * 2)))
-                        return colorx(color_scale(parseInt(d.n)))
+                            return colorx(color_scale(parseInt(d.weight * 2)))
+                        return colorx(color_scale(parseInt(d.weight)))
                     })
                     .attr("fill-opacity", d => {
                         if (d.x != 11)
@@ -1445,23 +1483,55 @@ function PaintRect(num) {
                         }
                         RectMove(Rect_data, d)
                     })
-                    // .on("mouseover", d => {
-                    //     tooltip.html("过程：" + title[d.x] + "</br>" + "状态：" + title_tip[d.x][d.n])
-                    //         .style("left", (d3.event.pageX - 15) + "px")
-                    //         .style("top", (d3.event.pageY + 20) + "px")
-                    //         .style("opacity", 1.0)
-                    // })
-                    // .on("mousemove", d => {
-                    //     tooltip.style("left", (d3.event.pageX - 15) + "px")
-                    //         .style("top", (d3.event.pageY + 20) + "px")
-                    // })
-                    // .on("mouseout", d => {
-                    //     tooltip.style("opacity", 0.0)
-                    // })
+                    .on("mouseover", d => {
+                        tooltip.html("过程：" + title[d.x] + "</br>" + "状态：" + d.tip)
+                            .style("left", (d3.event.pageX - 15) + "px")
+                            .style("top", (d3.event.pageY + 20) + "px")
+                            .style("opacity", 1.0)
+                    })
+                    .on("mousemove", d => {
+                        tooltip.style("left", (d3.event.pageX - 15) + "px")
+                            .style("top", (d3.event.pageY + 20) + "px")
+                    })
+                    .on("mouseout", d => {
+                        tooltip.style("opacity", 0.0)
+                    })
+                Rect_g.selectAll(".recta")
+                    .data(Sankey_Rect)
+                    .enter()
+                    .append('text')
+                    .attr('fill', 'black')
+                    .attr('font-size', (d, i) => {
+                            if (d.weight == 0 || (d.x == 11) || d.x == 7 || d.x == 10 || d.x == 9)
+                                return '15px'
+                            else
+                                return Font_scale(parseInt(d.weight))
+                    })
+                    .attr('font-weight', 'bold')
+                    .attr('text-anchor', 'middle')
+                    .attr("font-family", "courier")
+                    .attr('x', function (d, i) {
+                        return padding.left + d.x * rectStep + rectWidth - 8;
+                    })
+                    .attr('y', function (d) {
+                        // console.log(d);
+                        var tt = 0;
+                        // if (d.x == 0) tt = 3 * steplen / 2;
+                        if (d.x == 2 || d.x == 3 || d.x == 4 || d.x == 5 || d.x == 9) tt = steplen
+                        return height - padding.top - 375 + d.start * bei + d.n * steplen + tt;
+                    })
+                    .attr('dx', '0.5em') //dx是相对于x平移的大小
+                    .attr('dy', '-0.22em') //dy是相对于y平移的大小
+                    .text(function (d) {
+                        // if (d.end - d.start >= 20)
+                        return d.symbol;
+                    })
+
+
 
                 var Rect_Line_Data = []; // 块内横线的数据
                 var p = {}; // 计算连接线
-                
+
                 for (var i in d) {
                     p[d[i].code] = {};
                 }
@@ -1625,9 +1695,9 @@ function PaintRect(num) {
                     .attr("y1", (d, i) => {
                         // console.log(d)
                         var tt = 0;
-                        if (d.x == 0) tt = 3 * steplen / 2;
+                        // if (d.x == 0) tt = 3 * steplen / 2;
                         if (d.x == 2 || d.x == 3 || d.x == 4 || d.x == 5 || d.x == 9) tt = steplen
-                        return d.y * bei + height - padding.top - 364 + d.n * steplen + tt - 10;
+                        return d.y * bei + height - padding.top - 375 + d.n * steplen + tt - 10;
                     })
                     .attr("x2", (d, i) => {
                         var len;
@@ -1640,9 +1710,9 @@ function PaintRect(num) {
                     .attr("y2", (d, i) => {
 
                         var tt = 0;
-                        if (d.x == 0) tt = 3 * steplen / 2;
+                        // if (d.x == 0) tt = 3 * steplen / 2;
                         if (d.x == 2 || d.x == 3 || d.x == 4 || d.x == 5 || d.x == 9) tt = steplen
-                        return d.y * bei + height - padding.top - 364 + d.n * steplen + tt - 10;
+                        return d.y * bei + height - padding.top - 375 + d.n * steplen + tt - 10;
                     })
                     .attr("stroke", d => {
                         if (d.v >= 0)
@@ -2335,9 +2405,9 @@ function Connect(num) {
         .attr('y1', 40)
         .attr('x2', 10)
         .attr('y2', 65)
-        .attr('stroke', 'yellow')
+        .attr('stroke', 'orange')
         .attr('stroke-width', 1)
-        .attr('stroke-opacity', 0.7)
+        .attr('stroke-opacity', 1)
 
     con_g.append('g')
         .append('line')
@@ -2345,9 +2415,9 @@ function Connect(num) {
         .attr('y1', 40)
         .attr('x2', 1524)
         .attr('y2', 65)
-        .attr('stroke', 'yellow')
+        .attr('stroke', 'orange')
         .attr('stroke-width', 1)
-        .attr('stroke-opacity', 0.7)
+        .attr('stroke-opacity', 1)
 
     con_g.append('g')
         .append('line')
@@ -2355,9 +2425,9 @@ function Connect(num) {
         .attr('y1', 40)
         .attr('x2', scale(num))
         .attr('y2', 25)
-        .attr('stroke', 'yellow')
+        .attr('stroke', 'orange')
         .attr('stroke-width', 1)
-        .attr('stroke-opacity', 0.7)
+        .attr('stroke-opacity', 1)
 
     con_g.append('g')
         .append('line')
@@ -2365,9 +2435,9 @@ function Connect(num) {
         .attr('y1', 40)
         .attr('x2', scale(num))
         .attr('y2', 25)
-        .attr('stroke', 'yellow')
+        .attr('stroke', 'orange')
         .attr('stroke-width', 1)
-        .attr('stroke-opacity', 0.7)
+        .attr('stroke-opacity', 1)
 
     con_g.append('g')
         .append('line')
@@ -2375,9 +2445,9 @@ function Connect(num) {
         .attr('y1', 65)
         .attr('x2', 10)
         .attr('y2', 477)
-        .attr('stroke', 'yellow')
+        .attr('stroke', 'orange')
         .attr('stroke-width', 1)
-        .attr('stroke-opacity', 0.7)
+        .attr('stroke-opacity', 1)
 
     con_g.append('g')
         .append('line')
@@ -2385,9 +2455,9 @@ function Connect(num) {
         .attr('y1', 65)
         .attr('x2', 1524)
         .attr('y2', 477)
-        .attr('stroke', 'yellow')
+        .attr('stroke', 'orange')
         .attr('stroke-width', 1)
-        .attr('stroke-opacity', 0.7)
+        .attr('stroke-opacity', 1)
 
 
     con_g.append('g')
@@ -2396,9 +2466,9 @@ function Connect(num) {
         .attr('y1', 477)
         .attr('x2', 1524)
         .attr('y2', 477)
-        .attr('stroke', 'yellow')
+        .attr('stroke', 'orange')
         .attr('stroke-width', 1)
-        .attr('stroke-opacity', 0.7)
+        .attr('stroke-opacity', 1)
 
 
     var area_ = d3.svg.area()
