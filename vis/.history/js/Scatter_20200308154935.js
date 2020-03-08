@@ -66,9 +66,9 @@ function DrawHeat(data) {
     // }
     heatmapInstance = h337.create({
         container: document.querySelector("#Tsne"),
-        // radius: 10,
-        // maxOpacity: .5,
-        // minOpacity: 0,
+        radius: 10,
+        maxOpacity: .5,
+        minOpacity: 0,
         blur: .75,
     })
     var points = []

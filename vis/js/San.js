@@ -45,7 +45,7 @@ var title_tip = [
     ['不投资', '投资'],
     ['不投资', '投资'],
     ['无', '小', '中', '大'],
-    ['未买+未中', '未买+中', '买+未中', '买+中'],
+    ['未中奖', '中奖', '买+未中', '买+中'],
     ['无病', '小病', '中病', '大病'],
     ['未失业', '失业'],
     ['财富低', '财富中', '财富高'],
@@ -59,7 +59,7 @@ var title_tip_symbol = [
     ['🚫', '💰'],
     ['🚫', '💰'],
     ['🚫', '⚡', '⚡', '⚡'],
-    ['🈚', '🈚', '🈚', '🈶'],
+    ['🈚', '🈶'],
     ['🚫', '🚑', '🚑', '🚑'],
     ['⭕', '❌'],
     ['🔺', '🔸', '🔻'],
@@ -1092,7 +1092,7 @@ function PaintRect(num) {
     if (num == 20) coorp = "data/Scatter/20.json";
     d3.csv("data/box.csv", function (d1) {
         // d3.json(coorp, function (coor) {
-        d3.json('data/Scatter/tsne_s.json', function (coor) {
+        d3.json('data/Scatter/tsne_ability_36.json', function (coor) {
             d3.csv("data/box_calc.csv", function (RectInData) {
 
                 if (Rect_g != 0) Rect_g.remove()
@@ -1174,6 +1174,12 @@ function PaintRect(num) {
                     .domain([0, maxx])
                     .range([0, 39])
 
+                var lne_line = Math.max(Math.abs(maxx), Math.abs(minx));
+                
+                var line_linear = d3.scale.linear()
+                .domain([0, lne_line])
+                .range([0, 39])
+
                 // 减少杂化
                 let RectInnerData = []
                 for (var i in RectInData) {
@@ -1186,7 +1192,7 @@ function PaintRect(num) {
                 var sort_ten_inner = {}
                 var sort_one_inner = {}
                 var code_Num = {} // 记录编号排布
-                console.log(RectInnerData)
+                // console.log(RectInnerData)
                 for (var i in RectInnerData) {
                     sort_ten.push(parseFloat(RectInnerData[i][119]))
                     sort_one.push(parseFloat(RectInnerData[i][29]) - parseFloat(RectInnerData[i][19]))
@@ -1423,7 +1429,7 @@ function PaintRect(num) {
                 // })
                 // console.log(type);
 
-                console.log(Sankey_Rect)
+                // console.log(Sankey_Rect)
 
                 var Font_scale = d3.scale.linear()
                 .domain([1, 3])
@@ -1518,6 +1524,7 @@ function PaintRect(num) {
                         var tt = 0;
                         // if (d.x == 0) tt = 3 * steplen / 2;
                         if (d.x == 2 || d.x == 3 || d.x == 4 || d.x == 5 || d.x == 9) tt = steplen
+                        if (d.symbol == '🈚' && d.n != 0) tt += 10
                         return height - padding.top - 375 + d.start * bei + d.n * steplen + tt;
                     })
                     .attr('dx', '0.5em') //dx是相对于x平移的大小
@@ -1701,10 +1708,11 @@ function PaintRect(num) {
                     })
                     .attr("x2", (d, i) => {
                         var len;
-                        if (d.v >= 0)
-                            len = linearZ(d.v);
-                        else if (d.v <= 0)
-                            len = linearF(d.v);
+                        len = line_linear(Math.abs(d.v))
+                        // if (d.v >= 0)
+                            // len = linearZ(d.v);
+                        // else if (d.v <= 0)
+                            // len = linearF(d.v);
                         return padding.left + d.x * rectStep + len + 0.5;
                     })
                     .attr("y2", (d, i) => {

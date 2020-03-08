@@ -24,6 +24,8 @@ var ice_color = ['#59e6f8', '#59f8c9', '#9ff859', "#DC143C", "#00FF00"]
 // var p_num_4 = [['收益(High)', 6, ice_color[3], 0], ['亏损(Low)', 14, ice_color[4], 6], ['收益(High)', 4, ice_color[3], 20], ['亏损(Low)', 7, ice_color[4], 24], ['亏损(High)', 48, ice_color[4], 31], ['亏损(Low)', 11, ice_color[4], 79], ['亏损(High)', 157, ice_color[4], 90], ['收益(Low)', 53, ice_color[3], 247]]
 
 
+console.log(100)
+
 var p_num_1 = [
     ["志愿者", 300, ice_color[0]]
 ]

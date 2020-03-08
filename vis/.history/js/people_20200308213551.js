@@ -669,7 +669,7 @@ function Paintjudge_2(name) {
 
 
         var xAxis = d3.svg.axis().scale(p_xscale).ticks(20).tickFormat(d3.format("d")).orient("bottom");
-        var yAxis = d3.svg.axis().scale(p_yscale).ticks(5).tickFormat(d3.format("d")).orient("left"); //添加一个g用于放x轴
+        var yAxis = d3.svg.axis().scale(p_yscale).ticks(0).tickFormat(d3.format("d")).orient("left"); //添加一个g用于放x轴
 
         peo_g.append("g")
             .attr("class", "axis")
@@ -794,6 +794,6 @@ function PaintLine(p) {
 }
 
 if (peo_g == 0 && judge_cir_line == 0 && d_num == 0) {
-    Paintjudge_2(['11qpbunz', 'v5p7lv20', '7rmwik5s', 'wak4ycex']);
+    Paintjudge_2(['g7uoijja', 'v5p7lv20']);
     PaintLine(0)
 }
