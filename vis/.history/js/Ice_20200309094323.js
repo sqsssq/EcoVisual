@@ -138,42 +138,42 @@ d3.csv('data/box_calc.csv', function (Ice_d) {
         if (parseInt(r[rk_num].member[i][11]) == 1) mid.push(r[rk_num].member[i])
         if (parseInt(r[rk_num].member[i][11]) == 2) high.push(r[rk_num].member[i])
     }
-    rk.push({
-        n: 5,
-        kn: 1,
-        member: high,
-        high: high,
-        mid: mid,
-        low: low,
-        type: '负',
-        num: 2,
-        knum: 3,
-        color: '#00FF00'
-    })
-    rk.push({
-        n: 5,
-        kn: 1,
-        member: mid,
-        high: high,
-        mid: mid,
-        low: low,
-        type: '负',
-        num: 2,
-        knum: 4,
-        color: 'yellow'
-    })
-    rk.push({
-        n: 5,
-        kn: 1,
-        member: low,
-        high: high,
-        mid: mid,
-        low: low,
-        type: '负',
-        num: 2,
-        knum: 5,
-        color: 'red'
-    })
+    // rk.push({
+    //     n: 5,
+    //     kn: 1,
+    //     member: high,
+    //     high: high,
+    //     mid: mid,
+    //     low: low,
+    //     type: '负',
+    //     num: 2,
+    //     knum: 3,
+    //     color: '#00FF00'
+    // })
+    // rk.push({
+    //     n: 5,
+    //     kn: 1,
+    //     member: mid,
+    //     high: high,
+    //     mid: mid,
+    //     low: low,
+    //     type: '负',
+    //     num: 2,
+    //     knum: 4,
+    //     color: 'yellow'
+    // })
+    // rk.push({
+    //     n: 5,
+    //     kn: 2,
+    //     member: low,
+    //     high: high,
+    //     mid: mid,
+    //     low: low,
+    //     type: '负',
+    //     num: 2,
+    //     knum: 5,
+    //     color: 'red'
+    // })
     rk_num = 3, high = [], low = [], mid = []
     for (var i in r[rk_num].member) {
         if (parseInt(r[rk_num].member[i][11]) == 0) low.push(r[rk_num].member[i])
@@ -356,6 +356,8 @@ d3.csv('data/box_calc.csv', function (Ice_d) {
     })
     //#endregion
 
+    console.log(rk)
+
 
 
     r.sort(function (a, b) {
@@ -363,39 +365,24 @@ d3.csv('data/box_calc.csv', function (Ice_d) {
         return a.num - b.num
     })
 
-    r[0]['gini'] = 0.667
-    r[1]['gini'] = 0.593
-    r[2]['gini'] = 0.571
-    r[3]['gini'] = 0.521
-    r[4]['gini'] = 0.63
-    r[5]['gini'] = 0.614
-    r[6]['gini'] = 0.527
-    r[7]['gini'] = 0.661
-    r[8]['gini'] = 0.613
-    r[9]['gini'] = 0.582
-    r[10]['gini'] = 0.663
-    // console.log(rk)
-
     var ice_max = -999999
 
-    // console.log(r)
-
     for (var i in r[0].member) {
-        ice_max = Math.max(ice_max, Math.abs(parseFloat(r[0].member[i][129]) - parseFloat(r[0].member[i][19])))
+        ice_max = Math.max(ice_max, Math.abs(parseFloat(r[0].member[i][129])))
     }
     var p_g = ice_rect.append('g')
 
     var line_scale = d3.scale.linear()
         .domain([0, ice_max])
-        .range([0, height_ice - 10 / 4])
-    console.log(ice_max)
+        .range([0, height_ice - 30 / 4])
+    // console.log(ice_max)
 
     var colora = "#FFFFFF"
     var colorb = colors[0]
 
     let colorx = d3.interpolate(colora, colorb);
     var color_scale = d3.scale.linear()
-        .domain([0.5, 0.667])
+        .domain([5, 1])
         .range([0, 1])
 
     let colorx2 = d3.interpolate('red', '#00FF00');
@@ -432,7 +419,7 @@ d3.csv('data/box_calc.csv', function (Ice_d) {
         })
         .attr('fill', (d, i) => {
             // if (i != 7 && i != 12 && i != 13 && i != 14 && i != 15 && i != 16)
-            return colorx(color_scale(d.gini))
+            return colorx(color_scale(d.n))
             // else {
             // if (d.type == '高')
             //     return '#00FF00'
@@ -497,7 +484,7 @@ d3.csv('data/box_calc.csv', function (Ice_d) {
             for (var i in rk) {
                 if (rk[i].kn == d.kn && rk[i].knum < d.knum) cnt += rk[i].member.length
             }
-            // if (d.n == 5 && d.knum > 2) cnt += r[8].member.length
+            if (d.n == 5 && d.knum > 2) cnt += r[8].member.length
             return cnt * width_ice / 6080;
             // return 100
         })
@@ -525,7 +512,7 @@ d3.csv('data/box_calc.csv', function (Ice_d) {
         .attr('opacity', (d, i) => {
 
             // if (i != 7 && i != 12 && i != 13 && i != 14 && i != 15 && i != 16)
-            // return 1;
+            return 1;
             // else
             return 0.5
         })
@@ -561,7 +548,6 @@ d3.csv('data/box_calc.csv', function (Ice_d) {
         .attr('id', 'r_1').data(r)
         .enter()
         .append('text')
-        .attr('font-size', 15)
         .attr('y', d => {
             if (d.n == 1) return 0;
             return (d.n - 2) * height_ice / 4 + height_ice / 8;
@@ -576,22 +562,13 @@ d3.csv('data/box_calc.csv', function (Ice_d) {
             return cnt * width_ice / 6080;
             // return 100
         })
-        .attr('dx', (d, i) => {
-            var len_in = 0;
-            if (i == 1 || i == 2) len_in = 4 * 15
-            if (i == 3 || i == 6) len_in = 5 * 15
-            if (i == 4 || i == 5) len_in = 6 * 15
-            if (i == 7 || i == 8 || i == 10) len_in = 2 * 15
-            if (i == 9) len_in = 3 * 15
-            return d.member.length * width_ice / 6080 / 2 - len_in / 2
-        })
         .attr('dy', '1em')
         .text(d => {
             return d.type
         })
 
     for (var k = 0; k < 11; ++k) {
-        // if (k != 0)
+        if (k != 0)
             p_g.selectAll('#linein')
             .attr('id', 'linein')
             .data(r[k].member)
@@ -607,8 +584,6 @@ d3.csv('data/box_calc.csv', function (Ice_d) {
                 return i / 10 + cnt / 10 + r[k].num * 1;
             })
             .attr('y1', d => {
-                if (k == 0)
-                return height_ice / 8
                 return r[k].n * height_ice / 4 - height_ice / 8
             })
             .attr('x2', (d, i) => {
@@ -621,9 +596,7 @@ d3.csv('data/box_calc.csv', function (Ice_d) {
                 return i / 10 + cnt / 10 + r[k].num * 1;
             })
             .attr('y2', d => {
-                if (k == 0)
-                return height_ice / 8 - line_scale(Math.abs(parseFloat(d[129]) - parseFloat(d[19]))) / 2
-                return r[k].n * height_ice / 4 - height_ice / 8 - line_scale(Math.abs(parseFloat(d[129]) - parseFloat(d[19])))
+                return r[k].n * height_ice / 4 - height_ice / 8 - line_scale(Math.abs(parseFloat(d[129])))
             })
             .attr('fill', 'none')
             .attr('stroke', d => {
@@ -635,52 +608,4 @@ d3.csv('data/box_calc.csv', function (Ice_d) {
             .attr('stroke-width', 0.1)
     }
     // console.log(r)
-    var tree_legend = [{
-        name: '富裕',
-        color: '#00FF00'
-    },{
-        name: '中产',
-        color: 'yellow'
-    }, {
-        name: '贫穷',
-        color: 'red'
-    }]
-
-    p_g.selectAll('#legend_cir')
-    .attr('id', 'legend_cir')
-    .data(tree_legend)
-    .enter()
-    .append('circle')
-    .attr('cx', (d, i) => {
-        return 550
-    })
-    .attr('cy', (d, i) => {
-        return i * 20 + 255
-    })
-    .attr('r', 5)
-    .attr('fill', d => {
-        return d.color
-    })
-    .attr('opacity', 0.5)
-
-    p_g.selectAll('#legend_cir')
-    .attr('id', 'legend_cir')
-    .data(tree_legend)
-    .enter()
-    .append('text')
-    .attr('font-size', 15)
-    .attr('font-family', 'kaiti')
-    .attr('x', (d, i) => {
-        return 560
-    })
-    .attr('y', (d, i) => {
-        return i * 20 + 260
-    })
-    // .attr('r', 5)
-    // .attr('fill', d => {
-        // return d.color
-    // })
-    .text(d => {
-        return d.name
-    })
 })

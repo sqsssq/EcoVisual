@@ -507,72 +507,72 @@ function ScatterPaint_gain_loss(coor, p, num_coor, num) {
 
     coor.length = 0;
 
-    // var brush = d3.svg.brush()
-    //     .x(xScale)
-    //     .y(yScale)
-    //     .extent([
-    //         [0, 0],
-    //         [0, 0]
-    //     ])
-    //     .on("brush", brushed)
+    var brush = d3.svg.brush()
+        .x(xScale)
+        .y(yScale)
+        .extent([
+            [0, 0],
+            [0, 0]
+        ])
+        .on("brush", brushed)
 
-    // function brushed() {
-    //     var extent = brush.extent();
-    //     var xmin = extent[0][0];
-    //     var xmax = extent[1][0];
-    //     var ymin = extent[0][1];
-    //     var ymax = extent[1][1];
+    function brushed() {
+        var extent = brush.extent();
+        var xmin = extent[0][0];
+        var xmax = extent[1][0];
+        var ymin = extent[0][1];
+        var ymax = extent[1][1];
 
-    //     for (var i in coor) {
-    //         // console.log(i)
-    //         if (coor[i].x >= xmin && coor[i].x <= xmax && coor[i].y >= ymin && coor[i].y <= ymax) {
-    //             // console.log(coor[i])
-    //             if (flag == -1)
-    //                 flag = coor[i].label;
-    //             // return "red";
-    //         }
-    //     }
+        for (var i in coor) {
+            // console.log(i)
+            if (coor[i].x >= xmin && coor[i].x <= xmax && coor[i].y >= ymin && coor[i].y <= ymax) {
+                // console.log(coor[i])
+                if (flag == -1)
+                    flag = coor[i].label;
+                // return "red";
+            }
+        }
 
-    //     // console.log(flag)
+        // console.log(flag)
 
-    //     if (K == 0 && flag != -1) {
+        if (K == 0 && flag != -1) {
 
-    //         // console.log(flag)
-    //         var coor_p = {}
+            // console.log(flag)
+            var coor_p = {}
 
-    //         for (var i in p) {
-    //             // console.log(p[i][0])
-    //             if (p[i][0].label == flag) {
-    //                 coor_p[i] = p[i];
-    //             }
-    //         }
+            for (var i in p) {
+                // console.log(p[i][0])
+                if (p[i][0].label == flag) {
+                    coor_p[i] = p[i];
+                }
+            }
 
-    //         // console.log(coor_p)
+            // console.log(coor_p)
 
-    //         var coor_path = PathCalc(coor_p, -1, -1);
+            var coor_path = PathCalc(coor_p, -1, -1);
 
-    //         // console.log(coor_path[1])
+            // console.log(coor_path[1])
 
-    //         var n__ = []
-    //         for (var i in coor_path[1]) {
-    //             n__.push(i)
-    //         }
+            var n__ = []
+            for (var i in coor_path[1]) {
+                n__.push(i)
+            }
 
-    //         OrRect(n__, color[flag])
+            OrRect(n__, color[flag])
 
-    //         if (LineName != 0) LineName.remove();
+            if (LineName != 0) LineName.remove();
 
-    //         LinePaint_2(coor_path[0], coor_path[2], color[flag])
+            LinePaint_2(coor_path[0], coor_path[2], color[flag])
 
-    //         K = 1;
-    //     }
-    // }
+            K = 1;
+        }
+    }
 
-    // // console.log(flag)
-    // r = ssvg.append("g")
-    //     .call(brush)
-    //     .selectAll("rect")
-    //     .style("fill-opacity", 0.3)
+    // console.log(flag)
+    r = ssvg.append("g")
+        .call(brush)
+        .selectAll("rect")
+        .style("fill-opacity", 0.3)
 }
 
 // function ScatterPaint_gain_loss_H(coor, p, num_coor, num) {

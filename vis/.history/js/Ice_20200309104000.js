@@ -378,10 +378,8 @@ d3.csv('data/box_calc.csv', function (Ice_d) {
 
     var ice_max = -999999
 
-    // console.log(r)
-
     for (var i in r[0].member) {
-        ice_max = Math.max(ice_max, Math.abs(parseFloat(r[0].member[i][129]) - parseFloat(r[0].member[i][19])))
+        ice_max = Math.max(ice_max, Math.abs(parseFloat(r[0].member[i][129])))
     }
     var p_g = ice_rect.append('g')
 
@@ -591,7 +589,7 @@ d3.csv('data/box_calc.csv', function (Ice_d) {
         })
 
     for (var k = 0; k < 11; ++k) {
-        // if (k != 0)
+        if (k != 0)
             p_g.selectAll('#linein')
             .attr('id', 'linein')
             .data(r[k].member)
@@ -607,8 +605,6 @@ d3.csv('data/box_calc.csv', function (Ice_d) {
                 return i / 10 + cnt / 10 + r[k].num * 1;
             })
             .attr('y1', d => {
-                if (k == 0)
-                return height_ice / 8
                 return r[k].n * height_ice / 4 - height_ice / 8
             })
             .attr('x2', (d, i) => {
@@ -621,9 +617,7 @@ d3.csv('data/box_calc.csv', function (Ice_d) {
                 return i / 10 + cnt / 10 + r[k].num * 1;
             })
             .attr('y2', d => {
-                if (k == 0)
-                return height_ice / 8 - line_scale(Math.abs(parseFloat(d[129]) - parseFloat(d[19]))) / 2
-                return r[k].n * height_ice / 4 - height_ice / 8 - line_scale(Math.abs(parseFloat(d[129]) - parseFloat(d[19])))
+                return r[k].n * height_ice / 4 - height_ice / 8 - line_scale(Math.abs(parseFloat(d[129])))
             })
             .attr('fill', 'none')
             .attr('stroke', d => {
@@ -652,35 +646,13 @@ d3.csv('data/box_calc.csv', function (Ice_d) {
     .enter()
     .append('circle')
     .attr('cx', (d, i) => {
-        return 550
+        return i * 5 + 100
     })
     .attr('cy', (d, i) => {
-        return i * 20 + 255
+        return 300
     })
     .attr('r', 5)
     .attr('fill', d => {
         return d.color
-    })
-    .attr('opacity', 0.5)
-
-    p_g.selectAll('#legend_cir')
-    .attr('id', 'legend_cir')
-    .data(tree_legend)
-    .enter()
-    .append('text')
-    .attr('font-size', 15)
-    .attr('font-family', 'kaiti')
-    .attr('x', (d, i) => {
-        return 560
-    })
-    .attr('y', (d, i) => {
-        return i * 20 + 260
-    })
-    // .attr('r', 5)
-    // .attr('fill', d => {
-        // return d.color
-    // })
-    .text(d => {
-        return d.name
     })
 })
