@@ -64,115 +64,110 @@ function DrawHeat(data) {
     //     heatmapInstance.remove();
     //     heatmapInstance = 0;
     // }
-    d3.csv('data/final.csv', function (HeatD) {
-        console.log(HeatD)
-        data = HeatD
-        heatmapInstance = h337.create({
-            container: document.querySelector("#Tsne"),
-            // radius: 28,
-            // maxOpacity: .5,
-            // minOpacity: 0,
-            // blur: .75,
-            // gradient: {
-            //     '.4': 'red',
-            //     '.75': 'yellow',
-            //     '.95': 'green'
-            // }
-        })
-        var points = []
-        var kmax = 0;
-        var padding = {
-            top: 5,
-            right: 10,
-            bottom: 5,
-            left: 10
-        };
-
-        var xAxisWidth = widtha - padding.right;
-        var yAxisWidth = heighta - padding.bottom;
-        var xScale = d3.scale.linear()
-            .domain([d3.min(data, function (d) {
-                return parseFloat(d.X);
-            }), d3.max(data, function (d) {
-                return parseFloat(d.X);
-            })])
-            .range([padding.left, xAxisWidth]);
-        var yScale = d3.scale.linear()
-            .domain([d3.min(data, function (d) {
-                return parseFloat(d.Y);
-            }), d3.max(data, function (d) {
-                return parseFloat(d.Y);
-            })])
-            .range([padding.top, yAxisWidth]);
-        var min_xx = 999999,
-            min_yy = 999999,
-            max_xx = -999999,
-            max_yy = -999999
-        for (var i in data) {
-            if (min_xx > parseFloat(data[i].X)) min_xx = parseFloat(data[i].X);
-            if (min_yy > parseFloat(data[i].Y)) min_yy = parseFloat(data[i].Y);
-            if (max_xx < parseFloat(data[i].X)) max_xx = parseFloat(data[i].X);
-            if (max_yy < parseFloat(data[i].Y)) max_yy = parseFloat(data[i].Y);
+    heatmapInstance = h337.create({
+        container: document.querySelector("#Tsne"),
+        radius: 22,
+        // maxOpacity: .5,
+        // minOpacity: 0,
+        blur: .75,
+        gradient: {
+            '.4': 'red',
+            '.75': 'yellow',
+            '.95': 'green'
         }
-
-        // var kk_data = []
-        // for (var i = Math.floor(min_xx + 5) - 10; i <= Math.floor(max_xx - 5) + 10; i += 10) {
-        //     for (var j = Math.floor(min_yy + 5) - 10; j <= Math.floor(max_yy - 5) + 10; j += 10) {
-        //         var m_val = 0,
-        //             m_num = 0;
-        //         for (var k in data) {
-        //             if (parseFloat(data[k].X) >= i - 5 && parseFloat(data[k].X) < i + 5 && parseFloat(data[k].Y) >= j - 5 && parseFloat(data[k].Y) < j + 5) {
-        //                 m_val += parseFloat(data[k].val)
-        //                 m_num++;
-        //             }
-        //         }
-        //         var n_val = 0;
-        //         if (m_num != 0) n_val = m_val / m_num;
-        //         var rcx = {
-        //             x: i,
-        //             y: j,
-        //             val: n_val
-        //         }
-        //         // if (m_num != 0)
-        //         kk_data.push(rcx);
-        //     }
-        // }
-
-        // kk_data = [data[1], data[2], data[3]]
-        var kmin = 999999
-        // console.log(kk_data)
-        for (i in data) {
-            // console.log(data[i]["val"])
-            if (kmax < parseFloat(data[i]['val']))
-                kmax = Math.round(parseFloat(data[i]['val']), 0)
-            kmin = Math.min(kmin, Math.round(parseFloat(data[i]['val']), 0))
-            points.push({
-                x: Math.round(xScale(data[i].X), 0),
-                y: Math.round(yScale(data[i].Y), 0),
-                value: parseFloat(data[i]['val']),
-                // value: -1
-                // radius: 70
-            })
-        }
-        // for (var i = 1; i <= 370; i += 5) {
-        //     for (var j = 1; j <= 370; j += 5) {
-        //         points.push({
-        //             x: i,
-        //             y: j,
-        //             value: 0
-        //         })
-        //     }
-
-        // }
-        console.log(points)
-        var heat_data = {
-            max: Math.floor(kmax),
-            // min: Math.floor(-250),
-            data: points
-        }
-        heatmapInstance.setData(heat_data)
     })
+    var points = []
+    var kmax = 0;
+    var padding = {
+        top: 5,
+        right: 10,
+        bottom: 5,
+        left: 10
+    };
 
+    var xAxisWidth = widtha - padding.right;
+    var yAxisWidth = heighta - padding.bottom;
+    var xScale = d3.scale.linear()
+        .domain([d3.min(data, function (d) {
+            return d.x;
+        }), d3.max(data, function (d) {
+            return d.x;
+        })])
+        .range([padding.left, xAxisWidth]);
+    var yScale = d3.scale.linear()
+        .domain([d3.min(data, function (d) {
+            return d.y;
+        }), d3.max(data, function (d) {
+            return d.y;
+        })])
+        .range([padding.top, yAxisWidth]);
+    var min_xx = 999999,
+        min_yy = 999999,
+        max_xx = -999999,
+        max_yy = -999999
+    for (var i in data) {
+        if (min_xx > data[i].x) min_xx = data[i].x;
+        if (min_yy > data[i].y) min_yy = data[i].y;
+        if (max_xx < data[i].x) max_xx = data[i].x;
+        if (max_yy < data[i].y) max_yy = data[i].y;
+    }
+
+    var kk_data = []
+    for (var i = Math.floor(min_xx + 5) - 10; i <= Math.floor(max_xx - 5) + 10; i += 10) {
+        for (var j = Math.floor(min_yy + 5) - 10; j <= Math.floor(max_yy - 5) + 10; j += 10) {
+            var m_val = 0,
+                m_num = 0;
+            for (var k in data) {
+                if (data[k].x >= i - 5 && data[k].x < i + 5 && data[k].y >= j - 5 && data[k].y < j + 5) {
+                    m_val += parseFloat(data[k].val)
+                    m_num++;
+                }
+            }
+            var n_val = 0;
+            if (m_num != 0) n_val = m_val / m_num;
+            var rcx = {
+                x: i,
+                y: j,
+                val: n_val
+            }
+            // if (m_num != 0)
+            kk_data.push(rcx);
+        }
+    }
+
+    // kk_data = [data[1], data[2], data[3]]
+    var kmin = 999999
+    console.log(kk_data)
+    for (i in kk_data) {
+        // console.log(kk_data[i])
+        if (kmax < parseFloat(kk_data[i]['val']))
+            kmax = Math.round(parseFloat(kk_data[i]['val']), 0)
+        kmin = Math.min(kmin, Math.round(parseFloat(kk_data[i]['val']), 0))
+        points.push({
+            x: Math.round(xScale(kk_data[i].x), 0),
+            y: Math.round(yScale(kk_data[i].y), 0),
+            value: parseFloat(kk_data[i]['val']),
+            // value: -1
+            // radius: 70
+        })
+    }
+    // for (var i = 1; i <= 370; i += 5) {
+    //     for (var j = 1; j <= 370; j += 5) {
+    //         points.push({
+    //             x: i,
+    //             y: j,
+    //             value: 0
+    //         })
+    //     }
+
+    // }
+    console.log(kmin)
+    var heat_data = {
+        max: Math.floor(kmax),
+        min: Math.floor(-250),
+        data: points
+    }
+    heatmapInstance.setData(heat_data)
 }
 
 function ScatterPaint(coor, p, num) {
@@ -349,7 +344,7 @@ function ScatterPaint_gain_loss(coor, p, num_coor, num) {
     if (r != 0) r.remove()
 
 
-    // DrawHeat(coor)
+    DrawHeat(coor)
     var padding = {
         top: 5,
         right: 10,

@@ -35,7 +35,7 @@ function clear_pic(num) {
     }
     
     Rect_data = -1;
-    Paintjudge_2(['11qpbunz', 'v5p7lv20', '7rmwik5s', 'wak4ycex']);
+    Paintjudge('g7uoijja')
 
     RectOut(num)
 }

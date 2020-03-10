@@ -69,15 +69,15 @@ function DrawHeat(data) {
         data = HeatD
         heatmapInstance = h337.create({
             container: document.querySelector("#Tsne"),
-            // radius: 28,
+            radius: 28,
             // maxOpacity: .5,
             // minOpacity: 0,
-            // blur: .75,
-            // gradient: {
-            //     '.4': 'red',
-            //     '.75': 'yellow',
-            //     '.95': 'green'
-            // }
+            blur: .75,
+            gradient: {
+                '.4': 'red',
+                '.75': 'yellow',
+                '.95': 'green'
+            }
         })
         var points = []
         var kmax = 0;
@@ -167,7 +167,7 @@ function DrawHeat(data) {
         console.log(points)
         var heat_data = {
             max: Math.floor(kmax),
-            // min: Math.floor(-250),
+            min: Math.floor(-250),
             data: points
         }
         heatmapInstance.setData(heat_data)
@@ -349,7 +349,7 @@ function ScatterPaint_gain_loss(coor, p, num_coor, num) {
     if (r != 0) r.remove()
 
 
-    // DrawHeat(coor)
+    DrawHeat(coor)
     var padding = {
         top: 5,
         right: 10,

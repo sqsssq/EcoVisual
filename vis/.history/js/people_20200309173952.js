@@ -212,7 +212,7 @@ function Paintjudge(name) {
             .attr("transform", "rotate(-90)") //text旋转-90°
             .attr("text-anchor", "end") //字体尾部对齐
             .attr("dx", "-2em")
-            .attr("dy", "1em") //沿y轴平移一个字体的大小;
+            .attr("dy", "-1em") //沿y轴平移一个字体的大小;
 
         peo_g.selectAll('#peo_cir')
             .attr('id', 'peo_cir')

@@ -212,7 +212,7 @@ function Paintjudge(name) {
             .attr("transform", "rotate(-90)") //text旋转-90°
             .attr("text-anchor", "end") //字体尾部对齐
             .attr("dx", "-2em")
-            .attr("dy", "1em") //沿y轴平移一个字体的大小;
+            .attr("dy", "-1em") //沿y轴平移一个字体的大小;
 
         peo_g.selectAll('#peo_cir')
             .attr('id', 'peo_cir')
@@ -473,8 +473,8 @@ function Paintjudge_2(name) {
                 var dif = 0;
                 for (var j = 0; j <= 9; ++j) {
                     dif += (p_data[p_data_num][i]['judge'][j] - p_data[p_data_num][i - 1]['judge'][j]) * (p_data[p_data_num][i]['judge'][j] - p_data[p_data_num][i - 1]['judge'][j]);
-                    if (dif_max < Math.sqrt(dif)) dif_max = Math.sqrt(dif)
-                    if (dif_min > Math.sqrt(dif)) dif_min = Math.sqrt(dif)
+                    if (dif_max < dif) dif_max = dif
+                    if (dif_min > dif) dif_min = dif
                 }
                 l['w'] = Math.sqrt(dif);
                 line_data[p_data_num].push(l)
@@ -691,8 +691,8 @@ function Paintjudge_2(name) {
             .text('总收益')
             .attr("transform", "rotate(-90)") //text旋转-90°
             .attr("text-anchor", "end") //字体尾部对齐
-            .attr("dx", "-2em")
-            .attr("dy", "1em") //沿y轴平移一个字体的大小;
+            .attr("dx", "-1em")
+            .attr("dy", "4em") //沿y轴平移一个字体的大小;
 
 
 

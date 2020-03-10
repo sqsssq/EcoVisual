@@ -72,7 +72,7 @@ function DrawHeat(data) {
             // radius: 28,
             // maxOpacity: .5,
             // minOpacity: 0,
-            // blur: .75,
+            blur: .75,
             // gradient: {
             //     '.4': 'red',
             //     '.75': 'yellow',
@@ -349,7 +349,7 @@ function ScatterPaint_gain_loss(coor, p, num_coor, num) {
     if (r != 0) r.remove()
 
 
-    // DrawHeat(coor)
+    DrawHeat(coor)
     var padding = {
         top: 5,
         right: 10,
