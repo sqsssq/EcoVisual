@@ -1839,7 +1839,7 @@ d3.csv('data/box_calc.csv', function (Ice_d) {
     // })
     for (var i = 0; i <= 10; ++i)
     r[i].member.sort(function (a, b) {
-        return b['11'] - a['11']
+        return b.kval - a.kval
     })
 
     var ice_max = -999999
