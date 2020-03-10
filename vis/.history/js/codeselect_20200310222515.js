@@ -155,7 +155,7 @@ function Peo_gain_loss(num) {
                         // cnt_num = 0
                     // }
                     IceLine_2(name_in, num)
-                    PaintSha_2(number, name_in, i);
+                    PaintSha_2(number, d, i);
                 }
             })
     })
@@ -622,7 +622,7 @@ function PaintSha_2(num, value, k) {
     // .attr("stroke-width", 0.5)
     // .attr("stroke", "blue")
 
-    Click_cir_2(num, value)
+    Click_cir(num, value)
 }
 
 function Click_cir(num, value) {

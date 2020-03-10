@@ -133,17 +133,17 @@ function Peo_gain_loss(num) {
                         Paintjudge(d);
                     else
                         PaintCir(d);
+
                     PaintSha(number, d, i);
-                    IceLine(d, num)
                 } else {
-                    // if (cnt_num < 1) {
-                    //     cnt_num++;
-                    //     name_in.push(d)
-                    //     if (judge_cir_line == 1)
-                    //         PaintCir(d)
-                    //     else
-                    //         Paintjudge(d)
-                    // } else {
+                    if (cnt_num < 1) {
+                        cnt_num++;
+                        name_in.push(d)
+                        if (judge_cir_line == 1)
+                            PaintCir(d)
+                        else
+                            Paintjudge(d)
+                    } else {
                         cnt_num++;
                         name_in.push(d)
                         if (judge_cir_line == 1) {
@@ -153,11 +153,14 @@ function Peo_gain_loss(num) {
                         }
                         // name_in = []
                         // cnt_num = 0
-                    // }
-                    IceLine_2(name_in, num)
-                    PaintSha_2(number, name_in, i);
+
+                    }
+                    PaintSha_2(number, d, i);
                 }
+
+
             })
+
     })
 }
 
@@ -622,7 +625,7 @@ function PaintSha_2(num, value, k) {
     // .attr("stroke-width", 0.5)
     // .attr("stroke", "blue")
 
-    Click_cir_2(num, value)
+    Click_cir(num, value)
 }
 
 function Click_cir(num, value) {
@@ -662,6 +665,8 @@ function Click_cir(num, value) {
         .attr('fill', 'blue')
         // .style("r", 1)
     // console.log(judge_line)
+
+    IceLine(value.toString(), num)
     var coorp;
     if (num == 1) coorp = "data/Scatter/1.json";
     if (num == 2) coorp = "data/Scatter/2.json";
@@ -979,367 +984,6 @@ function Click_cir(num, value) {
                 var path = PathCalc(ans, -1, -1);
 
                 LinePaint_2(path[0], path[2], "black")
-            })
-        })
-    })
-}
-function Click_cir_2(num, value_x) {
-    console.log(num)
-
-    // Codesvg.append('g')
-    //     .append('circle')
-    //     .attr('cx', 25)
-    //     .attr('cy', num * 20 + 10)
-    //     .attr('r', 5)
-    //     .attr('fill', codeColor[num % 5])
-
-    if (LineName != 0) LineName.remove()
-    if (line_g != 0) {
-        line_g.remove()
-    }
-
-    var judge_line = [],
-        j_line = []
-    tcircle.style("fill-opacity", d => {
-            // console.log(d.id)
-            // Fiflag = 1;
-            if (d.id != value.toString()) {
-                return 1;
-            } else {
-                return 1;
-            }
-        })
-        .style('stroke-opacity', d => {
-            if (d.id != value.toString()) {
-                return 0.3;
-            } else {
-                judge_line.push(d)
-                return 0.3
-            }
-        })
-        .attr('fill', 'blue')
-        // .style("r", 1)
-    // console.log(judge_line)
-    var coorp;
-    if (num == 1) coorp = "data/Scatter/1.json";
-    if (num == 2) coorp = "data/Scatter/2.json";
-    if (num == 3) coorp = "data/Scatter/3.json";
-    if (num == 4) coorp = "data/Scatter/4.json";
-    if (num == 5) coorp = "data/Scatter/5.json";
-    if (num == 6) coorp = "data/Scatter/6.json";
-    if (num == 7) coorp = "data/Scatter/7.json";
-    if (num == 8) coorp = "data/Scatter/8.json";
-    if (num == 9) coorp = "data/Scatter/9.json";
-    if (num == 10) coorp = "data/Scatter/10.json";
-    if (num == 11) coorp = "data/Scatter/11.json";
-    if (num == 12) coorp = "data/Scatter/12.json";
-    if (num == 13) coorp = "data/Scatter/13.json";
-    if (num == 14) coorp = "data/Scatter/14.json";
-    if (num == 15) coorp = "data/Scatter/15.json";
-    if (num == 16) coorp = "data/Scatter/16.json";
-    if (num == 17) coorp = "data/Scatter/17.json";
-    if (num == 18) coorp = "data/Scatter/18.json";
-    if (num == 19) coorp = "data/Scatter/19.json";
-    if (num == 20) coorp = "data/Scatter/20.json";
-    d3.csv("data/box.csv", function (d1) {
-        // d3.json(coorp, function (coor) {
-        d3.json('data/Scatter/tsne_x.json', function (coor) {
-            d3.csv("data/box_calc.csv", function (RectInData) {
-                // console.log(coor)
-                var d = [];
-                for (var i in d1) {
-                    if (parseInt(d1[i].biao) == num)
-                        d.push(d1[i])
-                }
-                var padding = {
-                    top: 5,
-                    right: 10,
-                    bottom: 5,
-                    left: 10
-                };
-
-                // 计算散点连接线
-                var xAxisWidth = widtha - padding.right;
-                var yAxisWidth = heighta - padding.bottom;
-                var xScale = d3.scale.linear()
-                    .domain([d3.min(coor, function (d) {
-                        return d.x;
-                    }), d3.max(coor, function (d) {
-                        return d.x;
-                    }) * 1.2])
-                    .range([padding.left, xAxisWidth]);
-                var yScale = d3.scale.linear()
-                    .domain([d3.min(coor, function (d) {
-                        return d.y;
-                    }), d3.max(coor, function (d) {
-                        return d.y;
-                    })])
-                    .range([padding.top, yAxisWidth]);
-
-                var LinePath = d3.svg.line()
-                    .x(d => {
-                        // console.log(d)
-                        return padding.left + xScale(d.x);
-                    })
-                    .y(d => {
-                        return yScale(d.y);
-                    })
-                    .interpolate("cardinal") //插值模式
-
-                line_g = ssvg.append("path")
-                .attr("d", LinePath(judge_line))
-                .style('fill', 'none')
-                .attr('stroke', 'tomato')
-                .attr('stroke-width', 1)
-
-
-
-                // work = []
-                // final = []
-
-                // // 格内数据
-                // var ext = []
-                // ext.push([0, 0])
-
-                // for (var i = 1; i <= 9; ++i) {
-                //     var t = []
-                //     for (var k = 0; k < 4; ++k) {
-                //         t[k] = 0
-                //     }
-                //     for (var k = 0; k < 304; ++k) {
-                //         t[parseInt(d[k][i])]++;
-                //     }
-                //     ext.push(t)
-                // }
-
-                // var type = []
-
-                // for (var i = 1; i <= 9; ++i) {
-                //     var n = 0;
-                //     for (j in ext[i]) {
-                //         a = {}
-                //         a["x"] = i;
-                //         a["n"] = n;
-                //         n++;
-                //         // if (t[i][j] == 0) continue;
-                //         if (j == 0) {
-                //             a["start"] = 0;
-                //             a["end"] = ext[i][0];
-                //         } else {
-                //             a["start"] = ext[i][j - 1];
-                //             ext[i][j] = ext[i][j - 1] + ext[i][j];
-                //             a["end"] = ext[i][j];
-                //         }
-                //         type.push(a);
-                //     }
-                // }
-
-                // // ------------------------------------------------
-
-                // var p = {}
-
-
-                // for (var i in d) {
-                //     p[d[i].code] = {};
-                // }
-
-                // for (var k = 1; k <= 9; ++k) {
-                //     var cnt = 0;
-                //     for (var i in d) {
-                //         a = {}
-                //         if (d[i][k] == 0) {
-                //             a["x"] = k;
-                //             a["y"] = cnt++;
-                //             a["v"] = parseFloat(d[i][k * 10 + 1]);
-                //             a["n"] = parseInt(d[i][k]);
-                //             a["id"] = d[i].code;
-                //             a["label"] = coor[i].label;
-                //             p[d[i].code][k] = a;
-                //         } else {
-                //             a["x"] = k;
-                //             ext[k][d[i][k] - 1]++;
-                //             // console.log(ext[k][d[i][k] - 1])
-                //             a["y"] = ext[k][d[i][k] - 1];
-                //             a["v"] = parseFloat(d[i][k * 10 + 1]);
-                //             a["n"] = parseInt(d[i][k]);
-                //             a["id"] = d[i].code;
-                //             a["label"] = coor[i].label;
-                //             p[d[i].code][k] = a;
-                //         }
-                //         // work.push(a);
-                //     }
-                // }
-
-                // for (var i in d) {
-                //     a = {}
-                //     a["x"] = 0;
-                //     a["y"] = parseInt(p[d[i].code][1].y);
-                //     a["v"] = parseFloat(d[i].work);
-                //     a["n"] = 0;
-                //     a["id"] = d[i].code;
-                //     a["label"] = coor[i].label;
-                //     // p[d[i].code] = {};
-                //     p[d[i].code][0] = a;
-                //     // work.push(a);
-                // }
-
-                var code_Label = {} // 记录当前散点图中对应id的label
-                for (var i in coor) {
-                    if (parseInt(coor[i].l) == num) {
-                        code_Label[coor[i].id] = coor[i].label
-                    }
-                }
-                // 减少杂化
-                let RectInnerData = []
-                for (var i in RectInData) {
-                    if (parseInt(RectInData[i].biao) == num) {
-                        RectInnerData.push(RectInData[i])
-                    }
-                }
-                var sort_ten = [] // 第十列排序
-                var sort_ten_inner = {}
-                var code_Num = {} // 记录编号排布
-                for (var i in RectInnerData) {
-                    sort_ten.push(parseFloat(RectInnerData[i][119]))
-                    code_Num[RectInnerData[i].code] = i
-                }
-                sort_ten.sort(function (a, b) {
-                    return a - b;
-                })
-                for (var i in sort_ten) {
-                    sort_ten_inner[sort_ten[i]] = i;
-                }
-                for (var i in RectInnerData) {
-                    if (parseInt(sort_ten_inner[RectInnerData[i][119]]) <= 100)
-                        RectInnerData[i][11] = 0;
-                    else if (parseInt(sort_ten_inner[RectInnerData[i][119]]) <= 200)
-                        RectInnerData[i][11] = 1;
-                    else
-                        RectInnerData[i][11] = 2
-                }
-                let RectOuterData = []
-                RectOuterData[1] = []
-                RectOuterData[1][0] = {
-                    'val': 0,
-                    'member': []
-                }
-                for (var i in RectInnerData) {
-                    RectOuterData[1][RectInnerData[i][1]]['member'].push(RectInnerData[i])
-                    RectOuterData[1][RectInnerData[i][1]].val += parseInt(code_Num[RectInnerData[i].code])
-                }
-                for (var i in RectOuterData[1]) {
-                    RectOuterData[1][i].val /= RectOuterData[1][i]["member"].length
-                }
-                for (var t = 1; t <= 20; ++t) {
-                    for (var k = 2; k <= 12; ++k) {
-                        // console.log(k)
-                        if (typeof (RectOuterData[k]) == "undefined")
-                            RectOuterData[k] = []
-                        for (var i in RectOuterData[k - 1]) {
-                            for (var j in RectOuterData[k - 1][i]["member"]) {
-                                RectOuterData[k][RectOuterData[k - 1][i]["member"][j][k]] = {
-                                    "val": 0,
-                                    "member": []
-                                }
-                            }
-                        }
-                        for (var i in RectOuterData[k - 1]) {
-                            for (var j in RectOuterData[k - 1][i]["member"]) {
-                                // RectOuterData[k - 1][i]["member"][j][k] 对应的分类
-                                RectOuterData[k][RectOuterData[k - 1][i]["member"][j][k]].val += parseInt(code_Num[RectOuterData[k - 1][i]["member"][j]["code"]])
-                                RectOuterData[k][RectOuterData[k - 1][i]["member"][j][k]].member.push(RectOuterData[k - 1][i]["member"][j])
-                            }
-                        }
-                        for (var i in RectOuterData[k]) {
-                            RectOuterData[k][i].val /= RectOuterData[k][i]["member"].length
-                        }
-                        RectOuterData[k].sort(function (a, b) {
-                            return a.val - b.val;
-                        })
-                        for (var i in RectOuterData[k]) {
-                            for (var j in RectOuterData[k][i]["member"]) {
-                                if (i == 0)
-                                    code_Num[RectOuterData[k][i]["member"][j].code] = parseInt(j)
-                                else
-                                    code_Num[RectOuterData[k][i]["member"][j].code] = parseInt(j) + RectOuterData[k][i]["member"].length
-                            }
-                        }
-                        // console.log(code_Num)
-                    }
-                    for (var k = 11; k >= 1; --k) {
-                        for (var i in RectOuterData[k + 1]) {
-                            for (var j in RectOuterData[k + 1][i]["member"]) {
-                                RectOuterData[k][RectOuterData[k + 1][i]["member"][j][k]] = {
-                                    "val": 0,
-                                    "member": []
-                                }
-                            }
-                        }
-                        for (var i in RectOuterData[k + 1]) {
-                            for (var j in RectOuterData[k + 1][i]["member"]) {
-                                // RectOuterData[k - 1][i]["member"][j][k] 对应的分类
-                                // if (typeof (RectOuterData[k][RectOuterData[k - 1][i]["member"][j][k]]) == "undefined")
-                                // console.log("i = " + i + "; j = " + j)
-                                RectOuterData[k][RectOuterData[k + 1][i]["member"][j][k]].val += parseInt(code_Num[RectOuterData[k + 1][i]["member"][j]["code"]])
-                                RectOuterData[k][RectOuterData[k + 1][i]["member"][j][k]].member.push(RectOuterData[k + 1][i]["member"][j])
-                            }
-                        }
-                        for (var i in RectOuterData[k]) {
-                            RectOuterData[k][i].val /= RectOuterData[k][i]["member"].length
-                        }
-                        RectOuterData[k].sort(function (a, b) {
-                            return a.val - b.val;
-                        })
-                        for (var i in RectOuterData[k]) {
-                            for (var j in RectOuterData[k][i]["member"]) {
-                                if (i == 0)
-                                    code_Num[RectOuterData[k][i]["member"][j].code] = parseInt(j)
-                                else
-                                    code_Num[RectOuterData[k][i]["member"][j].code] = parseInt(j) + RectOuterData[k][i]["member"].length
-                            }
-                        }
-                        // console.log(code_Num)
-                    }
-                }
-                var p = {}; // 计算连接线
-
-                for (var i in d) {
-                    p[d[i].code] = {};
-                }
-                for (var i in RectOuterData) {
-                    var s_num = 0;
-                    for (var j in RectOuterData[i]) {
-                        for (var k in RectOuterData[i][j].member) {
-                            var a = {
-                                "x": i - 1, // 第几列
-                                "y": parseInt(k) + s_num, // 第几行
-                                "v": parseFloat(RectOuterData[i][j]["member"][k][i * 10 + 9]), // 长度
-                                "n": parseInt(j),
-                                "id": RectOuterData[i][j]["member"][k].code,
-                                "label": code_Label[RectOuterData[i][j]["member"][k].code]
-                            }
-                            p[a.id][i - 1] = a;
-                        }
-                        s_num += RectOuterData[i][j].member.length
-                    }
-                }
-
-
-                // console.log(p)
-                for (var i in value_x) {
-                    var value = value_x[i];
-                    var ans = {}
-
-                    ans[value.toString()] = p[value.toString()]
-    
-                    // console.log(p[value.toString()])
-                    // console.log(ans)
-    
-                    var path = PathCalc(ans, -1, -1);
-    
-                    LinePaint_2(path[0], path[2], "black")
-                }
-                
             })
         })
     })

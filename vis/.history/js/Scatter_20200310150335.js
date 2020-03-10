@@ -65,7 +65,7 @@ function DrawHeat(data) {
     //     heatmapInstance = 0;
     // }
     d3.csv('data/final.csv', function (HeatD) {
-        // console.log(HeatD)
+        console.log(HeatD)
         data = HeatD
         heatmapInstance = h337.create({
             container: document.querySelector("#Tsne"),
@@ -182,7 +182,7 @@ function DrawHeat(data) {
         //     }
 
         // }
-        // console.log(points)
+        console.log(points)
         var heat_data = {
             max: Math.floor(kmax),
             // min: Math.floor(-250),

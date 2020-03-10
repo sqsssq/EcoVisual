@@ -1,4 +1,4 @@
-var width_ice = 611,
+var width_ice = 615,
     height_ice = 306
 
 color = ['#7cb5ec', '#434348', '#90ed7d', '#f7a35c', '#8085e9',
@@ -1834,10 +1834,10 @@ d3.csv('data/box_calc.csv', function (Ice_d) {
     }
     console.log(r)
 
-    // r[3].member.sort(function (a, b) {
-    //     return b.kval - a.kval
-    // })
-    for (var i = 0; i <= 10; ++i)
+    r[3].member.sort(function (a, b) {
+        return b.kval - a.kval
+    })
+    for (var i = 6; i <= 10; ++i)
     r[i].member.sort(function (a, b) {
         return b.kval - a.kval
     })
@@ -1853,7 +1853,7 @@ d3.csv('data/box_calc.csv', function (Ice_d) {
 
     // ice_max = 1000;
     var line_scale = d3.scale.linear()
-        .domain([0, Math.log2(ice_max)])
+        .domain([0, ice_max])
         .range([0, height_ice / 4])
     console.log(r)
 
@@ -2088,11 +2088,11 @@ d3.csv('data/box_calc.csv', function (Ice_d) {
                 return i / 10 + cnt / 10 + r[k].num * 1;
             })
             .attr('y2', d => {
-                if (Math.log2(Math.abs(parseFloat(d[129]) - parseFloat(d[19]))) <= 0)
-                    return r[k].n * height_ice / 4 - height_ice / 8
+                // if (Math.log2(Math.abs(parseFloat(d[129]) - parseFloat(d[19]))) <= 0)
+                    // return r[k].n * height_ice / 4 - height_ice / 8
                 if (k == 0)
-                    return height_ice / 8 - line_scale(Math.log2(Math.abs(parseFloat(d[129]) - parseFloat(d[19])))) / 2
-                return r[k].n * height_ice / 4 - height_ice / 8 - line_scale(Math.log2(Math.abs(parseFloat(d[129]) - parseFloat(d[19])))) / 2
+                    return height_ice / 8 - line_scale((Math.abs(parseFloat(d[129]) - parseFloat(d[19])))) / 2
+                return r[k].n * height_ice / 4 - height_ice / 8 - line_scale((Math.abs(parseFloat(d[129]) - parseFloat(d[19])))) / 2
             })
             .attr('fill', 'none')
             .attr('stroke', d => {

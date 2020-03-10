@@ -1,4 +1,4 @@
-var width_ice = 611,
+var width_ice = 615,
     height_ice = 306
 
 color = ['#7cb5ec', '#434348', '#90ed7d', '#f7a35c', '#8085e9',
@@ -710,7 +710,7 @@ function IceLine_2(ice_name_2, ice_num) {
                             .attr('y1', d => {
                                 if (k == 0)
                                     return height_ice / 8
-                                return r[k].n * height_ice / 4 - height_ice / 8 - height_ice / 4
+                                return r[k].n * height_ice / 4 - height_ice / 8
                             })
                             .attr('x2', (d, i) => {
                                 return line_x2;
@@ -720,7 +720,7 @@ function IceLine_2(ice_name_2, ice_num) {
                                 // return r[k].n * height_ice / 4 - height_ice / 8
                                 if (k == 0)
                                     return height_ice / 8
-                                return r[k].n * height_ice / 4 - height_ice / 8 - height_ice / 4
+                                return r[k].n * height_ice / 4 - height_ice / 8
                             })
                             .attr('fill', 'none')
                             .attr('stroke', d => {
@@ -1834,10 +1834,10 @@ d3.csv('data/box_calc.csv', function (Ice_d) {
     }
     console.log(r)
 
-    // r[3].member.sort(function (a, b) {
-    //     return b.kval - a.kval
-    // })
-    for (var i = 0; i <= 10; ++i)
+    r[3].member.sort(function (a, b) {
+        return b.kval - a.kval
+    })
+    for (var i = 6; i <= 10; ++i)
     r[i].member.sort(function (a, b) {
         return b.kval - a.kval
     })

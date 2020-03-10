@@ -1,12 +1,9 @@
-var width_ice = 611,
+var width_ice = 615,
     height_ice = 306
 
-color = ['#7cb5ec', '#434348', '#90ed7d', '#f7a35c', '#8085e9',
+colors = ['#7cb5ec', '#434348', '#90ed7d', '#f7a35c', '#8085e9',
     '#f15c80', '#e4d354', '#8085e8', '#8d4653', '#91e8e1'
 ]
-
-
-
 var ice_svg = d3.select('#Sun').append('svg')
     .attr('width', width_ice)
     .attr('height', height_ice)
@@ -24,8 +21,6 @@ var ice_line_g = 0;
 
 function IceLine_2(ice_name_2, ice_num) {
     d3.csv('data/box_calc.csv', function (Ice_d) {
-
-        color_g = ['black', 'red', 'green']
         // console.log(Ice_d)
         if (ice_line_g != 0) {
             ice_line_g.remove();
@@ -405,7 +400,7 @@ function IceLine_2(ice_name_2, ice_num) {
         // console.log(ice_max)
 
         var colora = "#FFFFFF"
-        var colorb = color[0]
+        var colorb = colors[0]
 
         let colorx = d3.interpolate(colora, colorb);
         var color_scale = d3.scale.linear()
@@ -418,22 +413,6 @@ function IceLine_2(ice_name_2, ice_num) {
             .range([0, 1])
         // console.log(ice_num)
         // console.log(r)
-
-        
-        for (var i in r) {
-            for (var j in r[i].member) {
-                r[i].member[j]['kval'] = parseFloat(r[i].member[j]['129']) - parseFloat(r[i].member[j]['19'])
-            }
-        }
-        console.log(r)
-    
-        r[3].member.sort(function (a, b) {
-            return b.kval - a.kval
-        })
-        for (var i = 6; i <= 10; ++i)
-        r[i].member.sort(function (a, b) {
-            return b.kval - a.kval
-        })
 
         for (var kkk in ice_name_2) {
             var ice_name = ice_name_2[kkk];
@@ -611,8 +590,8 @@ function IceLine_2(ice_name_2, ice_num) {
                             }
                             if (r[k].n == 4) cnt += r[3].member.length
                             // console.log(i / 10 + cnt / 10 + r[k].num * 1)
-                            line_x1 = kk / 10 + cnt / 10 + r[k].num * 1;
-                            return kk / 10 + cnt / 10 + r[k].num * 1;
+                            line_x1 = r[k].member.length / 20 + cnt / 10 + r[k].num * 1;
+                            return r[k].member.length / 20 + cnt / 10 + r[k].num * 1;
                         })
                         .attr('y1', d => {
                             if (k == 0)
@@ -626,7 +605,7 @@ function IceLine_2(ice_name_2, ice_num) {
                                 if (r[j].n == r[k].n && r[j].num < r[k].num) cnt += r[j].member.length;
                             }
                             if (r[k].n == 4) cnt += r[3].member.length
-                            return kk / 10 + cnt / 10 + r[k].num * 1;
+                            return r[k].member.length / 20 + cnt / 10 + r[k].num * 1;
                         })
                         .attr('y2', d => {
                             // if (Math.log2(Math.abs(parseFloat(d[129]) - parseFloat(d[19]))) <= 0)
@@ -637,12 +616,10 @@ function IceLine_2(ice_name_2, ice_num) {
                         })
                         .attr('fill', 'none')
                         .attr('stroke', d => {
-                            // if (parseFloat(d[129] - d[19]) > 0)
-                            //     return '#00FF00';
-                            // else
-                            //     return 'red'
-
-                            return color_g[kkk]
+                            if (parseFloat(d[129] - d[19]) > 0)
+                                return '#00FF00';
+                            else
+                                return 'red'
                         })
                         .attr('stroke-width', 2)
                 }
@@ -665,7 +642,7 @@ function IceLine_2(ice_name_2, ice_num) {
                                 }
                                 if (r[k].n == 4) cnt += r[3].member.length
                                 // console.log(i / 10 + cnt / 10 + r[k].num * 1)
-                                return kk / 10 + cnt / 10 + r[k].num * 1;
+                                return r[k].member.length / 20 + cnt / 10 + r[k].num * 1;
                             })
                             .attr('y1', d => {
                                 if (k == 0)
@@ -679,8 +656,8 @@ function IceLine_2(ice_name_2, ice_num) {
                                     if (r[j].n == r[k].n && r[j].num < r[k].num) cnt += r[j].member.length;
                                 }
                                 if (r[k].n == 4) cnt += r[3].member.length
-                                line_x2 = kk / 10 + cnt / 10 + r[k].num * 1
-                                return kk / 10 + cnt / 10 + r[k].num * 1;
+                                line_x2 = r[k].member.length / 20 + cnt / 10 + r[k].num * 1
+                                return r[k].member.length / 20 + cnt / 10 + r[k].num * 1;
                             })
                             .attr('y2', d => {
                                 // if (Math.log2(Math.abs(parseFloat(d[129]) - parseFloat(d[19]))) <= 0)
@@ -695,7 +672,7 @@ function IceLine_2(ice_name_2, ice_num) {
                                 //     return '#00FF00';
                                 // else
                                 //     return 'red'
-                                return color_g[kkk % 10]
+                                return color[kkk % 10]
                             })
                             .attr('stroke-width', 2)
 
@@ -710,7 +687,7 @@ function IceLine_2(ice_name_2, ice_num) {
                             .attr('y1', d => {
                                 if (k == 0)
                                     return height_ice / 8
-                                return r[k].n * height_ice / 4 - height_ice / 8 - height_ice / 4
+                                return r[k].n * height_ice / 4 - height_ice / 8
                             })
                             .attr('x2', (d, i) => {
                                 return line_x2;
@@ -720,15 +697,14 @@ function IceLine_2(ice_name_2, ice_num) {
                                 // return r[k].n * height_ice / 4 - height_ice / 8
                                 if (k == 0)
                                     return height_ice / 8
-                                return r[k].n * height_ice / 4 - height_ice / 8 - height_ice / 4
+                                return r[k].n * height_ice / 4 - height_ice / 8
                             })
                             .attr('fill', 'none')
                             .attr('stroke', d => {
-                                // if (parseFloat(d[129] - d[19]) > 0)
-                                //     return '#00FF00';
-                                // else
-                                //     return 'red'
-                                return color_g[kkk % 10]
+                                if (parseFloat(d[129] - d[19]) > 0)
+                                    return '#00FF00';
+                                else
+                                    return 'red'
                             })
                             .attr('stroke-width', 2)
 
@@ -736,123 +712,122 @@ function IceLine_2(ice_name_2, ice_num) {
                     }
                 }
             }
-            // for (var k in rk) {
-            //     for (var kk in rk[k].member) {
-            //         if (rk[k].member[kk].code == ice_name && parseInt(rk[k].member[kk].biao) == ice_num) {
-            //             ice_line_g.selectAll('#r_1')
-            //                 .attr('id', 'r_1')
-            //                 .data([rk[k]])
-            //                 .enter()
-            //                 .append('rect')
-            //                 .attr('y', d => {
-            //                     if (d.n == 1) return (d.n - 1) * height_ice / 4
-            //                     return (d.n - 2) * height_ice / 4 + height_ice / 8;
-            //                     // return 100
-            //                 })
-            //                 .attr('x', d => {
-            //                     var cnt = 0;
-            //                     for (var i in r) {
-            //                         if (r[i].n == d.n && r[i].num < d.num) cnt += r[i].member.length;
-            //                     }
-            //                     if (d.n == 5 || d.kn == 5) cnt += r[3].member.length
-            //                     for (var i in rk) {
-            //                         if (rk[i].kn == d.kn && rk[i].knum < d.knum) cnt += rk[i].member.length
-            //                     }
-            //                     // if (d.n == 5 && d.knum > 2) cnt += r[8].member.length
-            //                     line_x2 = cnt * width_ice / 6080 + rk[k].member.length / 20;
-            //                     return cnt * width_ice / 6080;
-            //                     // return 100
-            //                 })
-            //                 .attr('height', (d, i) => {
-            //                     // if (i == 0)
-            //                     return height_ice / 8
-            //                     // return height_ice / 4
-            //                 })
-            //                 .attr('width', d => {
-            //                     return d.member.length * width_ice / 6080;
-            //                     // return 100
-            //                 })
-            //                 .attr('fill', (d, i) => {
-            //                     // if (i != 7 && i != 12 && i != 13 && i != 14 && i != 15 && i != 16)
-            //                     return 'none'
-            //                     // else {
-            //                     // if (d.type == '高')
-            //                     //     return '#00FF00'
-            //                     // else if (d.type == '负')
-            //                     //     return 'red'
-            //                     // else
-            //                     //     return 'yellow'
-            //                     // }
-            //                 })
-            //                 .attr('opacity', (d, i) => {
-            //                     // if (i != 7 && i != 12 && i != 13 && i != 14 && i != 15 && i != 16)
-            //                     return 1;
-            //                     // else
-            //                     return 0.5
-            //                 })
-            //                 .attr('stroke', (d, i) => {
-            //                     // if (i != 7 && i != 12 && i != 13 && i != 14 && i != 15 && i != 16)
-            //                     return color[i];
-            //                     // // else {
-            //                     //     if (d.type == '高')
-            //                     //         return '#00FF00'
-            //                     //     else if (d.type == '负')
-            //                     //         return 'red'
-            //                     //     else
-            //                     //         return 'yellow'
-            //                     // }
-            //                 })
-            //                 .attr('stroke-width', 5)
-            //                 .on('click', d => {
-            //                     // console.log(d)
-            //                     var name_sum = []
-            //                     var name_set = {}
-            //                     for (var i in d.member) {
-            //                         // console.log(d[i])
-            //                         if (name_set[d.member[i].code] != 1) {
-            //                             name_sum.push(d.member[i].code)
-            //                             name_set[d.member[i].code] = 1;
-            //                         }
-            //                     }
-            //                     // console.log(name_sum)
-            //                     OrRect(name_sum, 'blue')
-            //                 })
+            for (var k in rk) {
+                for (var kk in rk[k].member) {
+                    if (rk[k].member[kk].code == ice_name && parseInt(rk[k].member[kk].biao) == ice_num) {
+                        ice_line_g.selectAll('#r_1')
+                            .attr('id', 'r_1')
+                            .data([rk[k]])
+                            .enter()
+                            .append('rect')
+                            .attr('y', d => {
+                                if (d.n == 1) return (d.n - 1) * height_ice / 4
+                                return (d.n - 2) * height_ice / 4 + height_ice / 8;
+                                // return 100
+                            })
+                            .attr('x', d => {
+                                var cnt = 0;
+                                for (var i in r) {
+                                    if (r[i].n == d.n && r[i].num < d.num) cnt += r[i].member.length;
+                                }
+                                if (d.n == 5 || d.kn == 5) cnt += r[3].member.length
+                                for (var i in rk) {
+                                    if (rk[i].kn == d.kn && rk[i].knum < d.knum) cnt += rk[i].member.length
+                                }
+                                // if (d.n == 5 && d.knum > 2) cnt += r[8].member.length
+                                line_x2 = cnt * width_ice / 6080 + rk[k].member.length / 20;
+                                return cnt * width_ice / 6080;
+                                // return 100
+                            })
+                            .attr('height', (d, i) => {
+                                // if (i == 0)
+                                return height_ice / 8
+                                // return height_ice / 4
+                            })
+                            .attr('width', d => {
+                                return d.member.length * width_ice / 6080;
+                                // return 100
+                            })
+                            .attr('fill', (d, i) => {
+                                // if (i != 7 && i != 12 && i != 13 && i != 14 && i != 15 && i != 16)
+                                return 'none'
+                                // else {
+                                // if (d.type == '高')
+                                //     return '#00FF00'
+                                // else if (d.type == '负')
+                                //     return 'red'
+                                // else
+                                //     return 'yellow'
+                                // }
+                            })
+                            .attr('opacity', (d, i) => {
+                                // if (i != 7 && i != 12 && i != 13 && i != 14 && i != 15 && i != 16)
+                                return 1;
+                                // else
+                                return 0.5
+                            })
+                            .attr('stroke', (d, i) => {
+                                // if (i != 7 && i != 12 && i != 13 && i != 14 && i != 15 && i != 16)
+                                return color[i];
+                                // // else {
+                                //     if (d.type == '高')
+                                //         return '#00FF00'
+                                //     else if (d.type == '负')
+                                //         return 'red'
+                                //     else
+                                //         return 'yellow'
+                                // }
+                            })
+                            .attr('stroke-width', 5)
+                            .on('click', d => {
+                                // console.log(d)
+                                var name_sum = []
+                                var name_set = {}
+                                for (var i in d.member) {
+                                    // console.log(d[i])
+                                    if (name_set[d.member[i].code] != 1) {
+                                        name_sum.push(d.member[i].code)
+                                        name_set[d.member[i].code] = 1;
+                                    }
+                                }
+                                // console.log(name_sum)
+                                OrRect(name_sum, 'blue')
+                            })
+                    }
 
-            //             // ice_line_g.selectAll('#linein')
-            //             //     .attr('id', 'linein')
-            //             //     .data([rk[k].member[kk]])
-            //             //     .enter()
-            //             //     .append('line')
-            //             //     .attr('x1', (d, i) => {
-            //             //         return line_x1;
-            //             //     })
-            //             //     .attr('y1', d => {
-            //             //         if (k == 0)
-            //             //             return height_ice / 8
-            //             //         return rk[k].n * height_ice / 4 - height_ice / 8
-            //             //     })
-            //             //     .attr('x2', (d, i) => {
-            //             //         return line_x2;
-            //             //     })
-            //             //     .attr('y2', d => {
-            //             //         // if (Math.log2(Math.abs(parseFloat(d[129]) - parseFloat(d[19]))) <= 0)
-            //             //         // return r[k].n * height_ice / 4 - height_ice / 8
-            //             //         if (k == 0)
-            //             //             return height_ice / 8
-            //             //         return rk[k].n * height_ice / 4 - height_ice / 8
-            //             //     })
-            //             //     .attr('fill', 'none')
-            //             //     .attr('stroke', d => {
-            //             //         if (parseFloat(d[129] - d[19]) > 0)
-            //             //             return '#00FF00';
-            //             //         else
-            //             //             return 'red'
-            //             //     })
-            //             //     .attr('stroke-width', 2)
-            //         }
-
-            //     }
-            // }
+                }
+            }
+            ice_line_g.selectAll('#linein')
+                .attr('id', 'linein')
+                .data([r[k].member[kk]])
+                .enter()
+                .append('line')
+                .attr('x1', (d, i) => {
+                    return line_x1;
+                })
+                .attr('y1', d => {
+                    if (k == 0)
+                        return height_ice / 8
+                    return r[k].n * height_ice / 4 - height_ice / 8
+                })
+                .attr('x2', (d, i) => {
+                    return line_x2;
+                })
+                .attr('y2', d => {
+                    // if (Math.log2(Math.abs(parseFloat(d[129]) - parseFloat(d[19]))) <= 0)
+                    // return r[k].n * height_ice / 4 - height_ice / 8
+                    if (k == 0)
+                        return height_ice / 8
+                    return r[k].n * height_ice / 4 - height_ice / 8
+                })
+                .attr('fill', 'none')
+                .attr('stroke', d => {
+                    if (parseFloat(d[129] - d[19]) > 0)
+                        return '#00FF00';
+                    else
+                        return 'red'
+                })
+                .attr('stroke-width', 2)
         }
 
     })
@@ -1240,7 +1215,7 @@ function IceLine(ice_name, ice_num) {
         // console.log(ice_max)
 
         var colora = "#FFFFFF"
-        var colorb = color[0]
+        var colorb = colors[0]
 
         let colorx = d3.interpolate(colora, colorb);
         var color_scale = d3.scale.linear()
@@ -1825,22 +1800,7 @@ d3.csv('data/box_calc.csv', function (Ice_d) {
     r[8]['gini'] = 0.613
     r[9]['gini'] = 0.582
     r[10]['gini'] = 0.663
-    // console.log(r)
-
-    for (var i in r) {
-        for (var j in r[i].member) {
-            r[i].member[j]['kval'] = parseFloat(r[i].member[j]['129']) - parseFloat(r[i].member[j]['19'])
-        }
-    }
-    console.log(r)
-
-    // r[3].member.sort(function (a, b) {
-    //     return b.kval - a.kval
-    // })
-    for (var i = 0; i <= 10; ++i)
-    r[i].member.sort(function (a, b) {
-        return b.kval - a.kval
-    })
+    // console.log(rk)
 
     var ice_max = -999999
 
@@ -1858,7 +1818,7 @@ d3.csv('data/box_calc.csv', function (Ice_d) {
     console.log(r)
 
     var colora = "#FFFFFF"
-    var colorb = color[0]
+    var colorb = colors[0]
 
     let colorx = d3.interpolate(colora, colorb);
     var color_scale = d3.scale.linear()
@@ -2096,7 +2056,7 @@ d3.csv('data/box_calc.csv', function (Ice_d) {
             })
             .attr('fill', 'none')
             .attr('stroke', d => {
-                if (parseFloat(d[129]) - parseFloat(d['19']) > 0)
+                if (parseFloat(d[129]) > 0)
                     return '#00FF00';
                 else
                     return 'red'

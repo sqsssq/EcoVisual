@@ -65,19 +65,19 @@ function DrawHeat(data) {
     //     heatmapInstance = 0;
     // }
     d3.csv('data/final.csv', function (HeatD) {
-        // console.log(HeatD)
+        console.log(HeatD)
         data = HeatD
         heatmapInstance = h337.create({
             container: document.querySelector("#Tsne"),
             radius: 6,
-            maxOpacity: 0.8,
-            minOpacity: 0.6,
+            maxOpacity: 1,
+            minOpacity: 1,
             blur: .75,
             gradient: {
                 '.2': 'red',
                 // '.3': 'orange',
-                '.4': 'blue',
-                // '.75': 'yellow',
+                // '.4': 'blue',
+                '.75': 'yellow',
                 '.95': '#00FF00'
                 //   '.0': "rgba(33,102,172,0)",
                 //                         '.0.01':  "#FFA079",
@@ -182,7 +182,7 @@ function DrawHeat(data) {
         //     }
 
         // }
-        // console.log(points)
+        console.log(points)
         var heat_data = {
             max: Math.floor(kmax),
             // min: Math.floor(-250),

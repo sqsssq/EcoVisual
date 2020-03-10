@@ -65,7 +65,7 @@ function DrawHeat(data) {
     //     heatmapInstance = 0;
     // }
     d3.csv('data/final.csv', function (HeatD) {
-        // console.log(HeatD)
+        console.log(HeatD)
         data = HeatD
         heatmapInstance = h337.create({
             container: document.querySelector("#Tsne"),
@@ -182,7 +182,7 @@ function DrawHeat(data) {
         //     }
 
         // }
-        // console.log(points)
+        console.log(points)
         var heat_data = {
             max: Math.floor(kmax),
             // min: Math.floor(-250),
@@ -358,182 +358,182 @@ function ScatterPaint_gain_loss(coor, p, num_coor, num) {
 
     // console.log(coor)
 
-    var tooltip = d3.select("body")
-        .append("div")
-        .attr("class", "tooltipx")
-        .style("opacity", 0.0)
+    // var tooltip = d3.select("body")
+    //     .append("div")
+    //     .attr("class", "tooltipx")
+    //     .style("opacity", 0.0)
 
-    if (tcircle != 0) tcircle.remove()
-    if (r != 0) r.remove()
-
-
-    DrawHeat(coor)
-    var padding = {
-        top: 5,
-        right: 10,
-        bottom: 5,
-        left: 10
-    };
-    let max_x = -999999,
-        min_x = 99999,
-        max_y = -99999,
-        min_y = 999999
-
-    for (var i in coor) {
-        max_x = Math.max(max_x, parseFloat(coor[i].x))
-        max_y = Math.max(max_y, parseFloat(coor[i].y))
-        min_x = Math.min(min_x, parseFloat(coor[i].x))
-        min_y = Math.min(min_y, parseFloat(coor[i].y))
-    }
-
-    var xAxisWidth = widtha - 2 * padding.right;
-    var yAxisWidth = heighta - padding.bottom;
-    var xScale = d3.scale.linear()
-        .domain([min_x, max_x])
-        .range([padding.left, xAxisWidth]);
-    var yScale = d3.scale.linear()
-        .domain([min_y, max_y])
-        .range([padding.top, yAxisWidth]);
-
-    var h_line = [-25, 25, -50, 50, min_x, max_x],
-        s_line = [-25, 25, -50, 50, min_y, max_y]
-    ssvg.selectAll('#x_line')
-        .attr('id', 'x_line')
-        .data(h_line)
-        .enter()
-        .append('g')
-        .append('line')
-        .attr('x1', d => {
-            return xScale(d)
-        })
-        .attr('y1', (d, i) => {
-            return yScale(min_y)
-        })
-        .attr('x2', d => {
-            return xScale(d)
-        })
-        .attr('y2', (d, i) => {
-            return yScale(max_y)
-        })
-        .attr('fill', 'none')
-        .attr('stroke', '#0a3c75')
-        .attr('stroke-width', 0.1)
-        .attr('stroke-opacity', 0.4)
-        .attr('stroke-dasharray', 5.5)
-
-    ssvg.selectAll('#x_line')
-        .attr('id', 'x_line')
-        .data(s_line)
-        .enter()
-        .append('g')
-        .append('line')
-        .attr('x1', d => {
-            return xScale(min_x)
-        })
-        .attr('y1', d => {
-            return yScale(d)
-        })
-        .attr('x2', d => {
-            return xScale(max_x)
-        })
-        .attr('y2', d => {
-            return yScale(d)
-        })
-        .attr('fill', 'none')
-        .attr('stroke', '#0a3c75')
-        .attr('stroke-width', 0.1)
-        .attr('stroke-opacity', 0.4)
-        .attr('stroke-dasharray', 5.5)
+    // if (tcircle != 0) tcircle.remove()
+    // if (r != 0) r.remove()
 
 
-    var xAxis = d3.svg.axis().scale(xScale).ticks(0).tickFormat(d3.format()).orient("bottom");
-    var yAxis = d3.svg.axis().scale(yScale).ticks(0).tickFormat(d3.format()).orient("left"); //添加一个g用于放x轴
+    // DrawHeat(coor)
+    // var padding = {
+    //     top: 5,
+    //     right: 10,
+    //     bottom: 5,
+    //     left: 10
+    // };
+    // let max_x = -999999,
+    //     min_x = 99999,
+    //     max_y = -99999,
+    //     min_y = 999999
 
-    ssvg.append("g")
-        .attr("class", "axis")
-        .attr("transform", "translate(" + 0 + "," + yScale(0) + ")")
-        .call(xAxis)
-    ssvg.append("g")
-        .attr("class", "axis")
-        .attr("transform", "translate(" + xScale(0) + "," + 0 + ")")
-        .call(yAxis)
+    // for (var i in coor) {
+    //     max_x = Math.max(max_x, parseFloat(coor[i].x))
+    //     max_y = Math.max(max_y, parseFloat(coor[i].y))
+    //     min_x = Math.min(min_x, parseFloat(coor[i].x))
+    //     min_y = Math.min(min_y, parseFloat(coor[i].y))
+    // }
+
+    // var xAxisWidth = widtha - 2 * padding.right;
+    // var yAxisWidth = heighta - padding.bottom;
+    // var xScale = d3.scale.linear()
+    //     .domain([min_x, max_x])
+    //     .range([padding.left, xAxisWidth]);
+    // var yScale = d3.scale.linear()
+    //     .domain([min_y, max_y])
+    //     .range([padding.top, yAxisWidth]);
+
+    // var h_line = [-25, 25, -50, 50, min_x, max_x],
+    //     s_line = [-25, 25, -50, 50, min_y, max_y]
+    // ssvg.selectAll('#x_line')
+    //     .attr('id', 'x_line')
+    //     .data(h_line)
+    //     .enter()
+    //     .append('g')
+    //     .append('line')
+    //     .attr('x1', d => {
+    //         return xScale(d)
+    //     })
+    //     .attr('y1', (d, i) => {
+    //         return yScale(min_y)
+    //     })
+    //     .attr('x2', d => {
+    //         return xScale(d)
+    //     })
+    //     .attr('y2', (d, i) => {
+    //         return yScale(max_y)
+    //     })
+    //     .attr('fill', 'none')
+    //     .attr('stroke', '#0a3c75')
+    //     .attr('stroke-width', 0.1)
+    //     .attr('stroke-opacity', 0.4)
+    //     .attr('stroke-dasharray', 5.5)
+
+    // ssvg.selectAll('#x_line')
+    //     .attr('id', 'x_line')
+    //     .data(s_line)
+    //     .enter()
+    //     .append('g')
+    //     .append('line')
+    //     .attr('x1', d => {
+    //         return xScale(min_x)
+    //     })
+    //     .attr('y1', d => {
+    //         return yScale(d)
+    //     })
+    //     .attr('x2', d => {
+    //         return xScale(max_x)
+    //     })
+    //     .attr('y2', d => {
+    //         return yScale(d)
+    //     })
+    //     .attr('fill', 'none')
+    //     .attr('stroke', '#0a3c75')
+    //     .attr('stroke-width', 0.1)
+    //     .attr('stroke-opacity', 0.4)
+    //     .attr('stroke-dasharray', 5.5)
 
 
-    // var color = ['#00a676', '#f9c80e', '#3abeff', '#df19c1', '#ff206e', '#f08700', '#0091c9']
-    var color = ['#2fe9b3', '#2f8fe9', '#c32fe9', '#e92f9c', '#2E8B57', '#e4e92f', '#FFFACD']
-    var a = d3.rgb(255, 0, 0); //红色
-    // var b = d3.rgb(0, 255, 0); //绿色
-    var b = '#00FF00'
+    // var xAxis = d3.svg.axis().scale(xScale).ticks(0).tickFormat(d3.format()).orient("bottom");
+    // var yAxis = d3.svg.axis().scale(yScale).ticks(0).tickFormat(d3.format()).orient("left"); //添加一个g用于放x轴
 
-    var compute = d3.interpolate(a, b);
+    // ssvg.append("g")
+    //     .attr("class", "axis")
+    //     .attr("transform", "translate(" + 0 + "," + yScale(0) + ")")
+    //     .call(xAxis)
+    // ssvg.append("g")
+    //     .attr("class", "axis")
+    //     .attr("transform", "translate(" + xScale(0) + "," + 0 + ")")
+    //     .call(yAxis)
 
-    var linear = d3.scale.linear()
-        .domain([-550, 550])
-        .range([0, 1]);
-    tcircle = ssvg.append('g').selectAll("circle")
-        .data(coor)
-        .enter()
-        .append("circle")
-        .attr("fill", (d, i) => {
-            // if (d.l == num)
-            if (coor[i]['xval'] <= 0)
-                return 'red'
-            // return compute(linear(parseFloat(num_coor[i][91])))
-            else
-                return '#00FF00'
-            // else return 'none'
-        })
-        // .attr("fill-opacity", 0.5)
-        .attr("id", "circleid")
-        .attr("cx", function (d) {
-            //console.log(d);
-            return xScale(d.x);
-        })
-        .attr("cy", function (d) {
-            return yScale(d.y);
-        })
-        .attr("r", 1.8)
-        .attr('stroke', (d, i) => {
-            //if (d.l == num)
-            return 'gray'
-            // if (coor[i]['val'] <= 0)
-            //     return 'red'
-            // // return compute(linear(parseFloat(num_coor[i][91])))
-            // else
-            //     return '#00FF00'
-            // //else 'none';
-        })
-        .attr('stroke-width', 0.1)
-        .attr('fill-opacity', 0.3)
-        .on("mouseover", function (d, i) {
-            // tooltip.html("Code: " + d.id + "</br>" + "Value: " + d.val)
-            //     .style("left", (d3.event.pageX - 15) + "px")
-            //     .style("top", (d3.event.pageY + 0) + "px")
-            //     .style("opacity", 1.0)
-            // console.log(d)
-            d3.select(this)
-                .attr("fill", "yellow")
-                .attr('fill-opacity', 1)
-        })
-        .on("mousemove", d => {
-            // tooltip.style("left", (d3.event.pageX - 15) + "px")
-            //     .style("top", (d3.event.pageY + 0) + "px")
-        })
-        .on("mouseout", function (d, i) {
-            d3.select(this)
-                .attr("fill", d => {
-                    if (coor[i]['val'] <= 0)
-                        return 'red'
-                    // return compute(linear(parseFloat(num_coor[i][91])))
-                    else
-                        return '#00FF00'
-                });
-            // tooltip.style("opacity", 0.1)
-        });
 
-    console.log(tcircle)
+    // // var color = ['#00a676', '#f9c80e', '#3abeff', '#df19c1', '#ff206e', '#f08700', '#0091c9']
+    // var color = ['#2fe9b3', '#2f8fe9', '#c32fe9', '#e92f9c', '#2E8B57', '#e4e92f', '#FFFACD']
+    // var a = d3.rgb(255, 0, 0); //红色
+    // // var b = d3.rgb(0, 255, 0); //绿色
+    // var b = '#00FF00'
 
-    coor.length = 0;
+    // var compute = d3.interpolate(a, b);
+
+    // var linear = d3.scale.linear()
+    //     .domain([-550, 550])
+    //     .range([0, 1]);
+    // tcircle = ssvg.append('g').selectAll("circle")
+    //     .data(coor)
+    //     .enter()
+    //     .append("circle")
+    //     .attr("fill", (d, i) => {
+    //         // if (d.l == num)
+    //         if (coor[i]['xval'] <= 0)
+    //             return 'red'
+    //         // return compute(linear(parseFloat(num_coor[i][91])))
+    //         else
+    //             return '#00FF00'
+    //         // else return 'none'
+    //     })
+    //     // .attr("fill-opacity", 0.5)
+    //     .attr("id", "circleid")
+    //     .attr("cx", function (d) {
+    //         //console.log(d);
+    //         return xScale(d.x);
+    //     })
+    //     .attr("cy", function (d) {
+    //         return yScale(d.y);
+    //     })
+    //     .attr("r", 1.8)
+    //     .attr('stroke', (d, i) => {
+    //         //if (d.l == num)
+    //         return 'gray'
+    //         // if (coor[i]['val'] <= 0)
+    //         //     return 'red'
+    //         // // return compute(linear(parseFloat(num_coor[i][91])))
+    //         // else
+    //         //     return '#00FF00'
+    //         // //else 'none';
+    //     })
+    //     .attr('stroke-width', 0.1)
+    //     .attr('fill-opacity', 0.3)
+    //     .on("mouseover", function (d, i) {
+    //         // tooltip.html("Code: " + d.id + "</br>" + "Value: " + d.val)
+    //         //     .style("left", (d3.event.pageX - 15) + "px")
+    //         //     .style("top", (d3.event.pageY + 0) + "px")
+    //         //     .style("opacity", 1.0)
+    //         // console.log(d)
+    //         d3.select(this)
+    //             .attr("fill", "yellow")
+    //             .attr('fill-opacity', 1)
+    //     })
+    //     .on("mousemove", d => {
+    //         // tooltip.style("left", (d3.event.pageX - 15) + "px")
+    //         //     .style("top", (d3.event.pageY + 0) + "px")
+    //     })
+    //     .on("mouseout", function (d, i) {
+    //         d3.select(this)
+    //             .attr("fill", d => {
+    //                 if (coor[i]['val'] <= 0)
+    //                     return 'red'
+    //                 // return compute(linear(parseFloat(num_coor[i][91])))
+    //                 else
+    //                     return '#00FF00'
+    //             });
+    //         // tooltip.style("opacity", 0.1)
+    //     });
+
+    // console.log(tcircle)
+
+    // coor.length = 0;
 
     // var brush = d3.svg.brush()
     //     .x(xScale)

@@ -65,36 +65,34 @@ function DrawHeat(data) {
     //     heatmapInstance = 0;
     // }
     d3.csv('data/final.csv', function (HeatD) {
-        // console.log(HeatD)
+        console.log(HeatD)
         data = HeatD
         heatmapInstance = h337.create({
             container: document.querySelector("#Tsne"),
-            radius: 6,
-            maxOpacity: 0.8,
-            minOpacity: 0.6,
+            radius: 10,
+            maxOpacity: .5,
+            minOpacity: 0,
             blur: .75,
             gradient: {
-                '.2': 'red',
-                // '.3': 'orange',
-                '.4': 'blue',
+                // '.4': 'red',
                 // '.75': 'yellow',
-                '.95': '#00FF00'
-                //   '.0': "rgba(33,102,172,0)",
-                //                         '.0.01':  "#FFA079",
-                // '.0.08': "#FF7F50",
-                // '.0.15': "#FFBB3E",
-                // '.22': "#FFA500",
-                // '.29': "#FFD700",
-                // '.36': "#e2dc00",
-                // '.43': "#ADFF2F",
-                // '.5': "#00FF7F",
-                // '.57': "#00CED1",
-                // '.64': "#00FFFF",
-                // '.71': "#1E90FF",
-                // '.78': "#0000FF",
-                // '.85': "#8A2BE2",
-                // '.92': "#7B68EE",
-                // '.99': "#EE82EE"
+                // '.95': 'green'
+                  '.0': "rgba(33,102,172,0)",
+                        '.0.01':  "#FFA079",
+                        '.0.08':"#FF7F50",
+                        '.0.15': "#FFBB3E",
+                        '.22':"#FFA500",
+                        '.29': "#FFD700",
+                        '.36': "#e2dc00",
+                        '.43': "#ADFF2F",
+                        '.5':"#00FF7F",
+                        '.57': "#00CED1",
+                        '.64': "#00FFFF",
+                        '.71': "#1E90FF",
+                        '.78': "#0000FF",
+                        '.85': "#8A2BE2",
+                        '.92': "#7B68EE",
+                        '.99': "#EE82EE"
             }
         })
         var points = []
@@ -182,7 +180,7 @@ function DrawHeat(data) {
         //     }
 
         // }
-        // console.log(points)
+        console.log(points)
         var heat_data = {
             max: Math.floor(kmax),
             // min: Math.floor(-250),

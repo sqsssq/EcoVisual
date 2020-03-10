@@ -1,4 +1,4 @@
-var width_ice = 611,
+var width_ice = 615,
     height_ice = 306
 
 color = ['#7cb5ec', '#434348', '#90ed7d', '#f7a35c', '#8085e9',
@@ -611,7 +611,7 @@ function IceLine_2(ice_name_2, ice_num) {
                             }
                             if (r[k].n == 4) cnt += r[3].member.length
                             // console.log(i / 10 + cnt / 10 + r[k].num * 1)
-                            line_x1 = kk / 10 + cnt / 10 + r[k].num * 1;
+                            line_x1 = r[k].member.length / 20 + cnt / 10 + r[k].num * 1;
                             return kk / 10 + cnt / 10 + r[k].num * 1;
                         })
                         .attr('y1', d => {
@@ -679,7 +679,7 @@ function IceLine_2(ice_name_2, ice_num) {
                                     if (r[j].n == r[k].n && r[j].num < r[k].num) cnt += r[j].member.length;
                                 }
                                 if (r[k].n == 4) cnt += r[3].member.length
-                                line_x2 = kk / 10 + cnt / 10 + r[k].num * 1
+                                line_x2 = r[k].member.length / 20 + cnt / 10 + r[k].num * 1
                                 return kk / 10 + cnt / 10 + r[k].num * 1;
                             })
                             .attr('y2', d => {
@@ -710,7 +710,7 @@ function IceLine_2(ice_name_2, ice_num) {
                             .attr('y1', d => {
                                 if (k == 0)
                                     return height_ice / 8
-                                return r[k].n * height_ice / 4 - height_ice / 8 - height_ice / 4
+                                return r[k].n * height_ice / 4 - height_ice / 8
                             })
                             .attr('x2', (d, i) => {
                                 return line_x2;
@@ -720,7 +720,7 @@ function IceLine_2(ice_name_2, ice_num) {
                                 // return r[k].n * height_ice / 4 - height_ice / 8
                                 if (k == 0)
                                     return height_ice / 8
-                                return r[k].n * height_ice / 4 - height_ice / 8 - height_ice / 4
+                                return r[k].n * height_ice / 4 - height_ice / 8
                             })
                             .attr('fill', 'none')
                             .attr('stroke', d => {
@@ -1834,10 +1834,10 @@ d3.csv('data/box_calc.csv', function (Ice_d) {
     }
     console.log(r)
 
-    // r[3].member.sort(function (a, b) {
-    //     return b.kval - a.kval
-    // })
-    for (var i = 0; i <= 10; ++i)
+    r[3].member.sort(function (a, b) {
+        return b.kval - a.kval
+    })
+    for (var i = 6; i <= 10; ++i)
     r[i].member.sort(function (a, b) {
         return b.kval - a.kval
     })

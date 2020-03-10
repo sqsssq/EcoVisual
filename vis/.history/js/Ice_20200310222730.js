@@ -1834,10 +1834,10 @@ d3.csv('data/box_calc.csv', function (Ice_d) {
     }
     console.log(r)
 
-    // r[3].member.sort(function (a, b) {
-    //     return b.kval - a.kval
-    // })
-    for (var i = 0; i <= 10; ++i)
+    r[3].member.sort(function (a, b) {
+        return b.kval - a.kval
+    })
+    for (var i = 6; i <= 10; ++i)
     r[i].member.sort(function (a, b) {
         return b.kval - a.kval
     })
