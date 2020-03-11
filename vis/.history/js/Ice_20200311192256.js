@@ -1209,7 +1209,7 @@ function IceLine(ice_name, ice_num) {
 
 
 d3.csv('data/box_calc.csv', function (Ice_d) {
-    // console.log(Ice_d)
+    console.log(Ice_d)
 
     var r = []
     for (var i = 0; i < 7; ++i) r.push({
@@ -1222,140 +1222,78 @@ d3.csv('data/box_calc.csv', function (Ice_d) {
 
     for (var i in Ice_d) {
         // console.log(Ice_d[i])
-        if (parseFloat(Ice_d[i]['9']) <= 1.5 && parseFloat(Ice_d[i]['9']) <= 0.5 && parseFloat(Ice_d[i]['ability']) <= 0.5) r[4].member.push(Ice_d[i])
-        if (parseFloat(Ice_d[i]['9']) <= 1.5 && parseFloat(Ice_d[i]['9']) > 0.5 && parseFloat(Ice_d[i]['ability']) <= 0.5) r[5].member.push(Ice_d[i])
-        if (parseFloat(Ice_d[i]['9']) > 1.5 && parseFloat(Ice_d[i]['ability']) <= 0.5) r[6].member.push(Ice_d[i])
-        if (parseFloat(Ice_d[i]['ability']) > 0.5 && parseFloat(Ice_d[i]['9']) <= 1.5 && parseFloat(Ice_d[i]['ability']) <= 1.5) r[0].member.push(Ice_d[i])
-        if (parseFloat(Ice_d[i]['ability']) > 0.5 && parseFloat(Ice_d[i]['9']) <= 1.5 && parseFloat(Ice_d[i]['ability']) > 1.5) r[1].member.push(Ice_d[i])
-        if (parseFloat(Ice_d[i]['ability']) > 0.5 && parseFloat(Ice_d[i]['9']) > 1.5 && parseFloat(Ice_d[i]['9']) <= 2.5) r[2].member.push(Ice_d[i])
-        if (parseFloat(Ice_d[i]['ability']) > 0.5 && parseFloat(Ice_d[i]['9']) > 1.5 && parseFloat(Ice_d[i]['9']) > 2.5) r[3].member.push(Ice_d[i])
+        if (parseFloat(Ice_d[i]['9']) <= 1.5 && parseFloat(Ice_d[i]['9']) <= 0.5 && parseFloat(Ice_d[i]['ability']) <= 0.5) r[0].member.push(Ice_d[i])
+        if (parseFloat(Ice_d[i]['9']) <= 1.5 && parseFloat(Ice_d[i]['9']) > 0.5 && parseFloat(Ice_d[i]['ability']) <= 0.5) r[1].member.push(Ice_d[i])
+        if (parseFloat(Ice_d[i]['9']) > 1.5 && parseFloat(Ice_d[i]['ability']) <= 0.5) r[2].member.push(Ice_d[i])
+        if (parseFloat(Ice_d[i]['ability']) > 0.5 && parseFloat(Ice_d[i]['9']) <= 1.5 && parseFloat(Ice_d[i]['ability']) <= 1.5) r[3].member.push(Ice_d[i])
+        if (parseFloat(Ice_d[i]['ability']) > 0.5 && parseFloat(Ice_d[i]['9']) <= 1.5 && parseFloat(Ice_d[i]['ability']) > 1.5) r[4].member.push(Ice_d[i])
+        if (parseFloat(Ice_d[i]['ability']) > 0.5 && parseFloat(Ice_d[i]['9']) > 1.5 && parseFloat(Ice_d[i]['9']) <= 2.5) r[5].member.push(Ice_d[i])
+        if (parseFloat(Ice_d[i]['ability']) > 0.5 && parseFloat(Ice_d[i]['9']) > 1.5 && parseFloat(Ice_d[i]['9']) > 2.5) r[6].member.push(Ice_d[i])
     }
-    r[0].n = 4, r[1].n = 4, r[2].n = 4, r[3].n = 4, r[4].n = 4, r[5].n = 4, r[6].n = 3;
-    r[0].num = 0, r[1].num = 1, r[2].num = 2, r[3].num = 3, r[4].num = 4, r[5].num = 5, r[6].num = 3;
-    r[4].type = '健康', r[5].type = '疾病', r[6].type = '较重病', r[0].type = '工作能力较弱', r[1].type = '工作能力强', r[2].type = '较轻病', r[3].type = '重病';
+    r[0].n = 4, r[1].n = 4, r[2].n = 3, r[3].n = 4, r[4].n = 4, r[5].n = 4, r[6].n = 4;
+    r[0].num = 0, r[1].num = 1, r[2].num = 2, r[3].num = 3, r[4].num = 4, r[5].num = 5, r[6].num = 6;
+    r[0].type = '健康', r[1].type = '疾病', r[2].type = '病较重', r[3].type = '工作能力较弱', r[4].type = '工作能力强', r[5].type = '病较轻', r[6].type = '重病';
 
     rk = []
     var rk_num = 0
-    var kkn
-    var rk_cnt = 0;
     for (rk_num = 0; rk_num < 7; ++rk_num) {
         var rkn = 0;
-        if (rk_num == 6) {
-            rkn = 4
-            kkn = 0;
-        } else {
-            rkn = 5
-            kkn = 1;
-        }
-        // if (rk_num == 2)
-            var high = [],
-                low = [],
-                mid = []
+        if (rk_num == 2)
+        rkn = 4;
+        else
+        rkn = 5
+        var high = [],
+            low = [],
+            mid = []
         for (var i in r[rk_num].member) {
-            if (parseInt(r[rk_num].member[i]['val']) == 0) low.push(r[rk_num].member[i])
-            if (parseInt(r[rk_num].member[i]['val']) == 1) mid.push(r[rk_num].member[i])
-            if (parseInt(r[rk_num].member[i]['val']) == 2) high.push(r[rk_num].member[i])
+            if (parseInt(r[rk_num].member[i][11]) == 0) low.push(r[rk_num].member[i])
+            if (parseInt(r[rk_num].member[i][11]) == 1) mid.push(r[rk_num].member[i])
+            if (parseInt(r[rk_num].member[i][11]) == 2) high.push(r[rk_num].member[i])
         }
-        if (rk_num == 6) {
-            rk.push({
-                n: rkn,
-                kn: kkn,
-                member: high,
-                high: high,
-                mid: mid,
-                low: low,
-                type: '负',
-                num: rk_num,
-                knum: 0,
-                color: '#00FF00'
-            })
-    
-            rk.push({
-                n: rkn,
-                kn: kkn,
-                member: mid,
-                high: high,
-                mid: mid,
-                low: low,
-                type: '负',
-                num: rk_num,
-                knum: 1,
-                color: 'yellow'
-            })
-    
-            rk.push({
-                n: rkn,
-                kn: kkn,
-                member: low,
-                high: high,
-                mid: mid,
-                low: low,
-                type: '负',
-                num: rk_num,
-                knum: 2,
-                color: 'red'
-            })
-        }
-        else {
-            rk.push({
-                n: rkn,
-                kn: kkn,
-                member: high,
-                high: high,
-                mid: mid,
-                low: low,
-                type: '负',
-                num: rk_num,
-                knum: rk_cnt,
-                color: '#00FF00'
-            })
-            rk_cnt++;
-            rk.push({
-                n: rkn,
-                kn: kkn,
-                member: mid,
-                high: high,
-                mid: mid,
-                low: low,
-                type: '负',
-                num: rk_num,
-                knum: rk_cnt,
-                color: 'yellow'
-            })
-            rk_cnt++;
-            rk.push({
-                n: rkn,
-                kn: kkn,
-                member: low,
-                high: high,
-                mid: mid,
-                low: low,
-                type: '负',
-                num: rk_num,
-                knum: rk_cnt,
-                color: 'red'
-            })
-            rk_cnt++;
-        }
+        rk.push({
+            n: rkn,
+            kn: 0,
+            member: high,
+            high: high,
+            mid: mid,
+            low: low,
+            type: '负',
+            num: rk_num,
+            knum: 0,
+            color: '#00FF00'
+        })
+
+        rk.push({
+            n: rkn,
+            kn: 0,
+            member: mid,
+            high: high,
+            mid: mid,
+            low: low,
+            type: '负',
+            num: rk_num,
+            knum: 1,
+            color: 'yellow'
+        })
+
+        rk.push({
+            n: rkn,
+            kn: 0,
+            member: low,
+            high: high,
+            mid: mid,
+            low: low,
+            type: '负',
+            num: rk_num,
+            knum: 2,
+            color: 'red'
+        })
     }
     // console.log(rk)
 
     var mk = []
-    for (var i in r[0].member) {
-        mk.push(r[0].member[i])
-    }
     for (var i in r[1].member) {
         mk.push(r[1].member[i])
-    }
-    r.push({
-        n: 3,
-        member: mk,
-        type: '较轻病',
-        num: 0
-    })
-    mk = []
-    for (var i in r[3].member) {
-        mk.push(r[3].member[i])
     }
     for (var i in r[2].member) {
         mk.push(r[2].member[i])
@@ -1363,12 +1301,12 @@ d3.csv('data/box_calc.csv', function (Ice_d) {
     r.push({
         n: 3,
         member: mk,
-        type: '较重病',
+        type: '工作能力较强',
         num: 1
     })
     mk = []
-    for (var i in r[5].member) {
-        mk.push(r[5].member[i])
+    for (var i in r[3].member) {
+        mk.push(r[3].member[i])
     }
     for (var i in r[4].member) {
         mk.push(r[4].member[i])
@@ -1376,29 +1314,29 @@ d3.csv('data/box_calc.csv', function (Ice_d) {
     r.push({
         n: 3,
         member: mk,
-        type: '较轻病',
+        type: '工作能力较弱',
         num: 2
     })
     mk = []
     for (var i in Ice_d) {
-        if (parseFloat(Ice_d[i]['ability']) > 0.5)
+        if (parseFloat(Ice_d[i]['kaishi']) <= 0.5)
             mk.push(Ice_d[i])
     }
     r.push({
         n: 2,
         member: mk,
-        type: '工作能力较强',
+        type: '起始贫穷',
         num: 0
     })
     mk = []
     for (var i in Ice_d) {
-        if (parseFloat(Ice_d[i]['ability']) <= 0.5)
+        if (parseFloat(Ice_d[i]['kaishi']) > 0.5)
             mk.push(Ice_d[i])
     }
     r.push({
         n: 2,
         member: mk,
-        type: '工作能力弱',
+        type: '起始富裕',
         num: 1
     })
     r.push({
@@ -1407,24 +1345,26 @@ d3.csv('data/box_calc.csv', function (Ice_d) {
         type: '',
         num: 0
     })
+    //#endregion
+
+
+
     r.sort(function (a, b) {
         if (a.n != b.n) return a.n - b.n
         return a.num - b.num
     })
 
     r[0]['gini'] = 0.667
-    r[1]['gini'] = 0.543
-    r[2]['gini'] = 0.645
-    r[3]['gini'] = 0.608
-    r[4]['gini'] = 0.237
-    r[5]['gini'] = 0.577
-    r[6]['gini'] = 0.619
+    r[1]['gini'] = 0.593
+    r[2]['gini'] = 0.571
+    r[3]['gini'] = 0.521
+    r[4]['gini'] = 0.63
+    r[5]['gini'] = 0.614
+    r[6]['gini'] = 0.527
     r[7]['gini'] = 0.661
-    r[8]['gini'] = 0.566
-    r[9]['gini'] = 0.602
-    r[10]['gini'] = 0.51
-    r[11]['gini'] = 0.628
-    r[12]['gini'] = 0.477
+    r[8]['gini'] = 0.613
+    r[9]['gini'] = 0.582
+    r[10]['gini'] = 0.663
     // console.log(r)
 
     for (var i in r) {
@@ -1432,21 +1372,20 @@ d3.csv('data/box_calc.csv', function (Ice_d) {
             r[i].member[j]['kval'] = parseFloat(r[i].member[j]['129']) - parseFloat(r[i].member[j]['19'])
         }
     }
-    // console.log(r)
+    console.log(r)
 
     // r[3].member.sort(function (a, b) {
     //     return b.kval - a.kval
     // })
     for (var i = 0; i <= 10; ++i)
         r[i].member.sort(function (a, b) {
-            return b['val'] - a['val']
+            return b['11'] - a['11']
         })
 
-    //#endregion
-
-
-
     var ice_max = -999999
+
+    console.log(r)
+
     for (var i in r[0].member) {
         ice_max = Math.max(ice_max, Math.abs(parseFloat(r[0].member[i][129]) - parseFloat(r[0].member[i][19])))
     }
@@ -1456,14 +1395,14 @@ d3.csv('data/box_calc.csv', function (Ice_d) {
     var line_scale = d3.scale.linear()
         .domain([0, Math.log2(ice_max)])
         .range([0, height_ice / 4])
-    // console.log(r)
+    console.log(r)
 
     var colora = "#FFFFFF"
     var colorb = color[0]
 
     let colorx = d3.interpolate(colora, colorb);
     var color_scale = d3.scale.linear()
-        .domain([0.2, 0.667])
+        .domain([0.5, 0.667])
         .range([0, 1])
 
     let colorx2 = d3.interpolate('red', '#00FF00');
@@ -1485,7 +1424,7 @@ d3.csv('data/box_calc.csv', function (Ice_d) {
             for (var i in r) {
                 if (r[i].n == d.n && r[i].num < d.num) cnt += r[i].member.length;
             }
-            // if (d.n == 4 && d.num > 1) cnt += r[4].member.length
+            if (d.n == 4) cnt += r[3].member.length
             return cnt * width_ice / 6080;
             // return 100
         })
@@ -1546,7 +1485,6 @@ d3.csv('data/box_calc.csv', function (Ice_d) {
             OrRect(name_sum, 'blue')
         })
 
-    console.log(rk)
     p_g.selectAll('#r_1')
         .attr('id', 'r_1')
         .data(rk)
@@ -1562,28 +1500,54 @@ d3.csv('data/box_calc.csv', function (Ice_d) {
             for (var i in r) {
                 if (r[i].n == d.n && r[i].num < d.num) cnt += r[i].member.length;
             }
-            // if (d.n == 5 || d.kn == 5) cnt += r[3].member.length
+            if (d.n == 5 || d.kn == 5) cnt += r[3].member.length
             for (var i in rk) {
                 if (rk[i].kn == d.kn && rk[i].knum < d.knum) cnt += rk[i].member.length
             }
-            // if (d.n == 5 && d.knum > 5) cnt += r[4].member.length
+            // if (d.n == 5 && d.knum > 2) cnt += r[8].member.length
             return cnt * width_ice / 6080;
             // return 100
         })
         .attr('height', (d, i) => {
+            // if (i == 0)
             return height_ice / 8
+            // return height_ice / 4
         })
         .attr('width', d => {
             return d.member.length * width_ice / 6080;
+            // return 100
         })
         .attr('fill', (d, i) => {
+            // if (i != 7 && i != 12 && i != 13 && i != 14 && i != 15 && i != 16)
             return d.color
+            // else {
+            // if (d.type == '高')
+            //     return '#00FF00'
+            // else if (d.type == '负')
+            //     return 'red'
+            // else
+            //     return 'yellow'
+            // }
         })
         .attr('opacity', (d, i) => {
+
+            // if (i != 7 && i != 12 && i != 13 && i != 14 && i != 15 && i != 16)
+            // return 1;
+            // else
             return 0.5
         })
         .attr('stroke', (d, i) => {
+            // if (i != 7 && i != 12 && i != 13 && i != 14 && i != 15 && i != 16)
             return d.color
+            // // else {
+            //     if (d.type == '高')
+            //         return '#00FF00'
+            //     else if (d.type == '负')
+            //         return 'red'
+            //     else
+            //         return 'yellow'
+            // }
+
         })
         .attr('stroke-width', 1)
         .on('click', d => {
@@ -1615,17 +1579,17 @@ d3.csv('data/box_calc.csv', function (Ice_d) {
             for (var i in r) {
                 if (r[i].n == d.n && r[i].num < d.num) cnt += r[i].member.length;
             }
-            if (d.n == 4 && d.num > 1) cnt += r[4].member.length
+            if (d.n == 4) cnt += r[3].member.length
             return cnt * width_ice / 6080;
             // return 100
         })
         .attr('dx', (d, i) => {
             var len_in = 0;
-            if (i == 1 || i == 10) len_in = 5 * 15
-            if (i == 3 || i == 4 || i == 5 || i == 6 || i == 11) len_in = 3 * 15
-            if (i == 2 || i == 9) len_in = 6 * 15
-            if (i == 7 || i == 8 || i == 12) len_in = 2 * 15
-            // if (i == 9) len_in = 3 * 15
+            if (i == 1 || i == 2) len_in = 4 * 15
+            if (i == 3 || i == 6) len_in = 5 * 15
+            if (i == 4 || i == 5) len_in = 6 * 15
+            if (i == 7 || i == 8 || i == 10) len_in = 2 * 15
+            if (i == 9) len_in = 3 * 15
             return d.member.length * width_ice / 6080 / 2 - len_in / 2
         })
         .attr('dy', '1em')
@@ -1633,99 +1597,99 @@ d3.csv('data/box_calc.csv', function (Ice_d) {
             return d.type
         })
 
-    // for (var k = 0; k < 11; ++k) {
-    //     // if (k != 0)
-    //     p_g.selectAll('#linein')
-    //         .attr('id', 'linein')
-    //         .data(r[k].member)
-    //         .enter()
-    //         .append('line')
-    //         .attr('x1', (d, i) => {
-    //             var cnt = 0;
-    //             for (var j in r) {
-    //                 if (r[j].n == r[k].n && r[j].num < r[k].num) cnt += r[j].member.length;
-    //             }
-    //             if (r[k].n == 4) cnt += r[3].member.length
-    //             // console.log(i / 10 + cnt / 10 + r[k].num * 1)
-    //             return i / 10 + cnt / 10 + r[k].num * 1;
-    //         })
-    //         .attr('y1', d => {
-    //             if (k == 0)
-    //                 return height_ice / 8
-    //             return r[k].n * height_ice / 4 - height_ice / 8
-    //         })
-    //         .attr('x2', (d, i) => {
-    //             // return i / 10;
-    //             var cnt = 0;
-    //             for (var j in r) {
-    //                 if (r[j].n == r[k].n && r[j].num < r[k].num) cnt += r[j].member.length;
-    //             }
-    //             if (r[k].n == 4) cnt += r[3].member.length
-    //             return i / 10 + cnt / 10 + r[k].num * 1;
-    //         })
-    //         .attr('y2', d => {
-    //             if (Math.log2(Math.abs(parseFloat(d[129]) - parseFloat(d[19]))) <= 0)
-    //                 return r[k].n * height_ice / 4 - height_ice / 8
-    //             if (k == 0)
-    //                 return height_ice / 8 - line_scale(Math.log2(Math.abs(parseFloat(d[129]) - parseFloat(d[19])))) / 2
-    //             return r[k].n * height_ice / 4 - height_ice / 8 - line_scale(Math.log2(Math.abs(parseFloat(d[129]) - parseFloat(d[19])))) / 2
-    //         })
-    //         .attr('fill', 'none')
-    //         .attr('stroke', d => {
-    //             if (parseFloat(d[129]) - parseFloat(d['19']) > 0)
-    //                 return '#00FF00';
-    //             else
-    //                 return 'red'
-    //         })
-    //         .attr('stroke-width', 0.1)
-    // }
+    for (var k = 0; k < 11; ++k) {
+        // if (k != 0)
+        p_g.selectAll('#linein')
+            .attr('id', 'linein')
+            .data(r[k].member)
+            .enter()
+            .append('line')
+            .attr('x1', (d, i) => {
+                var cnt = 0;
+                for (var j in r) {
+                    if (r[j].n == r[k].n && r[j].num < r[k].num) cnt += r[j].member.length;
+                }
+                if (r[k].n == 4) cnt += r[3].member.length
+                // console.log(i / 10 + cnt / 10 + r[k].num * 1)
+                return i / 10 + cnt / 10 + r[k].num * 1;
+            })
+            .attr('y1', d => {
+                if (k == 0)
+                    return height_ice / 8
+                return r[k].n * height_ice / 4 - height_ice / 8
+            })
+            .attr('x2', (d, i) => {
+                // return i / 10;
+                var cnt = 0;
+                for (var j in r) {
+                    if (r[j].n == r[k].n && r[j].num < r[k].num) cnt += r[j].member.length;
+                }
+                if (r[k].n == 4) cnt += r[3].member.length
+                return i / 10 + cnt / 10 + r[k].num * 1;
+            })
+            .attr('y2', d => {
+                if (Math.log2(Math.abs(parseFloat(d[129]) - parseFloat(d[19]))) <= 0)
+                    return r[k].n * height_ice / 4 - height_ice / 8
+                if (k == 0)
+                    return height_ice / 8 - line_scale(Math.log2(Math.abs(parseFloat(d[129]) - parseFloat(d[19])))) / 2
+                return r[k].n * height_ice / 4 - height_ice / 8 - line_scale(Math.log2(Math.abs(parseFloat(d[129]) - parseFloat(d[19])))) / 2
+            })
+            .attr('fill', 'none')
+            .attr('stroke', d => {
+                if (parseFloat(d[129]) - parseFloat(d['19']) > 0)
+                    return '#00FF00';
+                else
+                    return 'red'
+            })
+            .attr('stroke-width', 0.1)
+    }
     // console.log(r)
-    // var tree_legend = [{
-    //     name: '富裕',
-    //     color: '#00FF00'
-    // }, {
-    //     name: '中产',
-    //     color: 'yellow'
-    // }, {
-    //     name: '贫穷',
-    //     color: 'red'
-    // }]
+    var tree_legend = [{
+        name: '富裕',
+        color: '#00FF00'
+    }, {
+        name: '中产',
+        color: 'yellow'
+    }, {
+        name: '贫穷',
+        color: 'red'
+    }]
 
-    // p_g.selectAll('#legend_cir')
-    //     .attr('id', 'legend_cir')
-    //     .data(tree_legend)
-    //     .enter()
-    //     .append('circle')
-    //     .attr('cx', (d, i) => {
-    //         return 550
-    //     })
-    //     .attr('cy', (d, i) => {
-    //         return i * 20 + 255
-    //     })
-    //     .attr('r', 5)
-    //     .attr('fill', d => {
-    //         return d.color
-    //     })
-    //     .attr('opacity', 0.5)
+    p_g.selectAll('#legend_cir')
+        .attr('id', 'legend_cir')
+        .data(tree_legend)
+        .enter()
+        .append('circle')
+        .attr('cx', (d, i) => {
+            return 550
+        })
+        .attr('cy', (d, i) => {
+            return i * 20 + 255
+        })
+        .attr('r', 5)
+        .attr('fill', d => {
+            return d.color
+        })
+        .attr('opacity', 0.5)
 
-    // p_g.selectAll('#legend_cir')
-    //     .attr('id', 'legend_cir')
-    //     .data(tree_legend)
-    //     .enter()
-    //     .append('text')
-    //     .attr('font-size', 15)
-    //     .attr('font-family', 'kaiti')
-    //     .attr('x', (d, i) => {
-    //         return 560
-    //     })
-    //     .attr('y', (d, i) => {
-    //         return i * 20 + 260
-    //     })
-    //     // .attr('r', 5)
-    //     // .attr('fill', d => {
-    //     // return d.color
-    //     // })
-    //     .text(d => {
-    //         return d.name
-    //     })
+    p_g.selectAll('#legend_cir')
+        .attr('id', 'legend_cir')
+        .data(tree_legend)
+        .enter()
+        .append('text')
+        .attr('font-size', 15)
+        .attr('font-family', 'kaiti')
+        .attr('x', (d, i) => {
+            return 560
+        })
+        .attr('y', (d, i) => {
+            return i * 20 + 260
+        })
+        // .attr('r', 5)
+        // .attr('fill', d => {
+        // return d.color
+        // })
+        .text(d => {
+            return d.name
+        })
 })

@@ -17,7 +17,7 @@ var peo_g = 0;
 
 var nam = 0;
 // var color = ['#00a676', '#f9c80e', '#3abeff', '#df19c1', '#ff206e', '#f08700', '#0091c9', '#2fe9b3', '#2f8fe9', '#c32fe9', '#e92f9c', '#2E8B57', '#e4e92f', '#FFFACD']
-var color_k = ['#434348', '#90ed7d', '#f7a35c', '#8085e9', 
+var color = ['#434348', '#90ed7d', '#f7a35c', '#8085e9', 
 '#f15c80', '#e4d354', '#8085e8', '#8d4653', '#91e8e1'] 
 var tooltipx = d3.select("body")
     .append("div")
@@ -539,7 +539,7 @@ function Paintjudge_2(name) {
                 })
                 // .attr('stroke', '#0a3c75')
                 .attr('stroke', (d, i) => {
-                    return color_k[peo_num % color.length]
+                    return color[peo_num % color.length]
                 })
 
             peo_g.selectAll('#x_line')

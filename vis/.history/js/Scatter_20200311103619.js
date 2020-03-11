@@ -205,16 +205,16 @@ function DrawHeat(data) {
         // radius: 10,
         // maxOpacity: .5,
         // minOpacity: 0,
-        radius: 25,
-        maxOpacity: 0.9,
-        minOpacity: 0.7,
+        radius: 10,
+        maxOpacity: 0.8,
+        minOpacity: 0.6,
         blur: .75,
         gradient: {
-            '.4': 'red',
+            '.6': 'red',
             // '.3': 'orange',
-            '.6': 'blue',
+            '.7': 'blue',
             // '.75': 'yellow',
-            '.95': 'green'
+            '.95': '#00FF00'
         },
         blur: .75,
     })
@@ -255,8 +255,8 @@ function DrawHeat(data) {
     }
 
     var kk_data = []
-    for (var i = Math.floor(min_xx + 5); i <= Math.floor(max_xx - 5); i += 10) {
-        for (var j = Math.floor(min_yy + 5); j <= Math.floor(max_yy - 5); j += 10) {
+    for (var i = Math.floor(min_xx + 2); i <= Math.floor(max_xx - 2); i += 4) {
+        for (var j = Math.floor(min_yy + 2); j <= Math.floor(max_yy - 2); j += 4) {
             var m_val = 0,
                 m_num = 0;
             for (var k in data) {
@@ -306,7 +306,7 @@ function DrawHeat(data) {
     console.log(kmin)
     var heat_data = {
         max: Math.floor(kmax),
-        min: Math.floor(-150),
+        // min: Math.floor(-250),
         data: points
     }
     heatmapInstance.setData(heat_data)
@@ -487,7 +487,7 @@ function ScatterPaint_gain_loss(coor, p, num_coor, num) {
     if (r != 0) r.remove()
 
 
-    // DrawHeat(coor)
+    DrawHeat(coor)
     var padding = {
         top: 5,
         right: 10,

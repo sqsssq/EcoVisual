@@ -1240,7 +1240,7 @@ d3.csv('data/box_calc.csv', function (Ice_d) {
     var rk_cnt = 0;
     for (rk_num = 0; rk_num < 7; ++rk_num) {
         var rkn = 0;
-        if (rk_num == 6) {
+        if (rk_num == 2) {
             rkn = 4
             kkn = 0;
         } else {
@@ -1485,7 +1485,7 @@ d3.csv('data/box_calc.csv', function (Ice_d) {
             for (var i in r) {
                 if (r[i].n == d.n && r[i].num < d.num) cnt += r[i].member.length;
             }
-            // if (d.n == 4 && d.num > 1) cnt += r[4].member.length
+            if (d.n == 4 && d.num > 1) cnt += r[4].member.length
             return cnt * width_ice / 6080;
             // return 100
         })
@@ -1566,7 +1566,7 @@ d3.csv('data/box_calc.csv', function (Ice_d) {
             for (var i in rk) {
                 if (rk[i].kn == d.kn && rk[i].knum < d.knum) cnt += rk[i].member.length
             }
-            // if (d.n == 5 && d.knum > 5) cnt += r[4].member.length
+            if (d.n == 5 && d.knum > 5) cnt += r[4].member.length
             return cnt * width_ice / 6080;
             // return 100
         })
