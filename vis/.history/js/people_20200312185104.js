@@ -582,7 +582,7 @@ function Paintjudge_2(name) {
             .append('g')
             .append('line')
             .attr('x1', d => {
-                    return p_xscale(1)
+                    return p_xscale(2)
             })
             .attr('y1', d => {
                 // if (d.x1 != 1)
@@ -591,7 +591,7 @@ function Paintjudge_2(name) {
             })
             .attr('x2', d => {
                 // if (d.x1 != 1)
-                    return p_xscale(1)
+                    return p_xscale(2)
             })
             .attr('y2', d => {
                 // if (d.x1 != 1)

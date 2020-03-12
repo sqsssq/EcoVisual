@@ -605,7 +605,7 @@ function ScatterPaint_gain_loss(coor, p, num_coor, num) {
         .append("circle")
         .attr("fill", (d, i) => {
             // if (d.l == num)
-            if (coor[i]['xval'] <= 0)
+            if (coor[i]['val'] <= 0)
                 return 'red'
             // return compute(linear(parseFloat(num_coor[i][91])))
             else

@@ -19,7 +19,7 @@ function RRR() {
 
     k = lc_p_g.append('g')
     k.append('rect')
-    .attr('x', 85)
+    .attr('x', 100)
     .attr('y', 2)
     .attr('height', 20)
     .attr('width', 70)

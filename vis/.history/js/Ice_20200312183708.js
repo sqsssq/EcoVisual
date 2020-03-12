@@ -763,7 +763,6 @@ function IceLine(ice_name, ice_num) {
             });
 
 
-        var kkk = 0
         // for (var kkk in ice_name_2) {
         // var ice_name = ice_name_2[kkk];
         var line_x1 = 0,

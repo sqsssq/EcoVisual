@@ -171,10 +171,9 @@ body {
 #Tsne {
     width: 100%;
     height: 100%;
-    background-image: url('es.png');
+    background-image: url('s.png');
     background-repeat: no-repeat;
     background-position: center;
-    /* background-attachment: fixed; */
 }
 
 .node {

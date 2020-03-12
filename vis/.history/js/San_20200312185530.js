@@ -1772,7 +1772,7 @@ function PaintIn(num) {
     if (num == 19) coorp = "data/Scatter/19.json";
     if (num == 20) coorp = "data/Scatter/20.json";
     d3.csv("data/box.csv", function (d1) {
-        d3.json('data/Scatter/tsne_ability_36_x.json', function (coor) {
+        d3.json('data/Scatter/xxxx.json', function (coor) {
 
             PaintZhe(d1)
 

@@ -169,11 +169,11 @@ body {
 }
 
 #Tsne {
-    width: 100%;
+    width: 300px;
     height: 100%;
-    background-image: url('es.png');
+    background-image: url('s.png');
     background-repeat: no-repeat;
-    background-position: center;
+    /* background-position: center; */
     /* background-attachment: fixed; */
 }
 

@@ -72,7 +72,7 @@ function DrawHeat(data) {
             radius: 6,
             // maxOpacity: 0.8,
             // minOpacity: 0.6,
-            // blur: .75,
+            blur: .75,
             gradient: {
                 // '.2': 'red',
                 // '.3': 'orange',
@@ -496,7 +496,7 @@ function ScatterPaint_gain_loss(coor, p, num_coor, num) {
     if (r != 0) r.remove()
 
 
-    // DrawHeat(coor)
+    DrawHeat(coor)
     var padding = {
         top: 5,
         right: 10,
@@ -625,7 +625,7 @@ function ScatterPaint_gain_loss(coor, p, num_coor, num) {
         .attr("r", 1.8)
         .attr('stroke', (d, i) => {
             //if (d.l == num)
-            return 'gray'
+            return 'black'
             // if (coor[i]['val'] <= 0)
             //     return 'red'
             // // return compute(linear(parseFloat(num_coor[i][91])))

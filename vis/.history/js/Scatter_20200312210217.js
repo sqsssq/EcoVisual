@@ -98,9 +98,9 @@ function DrawHeat(data) {
                 '.11': 'rgba(227, 184, 193)',
                 '.25': 'rgba(194, 140, 124)',
                 '.39': 'rgba(217, 169, 130)',
-                '.50': 'rgba(242, 206, 133)',
-                '.65': 'rgba(242, 224, 150)',
-                '.70': 'rgba(242, 238, 162)',
+                // '.50': 'rgba(242, 206, 133)',
+                // '.65': 'rgba(242, 224, 150)',
+                // '.70': 'rgba(242, 238, 162)',
                 '.85': 'rgba(176, 196, 124)',
                 '.99': 'rgba(112, 153, 89)',
                 // '.99': 'rgba()',
@@ -496,7 +496,7 @@ function ScatterPaint_gain_loss(coor, p, num_coor, num) {
     if (r != 0) r.remove()
 
 
-    // DrawHeat(coor)
+    DrawHeat(coor)
     var padding = {
         top: 5,
         right: 10,
@@ -625,7 +625,7 @@ function ScatterPaint_gain_loss(coor, p, num_coor, num) {
         .attr("r", 1.8)
         .attr('stroke', (d, i) => {
             //if (d.l == num)
-            return 'gray'
+            return 'black'
             // if (coor[i]['val'] <= 0)
             //     return 'red'
             // // return compute(linear(parseFloat(num_coor[i][91])))

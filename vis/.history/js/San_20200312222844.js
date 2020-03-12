@@ -1092,7 +1092,7 @@ function PaintRect(num) {
     if (num == 20) coorp = "data/Scatter/20.json";
     d3.csv("data/box.csv", function (d1) {
         // d3.json(coorp, function (coor) {
-        d3.json('data/Scatter/tsne_ability_36_x.json', function (coor) {
+        d3.json('data/Scatter/tsne_ability_312.json', function (coor) {
             d3.csv("data/box_calc.csv", function (RectInData) {
 
                 if (Rect_g != 0) Rect_g.remove()

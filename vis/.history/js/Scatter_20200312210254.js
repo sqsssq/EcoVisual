@@ -496,7 +496,7 @@ function ScatterPaint_gain_loss(coor, p, num_coor, num) {
     if (r != 0) r.remove()
 
 
-    // DrawHeat(coor)
+    DrawHeat(coor)
     var padding = {
         top: 5,
         right: 10,
@@ -599,47 +599,47 @@ function ScatterPaint_gain_loss(coor, p, num_coor, num) {
     var linear = d3.scale.linear()
         .domain([-550, 550])
         .range([0, 1]);
-    tcircle = ssvg.append('g').selectAll("circle")
-        .data(coor)
-        .enter()
-        .append("circle")
-        .attr("fill", (d, i) => {
-            // if (d.l == num)
-            if (coor[i]['xval'] <= 0)
-                return 'red'
-            // return compute(linear(parseFloat(num_coor[i][91])))
-            else
-                return '#00FF00'
-            // else return 'none'
-            // return 'white'
-        })
-        // .attr("fill-opacity", 0.5)
-        .attr("id", "circleid")
-        .attr("cx", function (d) {
-            //console.log(d);
-            return xScale(d.x);
-        })
-        .attr("cy", function (d) {
-            return yScale(d.y);
-        })
-        .attr("r", 1.8)
-        .attr('stroke', (d, i) => {
-            //if (d.l == num)
-            return 'gray'
-            // if (coor[i]['val'] <= 0)
-            //     return 'red'
-            // // return compute(linear(parseFloat(num_coor[i][91])))
-            // else
-            //     return '#00FF00'
-            // //else 'none';
-            // if (coor[i]['xval'] <= 0)
-            //     return 'red'
-            // // return compute(linear(parseFloat(num_coor[i][91])))
-            // else
-            //     return '#00FF00'
-        })
-        .attr('stroke-width', 0.1)
-        .attr('fill-opacity', 0.3)
+    // tcircle = ssvg.append('g').selectAll("circle")
+    //     .data(coor)
+    //     .enter()
+    //     .append("circle")
+    //     .attr("fill", (d, i) => {
+    //         // if (d.l == num)
+    //         if (coor[i]['xval'] <= 0)
+    //             return 'red'
+    //         // return compute(linear(parseFloat(num_coor[i][91])))
+    //         else
+    //             return '#00FF00'
+    //         // else return 'none'
+    //         // return 'white'
+    //     })
+    //     // .attr("fill-opacity", 0.5)
+    //     .attr("id", "circleid")
+    //     .attr("cx", function (d) {
+    //         //console.log(d);
+    //         return xScale(d.x);
+    //     })
+    //     .attr("cy", function (d) {
+    //         return yScale(d.y);
+    //     })
+    //     .attr("r", 1.8)
+    //     .attr('stroke', (d, i) => {
+    //         //if (d.l == num)
+    //         return 'black'
+    //         // if (coor[i]['val'] <= 0)
+    //         //     return 'red'
+    //         // // return compute(linear(parseFloat(num_coor[i][91])))
+    //         // else
+    //         //     return '#00FF00'
+    //         // //else 'none';
+    //         // if (coor[i]['xval'] <= 0)
+    //         //     return 'red'
+    //         // // return compute(linear(parseFloat(num_coor[i][91])))
+    //         // else
+    //         //     return '#00FF00'
+    //     })
+    //     .attr('stroke-width', 0.1)
+    //     .attr('fill-opacity', 0.3)
         // .on("mouseover", function (d, i) {
         //     // tooltip.html("Code: " + d.id + "</br>" + "Value: " + d.val)
         //     //     .style("left", (d3.event.pageX - 15) + "px")

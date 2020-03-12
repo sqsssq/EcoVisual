@@ -19,7 +19,7 @@ function RRR() {
 
     k = lc_p_g.append('g')
     k.append('rect')
-    .attr('x', 85)
+    .attr('x', 135)
     .attr('y', 2)
     .attr('height', 20)
     .attr('width', 70)
@@ -80,7 +80,7 @@ lc_p_g.append('text')
     })
 
 lc_p_g.append('text')
-    .attr('x', 120)
+    .attr('x', 170)
     .attr('y', 23)
     .attr('fill', 'black')
     .attr('font-size', '15px')

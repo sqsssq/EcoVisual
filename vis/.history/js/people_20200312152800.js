@@ -17,9 +17,8 @@ var peo_g = 0;
 
 var nam = 0;
 // var color = ['#00a676', '#f9c80e', '#3abeff', '#df19c1', '#ff206e', '#f08700', '#0091c9', '#2fe9b3', '#2f8fe9', '#c32fe9', '#e92f9c', '#2E8B57', '#e4e92f', '#FFFACD']
-var color_k = ['#434348', '#90ed7d', '#f7a35c', '#8085e9',
-    '#f15c80', '#e4d354', '#8085e8', '#8d4653', '#91e8e1'
-]
+var color_k = ['#434348', '#90ed7d', '#f7a35c', '#8085e9', 
+'#f15c80', '#e4d354', '#8085e8', '#8d4653', '#91e8e1'] 
 var tooltipx = d3.select("body")
     .append("div")
     .attr("class", "tooltipx")
@@ -253,8 +252,8 @@ function Paintjudge(name) {
                         //     pie_min = parseFloat(pie_data[k][i * 10 + 1]) - parseFloat(pie_data[k][(i - 1) * 10 + 1])
                     }
                 }
-                tooltipx.html("第" + (i + 1) + '轮' + "</br>" + "工作：" + (x_d[0] + 30) + "</br>" + "损耗：-30" + "</br>" + title[1] + ": " + x_d[1] + "</br>" + title[2] + ": " + x_d[2] + "</br>" + title[3] + ": " + x_d[3] +
-                        "</br>" + title[4] + ": " + x_d[4] + "</br>" + title[5] + ": " + x_d[5] + "</br>" + title[6] + ": " + x_d[6] + "</br>" + title[7] + ": " + x_d[7] + "</br>" + title[8] + ": " + x_d[8] + "</br>")
+                tooltipx.html("第" + (i + 1) + '轮' + "</br>" + "工作：" + (x_d[0] + 30) + "</br>" + "损耗：-30" + "</br>" + title[1] + ": " + x_d[1] + "</br>" + title[2] + ": " + x_d[2] + "</br>" + title[3] + ": " + x_d[3] 
+                + "</br>" + title[4] + ": " + x_d[4] + "</br>" + title[5] + ": " + x_d[5] + "</br>" + title[6] + ": " + x_d[6] + "</br>" + title[7] + ": " + x_d[7] + "</br>" + title[8] + ": " + x_d[8] + "</br>")
                     .style("left", (d3.event.pageX - 15) + "px")
                     .style("top", (d3.event.pageY + 20) + "px")
                     .style("opacity", 1.0)
@@ -515,95 +514,65 @@ function Paintjudge_2(name) {
             .domain([parseFloat(dif_min), parseFloat(dif_max)])
             .range([1, 10])
 
-        var cur = (p_max - p_min) / 5
-        var h_line = []
-        for (var i = 0; i <= 5; ++i) {
-            h_line.push([parseFloat(p_xscale(1)), parseFloat(p_xscale(20))])
-        }
-        peo_g.selectAll('#x_line')
-            .attr('id', 'x_line')
-            .data(h_line)
-            .enter()
-            .append('g')
-            .append('line')
-            .attr('x1', d => {
-                return d[0]
-            })
-            .attr('y1', (d, i) => {
-                return p_yscale(parseFloat(p_min + i * cur))
-            })
-            .attr('x2', d => {
-                return d[1]
-            })
-            .attr('y2', (d, i) => {
-                // console.log(d)
-                return p_yscale(parseFloat(p_min + i * cur))
-            })
-            .attr('fill', 'none')
-            .attr('stroke', '#0a3c75')
-            .attr('stroke-width', 0.1)
-            .attr('stroke-opacity', 0.4)
-            .attr('stroke-dasharray', 5.5)
-
-        peo_g.selectAll('#x_line')
-            .attr('id', 'x_line')
-            .data(line_data[0])
-            .enter()
-            .append('g')
-            .append('line')
-            .attr('x1', d => {
-                if (d.x1 != 1)
-                    return p_xscale(d.x1 + 1)
-            })
-            .attr('y1', d => {
-                if (d.x1 != 1)
-                    // return p_yscale(d.price)
-                    return p_yscale(parseInt(p_min))
-            })
-            .attr('x2', d => {
-                if (d.x1 != 1)
-                    return p_xscale(d.x1 + 1)
-            })
-            .attr('y2', d => {
-                if (d.x1 != 1)
-                    // return 260;
-                    // return p_yscale(0)
-                    return p_yscale(parseInt(p_max))
-            })
-            .attr('fill', 'none')
-            .attr('stroke', '#0a3c75')
-            .attr('stroke-width', 0.1)
-            .attr('stroke-opacity', 0.4)
-            .attr('stroke-dasharray', 5.5)
-        peo_g.selectAll('#x_line')
-            .attr('id', 'x_line')
-            // .data(line_data[0])
-            // .enter()
-            .append('g')
-            .append('line')
-            .attr('x1', d => {
-                    return p_xscale(1)
-            })
-            .attr('y1', d => {
-                // if (d.x1 != 1)
-                    // return p_yscale(d.price)
-                    return p_yscale(parseInt(p_min))
-            })
-            .attr('x2', d => {
-                // if (d.x1 != 1)
-                    return p_xscale(1)
-            })
-            .attr('y2', d => {
-                // if (d.x1 != 1)
-                    // return 260;
-                    // return p_yscale(0)
-                    return p_yscale(parseInt(p_max))
-            })
-            .attr('fill', 'none')
-            .attr('stroke', '#0a3c75')
-            .attr('stroke-width', 0.1)
-            .attr('stroke-opacity', 0.4)
-            .attr('stroke-dasharray', 5.5)
+            var h_line = []
+            for (var i = 0; i <= 5; ++i) {
+                h_line.push([parseFloat(p_xscale(1)), parseFloat(p_xscale(20))])
+            }
+            peo_g.selectAll('#x_line')
+                .attr('id', 'x_line')
+                .data(h_line)
+                .enter()
+                .append('g')
+                .append('line')
+                .attr('x1', d => {
+                    return d[0]
+                })
+                .attr('y1', (d, i) => {
+                    return p_yscale(parseFloat(p_min + i * cur))
+                })
+                .attr('x2', d => {
+                    return d[1]
+                })
+                .attr('y2', (d, i) => {
+                    // console.log(d)
+                    return p_yscale(parseFloat(p_min + i * cur))
+                })
+                .attr('fill', 'none')
+                .attr('stroke', '#0a3c75')
+                .attr('stroke-width', 0.1)
+                .attr('stroke-opacity', 0.4)
+                .attr('stroke-dasharray', 5.5)
+    
+            peo_g.selectAll('#x_line')
+                .attr('id', 'x_line')
+                .data(line_data[0])
+                .enter()
+                .append('g')
+                .append('line')
+                .attr('x1', d => {
+                    if (d.lun != 1)
+                        return p_xscale(d.lun)
+                })
+                .attr('y1', d => {
+                    if (d.lun != 1)
+                        // return p_yscale(d.price)
+                        return p_yscale(parseInt(p_min))
+                })
+                .attr('x2', d => {
+                    if (d.lun != 1)
+                        return p_xscale(d.lun)
+                })
+                .attr('y2', d => {
+                    if (d.lun != 1)
+                        // return 260;
+                        // return p_yscale(0)
+                        return p_yscale(parseInt(p_max))
+                })
+                .attr('fill', 'none')
+                .attr('stroke', '#0a3c75')
+                .attr('stroke-width', 0.1)
+                .attr('stroke-opacity', 0.4)
+                .attr('stroke-dasharray', 5.5)
 
         for (var peo_num in line_data) {
             peo_g.selectAll('#peo_l')
@@ -695,8 +664,8 @@ function Paintjudge_2(name) {
                             //     pie_min = parseFloat(pie_data[k][i * 10 + 1]) - parseFloat(pie_data[k][(i - 1) * 10 + 1])
                         }
                     }
-                    tooltipx.html("第" + (i + 1) + '轮' + "</br>" + "工作：" + (x_d[0] + 30) + "</br>" + "损耗：-30" + "</br>" + title[1] + ": " + x_d[1] + "</br>" + title[2] + ": " + x_d[2] + "</br>" + title[3] + ": " + x_d[3] +
-                            "</br>" + title[4] + ": " + x_d[4] + "</br>" + title[5] + ": " + x_d[5] + "</br>" + title[6] + ": " + x_d[6] + "</br>" + title[7] + ": " + x_d[7] + "</br>" + title[8] + ": " + x_d[8] + "</br>")
+                    tooltipx.html("第" + (i + 1) + '轮' + "</br>" + "工作：" + (x_d[0] + 30) + "</br>" + "损耗：-30" + "</br>" + title[1] + ": " + x_d[1] + "</br>" + title[2] + ": " + x_d[2] + "</br>" + title[3] + ": " + x_d[3] 
+                    + "</br>" + title[4] + ": " + x_d[4] + "</br>" + title[5] + ": " + x_d[5] + "</br>" + title[6] + ": " + x_d[6] + "</br>" + title[7] + ": " + x_d[7] + "</br>" + title[8] + ": " + x_d[8] + "</br>")
                         .style("left", (d3.event.pageX - 15) + "px")
                         .style("top", (d3.event.pageY + 20) + "px")
                         .style("opacity", 1.0)
@@ -807,12 +776,12 @@ function Paintjudge_2(name) {
             })
             .attr('stroke', 'red')
             .attr('stroke-width', 1)
-        // .on('click', d => {
-        //     peo_t.style('opacity', 0)
-        // })
-        // .on('dblclick', d => {
-        //     peo_t.style('opacity', 1)
-        // })
+            // .on('click', d => {
+            //     peo_t.style('opacity', 0)
+            // })
+            // .on('dblclick', d => {
+            //     peo_t.style('opacity', 1)
+            // })
 
         // var peo_t = peo_g.selectAll('#p_text')
         //     .attr('id', 'p_text')

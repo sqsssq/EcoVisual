@@ -553,7 +553,7 @@ function Paintjudge_2(name) {
             .append('line')
             .attr('x1', d => {
                 if (d.x1 != 1)
-                    return p_xscale(d.x1 + 1)
+                    return p_xscale(d.lun)
             })
             .attr('y1', d => {
                 if (d.x1 != 1)
@@ -562,39 +562,10 @@ function Paintjudge_2(name) {
             })
             .attr('x2', d => {
                 if (d.x1 != 1)
-                    return p_xscale(d.x1 + 1)
+                    return p_xscale(d.lun)
             })
             .attr('y2', d => {
                 if (d.x1 != 1)
-                    // return 260;
-                    // return p_yscale(0)
-                    return p_yscale(parseInt(p_max))
-            })
-            .attr('fill', 'none')
-            .attr('stroke', '#0a3c75')
-            .attr('stroke-width', 0.1)
-            .attr('stroke-opacity', 0.4)
-            .attr('stroke-dasharray', 5.5)
-        peo_g.selectAll('#x_line')
-            .attr('id', 'x_line')
-            // .data(line_data[0])
-            // .enter()
-            .append('g')
-            .append('line')
-            .attr('x1', d => {
-                    return p_xscale(1)
-            })
-            .attr('y1', d => {
-                // if (d.x1 != 1)
-                    // return p_yscale(d.price)
-                    return p_yscale(parseInt(p_min))
-            })
-            .attr('x2', d => {
-                // if (d.x1 != 1)
-                    return p_xscale(1)
-            })
-            .attr('y2', d => {
-                // if (d.x1 != 1)
                     // return 260;
                     // return p_yscale(0)
                     return p_yscale(parseInt(p_max))

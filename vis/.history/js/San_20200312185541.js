@@ -1252,7 +1252,7 @@ function PaintRect(num) {
                 for (var i in RectOuterData[1]) {
                     RectOuterData[1][i].val /= RectOuterData[1][i]["member"].length
                 }
-                // for (var t = 1; t <= 20; ++t) {
+                for (var t = 1; t <= 20; ++t) {
                     for (var k = 2; k <= 12; ++k) {
                         // console.log(k)
                         if (typeof (RectOuterData[k]) == "undefined")
@@ -1322,7 +1322,7 @@ function PaintRect(num) {
                         }
                         // console.log(code_Num)
                     }
-                // }
+                }
                 //  for (var k = 2; k <= 12; ++k) {
                 //         // console.log(k)
                 //         if (typeof (RectOuterData[k]) == "undefined")
@@ -1772,7 +1772,7 @@ function PaintIn(num) {
     if (num == 19) coorp = "data/Scatter/19.json";
     if (num == 20) coorp = "data/Scatter/20.json";
     d3.csv("data/box.csv", function (d1) {
-        d3.json('data/Scatter/tsne_ability_36_x.json', function (coor) {
+        d3.json('data/Scatter/xxxx.json', function (coor) {
 
             PaintZhe(d1)
 
