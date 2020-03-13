@@ -562,7 +562,7 @@ function Paintjudge_2(name) {
             })
             .attr('x2', d => {
                 if (d.lun != 1)
-                    return p_xscale(d.lun)
+                    return p_xscale(d.lun + 1)
             })
             .attr('y2', d => {
                 if (d.lun != 1)

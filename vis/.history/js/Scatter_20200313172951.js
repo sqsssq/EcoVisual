@@ -522,7 +522,7 @@ function ScatterPaint_gain_loss(coor, p, num_coor, num) {
         .range([10, xAxisWidth - 5]);
     var yScale = d3.scale.linear()
         .domain([min_y, max_y])
-        .range([yAxisWidth - 10, 2]);
+        .range([yAxisWidth - 10, -50]);
 
     // var h_line = [-25, 25, -50, 50, min_x, max_x],
     //     s_line = [-25, 25, -50, 50, min_y, max_y]
@@ -605,7 +605,7 @@ function ScatterPaint_gain_loss(coor, p, num_coor, num) {
         .append("circle")
         .attr("fill", (d, i) => {
             // if (d.l == num)
-            if (coor[i]['val'] <= 0)
+            if (coor[i]['xval'] <= 0)
                 return 'red'
             // return compute(linear(parseFloat(num_coor[i][91])))
             else

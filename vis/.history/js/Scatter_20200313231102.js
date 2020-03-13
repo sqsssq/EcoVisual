@@ -522,7 +522,7 @@ function ScatterPaint_gain_loss(coor, p, num_coor, num) {
         .range([10, xAxisWidth - 5]);
     var yScale = d3.scale.linear()
         .domain([min_y, max_y])
-        .range([yAxisWidth - 10, 2]);
+        .range([yAxisWidth - 5, -10]);
 
     // var h_line = [-25, 25, -50, 50, min_x, max_x],
     //     s_line = [-25, 25, -50, 50, min_y, max_y]

@@ -947,7 +947,7 @@ d3.csv('data/box_calc.csv', function (Ice_d) {
     }
     r[0].n = 4, r[1].n = 4, r[2].n = 4, r[3].n = 4, r[4].n = 4, r[5].n = 4, r[6].n = 3;
     r[0].num = 0, r[1].num = 1, r[2].num = 2, r[3].num = 3, r[4].num = 4, r[5].num = 5, r[6].num = 3;
-    r[4].type = '健康', r[5].type = '小病', r[6].type = '较重病', r[0].type = '工作能力中等', r[1].type = '工作能力强', r[2].type = '中病', r[3].type = '重病';
+    r[4].type = '健康', r[5].type = '小病', r[6].type = '较重病', r[0].type = '工作能力较弱', r[1].type = '工作能力强', r[2].type = '中病', r[3].type = '重病';
 
     rk = []
     var rk_num = 0
