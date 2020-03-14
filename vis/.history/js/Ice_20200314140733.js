@@ -2467,75 +2467,14 @@ function IceLine(ice_name, ice_num) {
 
 
         // for (var kkk in ice_name_2) {
-        // var ice_name = ice_name_2[kkk];
-        kkk = 0
-        var line_x1 = 0,
-            line_x2 = 0,
-            line_y1 = 0,
-            line_y2 = 0,
-            line_x3 = 0,
-            line_y3 = 0;
-        var k = 0;
-        for (var kk in r[k].member) {
-            if (r[k].member[kk].code == ice_name && parseInt(r[k].member[kk].biao) == ice_num) {
-                // console.log(r[k].member[kk])
-                // console.log(kk)
-                ice_line_g.selectAll('#linein')
-                    .attr('id', 'linein')
-                    .data([r[k].member[kk]])
-                    .enter()
-                    .append('line')
-                    .attr('x1', (d, i) => {
-                        var cnt = 0;
-                        for (var j in r) {
-                            if (r[j].n == r[k].n && r[j].num < r[k].num) cnt += r[j].member.length;
-                        }
-                        if (r[k].n == 4) cnt += r[3].member.length
-                        // console.log(i / 10 + cnt / 10 + r[k].num * 1)
-                        line_x1 = kk / 10 + cnt / 10 + r[k].num * 1;
-                        return kk / 10 + cnt / 10 + r[k].num * 1;
-                    })
-                    .attr('y1', d => {
-                        if (k == 0) {
-                            line_y1 = height_ice / 8;
-                            return height_ice / 8
-                        }
-                        line_y1 = r[k].n * height_ice / 4 - height_ice / 8;
-                        return r[k].n * height_ice / 4 - height_ice / 8
-                    })
-                    .attr('x2', (d, i) => {
-                        // return i / 10;
-                        var cnt = 0;
-                        for (var j in r) {
-                            if (r[j].n == r[k].n && r[j].num < r[k].num) cnt += r[j].member.length;
-                        }
-                        if (r[k].n == 4) cnt += r[3].member.length
-                        return kk / 10 + cnt / 10 + r[k].num * 1;
-                    })
-                    .attr('y2', d => {
-                        // if (Math.log2(Math.abs(parseFloat(d[129]) - parseFloat(d[19]))) <= 0)
-                        // return r[k].n * height_ice / 4 - height_ice / 8
-                        if (k == 0) {
-                            // line_y1 = height_ice / 8 - line_scale(Math.log2(Math.abs(parseFloat(d[129]) - parseFloat(d[19])))) / 2;
-                            return height_ice / 8 - line_scale(Math.log2(Math.abs(parseFloat(d[129]) - parseFloat(d[19])))) / 2;
-                        }
-                        // line_y1 = r[k].n * height_ice / 4 - height_ice / 8 - line_scale(Math.log2(Math.abs(parseFloat(d[129]) - parseFloat(d[19])))) / 2;
-                        return r[k].n * height_ice / 4 - height_ice / 8 - line_scale(Math.log2(Math.abs(parseFloat(d[129]) - parseFloat(d[19])))) / 2;
-                    })
-                    .attr('fill', 'none')
-                    .attr('stroke', d => {
-
-                        if (parseFloat(d[129] - d[19]) > 0)
-                            return '#00FF00';
-                        else
-                            return 'red'
-                    })
-                    .attr('stroke-width', 2)
-                break;
-            }
-        }
-
-        for (var k = 1; k < 11; ++k) {
+            // var ice_name = ice_name_2[kkk];
+            var line_x1 = 0,
+                line_x2 = 0,
+                line_y1 = 0,
+                line_y2 = 0,
+                line_x3 = 0,
+                line_y3 = 0;
+            var k = 0;
             for (var kk in r[k].member) {
                 if (r[k].member[kk].code == ice_name && parseInt(r[k].member[kk].biao) == ice_num) {
                     // console.log(r[k].member[kk])
@@ -2552,14 +2491,15 @@ function IceLine(ice_name, ice_num) {
                             }
                             if (r[k].n == 4) cnt += r[3].member.length
                             // console.log(i / 10 + cnt / 10 + r[k].num * 1)
+                            line_x1 = kk / 10 + cnt / 10 + r[k].num * 1;
                             return kk / 10 + cnt / 10 + r[k].num * 1;
                         })
                         .attr('y1', d => {
                             if (k == 0) {
-                                line_y3 = height_ice / 8
+                                line_y1 = height_ice / 8;
                                 return height_ice / 8
                             }
-                            line_y3 = r[k].n * height_ice / 4 - height_ice / 8
+                            line_y1 = r[k].n * height_ice / 4 - height_ice / 8;
                             return r[k].n * height_ice / 4 - height_ice / 8
                         })
                         .attr('x2', (d, i) => {
@@ -2569,59 +2509,118 @@ function IceLine(ice_name, ice_num) {
                                 if (r[j].n == r[k].n && r[j].num < r[k].num) cnt += r[j].member.length;
                             }
                             if (r[k].n == 4) cnt += r[3].member.length
-                            line_x2 = kk / 10 + cnt / 10 + r[k].num * 1
                             return kk / 10 + cnt / 10 + r[k].num * 1;
                         })
                         .attr('y2', d => {
                             // if (Math.log2(Math.abs(parseFloat(d[129]) - parseFloat(d[19]))) <= 0)
                             // return r[k].n * height_ice / 4 - height_ice / 8
                             if (k == 0) {
-                                line_y2 = height_ice / 8 - line_scale(Math.log2(Math.abs(parseFloat(d[129]) - parseFloat(d[19])))) / 2;
+                                // line_y1 = height_ice / 8 - line_scale(Math.log2(Math.abs(parseFloat(d[129]) - parseFloat(d[19])))) / 2;
                                 return height_ice / 8 - line_scale(Math.log2(Math.abs(parseFloat(d[129]) - parseFloat(d[19])))) / 2;
                             }
-                            line_y2 = r[k].n * height_ice / 4 - height_ice / 8 - line_scale(Math.log2(Math.abs(parseFloat(d[129]) - parseFloat(d[19])))) / 2;
+                            // line_y1 = r[k].n * height_ice / 4 - height_ice / 8 - line_scale(Math.log2(Math.abs(parseFloat(d[129]) - parseFloat(d[19])))) / 2;
                             return r[k].n * height_ice / 4 - height_ice / 8 - line_scale(Math.log2(Math.abs(parseFloat(d[129]) - parseFloat(d[19])))) / 2;
                         })
                         .attr('fill', 'none')
                         .attr('stroke', d => {
+
                             if (parseFloat(d[129] - d[19]) > 0)
                                 return '#00FF00';
                             else
                                 return 'red'
-                            // return color_g[kkk % 10]
                         })
                         .attr('stroke-width', 2)
-
-                    dia = [{
-                        source: {
-                            x: line_x1,
-                            y: line_y1
-                        },
-                        target: {
-                            x: line_x2,
-                            y: line_y2
-                        }
-                    }]
-
-                    ice_line_g.selectAll('#dia_g')
-                        .attr('id', 'dia_g')
-                        .data(dia)
-                        .enter()
-                        .append('g')
-                        .append('path')
-                        .attr('d', d => {
-                            // console.log(d)
-                            return diagonal(d)
-                        })
-                        .attr('fill', 'none')
-                        .attr('stroke', color_g[kkk % color_g.length])
-                        .attr('stroke-width', 0.5)
-                        .attr('stroke-opacity', 1)
-                    line_x1 = line_x2
-                    line_y1 = line_y3
+                    break;
                 }
             }
-        }
+
+            for (var k = 1; k < 11; ++k) {
+                for (var kk in r[k].member) {
+                    if (r[k].member[kk].code == ice_name && parseInt(r[k].member[kk].biao) == ice_num) {
+                        // console.log(r[k].member[kk])
+                        // console.log(kk)
+                        ice_line_g.selectAll('#linein')
+                            .attr('id', 'linein')
+                            .data([r[k].member[kk]])
+                            .enter()
+                            .append('line')
+                            .attr('x1', (d, i) => {
+                                var cnt = 0;
+                                for (var j in r) {
+                                    if (r[j].n == r[k].n && r[j].num < r[k].num) cnt += r[j].member.length;
+                                }
+                                if (r[k].n == 4) cnt += r[3].member.length
+                                // console.log(i / 10 + cnt / 10 + r[k].num * 1)
+                                return kk / 10 + cnt / 10 + r[k].num * 1;
+                            })
+                            .attr('y1', d => {
+                                if (k == 0) {
+                                    line_y3 = height_ice / 8
+                                    return height_ice / 8
+                                }
+                                line_y3 = r[k].n * height_ice / 4 - height_ice / 8
+                                return r[k].n * height_ice / 4 - height_ice / 8
+                            })
+                            .attr('x2', (d, i) => {
+                                // return i / 10;
+                                var cnt = 0;
+                                for (var j in r) {
+                                    if (r[j].n == r[k].n && r[j].num < r[k].num) cnt += r[j].member.length;
+                                }
+                                if (r[k].n == 4) cnt += r[3].member.length
+                                line_x2 = kk / 10 + cnt / 10 + r[k].num * 1
+                                return kk / 10 + cnt / 10 + r[k].num * 1;
+                            })
+                            .attr('y2', d => {
+                                // if (Math.log2(Math.abs(parseFloat(d[129]) - parseFloat(d[19]))) <= 0)
+                                // return r[k].n * height_ice / 4 - height_ice / 8
+                                if (k == 0) {
+                                    line_y2 = height_ice / 8 - line_scale(Math.log2(Math.abs(parseFloat(d[129]) - parseFloat(d[19])))) / 2;
+                                    return height_ice / 8 - line_scale(Math.log2(Math.abs(parseFloat(d[129]) - parseFloat(d[19])))) / 2;
+                                }
+                                line_y2 = r[k].n * height_ice / 4 - height_ice / 8 - line_scale(Math.log2(Math.abs(parseFloat(d[129]) - parseFloat(d[19])))) / 2;
+                                return r[k].n * height_ice / 4 - height_ice / 8 - line_scale(Math.log2(Math.abs(parseFloat(d[129]) - parseFloat(d[19])))) / 2;
+                            })
+                            .attr('fill', 'none')
+                            .attr('stroke', d => {
+                                if (parseFloat(d[129] - d[19]) > 0)
+                                    return '#00FF00';
+                                else
+                                    return 'red'
+                                // return color_g[kkk % 10]
+                            })
+                            .attr('stroke-width', 2)
+
+                        dia = [{
+                            source: {
+                                x: line_x1,
+                                y: line_y1
+                            },
+                            target: {
+                                x: line_x2,
+                                y: line_y2
+                            }
+                        }]
+
+                        ice_line_g.selectAll('#dia_g')
+                            .attr('id', 'dia_g')
+                            .data(dia)
+                            .enter()
+                            .append('g')
+                            .append('path')
+                            .attr('d', d => {
+                                // console.log(d)
+                                return diagonal(d)
+                            })
+                            .attr('fill', 'none')
+                            .attr('stroke', color_g[kkk % color_g.length])
+                            .attr('stroke-width', 0.5)
+                            .attr('stroke-opacity', 1)
+                        line_x1 = line_x2
+                        line_y1 = line_y3
+                    }
+                }
+            }
         // }
     })
 }
@@ -2999,15 +2998,9 @@ d3.csv('data/box_calc.csv', function (Ice_d) {
     //     return b.kval - a.kval
     // })
     for (var i = 0; i <= 10; ++i)
-        r[i].member.sort(function (a, b) {
-            return b['11'] - a['11']
-        })
-
-    for (var i = 0; i <= 2; ++i) {
-        r[i].member.sort(function (a, b) {
-            return a['12'] - b['12']
-        })
-    }
+    r[i].member.sort(function (a, b) {
+        return b['11'] - a['11']
+    })
 
     var ice_max = -999999
 

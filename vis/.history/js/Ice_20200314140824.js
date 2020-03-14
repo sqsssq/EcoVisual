@@ -3003,12 +3003,6 @@ d3.csv('data/box_calc.csv', function (Ice_d) {
             return b['11'] - a['11']
         })
 
-    for (var i = 0; i <= 2; ++i) {
-        r[i].member.sort(function (a, b) {
-            return a['12'] - b['12']
-        })
-    }
-
     var ice_max = -999999
 
     console.log(r)

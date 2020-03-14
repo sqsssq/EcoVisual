@@ -213,7 +213,7 @@ d3.csv("data/back.csv", function (d) {
         .attr('text-anchor', 'middle')
         .attr("font-family", "courier")
         .attr('x', function (d, i) {
-            if (i > 0 && i < 6)
+            if (i > 0 && i < 5)
                 return paddingx.left + 45 + i * 55;
             else
                 return paddingx.left + 40 + i * 70;
@@ -641,24 +641,24 @@ function Click_cir(num, value) {
 
     var judge_line = [],
         j_line = []
-    // tcircle.style("fill-opacity", d => {
-    //         // console.log(d.id)
-    //         // Fiflag = 1;
-    //         if (d.id != value.toString()) {
-    //             return 1;
-    //         } else {
-    //             return 1;
-    //         }
-    //     })
-    //     .style('stroke-opacity', d => {
-    //         if (d.id != value.toString()) {
-    //             return 0.3;
-    //         } else {
-    //             judge_line.push(d)
-    //             return 0.3
-    //         }
-    //     })
-    //     .attr('fill', 'blue')
+    tcircle.style("fill-opacity", d => {
+            // console.log(d.id)
+            // Fiflag = 1;
+            if (d.id != value.toString()) {
+                return 1;
+            } else {
+                return 1;
+            }
+        })
+        .style('stroke-opacity', d => {
+            if (d.id != value.toString()) {
+                return 0.3;
+            } else {
+                judge_line.push(d)
+                return 0.3
+            }
+        })
+        .attr('fill', 'blue')
     // .style("r", 1)
     // console.log(judge_line)
     var coorp;

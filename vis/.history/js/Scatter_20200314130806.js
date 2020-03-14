@@ -626,18 +626,18 @@ function ScatterPaint_gain_loss(coor, p, num_coor, num) {
         .attr('stroke', (d, i) => {
             //if (d.l == num)
             // return 
-            if (coor[i]['val'] <= 0)
-                return 'red'
-            // return compute(linear(parseFloat(num_coor[i][91])))
-            else
-                return '#00FF00'
+            // if (coor[i]['val'] <= 0)
+            //     return 'red'
+            // // return compute(linear(parseFloat(num_coor[i][91])))
+            // else
+            //     return '#00FF00'
             // //else 'none';
             // if (coor[i]['xval'] <= 0)
             //     return 'red'
             // // return compute(linear(parseFloat(num_coor[i][91])))
             // else
             //     return '#00FF00'
-            // return 'blue'
+            return 'blue'
         })
         .attr('stroke-width', 0.1)
         .attr('fill-opacity', 0.3)

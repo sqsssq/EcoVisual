@@ -641,24 +641,24 @@ function Click_cir(num, value) {
 
     var judge_line = [],
         j_line = []
-    // tcircle.style("fill-opacity", d => {
-    //         // console.log(d.id)
-    //         // Fiflag = 1;
-    //         if (d.id != value.toString()) {
-    //             return 1;
-    //         } else {
-    //             return 1;
-    //         }
-    //     })
-    //     .style('stroke-opacity', d => {
-    //         if (d.id != value.toString()) {
-    //             return 0.3;
-    //         } else {
-    //             judge_line.push(d)
-    //             return 0.3
-    //         }
-    //     })
-    //     .attr('fill', 'blue')
+    tcircle.style("fill-opacity", d => {
+            // console.log(d.id)
+            // Fiflag = 1;
+            if (d.id != value.toString()) {
+                return 1;
+            } else {
+                return 1;
+            }
+        })
+        .style('stroke-opacity', d => {
+            if (d.id != value.toString()) {
+                return 0.3;
+            } else {
+                judge_line.push(d)
+                return 0.3
+            }
+        })
+        .attr('fill', 'blue')
     // .style("r", 1)
     // console.log(judge_line)
     var coorp;

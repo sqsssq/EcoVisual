@@ -622,7 +622,7 @@ function ScatterPaint_gain_loss(coor, p, num_coor, num) {
         .attr("cy", function (d) {
             return yScale(d.y);
         })
-        .attr("r", 3)
+        .attr("r", 1.8)
         .attr('stroke', (d, i) => {
             //if (d.l == num)
             // return 
@@ -637,7 +637,6 @@ function ScatterPaint_gain_loss(coor, p, num_coor, num) {
             // // return compute(linear(parseFloat(num_coor[i][91])))
             // else
             //     return '#00FF00'
-            // return 'blue'
         })
         .attr('stroke-width', 0.1)
         .attr('fill-opacity', 0.3)
