@@ -859,7 +859,7 @@ function Paintjudge_2(name) {
                 .attr('font-size', '15px')
                 .attr('text-anchor', 'middle')
                 .attr("font-family", "courier")
-                .attr('fill', color_k[i % color_k.length])
+                .attr('color', color_k[i % color_k.length])
                 // .attr('dx', '')
                 .attr('dy', '-0.4em')
                 .text(name[i])

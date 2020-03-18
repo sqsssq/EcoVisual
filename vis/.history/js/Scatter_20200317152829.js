@@ -522,15 +522,13 @@ function ScatterPaint_gain_loss(coor, p, num) {
         ])
         .on("brush", brushed)
 
-
     function brushed() {
         var extent = brush.extent();
         var xmin = extent[0][0];
         var xmax = extent[1][0];
         var ymin = extent[0][1];
         var ymax = extent[1][1];
-        
-    console.log(ymin)
+
         for (var i in coor) {
             // console.log(i)
             if (coor[i].x >= xmin && coor[i].x <= xmax && coor[i].y >= ymin && coor[i].y <= ymax) {

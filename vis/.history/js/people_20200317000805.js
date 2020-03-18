@@ -837,7 +837,7 @@ function Paintjudge_2(name) {
         //         return parseInt(d.price)
         //     })
         peo_g.append('text')
-            .attr('x', 420)
+            .attr('x', 400)
             .attr('y', -22)
             .attr('fill', 'black')
             .attr('font-size', '15px')
@@ -851,40 +851,38 @@ function Paintjudge_2(name) {
                 PaintCir(name)
                 PaintLine(0)
             })
-        for (var i in name) {
-            peo_g.append('text')
-                .attr('x', 500 + i * 85)
-                .attr('y', -22)
-                .attr('fill', 'black')
-                .attr('font-size', '15px')
-                .attr('text-anchor', 'middle')
-                .attr("font-family", "courier")
-                .attr('fill', color_k[i % color_k.length])
-                // .attr('dx', '')
-                .attr('dy', '-0.4em')
-                .text(name[i])
-                .on('click', d => {
-                    judge_cir_line = 1;
-                    PaintCir(name)
-                    PaintLine(0)
-                })
-            if (i != name.length - 1)
+            for (var i in name) {
                 peo_g.append('text')
-                .attr('x', 540 + i * 85)
-                .attr('y', -22)
-                .attr('fill', 'black')
-                .attr('font-size', '15px')
-                .attr('text-anchor', 'middle')
-                .attr("font-family", "courier")
-                // .attr('dx', '')
-                .attr('dy', '-0.4em')
-                .text(", ")
-                .on('click', d => {
-                    judge_cir_line = 1;
-                    PaintCir(name)
-                    PaintLine(0)
-                })
-        }
+            .attr('x', 470 + i * 70)
+            .attr('y', -22)
+            .attr('fill', 'black')
+            .attr('font-size', '15px')
+            .attr('text-anchor', 'middle')
+            .attr("font-family", "courier")
+            // .attr('dx', '')
+            .attr('dy', '-0.4em')
+            .text("People: ")
+            .on('click', d => {
+                judge_cir_line = 1;
+                PaintCir(name)
+                PaintLine(0)
+            })
+            peo_g.append('text')
+            .attr('x', 480)
+            .attr('y', -22)
+            .attr('fill', 'black')
+            .attr('font-size', '15px')
+            .attr('text-anchor', 'middle')
+            .attr("font-family", "courier")
+            // .attr('dx', '')
+            .attr('dy', '-0.4em')
+            .text(", ")
+            .on('click', d => {
+                judge_cir_line = 1;
+                PaintCir(name)
+                PaintLine(0)
+            })
+            }
     })
 }
 

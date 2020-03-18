@@ -29,7 +29,6 @@ var LineName = 0;
 var L = 0;
 var K = 0;
 var orange_rect = 0;
-var firstjudge = -1;
 // var color = ["#ed6522", "#ffc857", "#c5283d", "#255f85"]
 // var color = ['#f7ab1e', '#2e5077', '#ec7505', '#07b27c']
 // var color = ['#ff7473', '#ffc952', '#47b8e0', '#34314c']
@@ -262,11 +261,10 @@ function RectMove(data, d) {
         .attr("y", height - padding.top - 375 + d.start * bei + d.n * steplen + tt - 10)
         .attr("width", rectWidth)
         .attr("height", (d.end - d.start) * bei)
-        .attr('fill', 'none')
         .attr("fill-opacity", 0.0)
         .attr("stroke", "orange")
         .attr("stroke-width", 3)
-    // console.log(data)
+    console.log(data)
     var p_data = PathCalc(data, d.x, d.n);
 
     LinePaint_2(p_data[0], p_data[2], "tomato");
@@ -580,7 +578,7 @@ function PaintZhe(d1) {
             .attr("transform", "rotate(-90)") //text旋转-90°
             .attr("text-anchor", "end") //字体尾部对齐
             .attr("dx", "-2em")
-            .attr("dy", "1em") //沿y轴平移一个字体的大小;
+            .attr("dy", "-1em") //沿y轴平移一个字体的大小;
         zg.append("g")
             .attr("class", "axis")
             .attr("transform", "translate(" + 1500 + "," + 0 + ")")
@@ -1741,8 +1739,7 @@ function PaintRect(num) {
 
                 // // return p;
                 // ScatterPaint(coor, p, num)
-                ScatterPaint_gain_loss(coor, firstjudge, num)
-                firstjudge = 1;
+                ScatterPaint_gain_loss(coor, p, d1, num)
             })
         })
     })

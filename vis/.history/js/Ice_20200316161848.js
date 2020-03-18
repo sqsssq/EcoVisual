@@ -2993,7 +2993,7 @@ d3.csv('data/box_calc.csv', function (Ice_d) {
             r[i].member[j]['kval'] = parseFloat(r[i].member[j]['129']) - parseFloat(r[i].member[j]['19'])
         }
     }
-    // console.log(r)
+    console.log(r)
 
     // r[3].member.sort(function (a, b) {
     //     return b.kval - a.kval
@@ -3011,7 +3011,7 @@ d3.csv('data/box_calc.csv', function (Ice_d) {
 
     var ice_max = -999999
 
-    // console.log(r)
+    console.log(r)
 
     for (var i in r[0].member) {
         ice_max = Math.max(ice_max, Math.abs(parseFloat(r[0].member[i][129])))
@@ -3022,7 +3022,7 @@ d3.csv('data/box_calc.csv', function (Ice_d) {
     var line_scale = d3.scale.linear()
         .domain([0, Math.log2(ice_max)])
         .range([0, height_ice / 4])
-    // console.log(r)
+    console.log(r)
 
     var colora = "#FFFFFF"
     var colorb = color[0]
@@ -3259,11 +3259,11 @@ d3.csv('data/box_calc.csv', function (Ice_d) {
                     return r[k].n * height_ice / 4 - height_ice / 8
                 if (k == 0)
                     return height_ice / 8 - line_scale(Math.log2(Math.abs(parseFloat(d[129])))) / 2
-                return r[k].n * height_ice / 4 - height_ice / 8 - line_scale(Math.log2(Math.abs(parseFloat(d[129])))) / 2
+                return r[k].n * height_ice / 4 - height_ice / 8 - line_scale(Math.log2(Math.abs(parseFloat(d[129])) / 2
             })
             .attr('fill', 'none')
             .attr('stroke', d => {
-                if (parseFloat(d[129]) > 0)
+                if (parseFloat(d[129]) - parseFloat(d['19']) > 0)
                     return '#00FF00';
                 else
                     return 'red'

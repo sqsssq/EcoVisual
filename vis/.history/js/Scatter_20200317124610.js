@@ -11,8 +11,6 @@ var orret_g = 0
 var ScattermyChart;
 
 var name_x = [];
-
-var k_in_num = 0
 // var zoom = d3.behavior.zoom().scaleExtent([1, 8]).on("zoom", zoomed);
 
 // function zoomed() {
@@ -206,6 +204,283 @@ function DrawHeat(data) {
 
 }
 
+// function DrawHeat(data) {
+
+//     // console.log(data)
+//     // if (heatmapInstance != 0) {
+//     //     heatmapInstance.remove();
+//     //     heatmapInstance = 0;
+//     // }
+//     heatmapInstance = h337.create({
+//         container: document.querySelector("#Tsne"),
+//         // radius: 10,
+//         // maxOpacity: .5,
+//         // minOpacity: 0,
+//         radius: 25,
+//         maxOpacity: 0.9,
+//         minOpacity: 0.7,
+//         blur: .75,
+//         gradient: {
+//             '.4': 'red',
+//             // '.3': 'orange',
+//             '.6': 'blue',
+//             // '.75': 'yellow',
+//             '.95': 'green'
+//         },
+//         blur: .75,
+//     })
+//     var points = []
+//     var kmax = 0;
+//     var padding = {
+//         top: 5,
+//         right: 10,
+//         bottom: 5,
+//         left: 10
+//     };
+
+//     var xAxisWidth = widtha - padding.right;
+//     var yAxisWidth = heighta - padding.bottom;
+//     var xScale = d3.scale.linear()
+//         .domain([d3.min(data, function (d) {
+//             return d.x;
+//         }), d3.max(data, function (d) {
+//             return d.x;
+//         })])
+//         .range([padding.left, xAxisWidth]);
+//     var yScale = d3.scale.linear()
+//         .domain([d3.min(data, function (d) {
+//             return d.y;
+//         }), d3.max(data, function (d) {
+//             return d.y;
+//         })])
+//         .range([padding.top, yAxisWidth]);
+//     var min_xx = 999999,
+//         min_yy = 999999,
+//         max_xx = -999999,
+//         max_yy = -999999
+//     for (var i in data) {
+//         if (min_xx > data[i].x) min_xx = data[i].x;
+//         if (min_yy > data[i].y) min_yy = data[i].y;
+//         if (max_xx < data[i].x) max_xx = data[i].x;
+//         if (max_yy < data[i].y) max_yy = data[i].y;
+//     }
+
+//     var kk_data = []
+//     for (var i = Math.floor(min_xx + 5); i <= Math.floor(max_xx - 5); i += 10) {
+//         for (var j = Math.floor(min_yy + 5); j <= Math.floor(max_yy - 5); j += 10) {
+//             var m_val = 0,
+//                 m_num = 0;
+//             for (var k in data) {
+//                 if (data[k].x >= i - 5 && data[k].x < i + 5 && data[k].y >= j - 5 && data[k].y < j + 5) {
+//                     m_val += parseFloat(data[k].val)
+//                     m_num++;
+//                 }
+//             }
+//             var n_val = 0;
+//             if (m_num != 0) n_val = m_val / m_num;
+//             var rcx = {
+//                 x: i,
+//                 y: j,
+//                 val: n_val
+//             }
+//             if (m_num != 0)
+//                 kk_data.push(rcx);
+//         }
+//     }
+
+//     // kk_data = [data[1], data[2], data[3]]
+//     var kmin = 999999
+//     console.log(kk_data)
+//     for (i in kk_data) {
+//         // console.log(kk_data[i])
+//         if (kmax < parseFloat(kk_data[i]['val']))
+//             kmax = Math.round(parseFloat(kk_data[i]['val']), 0)
+//         kmin = Math.min(kmin, Math.round(parseFloat(kk_data[i]['val']), 0))
+//         points.push({
+//             x: Math.round(xScale(kk_data[i].x), 0),
+//             y: Math.round(yScale(kk_data[i].y), 0),
+//             value: parseFloat(kk_data[i]['val']),
+//             // value: -1
+//             // radius: 70
+//         })
+//     }
+//     // for (var i = 1; i <= 370; i += 5) {
+//     //     for (var j = 1; j <= 370; j += 5) {
+//     //         points.push({
+//     //             x: i,
+//     //             y: j,
+//     //             value: 0
+//     //         })
+//     //     }
+
+//     // }
+//     console.log(kmin)
+//     var heat_data = {
+//         max: Math.floor(kmax),
+//         min: Math.floor(-150),
+//         data: points
+//     }
+//     heatmapInstance.setData(heat_data)
+// }
+
+
+// function ScatterPaint(coor, p, num) {
+//     // PP()
+
+//     // console.log(num)
+//     coort = coor
+
+//     if (tcircle != 0) tcircle.remove()
+//     if (r != 0) r.remove()
+
+//     // DrawHeat(coor)
+
+//     var padding = {
+//         top: 5,
+//         right: 10,
+//         bottom: 5,
+//         left: 10
+//     };
+
+//     var xAxisWidth = widtha - padding.right;
+//     var yAxisWidth = heighta - padding.bottom;
+//     var xScale = d3.scale.linear()
+//         .domain([d3.min(coor, function (d) {
+//             return d.x;
+//         }), d3.max(coor, function (d) {
+//             return d.x;
+//         }) * 1.2])
+//         .range([padding.left, xAxisWidth]);
+//     var yScale = d3.scale.linear()
+//         .domain([d3.min(coor, function (d) {
+//             return d.y;
+//         }), d3.max(coor, function (d) {
+//             return d.y;
+//         })])
+//         .range([padding.top, yAxisWidth]);
+
+
+//     // var color = ['#00a676', '#f9c80e', '#3abeff', '#df19c1', '#ff206e', '#f08700', '#0091c9', '#2fe9b3', '#2f8fe9', '#c32fe9', '#e92f9c', '#2E8B57', '#e4e92f', '#FFFACD']
+//     // var color = ['#2fe9b3', '#2f8fe9', '#c32fe9', '#e92f9c', '#2E8B57', '#e4e92f', '#FFFACD']
+//     // 可以自动生成颜色
+//     var color = [];
+//     for (i = 0; i < 80; i++) {
+//         var letters = '0123456789ABCDEF'.split('');
+//         var rand_color = '#';
+//         for (var j = 0; j < 6; j++) {
+//             rand_color += letters[Math.round(Math.random() * 15)];
+//         }
+//         color[i] = rand_color;
+//     }
+
+//     tcircle = ssvg.selectAll("circle")
+//         .data(coor)
+//         .enter()
+//         .append("circle")
+//         .attr("fill", d => {
+//             return color[d.label]
+//         })
+//         .attr("fill-opacity", "1")
+//         .attr("id", "circleid")
+//         .attr("cx", function (d) {
+//             //console.log(d);
+//             // if (d.l == num)
+//             return padding.left + xScale(d.x);
+//         })
+//         .attr("cy", function (d) {
+//             // if (d.l == num)
+//             return yScale(d.y);
+//         })
+//         .attr("r", 1)
+//         // .attr('stroke', d => {
+//         //     return color[d.label]
+//         // })
+//         // .attr('stroke-width', 0.8)
+//         .attr('fill-opacity', 1)
+//         .on("mouseover", function (d, i) {
+//             // console.log(d)
+//             d3.select(this)
+//                 .attr("fill", "yellow");
+//         })
+//         .on("mouseout", function (d, i) {
+//             d3.select(this)
+//                 .attr("fill", d => {
+//                     return color[d.label]
+//                 });
+//         });
+
+//     // console.log(tcircle)
+
+//     // coor.length = 0;
+
+//     var brush = d3.svg.brush()
+//         .x(xScale)
+//         .y(yScale)
+//         .extent([
+//             [0, 0],
+//             [0, 0]
+//         ])
+//         .on("brush", brushed)
+
+//     function brushed() {
+//         var extent = brush.extent();
+//         var xmin = extent[0][0];
+//         var xmax = extent[1][0];
+//         var ymin = extent[0][1];
+//         var ymax = extent[1][1];
+
+//         for (var i in coor) {
+//             // console.log(i)
+//             if (coor[i].x >= xmin && coor[i].x <= xmax && coor[i].y >= ymin && coor[i].y <= ymax) {
+//                 // console.log(coor[i])
+//                 if (flag == -1)
+//                     flag = coor[i].label;
+//                 // return "red";
+//             }
+//         }
+
+//         // console.log(flag)
+
+//         if (K == 0 && flag != -1) {
+
+//             console.log(flag)
+//             var coor_p = {}
+
+//             for (var i in p) {
+//                 // console.log(p[i][0])
+//                 if (p[i][0].label == flag) {
+//                     coor_p[i] = p[i];
+//                 }
+//             }
+
+//             // console.log(coor_p)
+
+//             var coor_path = PathCalc(coor_p, -1, -1);
+
+//             // console.log(coor_path[1])
+
+//             var n__ = []
+//             for (var i in coor_path[1]) {
+//                 n__.push(i)
+//             }
+
+//             OrRect(n__, color[flag])
+
+//             if (LineName != 0) LineName.remove();
+
+//             LinePaint_2(coor_path[0], coor_path[2], color[flag])
+
+//             K = 1;
+//         }
+//     }
+
+//     // console.log(flag)
+//     r = ssvg.append("g")
+//         .call(brush)
+//         .selectAll("rect")
+//         .style("fill-opacity", 0.3)
+// }
+
 function ScatterPaint_gain_loss(coor, p, num) {
     // PP()
     // for (var i in coor) {
@@ -386,8 +661,11 @@ function ScatterPaint_gain_loss(coor, p, num) {
                 })
                 .attr('fill-opacity', 1)
         })
+        .on("mousemove", d => {
+            // tooltip.style("left", (d3.event.pageX - 15) + "px")
+            //     .style("top", (d3.event.pageY + 0) + "px")
+        })
         .on("mouseout", function (d, i) {
-            if (k_in_num)
             d3.select(this)
                 .attr("fill", d => {
                     return 'white';
@@ -468,119 +746,109 @@ function ScatterPaint_gain_loss(coor, p, num) {
                 });
             // tooltip.style("opacity", 0.1)
         })
-        .on('click', function (d, i) {
-            d3.select(this)
-                .attr('r', 5)
-                .attr('fill', d => {
-                    if (d.val > 0)
-                        return '#00FF00'
+        .on('click', d => {
+            d = d.id;
+                if (d_num == 0) {
+                    if (judge_cir_line == 0)
+                        Paintjudge(d);
                     else
-                        return 'red'
-                })
-            kname = d.id;
-            if (d_num == 0) {
-                if (judge_cir_line == 0)
-                    Paintjudge(kname);
-                else
-                    PaintCir(kname);
-                PaintSha(number, kname, i);
-                IceLine(kname, num)
-            } else {
-                // if (cnt_num < 1) {
-                //     cnt_num++;
-                //     name_in.push(d)
-                //     if (judge_cir_line == 1)
-                //         PaintCir(d)
-                //     else
-                //         Paintjudge(d)
-                // } else {
-                cnt_num++;
-                name_x.push(kname)
-                if (judge_cir_line == 1) {
-                    PaintCir_2(name_x)
+                        PaintCir(d);
+                    PaintSha(number, d, i);
+                    IceLine(d, num)
                 } else {
-                    Paintjudge_2(name_x)
+                    // if (cnt_num < 1) {
+                    //     cnt_num++;
+                    //     name_in.push(d)
+                    //     if (judge_cir_line == 1)
+                    //         PaintCir(d)
+                    //     else
+                    //         Paintjudge(d)
+                    // } else {
+                    cnt_num++;
+                    name_in.push(d)
+                    if (judge_cir_line == 1) {
+                        PaintCir_2(name_in)
+                    } else {
+                        Paintjudge_2(name_in)
+                    }
+                    // name_in = []
+                    // cnt_num = 0
+                    // }
+                    IceLine_2(name_in, num)
+                    PaintSha_2(number, name_in, i);
                 }
-                // name_in = []
-                // cnt_num = 0
-                // }
-                IceLine_2(name_x, num)
-                PaintSha_2(number, name_x, i);
-            }
         });
 
     // console.log(tcircle)
 
     coor.length = 0;
 
-    var brush = d3.svg.brush()
-        .x(xScale)
-        .y(yScale)
-        .extent([
-            [0, 0],
-            [0, 0]
-        ])
-        .on("brush", brushed)
+    // var brush = d3.svg.brush()
+    //     .x(xScale)
+    //     .y(yScale)
+    //     .extent([
+    //         [0, 0],
+    //         [0, 0]
+    //     ])
+    //     .on("brush", brushed)
 
+    // function brushed() {
+    //     var extent = brush.extent();
+    //     var xmin = extent[0][0];
+    //     var xmax = extent[1][0];
+    //     var ymin = extent[0][1];
+    //     var ymax = extent[1][1];
 
-    function brushed() {
-        var extent = brush.extent();
-        var xmin = extent[0][0];
-        var xmax = extent[1][0];
-        var ymin = extent[0][1];
-        var ymax = extent[1][1];
-        
-    console.log(ymin)
-        for (var i in coor) {
-            // console.log(i)
-            if (coor[i].x >= xmin && coor[i].x <= xmax && coor[i].y >= ymin && coor[i].y <= ymax) {
-                // console.log(coor[i])
-                if (flag == -1)
-                    flag = coor[i].label;
-                // return "red";
-            }
-        }
+    //     for (var i in coor) {
+    //         // console.log(i)
+    //         if (coor[i].x >= xmin && coor[i].x <= xmax && coor[i].y >= ymin && coor[i].y <= ymax) {
+    //             // console.log(coor[i])
+    //             if (flag == -1)
+    //                 flag = coor[i].label;
+    //             // return "red";
+    //         }
+    //     }
 
-        // console.log(flag)
+    //     // console.log(flag)
 
-        if (K == 0 && flag != -1) {
+    //     if (K == 0 && flag != -1) {
 
-            // console.log(flag)
-            var coor_p = {}
+    //         // console.log(flag)
+    //         var coor_p = {}
 
-            for (var i in p) {
-                // console.log(p[i][0])
-                if (p[i][0].label == flag) {
-                    coor_p[i] = p[i];
-                }
-            }
+    //         for (var i in p) {
+    //             // console.log(p[i][0])
+    //             if (p[i][0].label == flag) {
+    //                 coor_p[i] = p[i];
+    //             }
+    //         }
 
-            // console.log(coor_p)
+    //         // console.log(coor_p)
 
-            var coor_path = PathCalc(coor_p, -1, -1);
+    //         var coor_path = PathCalc(coor_p, -1, -1);
 
-            // console.log(coor_path[1])
+    //         // console.log(coor_path[1])
 
-            var n__ = []
-            for (var i in coor_path[1]) {
-                n__.push(i)
-            }
+    //         var n__ = []
+    //         for (var i in coor_path[1]) {
+    //             n__.push(i)
+    //         }
 
-            OrRect(n__, color[flag])
+    //         OrRect(n__, color[flag])
 
-            if (LineName != 0) LineName.remove();
+    //         if (LineName != 0) LineName.remove();
 
-            LinePaint_2(coor_path[0], coor_path[2], color[flag])
+    //         LinePaint_2(coor_path[0], coor_path[2], color[flag])
 
-            K = 1;
-        }
-    }
+    //         K = 1;
+    //     }
+    // }
 
-    // console.log(flag)
-    r = ssvg.append("g")
-        .call(brush)
-        .selectAll("rect")
-        .style("fill-opacity", 0.3)
+    // // console.log(flag)
+    // r = ssvg.append("g")
+    //     .call(brush)
+    //     .selectAll("rect")
+    //     .style("fill-opacity", 0.3)
 }
 
 function OrRect(data, color) {

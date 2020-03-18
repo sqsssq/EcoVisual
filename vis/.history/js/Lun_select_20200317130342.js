@@ -40,7 +40,6 @@ function clear_pic(num) {
     }
 
     k_in_num = 0;
-    name_x = []
     
     Rect_data = -1;
     Paintjudge_2(['11qpbunz', 'v5p7lv20', '7rmwik5s', 'wak4ycex']);
