@@ -388,7 +388,7 @@ function ScatterPaint_gain_loss(coor, p, num, pf) {
         })
         .on("mouseout", function (d, i) {
             // if (k_in_num)
-            d3.select(this)
+                d3.select(this)
                 .attr("fill", d => {
                     return 'white';
                 });
@@ -517,9 +517,7 @@ function ScatterPaint_gain_loss(coor, p, num, pf) {
             ])
             .on("brush", brushed)
 
-        console.log(coor)
-
-        var name_brush = {};
+        // console.log(coor)
 
         function brushed() {
             var extent = brush.extent();
@@ -527,37 +525,37 @@ function ScatterPaint_gain_loss(coor, p, num, pf) {
             var xmax = extent[1][0];
             var ymin = extent[0][1];
             var ymax = extent[1][1];
+            var name_brush = {};
 
             // console.log(ymin)
             // console.log(ymax)
             // console.log(xmax)
             // console.log(xmin)
             // console.log(coor[0])
-            var nnnnn = []
             for (var i in coor) {
+                // console.log(i)
                 if (coor[i].l == num && coor[i].x >= xmin && coor[i].x <= xmax && coor[i].y >= ymin && coor[i].y <= ymax) {
                     name_brush[coor[i].id] = 1;
-                    nnnnn.push(coor[i].id)
                 }
             }
 
-            console.log(nnnnn)
-            console.log(name_brush[nnnnn[0]])
+            // console.log(name_brush)
 
-            // if (K == 0) {
+            if (K == 0) {
+
+                // console.log(flag)
                 var coor_p = {}
 
-                for (var i in pf) {
-                    // console.log(pf[i][0])
-                    if (name_brush[pf[i][0].id] == 1) {
-                        coor_p[i] = pf[i];
+                for (var i in p) {
+                    // console.log(p[i][0])
+                    if (name_brush[p[i][0].id] == 1) {
+                        coor_p[i] = name_brush[i];
                     }
                 }
 
                 console.log(coor_p)
 
                 var coor_path = PathCalc(coor_p, -1, -1);
-                console.log()
 
                 // console.log(coor_path[1])
 
@@ -570,15 +568,10 @@ function ScatterPaint_gain_loss(coor, p, num, pf) {
 
                 if (LineName != 0) LineName.remove();
 
-                LinePaint_2(coor_path[0], coor_path[2], color[1])
-                // K = 1;
-            // }
+                LinePaint_2(coor_path[0], coor_path[2], color[flag])
 
-
-            // console.log(flag)
-
-
-
+                K = 1;
+            }
         }
 
         // console.log(flag)

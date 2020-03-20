@@ -84,7 +84,7 @@ function Paint() {
 
 // 画连接线
 var LinePaint = function (path, dia, color) {
-    // console.log(path)
+    console.log(path)
     // LineName = Rect_g.selectAll(".lineW")
     //     .attr("class", "lineW")
     //     .data(path)
@@ -161,7 +161,7 @@ var LinePaint_2 = function (path, dia, color) {
 var treat = -1;
 
 var PathCalc = function (p, n, x) {
-    // console.log(p)
+    console.log(p)
     var path = []
     var p_n = {}
     var dia_path = []
@@ -1753,7 +1753,7 @@ function PaintRect(num) {
 
                 // // return p;
                 // ScatterPaint(coor, p, num)
-                ScatterPaint_gain_loss(coor, firstjudge, num, p)
+                ScatterPaint_gain_loss(coor, firstjudge, num)
                 firstjudge = 1;
             })
         })

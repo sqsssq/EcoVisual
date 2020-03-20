@@ -206,7 +206,7 @@ function DrawHeat(data) {
 
 }
 
-function ScatterPaint_gain_loss(coor, p, num, pf) {
+function ScatterPaint_gain_loss(coor, p, num) {
     // PP()
     // for (var i in coor) {
     //     coor[i]['val'] = parseFloat(num_coor[i][91])
@@ -388,7 +388,7 @@ function ScatterPaint_gain_loss(coor, p, num, pf) {
         })
         .on("mouseout", function (d, i) {
             // if (k_in_num)
-            d3.select(this)
+                d3.select(this)
                 .attr("fill", d => {
                     return 'white';
                 });
@@ -446,7 +446,7 @@ function ScatterPaint_gain_loss(coor, p, num, pf) {
                 //     .style("left", (d3.event.pageX - 15) + "px")
                 //     .style("top", (d3.event.pageY + 0) + "px")
                 //     .style("opacity", 1.0)
-                // console.log(d)
+                console.log(d)
                 d3.select(this)
                     .attr("fill", d => {
                         if (d.val > 0)
@@ -508,18 +508,16 @@ function ScatterPaint_gain_loss(coor, p, num, pf) {
                     PaintSha_2(number, name_x, i);
                 }
             });
-        var brush = d3.svg.brush()
-            .x(xScale)
-            .y(yScale)
-            .extent([
-                [0, 0],
-                [0, 0]
-            ])
-            .on("brush", brushed)
+        // var brush = d3.svg.brush()
+        //     .x(xScale)
+        //     .y(yScale)
+        //     .extent([
+        //         [0, 0],
+        //         [0, 0]
+        //     ])
+        //     .on("brush", brushed)
 
-        console.log(coor)
-
-        var name_brush = {};
+        // console.log(coor)
 
         function brushed() {
             var extent = brush.extent();
@@ -527,65 +525,60 @@ function ScatterPaint_gain_loss(coor, p, num, pf) {
             var xmax = extent[1][0];
             var ymin = extent[0][1];
             var ymax = extent[1][1];
+            var name_brush = [];
 
             // console.log(ymin)
             // console.log(ymax)
             // console.log(xmax)
             // console.log(xmin)
             // console.log(coor[0])
-            var nnnnn = []
             for (var i in coor) {
+                // console.log(i)
                 if (coor[i].l == num && coor[i].x >= xmin && coor[i].x <= xmax && coor[i].y >= ymin && coor[i].y <= ymax) {
-                    name_brush[coor[i].id] = 1;
-                    nnnnn.push(coor[i].id)
+                    name_brush.push(coor[i].id)
                 }
             }
 
-            console.log(nnnnn)
-            console.log(name_brush[nnnnn[0]])
+            console.log(name_brush)
 
-            // if (K == 0) {
+            if (K == 0) {
+
+                // console.log(flag)
                 var coor_p = {}
 
-                for (var i in pf) {
-                    // console.log(pf[i][0])
-                    if (name_brush[pf[i][0].id] == 1) {
-                        coor_p[i] = pf[i];
+                for (var i in p) {
+                    // console.log(p[i][0])
+                    if (p[i][0].label == flag) {
+                        coor_p[i] = p[i];
                     }
                 }
 
-                console.log(coor_p)
+                // console.log(coor_p)
 
                 var coor_path = PathCalc(coor_p, -1, -1);
-                console.log()
 
                 // console.log(coor_path[1])
 
-                // var n__ = []
-                // for (var i in coor_path[1]) {
-                //     n__.push(i)
-                // }
+                var n__ = []
+                for (var i in coor_path[1]) {
+                    n__.push(i)
+                }
 
-                // OrRect(n__, color[flag])
+                OrRect(n__, color[flag])
 
                 if (LineName != 0) LineName.remove();
 
-                LinePaint_2(coor_path[0], coor_path[2], color[1])
-                // K = 1;
-            // }
+                LinePaint_2(coor_path[0], coor_path[2], color[flag])
 
-
-            // console.log(flag)
-
-
-
+                K = 1;
+            }
         }
 
         // console.log(flag)
-        r = ssvg.append("g")
-            .call(brush)
-            .selectAll("rect")
-            .style("fill-opacity", 0.3)
+        // r = ssvg.append("g")
+        //     .call(brush)
+        //     .selectAll("rect")
+        //     .style("fill-opacity", 0.3)
     }
 
 

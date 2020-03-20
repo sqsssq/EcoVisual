@@ -1753,7 +1753,7 @@ function PaintRect(num) {
 
                 // // return p;
                 // ScatterPaint(coor, p, num)
-                ScatterPaint_gain_loss(coor, firstjudge, num, p)
+                ScatterPaint_gain_loss(coor, firstjudge, num)
                 firstjudge = 1;
             })
         })

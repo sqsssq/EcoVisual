@@ -206,7 +206,7 @@ function DrawHeat(data) {
 
 }
 
-function ScatterPaint_gain_loss(coor, p, num, pf) {
+function ScatterPaint_gain_loss(coor, p, num) {
     // PP()
     // for (var i in coor) {
     //     coor[i]['val'] = parseFloat(num_coor[i][91])
@@ -388,7 +388,7 @@ function ScatterPaint_gain_loss(coor, p, num, pf) {
         })
         .on("mouseout", function (d, i) {
             // if (k_in_num)
-            d3.select(this)
+                d3.select(this)
                 .attr("fill", d => {
                     return 'white';
                 });
@@ -519,66 +519,60 @@ function ScatterPaint_gain_loss(coor, p, num, pf) {
 
         console.log(coor)
 
-        var name_brush = {};
-
         function brushed() {
             var extent = brush.extent();
             var xmin = extent[0][0];
             var xmax = extent[1][0];
             var ymin = extent[0][1];
             var ymax = extent[1][1];
+            var name_brush = [];
 
-            // console.log(ymin)
-            // console.log(ymax)
-            // console.log(xmax)
-            // console.log(xmin)
-            // console.log(coor[0])
-            var nnnnn = []
+            console.log(ymin)
+            console.log(ymax)
+            console.log(xmax)
+            console.log(xmin)
+            console.log(coor[0])
             for (var i in coor) {
-                if (coor[i].l == num && coor[i].x >= xmin && coor[i].x <= xmax && coor[i].y >= ymin && coor[i].y <= ymax) {
-                    name_brush[coor[i].id] = 1;
-                    nnnnn.push(coor[i].id)
+                // console.log(i)
+                if (coor[i].x >= xmin && coor[i].x <= xmax && coor[i].y >= ymin && coor[i].y <= ymax) {
+                    console.log(coor[i])
+
                 }
             }
 
-            console.log(nnnnn)
-            console.log(name_brush[nnnnn[0]])
+            // console.log(flag)
 
-            // if (K == 0) {
+            if (K == 0) {
+
+                // console.log(flag)
                 var coor_p = {}
 
-                for (var i in pf) {
-                    // console.log(pf[i][0])
-                    if (name_brush[pf[i][0].id] == 1) {
-                        coor_p[i] = pf[i];
+                for (var i in p) {
+                    // console.log(p[i][0])
+                    if (p[i][0].label == flag) {
+                        coor_p[i] = p[i];
                     }
                 }
 
-                console.log(coor_p)
+                // console.log(coor_p)
 
                 var coor_path = PathCalc(coor_p, -1, -1);
-                console.log()
 
                 // console.log(coor_path[1])
 
-                // var n__ = []
-                // for (var i in coor_path[1]) {
-                //     n__.push(i)
-                // }
+                var n__ = []
+                for (var i in coor_path[1]) {
+                    n__.push(i)
+                }
 
-                // OrRect(n__, color[flag])
+                OrRect(n__, color[flag])
 
                 if (LineName != 0) LineName.remove();
 
-                LinePaint_2(coor_path[0], coor_path[2], color[1])
-                // K = 1;
-            // }
+                LinePaint_2(coor_path[0], coor_path[2], color[flag])
 
-
-            // console.log(flag)
-
-
-
+                K = 1;
+            }
         }
 
         // console.log(flag)

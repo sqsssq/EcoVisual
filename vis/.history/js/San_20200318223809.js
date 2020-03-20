@@ -84,7 +84,7 @@ function Paint() {
 
 // 画连接线
 var LinePaint = function (path, dia, color) {
-    // console.log(path)
+    console.log(path)
     // LineName = Rect_g.selectAll(".lineW")
     //     .attr("class", "lineW")
     //     .data(path)
@@ -158,10 +158,7 @@ var LinePaint_2 = function (path, dia, color) {
         .attr('stroke-opacity', 0.3)
 }
 
-var treat = -1;
-
 var PathCalc = function (p, n, x) {
-    // console.log(p)
     var path = []
     var p_n = {}
     var dia_path = []
@@ -172,9 +169,6 @@ var PathCalc = function (p, n, x) {
             p_n[i] = p[i]
 
             for (var j = 1; j <= 11; ++j) {
-
-                if (treat != -1)
-                if (p[i][j].treat != treat) continue;
                 a = {}
                 a['name'] = i
                 a["x1"] = p[i][j - 1].x;
@@ -211,13 +205,9 @@ var PathCalc = function (p, n, x) {
     } else {
         for (var i in p) {
             // console.log(p[i][n])
-            if (treat != -1)
-
             if (p[i][n].n == x) {
                 p_n[i] = p[i]
                 for (var j = 1; j <= 11; ++j) {
-
-                    if (p[i][j].treat != treat) continue;
                     a = {}
                     a['name'] = i
                     a["x1"] = p[i][j - 1].x;
@@ -1187,10 +1177,10 @@ function PaintRect(num) {
                     .range([0, 39])
 
                 var lne_line = Math.max(Math.abs(maxx), Math.abs(minx));
-
+                
                 var line_linear = d3.scale.linear()
-                    .domain([0, lne_line])
-                    .range([0, 39])
+                .domain([0, lne_line])
+                .range([0, 39])
 
                 // 减少杂化
                 let RectInnerData = []
@@ -1227,14 +1217,14 @@ function PaintRect(num) {
                         RectInnerData[i][11] = 1;
                     else
                         RectInnerData[i][11] = 2
-
+                    
                     if (parseInt(sort_one_inner[parseFloat(RectInnerData[i][29]) - parseFloat(RectInnerData[i][19])]) <= 100)
                         RectInnerData[i][1] = 0;
                     else if (parseInt(sort_one_inner[parseFloat(RectInnerData[i][29]) - parseFloat(RectInnerData[i][19])]) <= 200)
                         RectInnerData[i][1] = 1;
                     else
                         RectInnerData[i][1] = 2;
-
+                    
                 }
                 for (var i in RectInnerData) {
                     for (var j = 1; j <= 12; ++j) {
@@ -1265,75 +1255,75 @@ function PaintRect(num) {
                     RectOuterData[1][i].val /= RectOuterData[1][i]["member"].length
                 }
                 // for (var t = 1; t <= 20; ++t) {
-                for (var k = 2; k <= 12; ++k) {
-                    // console.log(k)
-                    if (typeof (RectOuterData[k]) == "undefined")
-                        RectOuterData[k] = []
-                    for (var i in RectOuterData[k - 1]) {
-                        for (var j in RectOuterData[k - 1][i]["member"]) {
-                            RectOuterData[k][RectOuterData[k - 1][i]["member"][j][k]] = {
-                                "val": 0,
-                                "member": []
+                    for (var k = 2; k <= 12; ++k) {
+                        // console.log(k)
+                        if (typeof (RectOuterData[k]) == "undefined")
+                            RectOuterData[k] = []
+                        for (var i in RectOuterData[k - 1]) {
+                            for (var j in RectOuterData[k - 1][i]["member"]) {
+                                RectOuterData[k][RectOuterData[k - 1][i]["member"][j][k]] = {
+                                    "val": 0,
+                                    "member": []
+                                }
                             }
                         }
-                    }
-                    for (var i in RectOuterData[k - 1]) {
-                        for (var j in RectOuterData[k - 1][i]["member"]) {
-                            // RectOuterData[k - 1][i]["member"][j][k] 对应的分类
-                            RectOuterData[k][RectOuterData[k - 1][i]["member"][j][k]].val += parseInt(code_Num[RectOuterData[k - 1][i]["member"][j]["code"]])
-                            RectOuterData[k][RectOuterData[k - 1][i]["member"][j][k]].member.push(RectOuterData[k - 1][i]["member"][j])
-                        }
-                    }
-                    for (var i in RectOuterData[k]) {
-                        RectOuterData[k][i].val /= RectOuterData[k][i]["member"].length
-                    }
-                    RectOuterData[k].sort(function (a, b) {
-                        return a.val - b.val;
-                    })
-                    for (var i in RectOuterData[k]) {
-                        for (var j in RectOuterData[k][i]["member"]) {
-                            if (i == 0)
-                                code_Num[RectOuterData[k][i]["member"][j].code] = parseInt(j)
-                            else
-                                code_Num[RectOuterData[k][i]["member"][j].code] = parseInt(j) + RectOuterData[k][i]["member"].length
-                        }
-                    }
-                    // console.log(code_Num)
-                }
-                for (var k = 11; k >= 1; --k) {
-                    for (var i in RectOuterData[k + 1]) {
-                        for (var j in RectOuterData[k + 1][i]["member"]) {
-                            RectOuterData[k][RectOuterData[k + 1][i]["member"][j][k]] = {
-                                "val": 0,
-                                "member": []
+                        for (var i in RectOuterData[k - 1]) {
+                            for (var j in RectOuterData[k - 1][i]["member"]) {
+                                // RectOuterData[k - 1][i]["member"][j][k] 对应的分类
+                                RectOuterData[k][RectOuterData[k - 1][i]["member"][j][k]].val += parseInt(code_Num[RectOuterData[k - 1][i]["member"][j]["code"]])
+                                RectOuterData[k][RectOuterData[k - 1][i]["member"][j][k]].member.push(RectOuterData[k - 1][i]["member"][j])
                             }
                         }
-                    }
-                    for (var i in RectOuterData[k + 1]) {
-                        for (var j in RectOuterData[k + 1][i]["member"]) {
-                            // RectOuterData[k - 1][i]["member"][j][k] 对应的分类
-                            // if (typeof (RectOuterData[k][RectOuterData[k - 1][i]["member"][j][k]]) == "undefined")
-                            // console.log("i = " + i + "; j = " + j)
-                            RectOuterData[k][RectOuterData[k + 1][i]["member"][j][k]].val += parseInt(code_Num[RectOuterData[k + 1][i]["member"][j]["code"]])
-                            RectOuterData[k][RectOuterData[k + 1][i]["member"][j][k]].member.push(RectOuterData[k + 1][i]["member"][j])
+                        for (var i in RectOuterData[k]) {
+                            RectOuterData[k][i].val /= RectOuterData[k][i]["member"].length
                         }
-                    }
-                    for (var i in RectOuterData[k]) {
-                        RectOuterData[k][i].val /= RectOuterData[k][i]["member"].length
-                    }
-                    RectOuterData[k].sort(function (a, b) {
-                        return a.val - b.val;
-                    })
-                    for (var i in RectOuterData[k]) {
-                        for (var j in RectOuterData[k][i]["member"]) {
-                            if (i == 0)
-                                code_Num[RectOuterData[k][i]["member"][j].code] = parseInt(j)
-                            else
-                                code_Num[RectOuterData[k][i]["member"][j].code] = parseInt(j) + RectOuterData[k][i]["member"].length
+                        RectOuterData[k].sort(function (a, b) {
+                            return a.val - b.val;
+                        })
+                        for (var i in RectOuterData[k]) {
+                            for (var j in RectOuterData[k][i]["member"]) {
+                                if (i == 0)
+                                    code_Num[RectOuterData[k][i]["member"][j].code] = parseInt(j)
+                                else
+                                    code_Num[RectOuterData[k][i]["member"][j].code] = parseInt(j) + RectOuterData[k][i]["member"].length
+                            }
                         }
+                        // console.log(code_Num)
                     }
-                    // console.log(code_Num)
-                }
+                    for (var k = 11; k >= 1; --k) {
+                        for (var i in RectOuterData[k + 1]) {
+                            for (var j in RectOuterData[k + 1][i]["member"]) {
+                                RectOuterData[k][RectOuterData[k + 1][i]["member"][j][k]] = {
+                                    "val": 0,
+                                    "member": []
+                                }
+                            }
+                        }
+                        for (var i in RectOuterData[k + 1]) {
+                            for (var j in RectOuterData[k + 1][i]["member"]) {
+                                // RectOuterData[k - 1][i]["member"][j][k] 对应的分类
+                                // if (typeof (RectOuterData[k][RectOuterData[k - 1][i]["member"][j][k]]) == "undefined")
+                                // console.log("i = " + i + "; j = " + j)
+                                RectOuterData[k][RectOuterData[k + 1][i]["member"][j][k]].val += parseInt(code_Num[RectOuterData[k + 1][i]["member"][j]["code"]])
+                                RectOuterData[k][RectOuterData[k + 1][i]["member"][j][k]].member.push(RectOuterData[k + 1][i]["member"][j])
+                            }
+                        }
+                        for (var i in RectOuterData[k]) {
+                            RectOuterData[k][i].val /= RectOuterData[k][i]["member"].length
+                        }
+                        RectOuterData[k].sort(function (a, b) {
+                            return a.val - b.val;
+                        })
+                        for (var i in RectOuterData[k]) {
+                            for (var j in RectOuterData[k][i]["member"]) {
+                                if (i == 0)
+                                    code_Num[RectOuterData[k][i]["member"][j].code] = parseInt(j)
+                                else
+                                    code_Num[RectOuterData[k][i]["member"][j].code] = parseInt(j) + RectOuterData[k][i]["member"].length
+                            }
+                        }
+                        // console.log(code_Num)
+                    }
                 // }
                 //  for (var k = 2; k <= 12; ++k) {
                 //         // console.log(k)
@@ -1444,8 +1434,8 @@ function PaintRect(num) {
                 // console.log(Sankey_Rect)
 
                 var Font_scale = d3.scale.linear()
-                    .domain([1, 3])
-                    .range([15, 20])
+                .domain([1, 3])
+                .range([15, 20])
 
 
 
@@ -1520,10 +1510,10 @@ function PaintRect(num) {
                     .append('text')
                     .attr('fill', 'black')
                     .attr('font-size', (d, i) => {
-                        if (d.weight == 0 || (d.x == 11) || d.x == 7 || d.x == 10 || d.x == 9)
-                            return '15px'
-                        else
-                            return Font_scale(parseInt(d.weight))
+                            if (d.weight == 0 || (d.x == 11) || d.x == 7 || d.x == 10 || d.x == 9)
+                                return '15px'
+                            else
+                                return Font_scale(parseInt(d.weight))
                     })
                     .attr('font-weight', 'bold')
                     .attr('text-anchor', 'middle')
@@ -1565,7 +1555,7 @@ function PaintRect(num) {
                                 "n": parseInt(j),
                                 "id": RectOuterData[i][j]["member"][k].code,
                                 "label": code_Label[RectOuterData[i][j]["member"][k].code],
-                                "treat": parseInt(RectOuterData[i][j]["member"][k].treat)
+                                "treat": RectOuterData[i][j]["member"][k].treat
                             }
                             p[a.id][i - 1] = a;
                             Rect_Line_Data.push(a)
@@ -1573,7 +1563,6 @@ function PaintRect(num) {
                         s_num += RectOuterData[i][j].member.length
                     }
                 }
-                // console.log(p)
                 // console.log(Rect_Line_Data)
 
                 // var p = {}
@@ -1724,9 +1713,9 @@ function PaintRect(num) {
                         var len;
                         len = line_linear(Math.abs(d.v))
                         // if (d.v >= 0)
-                        // len = linearZ(d.v);
+                            // len = linearZ(d.v);
                         // else if (d.v <= 0)
-                        // len = linearF(d.v);
+                            // len = linearF(d.v);
                         return padding.left + d.x * rectStep + len + 0.5;
                     })
                     .attr("y2", (d, i) => {
@@ -1753,7 +1742,7 @@ function PaintRect(num) {
 
                 // // return p;
                 // ScatterPaint(coor, p, num)
-                ScatterPaint_gain_loss(coor, firstjudge, num, p)
+                ScatterPaint_gain_loss(coor, firstjudge, num)
                 firstjudge = 1;
             })
         })

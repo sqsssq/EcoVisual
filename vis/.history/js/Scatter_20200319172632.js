@@ -557,7 +557,6 @@ function ScatterPaint_gain_loss(coor, p, num, pf) {
                 console.log(coor_p)
 
                 var coor_path = PathCalc(coor_p, -1, -1);
-                console.log()
 
                 // console.log(coor_path[1])
 
@@ -570,7 +569,7 @@ function ScatterPaint_gain_loss(coor, p, num, pf) {
 
                 if (LineName != 0) LineName.remove();
 
-                LinePaint_2(coor_path[0], coor_path[2], color[1])
+                LinePaint_2(coor_path[0], coor_path[2], color[flag])
                 // K = 1;
             // }
 

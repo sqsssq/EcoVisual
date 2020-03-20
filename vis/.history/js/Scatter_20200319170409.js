@@ -388,7 +388,7 @@ function ScatterPaint_gain_loss(coor, p, num, pf) {
         })
         .on("mouseout", function (d, i) {
             // if (k_in_num)
-            d3.select(this)
+                d3.select(this)
                 .attr("fill", d => {
                     return 'white';
                 });
@@ -517,8 +517,8 @@ function ScatterPaint_gain_loss(coor, p, num, pf) {
             ])
             .on("brush", brushed)
 
-        console.log(coor)
-
+        // console.log(coor)
+        
         var name_brush = {};
 
         function brushed() {
@@ -533,52 +533,47 @@ function ScatterPaint_gain_loss(coor, p, num, pf) {
             // console.log(xmax)
             // console.log(xmin)
             // console.log(coor[0])
-            var nnnnn = []
             for (var i in coor) {
+                // console.log(i)
                 if (coor[i].l == num && coor[i].x >= xmin && coor[i].x <= xmax && coor[i].y >= ymin && coor[i].y <= ymax) {
                     name_brush[coor[i].id] = 1;
-                    nnnnn.push(coor[i].id)
                 }
             }
 
-            console.log(nnnnn)
-            console.log(name_brush[nnnnn[0]])
+            console.log(pf)
 
-            // if (K == 0) {
-                var coor_p = {}
+            var coor_p = {}
 
-                for (var i in pf) {
-                    // console.log(pf[i][0])
-                    if (name_brush[pf[i][0].id] == 1) {
-                        coor_p[i] = pf[i];
-                    }
+            for (var i in pf) {
+                // console.log(pf[i][0])
+                if (name_brush[pf[i][0].id] == 1) {
+                    coor_p[i] = pf[i];
                 }
+            }
 
-                console.log(coor_p)
+            console.log(coor_p)
 
-                var coor_path = PathCalc(coor_p, -1, -1);
-                console.log()
+            var coor_path = PathCalc(coor_p, -1, -1);
 
-                // console.log(coor_path[1])
+            // console.log(coor_path[1])
 
-                // var n__ = []
-                // for (var i in coor_path[1]) {
-                //     n__.push(i)
-                // }
-
-                // OrRect(n__, color[flag])
-
-                if (LineName != 0) LineName.remove();
-
-                LinePaint_2(coor_path[0], coor_path[2], color[1])
-                // K = 1;
+            // var n__ = []
+            // for (var i in coor_path[1]) {
+            //     n__.push(i)
             // }
 
+            // OrRect(n__, color[flag])
+
+            if (LineName != 0) LineName.remove();
+
+            LinePaint_2(coor_path[0], coor_path[2], color[flag])
+        }
+        if (K == 0) {
 
             // console.log(flag)
+            
 
-
-
+            K = 1;
         }
 
         // console.log(flag)
