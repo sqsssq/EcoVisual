@@ -509,7 +509,6 @@
                 }
 
                 for (var i = 0; i <= 200; ++i) {
-                    if (!yy[i]) continue;
                     pa.push({"x": i - 100, "y": Math.round(parseFloat(xx[i] / yy[i]), 2)})
                     xmin = Math.min(xmin, i - 100);
                     xmax = Math.max(xmax, i - 100);
@@ -530,7 +529,7 @@
                     .domain([parseInt(xmin), parseInt(xmax)])
                     .range([50, 1000])
                 var Yscale = d3.scale.linear()
-                    .domain([parseInt(0), parseInt(6)])
+                    .domain([parseInt(ymin), parseInt(ymax)])
                     .range([height - 10, height - 306]);
 
 
@@ -561,38 +560,23 @@
                     .attr("dx", "-2em")
                     .attr("dy", "1em") //沿y轴平移一个字体的大小;
 
-                // var L_path = d3.svg.line()
-                //     .x(d => {
-                //         return Xscale(d.x)
-                //     })
-                //     .y(d => {
-                //         return Yscale(d.y)
-                //     })
+                var L_path = d3.svg.line()
+                    .x(d => {
+                        return Xscale(d.y)
+                    })
+                    .y(d => {
+                        return Yscale(d.x)
+                    })
 
-                // zg.selectAll('#lp')
-                //     .attr('id', 'lp')
-                //     .data(pa)
-                //     .enter()
-                //     .append('path')
-                //     .attr('d', L_path(pa))
-                //     .attr("fill", 'none')
-                //     .attr('stroke-width', 0.1)
-                //     .attr('stroke', 'red')
-
-                zg.selectAll('#sp')
-                .attr('id', 'sp')
-                .data(p)
-                .enter()
-                .append('circle')
-                .attr('cx', d => {
-                    if (parseInt(d.cashNet) >= -100 && parseInt(d.cashNet) <= 100)
-                    return Xscale(parseFloat(d.cashNet));
-                })
-                .attr('cy', d => {
-                    if (parseInt(d.cashNet) >= -100 && parseInt(d.cashNet) <= 100)
-                    return Yscale(parseFloat(d.HATE));
-                })
-                .attr('r', 1)
+                zg.selectAll('#lp')
+                    .attr('id', 'lp')
+                    .data(pa)
+                    .enter()
+                    .append('path')
+                    .attr('d', L_path(pa))
+                    .attr("fill", 'none')
+                    .attr('stroke-width', 0.1)
+                    .attr('stroke', 'red')
                 // .attr("stroke-dasharray", function (d, i) {
                 //     // if(i==0){
                 //     return "5,5";

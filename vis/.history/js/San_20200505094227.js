@@ -1536,11 +1536,10 @@ function PaintRect(num) {
                     .append('text')
                     .attr('fill', 'black')
                     .attr('font-size', (d, i) => {
-                        // if (d.weight == 0 || (d.x == 11) || d.x == 7 || d.x == 10 || d.x == 9)
-                        //     return '15px'
-                        // else
-                        //     return Font_scale(parseInt(d.weight))
-                        return '12px';
+                        if (d.weight == 0 || (d.x == 11) || d.x == 7 || d.x == 10 || d.x == 9)
+                            return '15px'
+                        else
+                            return Font_scale(parseInt(d.weight))
                     })
                     .attr('font-weight', 'bold')
                     .attr('text-anchor', 'middle')
@@ -1557,11 +1556,13 @@ function PaintRect(num) {
                         return height - padding.top - 375 + d.start * bei + d.n * steplen + tt;
                     })
                     .attr('dx', '0.5em') //dx是相对于x平移的大小
-                    .attr('dy', '-0.4em') //dy是相对于y平移的大小
+                    .attr('dy', '-0.22em') //dy是相对于y平移的大小
                     .text(function (d) {
                         // if (d.end - d.start >= 20)
                         return d.symbol;
                     })
+
+
 
                 var Rect_Line_Data = []; // 块内横线的数据
                 var p = {}; // 计算连接线

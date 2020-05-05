@@ -1540,7 +1540,7 @@ function PaintRect(num) {
                         //     return '15px'
                         // else
                         //     return Font_scale(parseInt(d.weight))
-                        return '12px';
+                        return '10px';
                     })
                     .attr('font-weight', 'bold')
                     .attr('text-anchor', 'middle')

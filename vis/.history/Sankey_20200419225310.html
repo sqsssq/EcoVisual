@@ -476,71 +476,112 @@
             .attr("class", "zhe")
             .attr("transform", "translate(" + 0 + "," + -18 + ")")
 
-        d3.csv('data/clean.csv', function (d1) {
+        d3.csv('data/box_calc.csv', function (d1) {
 
             d3.json('data/boxplot.json', function (dx) {
-                console.log(d1)
+                // console.log(dx)
 
-                p = d1;
-                // for (var i in d1) {
-                //     if (d1[i].biao == '6')
-                //         p.push(d1[i]);
-                // }
+                // console.log(d1)
+                var num_sum = []
 
-                pa = []
-                var xmin = 999,
-                    xmax = -999;
-                var ymin = 999,
-                    ymax = -999;
-
-                let xx = [];
-                let yy = [];
-                for (var i = 0; i <= 201; ++i) {
-                    xx.push(0);
-                    yy.push(0);
-                }
-                console.log(parseInt(0.9))
-                for (let i in p) {
-                    if (parseFloat(p[i]['cashNet']) < -100 || parseFloat(p[i]['cashNet']) > 100)
-                        continue;
-                    xx[parseInt(p[i]['cashNet']) + 100] += parseInt(p[i]['HATE']);
-                    yy[parseInt(p[i]['cashNet']) + 100]++;
-                    
+                for (var i = 0; i < 21; ++i) {
+                    num_sum.push([]);
                 }
 
-                for (var i = 0; i <= 200; ++i) {
-                    if (!yy[i]) continue;
-                    pa.push({"x": i - 100, "y": Math.round(parseFloat(xx[i] / yy[i]), 2)})
-                    xmin = Math.min(xmin, i - 100);
-                    xmax = Math.max(xmax, i - 100);
-                    ymin = Math.min(ymin, parseFloat(xx[i] / yy[i]));
-                    ymax = Math.max(ymax, parseFloat(xx[i] / yy[i]));
+                for (var i in d1) {
+                    if (d1[i]['91'] < 600)
+                        num_sum[d1[i].biao].push(d1[i]);
                 }
 
-                console.log(pa)
+                // console.log(num_sum);
 
-                pa.sort(function (a, b) {
-                    return a.x - b.x;
-                })
+
+                var line_num_sum = []
+                var line_max = -100
+                var line_min = 10000
+
+                for (var i = 1; i <= 20; ++i) {
+                    var num_s = 0;
+                    for (var k = 0; k < num_sum[i].length; ++k) {
+                        for (var j = 0; j < num_sum[i].length; ++j) {
+                            num_s += Math.abs(num_sum[i][k]['91'] - num_sum[i][j]['91'])
+                        }
+                    }
+                    // console.log(num_s)
+                    if (line_max < num_s * 1.0 / (num_sum[i].length * num_sum[i].length))
+                        line_max = num_s * 1.0 / (num_sum[i].length * num_sum[i].length)
+                    if (line_min > num_s * 1.0 / (num_sum[i].length * num_sum[i].length))
+                        line_min = num_s * 1.0 / (num_sum[i].length * num_sum[i].length)
+                    line_num_sum.push([i, num_s * 1.0 / (num_sum[i].length * num_sum[i].length)])
+                }
+
+                // console.log(line_num_sum)
+
+                var line_ = []
+                var l__ = []
+
+                for (var i = 1; i <= 20; ++i) {
+                    // console.log(dx[i])
+                    line_.push([i, parseFloat(dx[i]['top'])])
+                    line_.push([i, parseFloat(dx[i]['low'])])
+                    line_.push([i, parseFloat(dx[i]['mid'])])
+                    line_.push([i, parseFloat(dx[i]['h4'])])
+                    line_.push([i, parseFloat(dx[i]['l4'])])
+                    l__.push({
+                        "x1": i,
+                        "y1": parseFloat(dx[i]['top']),
+                        "x2": i,
+                        "y2": parseFloat(dx[i]['h4'])
+                    })
+                    l__.push({
+                        "x1": i,
+                        "y1": parseFloat(dx[i]['l4']),
+                        "x2": i,
+                        "y2": parseFloat(dx[i]['low'])
+                    })
+
+                    l__.push({
+                        "x1": i - 0.1,
+                        "y1": parseFloat(dx[i]['h4']),
+                        "x2": i - 0.1,
+                        "y2": parseFloat(dx[i]['l4'])
+                    })
+                    l__.push({
+                        "x1": i + 0.1,
+                        "y1": parseFloat(dx[i]['h4']),
+                        "x2": i + 0.1,
+                        "y2": parseFloat(dx[i]['l4'])
+                    })
+                }
+
+                // console.log(line_)
+
+
+                // console.log(azsum)
 
                 var zmin = -600,
                     zmax = 600
 
                 var Xscale = d3.scale.linear()
-                    .domain([parseInt(xmin), parseInt(xmax)])
-                    .range([50, 1000])
+                    .domain([0, 21])
+                    .range([50, 1500])
                 var Yscale = d3.scale.linear()
-                    .domain([parseInt(0), parseInt(6)])
-                    .range([height - 10, height - 306]);
+                    .domain([zmin, zmax])
+                    .range([height - 410 - 10, height - 410 - 46]);
+                var Y2scale = d3.scale.linear()
+                    .domain([line_min, line_max])
+                    .range([height - 410 - 10, height - 410 - 46])
 
 
                 var xAxis = d3.svg.axis().scale(Xscale).ticks(20).tickFormat(d3.format("d")).orient(
                     "bottom");
                 var yAxis = d3.svg.axis().scale(Yscale).ticks(2).tickFormat(d3.format("d")).orient(
                     "left"); //添加一个g用于放x轴
+                var y2Axis = d3.svg.axis().scale(Y2scale).ticks(0).tickFormat(d3.format("d")).orient(
+                    "right");
                 zg.append("g")
                     .attr("class", "axis")
-                    .attr("transform", "translate(" + 0 + "," + (470) + ")")
+                    .attr("transform", "translate(" + 0 + "," + (Yscale(0)) + ")")
                     .attr("stroke-width", 0.1)
                     .attr('stroke', 'black')
                     .call(xAxis)
@@ -555,93 +596,88 @@
                     .attr("transform", "translate(" + 50 + "," + 0 + ")")
                     .call(yAxis)
                     .append('text')
-                    // .text('收益')
+                    .text('收益')
                     .attr("transform", "rotate(-90)") //text旋转-90°
                     .attr("text-anchor", "end") //字体尾部对齐
                     .attr("dx", "-2em")
                     .attr("dy", "1em") //沿y轴平移一个字体的大小;
+                zg.append("g")
+                    .attr("class", "axis")
+                    .attr("transform", "translate(" + 1500 + "," + 0 + ")")
+                    .call(y2Axis)
+                    .append('text')
+                    .text('基尼')
+                    .attr("transform", "rotate(-90)") //text旋转-90°
+                    .attr("text-anchor", "end") //字体尾部对齐
+                    .attr("dx", "-2em")
+                    .attr("dy", "-1em") //沿y轴平移一个字体的大小;
 
-                // var L_path = d3.svg.line()
-                //     .x(d => {
-                //         return Xscale(d.x)
-                //     })
-                //     .y(d => {
-                //         return Yscale(d.y)
-                //     })
+                var L_path = d3.svg.line()
+                    .x(d => {
+                        return Xscale(d[0])
+                    })
+                    .y(d => {
+                        return Y2scale(d[1])
+                    })
 
-                // zg.selectAll('#lp')
-                //     .attr('id', 'lp')
-                //     .data(pa)
-                //     .enter()
-                //     .append('path')
-                //     .attr('d', L_path(pa))
-                //     .attr("fill", 'none')
-                //     .attr('stroke-width', 0.1)
-                //     .attr('stroke', 'red')
+                zg.selectAll('#lp')
+                    .attr('id', 'lp')
+                    .data(line_num_sum)
+                    .enter()
+                    .append('path')
+                    .attr('d', L_path(line_num_sum))
+                    .attr("fill", 'none')
+                    .attr('stroke-width', 0.1)
+                    .attr('stroke', 'red')
+                    .attr("stroke-dasharray", function (d, i) {
+                        // if(i==0){
+                        return "5,5";
 
-                zg.selectAll('#sp')
-                .attr('id', 'sp')
-                .data(p)
-                .enter()
-                .append('circle')
-                .attr('cx', d => {
-                    if (parseInt(d.cashNet) >= -100 && parseInt(d.cashNet) <= 100)
-                    return Xscale(parseFloat(d.cashNet));
-                })
-                .attr('cy', d => {
-                    if (parseInt(d.cashNet) >= -100 && parseInt(d.cashNet) <= 100)
-                    return Yscale(parseFloat(d.HATE));
-                })
-                .attr('r', 1)
-                // .attr("stroke-dasharray", function (d, i) {
-                //     // if(i==0){
-                //     return "5,5";
+                    });
 
-                // });
+                zg.selectAll("#rl")
+                    .attr("id", "rl")
+                    .data(line_)
+                    .enter()
+                    .append("line")
+                    .attr("x1", (d, i) => {
+                        return Xscale(d[0] - 0.1)
+                    })
+                    .attr("y1", d => {
+                        return Yscale(d[1])
+                    })
+                    .attr("x2", (d, i) => {
+                        return Xscale(d[0] + 0.1)
+                    })
+                    .attr("y2", d => {
+                        return Yscale(d[1])
+                    })
+                    .attr("stroke", d => {
+                        return "blue";
+                    })
+                    .attr("stroke-width", 0.5);
 
-                // zg.selectAll("#rl")
-                //     .attr("id", "rl")
-                //     .data(line_)
-                //     .enter()
-                //     .append("line")
-                //     .attr("x1", (d, i) => {
-                //         return Xscale(d[0] - 0.1)
-                //     })
-                //     .attr("y1", d => {
-                //         return Yscale(d[1])
-                //     })
-                //     .attr("x2", (d, i) => {
-                //         return Xscale(d[0] + 0.1)
-                //     })
-                //     .attr("y2", d => {
-                //         return Yscale(d[1])
-                //     })
-                //     .attr("stroke", d => {
-                //         return "blue";
-                //     })
-                //     .attr("stroke-width", 0.5);
-
-                // zg.selectAll("#rl")
-                //     .attr("id", "rl")
-                //     .data(l__)
-                //     .enter()
-                //     .append("line")
-                //     .attr("x1", (d, i) => {
-                //         return Xscale(d.x1)
-                //     })
-                //     .attr("y1", d => {
-                //         return Yscale(d.y1)
-                //     })
-                //     .attr("x2", (d, i) => {
-                //         return Xscale(d.x2)
-                //     })
-                //     .attr("y2", d => {
-                //         return Yscale(d.y2)
-                //     })
-                //     .attr("stroke", d => {
-                //         return "blue";
-                //     })
-                //     .attr("stroke-width", 0.5);
+                zg.selectAll("#rl")
+                    .attr("id", "rl")
+                    .data(l__)
+                    .enter()
+                    .append("line")
+                    .attr("x1", (d, i) => {
+                        return Xscale(d.x1)
+                    })
+                    .attr("y1", d => {
+                        return Yscale(d.y1)
+                    })
+                    .attr("x2", (d, i) => {
+                        return Xscale(d.x2)
+                    })
+                    .attr("y2", d => {
+                        return Yscale(d.y2)
+                    })
+                    .attr("stroke", d => {
+                        return "blue";
+                    })
+                    .attr("stroke-width", 0.5);
             })
         })
     </script>

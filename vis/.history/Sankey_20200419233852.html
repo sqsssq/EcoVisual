@@ -492,45 +492,29 @@
                     xmax = -999;
                 var ymin = 999,
                     ymax = -999;
-
-                let xx = [];
-                let yy = [];
-                for (var i = 0; i <= 201; ++i) {
-                    xx.push(0);
-                    yy.push(0);
-                }
-                console.log(parseInt(0.9))
                 for (let i in p) {
-                    if (parseFloat(p[i]['cashNet']) < -100 || parseFloat(p[i]['cashNet']) > 100)
+                    if (parseFloat(p[i]['cashNet']) < -150 || parseFloat(p[i]['cashNet']) > 150)
                         continue;
-                    xx[parseInt(p[i]['cashNet']) + 100] += parseInt(p[i]['HATE']);
-                    yy[parseInt(p[i]['cashNet']) + 100]++;
-                    
+                    xmin = Math.min(xmin, parseFloat(p[i]['cashNet']));
+                    xmax = Math.max(xmax, parseFloat(p[i]['cashNet']));
+                    ymin = Math.min(ymin, parseFloat(p[i]['HATE']));
+                    ymax = Math.max(ymax, parseFloat(p[i]['HATE']));
+                    pa.push({"x": parseFloat(p[i]['HATE']), "y": parseFloat(p[i]['cahNet'])})
                 }
-
-                for (var i = 0; i <= 200; ++i) {
-                    if (!yy[i]) continue;
-                    pa.push({"x": i - 100, "y": Math.round(parseFloat(xx[i] / yy[i]), 2)})
-                    xmin = Math.min(xmin, i - 100);
-                    xmax = Math.max(xmax, i - 100);
-                    ymin = Math.min(ymin, parseFloat(xx[i] / yy[i]));
-                    ymax = Math.max(ymax, parseFloat(xx[i] / yy[i]));
-                }
-
-                console.log(pa)
 
                 pa.sort(function (a, b) {
-                    return a.x - b.x;
+                    return a.y - b.y;
                 })
 
+                console.log(pa);
                 var zmin = -600,
                     zmax = 600
 
                 var Xscale = d3.scale.linear()
-                    .domain([parseInt(xmin), parseInt(xmax)])
-                    .range([50, 1000])
+                    .domain([xmin, xmax])
+                    .range([50, 1500])
                 var Yscale = d3.scale.linear()
-                    .domain([parseInt(0), parseInt(6)])
+                    .domain([ymin, ymax])
                     .range([height - 10, height - 306]);
 
 
@@ -540,7 +524,7 @@
                     "left"); //添加一个g用于放x轴
                 zg.append("g")
                     .attr("class", "axis")
-                    .attr("transform", "translate(" + 0 + "," + (470) + ")")
+                    .attr("transform", "translate(" + 0 + "," + (Yscale(0)) + ")")
                     .attr("stroke-width", 0.1)
                     .attr('stroke', 'black')
                     .call(xAxis)
@@ -561,43 +545,28 @@
                     .attr("dx", "-2em")
                     .attr("dy", "1em") //沿y轴平移一个字体的大小;
 
-                // var L_path = d3.svg.line()
-                //     .x(d => {
-                //         return Xscale(d.x)
-                //     })
-                //     .y(d => {
-                //         return Yscale(d.y)
-                //     })
+                var L_path = d3.svg.line()
+                    .x(d => {
+                        return Xscale(d.y)
+                    })
+                    .y(d => {
+                        return Yscale(d.x)
+                    })
 
-                // zg.selectAll('#lp')
-                //     .attr('id', 'lp')
-                //     .data(pa)
-                //     .enter()
-                //     .append('path')
-                //     .attr('d', L_path(pa))
-                //     .attr("fill", 'none')
-                //     .attr('stroke-width', 0.1)
-                //     .attr('stroke', 'red')
+                zg.selectAll('#lp')
+                    .attr('id', 'lp')
+                    .data(pa)
+                    .enter()
+                    .append('path')
+                    .attr('d', L_path(pa))
+                    .attr("fill", 'none')
+                    .attr('stroke-width', 0.1)
+                    .attr('stroke', 'red')
+                    // .attr("stroke-dasharray", function (d, i) {
+                    //     // if(i==0){
+                    //     return "5,5";
 
-                zg.selectAll('#sp')
-                .attr('id', 'sp')
-                .data(p)
-                .enter()
-                .append('circle')
-                .attr('cx', d => {
-                    if (parseInt(d.cashNet) >= -100 && parseInt(d.cashNet) <= 100)
-                    return Xscale(parseFloat(d.cashNet));
-                })
-                .attr('cy', d => {
-                    if (parseInt(d.cashNet) >= -100 && parseInt(d.cashNet) <= 100)
-                    return Yscale(parseFloat(d.HATE));
-                })
-                .attr('r', 1)
-                // .attr("stroke-dasharray", function (d, i) {
-                //     // if(i==0){
-                //     return "5,5";
-
-                // });
+                    // });
 
                 // zg.selectAll("#rl")
                 //     .attr("id", "rl")

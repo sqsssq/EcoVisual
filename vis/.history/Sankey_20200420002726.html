@@ -530,7 +530,7 @@
                     .domain([parseInt(xmin), parseInt(xmax)])
                     .range([50, 1000])
                 var Yscale = d3.scale.linear()
-                    .domain([parseInt(0), parseInt(6)])
+                    .domain([parseInt(ymin), parseInt(ymax)])
                     .range([height - 10, height - 306]);
 
 
@@ -584,15 +584,15 @@
                 .data(p)
                 .enter()
                 .append('circle')
-                .attr('cx', d => {
-                    if (parseInt(d.cashNet) >= -100 && parseInt(d.cashNet) <= 100)
-                    return Xscale(parseFloat(d.cashNet));
+                .attr('rx', d => {
+                    if (d.cashNet >= -100 && d.cashNet <= 100)
+                    return Xscale(d.cashNet);
                 })
-                .attr('cy', d => {
-                    if (parseInt(d.cashNet) >= -100 && parseInt(d.cashNet) <= 100)
-                    return Yscale(parseFloat(d.HATE));
+                .attr('ry', d => {
+                    if (d.cashNet >= -100 && d.cashNet <= 100)
+                    return Yscale(d.HATE);
                 })
-                .attr('r', 1)
+                .attr('r', 0.1)
                 // .attr("stroke-dasharray", function (d, i) {
                 //     // if(i==0){
                 //     return "5,5";
