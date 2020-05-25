@@ -883,11 +883,11 @@ function PaintDecisionLine(Decision, people) {
                 b = {
                     source: {
                         x: 15 + RectX[i[0] + i[1]].start * 6080 * DecisionRectBei / RectX[i[0] + i[1]].s_sum + RectX[i[0] + i[1]].n * tt + (dp + p[i] / 2) * DecisionRectBei,
-                        y: 70 + CCPP[parseInt(i[0]) + 1] * 32 * 9 / (Decision.length - 1) + 10
+                        y: 70 + CCPP[parseInt(i[0]) + 1] * 32 + 10
                     },
                     target: {
                         x: 15 + RectX[i[2] + i[3]].start * 6080 * DecisionRectBei / RectX[i[2] + i[3]].s_sum + RectX[i[2] + i[3]].n * ttt + (dpp + p[i] / 2) * DecisionRectBei,
-                        y: 70 + CCPP[parseInt(i[2]) + 1] * 32 * 9 / (Decision.length - 1)
+                        y: 70 + CCPP[parseInt(i[2]) + 1] * 32
                     }
                 }
 

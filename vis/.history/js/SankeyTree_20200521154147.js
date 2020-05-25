@@ -825,7 +825,6 @@ function PaintDecisionLine(Decision, people) {
             let dia_path = new Array();
             // console.log(p)
             let RectX = new Object();
-            // console.log(Sankey_Rect)
             console.log(Sankey_Rect)
             for (let i in Sankey_Rect) {
                 // console.log(Sankey_Rect[i])
@@ -834,7 +833,6 @@ function PaintDecisionLine(Decision, people) {
             console.table(RectX)
             // console.log(RectX);
             let pValue = new Array();
-            console.table(p)
             for (var i in p) {
                 // console.log(i[0]);
                 pValue.push(p[i]);
@@ -849,14 +847,14 @@ function PaintDecisionLine(Decision, people) {
                 else if (RectX[i[2] + i[3]].x == 0 || RectX[i[2] + i[3]].x == 1) ttt = DecisionRectStep * 3 / 2;
                 else ttt = DecisionRectStep * 3;
                 // return 15 + d.start * DecisionRectBei + d.n * tt;
-                // let dp = 0;
-                // for (let j = 0; j < parseInt(i[3]); ++j) {
-                //     dp += p[i[0] + i[1] + i[2] + j.toString()];
-                // }
-                // let dpp = 0;
-                // for (let j = 0; j < parseInt(i[1]); ++j) {
-                //     dpp += p[i[0] + j.toString() + i[2] + i[3]];
-                // }
+                let dp = 0;
+                for (let j = 0; j < parseInt(i[3]); ++j) {
+                    dp += p[i[0] + i[1] + i[2] + j.toString()];
+                }
+                let dpp = 0;
+                for (let j = 0; j < parseInt(i[1]); ++j) {
+                    dpp += p[i[0] + j.toString() + i[2] + i[3]];
+                }
 
                 // b = {
                 //     source: {
@@ -869,31 +867,20 @@ function PaintDecisionLine(Decision, people) {
                 //     }
                 // }
 
-                let dp = 0;
-                for (let j = 0; j < parseInt(i[3]); ++j) {
-                    if (typeof (p[i[0] + i[1] + i[2] + j.toString()]) != "undefined")
-                        dp += p[i[0] + i[1] + i[2] + j.toString()];
-                }
-                let dpp = 0;
-                for (let j = 0; j < parseInt(i[1]); ++j) {
-                    if (typeof (p[i[0] + j.toString() + i[2] + i[3]]) != "undefined")
-                        dpp += p[i[0] + j.toString() + i[2] + i[3]];
-                }
-
                 b = {
                     source: {
                         x: 15 + RectX[i[0] + i[1]].start * 6080 * DecisionRectBei / RectX[i[0] + i[1]].s_sum + RectX[i[0] + i[1]].n * tt + (dp + p[i] / 2) * DecisionRectBei,
-                        y: 70 + CCPP[parseInt(i[0]) + 1] * 32 * 9 / (Decision.length - 1) + 10
+                        y: 70 + RectX[i[0] + i[1]].x * 32 + 10
                     },
                     target: {
                         x: 15 + RectX[i[2] + i[3]].start * 6080 * DecisionRectBei / RectX[i[2] + i[3]].s_sum + RectX[i[2] + i[3]].n * ttt + (dpp + p[i] / 2) * DecisionRectBei,
-                        y: 70 + CCPP[parseInt(i[2]) + 1] * 32 * 9 / (Decision.length - 1)
+                        y: 70 + RectX[i[2] + i[3]].x * 32
                     }
                 }
 
                 dia_path.push(b);
             }
-            // console.log(dia_path)
+            console.log(dia_path)
             LinePaintDecision(dia_path, pValue);
         }
     })

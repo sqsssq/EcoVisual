@@ -292,7 +292,9 @@ function RectMove(data, d) {
         .attr("fill-opacity", 0.0)
         .attr("stroke", "orange")
         .attr("stroke-width", 3)
-    // console.log(d)
+    console.log(d)
+
+
     var p_data = PathCalc(data, d.x, d.n);
 
     LinePaint_2(p_data[0], p_data[2], "tomato");
