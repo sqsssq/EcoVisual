@@ -1,5 +1,5 @@
 var widtha = 384;
-var heighta = 370;
+var heighta = 450;
 // var padding = { top: 10, bottom: 10, left: 10, right: 10 }
 var K = 0;
 var r = 0
@@ -373,7 +373,8 @@ function PaintDecisionRect(Decision, people) {
                 Sankey_Rect.push(a)
             }
         }
-        // console.log(Sankey_Rect)
+        console.log(Sankey_Rect)
+        // console.log(15 + 18 * 6080 * DecisionRectBei / 20 + lencnt * DecisionRectStep * 3 / 2)
         if (Decision == -1 || Decision.length == 0) {
             DecisionRect.selectAll(".rectLine")
                 .attr("class", "rectLine")
@@ -388,7 +389,20 @@ function PaintDecisionRect(Decision, people) {
                     let lencnt = 0;
                     if (d.n < d.num)
                         lencnt = d.n;
-                    else lencnt = d.n - (d.n - d.num);
+                    else lencnt = d.n - (d.n - d.num + 1);
+                    if (d.num == 1) {
+                        lencnt = 1;
+                        tt = 3 * DecisionRectStep / 2;
+                    }
+                    let startx = 0;
+                    // if (d.n < d.num) startx = d.start;
+                    // else {
+                    //     for (let j in Sankey_Rect) {
+                    //         if ((Sankey_Rect[j].x) == d.x && Sankey_Rect[j].n < lencnt)
+                    //             startx = Sankey_Rect[j].start;
+                    //     }
+                    // }
+                    // return 15 + d.start * 6080 * DecisionRectBei / d.s_sum + lencnt * tt;
                     return 15 + d.start * 6080 * DecisionRectBei / d.s_sum + lencnt * tt;
                 })
                 .attr("y", d => {
@@ -396,7 +410,7 @@ function PaintDecisionRect(Decision, people) {
                     var tt = 0;
                     // // if (d.x == 0) tt = 3 * steplen / 2;
                     // if (d.x == 2 || d.x == 3 || d.x == 4 || d.x == 5 || d.x == 9) tt = steplen
-                    return 70 + d.x * 32;
+                    return 70 + d.x * 36;
                 })
                 // .attr("rx", 5)
                 .attr("width", d => {
@@ -428,7 +442,11 @@ function PaintDecisionRect(Decision, people) {
                         let lencnt = 0;
                         if (d.n < d.num)
                             lencnt = d.n;
-                        else lencnt = d.n - (d.n - d.num);
+                        else lencnt = d.n - (d.n - d.num + 1);
+                        if (d.num == 1) {
+                            lencnt = 1;
+                            tt = 3 * DecisionRectStep / 2;
+                        }
                         return 15 + d.start * 6080 * DecisionRectBei / d.s_sum + lencnt * tt;
                     }
                 })
@@ -475,7 +493,11 @@ function PaintDecisionRect(Decision, people) {
                             let lencnt = 0;
                             if (d.n < d.num)
                                 lencnt = d.n;
-                            else lencnt = d.n - (d.n - d.num);
+                            else lencnt = d.n - (d.n - d.num + 1);
+                            if (d.num == 1) {
+                                lencnt = 1;
+                                tt = 3 * DecisionRectStep / 2;
+                            }
                             return 15 + d.start * 6080 * DecisionRectBei / d.s_sum + lencnt * tt;
                         }
                 })
@@ -486,7 +508,7 @@ function PaintDecisionRect(Decision, people) {
                     // if (d.x == 2 || d.x == 3 || d.x == 4 || d.x == 5 || d.x == 9) tt = steplen
                     for (var k in Decision)
                         if (d.x == Decision[k])
-                            return 70 + k * 32 * 9 / (Decision.length - 1);
+                            return 70 + k * 36 * 9 / (Decision.length - 1);
                 })
                 // .attr("rx", 5)
                 .attr("width", d => {
@@ -530,6 +552,15 @@ var LinePaintDecision = function (dia, pValue) {
             return [d.x, d.y]
         });
 
+    var CntNum = 0;
+    for (let i in pValue) {
+        CntNum += parseInt(pValue[i]);
+    }
+    if (DecisionList.length > 0)
+        CntNum /= (DecisionList.length - 1);
+    else CntNum /= 9;
+    // console.log((pValue));
+
     LineNameg = DecisionLine.selectAll('#dia_g')
         .attr('id', 'dia_g')
         .data(dia)
@@ -545,9 +576,9 @@ var LinePaintDecision = function (dia, pValue) {
         .attr('stroke', 'black')
         .attr('stroke-width', (d, i) => {
             // return pValue[i] * 0.01;
-            return pValue[i] * DecisionRectBei;
+            return pValue[i] * 6080 / CntNum * DecisionRectBei;
         })
-    .attr('stroke-opacity', 0.1)
+        .attr('stroke-opacity', 0.1)
 }
 
 function PaintDecisionLine(Decision, people) {
@@ -729,6 +760,11 @@ function PaintDecisionLine(Decision, people) {
                 Sankey_Rect.push(a)
             }
         }
+
+        let ModLen = 6080;
+        if (people.length > 0)
+            ModLen = people.length * 20;
+
         var p = {}; // 计算连接线
 
         if (Decision == -1 || Decision.length == 0) {
@@ -761,7 +797,7 @@ function PaintDecisionLine(Decision, people) {
             }
             // console.table(Sankey_Rect)
             // console.log(RectX);
-            // console.log(p)
+            console.log(p)
             let pValue = new Array();
             for (var i in p) {
                 // console.log(i);
@@ -769,6 +805,7 @@ function PaintDecisionLine(Decision, people) {
                 let tt = 0;
                 if (RectX[i[0] + i[1]].num == 4) tt = DecisionRectStep;
                 else if (RectX[i[0] + i[1]].num == 3) tt = DecisionRectStep * 3 / 2;
+                else if (RectX[i[0] + i[1]].num == 1) tt = DecisionRectStep * 3 / 2;
                 else tt = DecisionRectStep * 3;
                 // return 15 + d.start * DecisionRectBei + d.n * tt;
                 let ttt = 0;
@@ -776,6 +813,7 @@ function PaintDecisionLine(Decision, people) {
                 // console.log(RectX[i[2] + i[3]])
                 if (RectX[i[2] + i[3]].num == 4) ttt = DecisionRectStep;
                 else if (RectX[i[2] + i[3]].num == 3) ttt = DecisionRectStep * 3 / 2;
+                else if (RectX[i[2] + i[3]].num == 1) ttt = DecisionRectStep * 3 / 2;
                 else ttt = DecisionRectStep * 3;
                 // return 15 + d.start * DecisionRectBei + d.n * tt;
                 let dp = 0;
@@ -789,14 +827,34 @@ function PaintDecisionLine(Decision, people) {
                         dpp += p[i[0] + j.toString() + i[2] + i[3]];
                 }
 
+                let lencnt1 = 0;
+                if (RectX[i[0] + i[1]].n < RectX[i[0] + i[1]].num)
+                    lencnt1 = RectX[i[0] + i[1]].n;
+                else lencnt1 = RectX[i[0] + i[1]].n - (RectX[i[0] + i[1]].n - RectX[i[0] + i[1]].num + 1);
+                if (RectX[i[0] + i[1]].num == 1) {
+                    lencnt1 = 1;
+                    // tt = 3 * DecisionRectStep / 2;
+                }
+
+                let lencnt2 = 0;
+                if (RectX[i[2] + i[3]].n < RectX[i[2] + i[3]].num)
+                    lencnt2 = RectX[i[2] + i[3]].n;
+                else lencnt2 = RectX[i[2] + i[3]].n - (RectX[i[2] + i[3]].n - RectX[i[2] + i[3]].num + 1);
+                if (RectX[i[2] + i[3]].num == 1) {
+                    lencnt2 = 1;
+                    // tt = 3 * DecisionRectStep / 2;
+                }
+
                 b = {
                     source: {
-                        x: 15 + RectX[i[0] + i[1]].start * 6080 * DecisionRectBei / RectX[i[0] + i[1]].s_sum + RectX[i[0] + i[1]].n * tt + (dp + p[i] / 2) * DecisionRectBei,
-                        y: 70 + RectX[i[0] + i[1]].x * 32 + 10
+                        // x: 15 + RectX[i[0] + i[1]].start * 6080 * DecisionRectBei / RectX[i[0] + i[1]].s_sum + RectX[i[0] + i[1]].n * tt + (dp * 6080 / ModLen + p[i] * 6080 / ModLen / 2) * DecisionRectBei,
+                        x: 15 + RectX[i[0] + i[1]].start * 6080 * DecisionRectBei / RectX[i[0] + i[1]].s_sum + lencnt1 * tt + (dp * 6080 / ModLen + p[i] * 6080 / ModLen / 2) * DecisionRectBei,
+                        y: 70 + RectX[i[0] + i[1]].x * 36 + 10
                     },
                     target: {
-                        x: 15 + RectX[i[2] + i[3]].start * 6080 * DecisionRectBei / RectX[i[2] + i[3]].s_sum + RectX[i[2] + i[3]].n * ttt + (dpp + p[i] / 2) * DecisionRectBei,
-                        y: 70 + RectX[i[2] + i[3]].x * 32
+                        // x: 15 + RectX[i[2] + i[3]].start * 6080 * DecisionRectBei / RectX[i[2] + i[3]].s_sum + RectX[i[2] + i[3]].n * ttt + (dpp * 6080 / ModLen + p[i] * 6080 / ModLen / 2) * DecisionRectBei,
+                        x: 15 + RectX[i[2] + i[3]].start * 6080 * DecisionRectBei / RectX[i[2] + i[3]].s_sum + lencnt2 * ttt + (dpp * 6080 / ModLen + p[i] * 6080 / ModLen / 2) * DecisionRectBei,
+                        y: 70 + RectX[i[2] + i[3]].x * 36
                     }
                 }
                 // if (isNaN(b.target.x))
@@ -816,10 +874,10 @@ function PaintDecisionLine(Decision, people) {
             for (let i in RectInnerData) {
                 // console.log(RectInnerData[i])
                 for (let j = 0; j < Decision.length - 1; ++j) {
-                    if (typeof (p[(Decision[j] - 1).toString() + RectInnerData[i][Decision[j]].toString() + (Decision[j + 1] - 1).toString() + RectInnerData[i][(Decision[j + 1])].toString()]) == 'undefined')
-                        p[(Decision[j] - 1).toString() + RectInnerData[i][Decision[j]].toString() + (Decision[j + 1] - 1).toString() + RectInnerData[i][(Decision[j + 1])].toString()] = 1;
+                    if (typeof (p[(Decision[j]).toString() + RectInnerData[i][Decision[j] + 1].toString() + (Decision[j + 1]).toString() + RectInnerData[i][(Decision[j + 1] + 1)].toString()]) == 'undefined')
+                        p[(Decision[j]).toString() + RectInnerData[i][Decision[j] + 1].toString() + (Decision[j + 1]).toString() + RectInnerData[i][(Decision[j + 1]) + 1].toString()] = 1;
                     else
-                        p[(Decision[j] - 1).toString() + RectInnerData[i][Decision[j]].toString() + (Decision[j + 1] - 1).toString() + RectInnerData[i][(Decision[j + 1])].toString()]++;
+                        p[(Decision[j]).toString() + RectInnerData[i][Decision[j] + 1].toString() + (Decision[j + 1]).toString() + RectInnerData[i][(Decision[j + 1]) + 1].toString()]++;
                 }
             }
             let dia_path = new Array();
@@ -839,14 +897,17 @@ function PaintDecisionLine(Decision, people) {
                 // console.log(i[0]);
                 pValue.push(p[i]);
                 let tt = 0;
-                if (RectX[i[0] + i[1]].x == 6 || RectX[i[0] + i[1]].x == 8) tt = DecisionRectStep;
-                else if (RectX[i[0] + i[1]].x == 0 || RectX[i[0] + i[1]].x == 1) tt = DecisionRectStep * 3 / 2;
+                if (RectX[i[0] + i[1]].num == 4) tt = DecisionRectStep;
+                else if (RectX[i[0] + i[1]].num == 3) tt = DecisionRectStep * 3 / 2;
+                else if (RectX[i[0] + i[1]].num == 1) tt = DecisionRectStep * 3 / 2;
                 else tt = DecisionRectStep * 3;
                 // return 15 + d.start * DecisionRectBei + d.n * tt;
                 let ttt = 0;
-                // console.log(i[2] + i[3])
-                if (RectX[i[2] + i[3]].x == 6 || RectX[i[2] + i[3]].x == 8) ttt = DecisionRectStep;
-                else if (RectX[i[2] + i[3]].x == 0 || RectX[i[2] + i[3]].x == 1) ttt = DecisionRectStep * 3 / 2;
+                // if (RectX[i[2] + i[3]].num == "undefined")
+                // console.log(RectX[i[2] + i[3]])
+                if (RectX[i[2] + i[3]].num == 4) ttt = DecisionRectStep;
+                else if (RectX[i[2] + i[3]].num == 3) ttt = DecisionRectStep * 3 / 2;
+                else if (RectX[i[2] + i[3]].num == 1) ttt = DecisionRectStep * 3 / 2;
                 else ttt = DecisionRectStep * 3;
                 // return 15 + d.start * DecisionRectBei + d.n * tt;
                 // let dp = 0;
@@ -861,11 +922,11 @@ function PaintDecisionLine(Decision, people) {
                 // b = {
                 //     source: {
                 //         x: 15 + RectX[i[0] + i[1]].start * 6080 * DecisionRectBei / RectX[i[0] + i[1]].s_sum + RectX[i[0] + i[1]].n * tt + (dp + p[i] / 2) * DecisionRectBei,
-                //         y: 70 + RectX[i[0] + i[1]].x * 32 + 10
+                //         y: 70 + RectX[i[0] + i[1]].x * 36 + 10
                 //     },
                 //     target: {
                 //         x: 15 + RectX[i[2] + i[3]].start * 6080 * DecisionRectBei / RectX[i[2] + i[3]].s_sum + RectX[i[2] + i[3]].n * ttt + (dpp + p[i] / 2) * DecisionRectBei,
-                //         y: 70 + RectX[i[2] + i[3]].x * 32
+                //         y: 70 + RectX[i[2] + i[3]].x * 36
                 //     }
                 // }
 
@@ -880,17 +941,36 @@ function PaintDecisionLine(Decision, people) {
                         dpp += p[i[0] + j.toString() + i[2] + i[3]];
                 }
 
-                b = {
-                    source: {
-                        x: 15 + RectX[i[0] + i[1]].start * 6080 * DecisionRectBei / RectX[i[0] + i[1]].s_sum + RectX[i[0] + i[1]].n * tt + (dp + p[i] / 2) * DecisionRectBei,
-                        y: 70 + CCPP[parseInt(i[0]) + 1] * 32 * 9 / (Decision.length - 1) + 10
-                    },
-                    target: {
-                        x: 15 + RectX[i[2] + i[3]].start * 6080 * DecisionRectBei / RectX[i[2] + i[3]].s_sum + RectX[i[2] + i[3]].n * ttt + (dpp + p[i] / 2) * DecisionRectBei,
-                        y: 70 + CCPP[parseInt(i[2]) + 1] * 32 * 9 / (Decision.length - 1)
-                    }
+                let lencnt1 = 0;
+                if (RectX[i[0] + i[1]].n < RectX[i[0] + i[1]].num)
+                    lencnt1 = RectX[i[0] + i[1]].n;
+                else lencnt1 = RectX[i[0] + i[1]].n - (RectX[i[0] + i[1]].n - RectX[i[0] + i[1]].num + 1);
+                if (RectX[i[0] + i[1]].num == 1) {
+                    lencnt1 = 1;
+                    // tt = 3 * DecisionRectStep / 2;
                 }
 
+                let lencnt2 = 0;
+                if (RectX[i[2] + i[3]].n < RectX[i[2] + i[3]].num)
+                    lencnt2 = RectX[i[2] + i[3]].n;
+                else lencnt2 = RectX[i[2] + i[3]].n - (RectX[i[2] + i[3]].n - RectX[i[2] + i[3]].num + 1);
+                if (RectX[i[2] + i[3]].num == 1) {
+                    lencnt2 = 1;
+                    // tt = 3 * DecisionRectStep / 2;
+                }
+
+                b = {
+                    source: {
+                        // x: 15 + RectX[i[0] + i[1]].start * 6080 * DecisionRectBei / RectX[i[0] + i[1]].s_sum + RectX[i[0] + i[1]].n * tt + (dp * 6080 / ModLen + p[i] * 6080 / ModLen / 2) * DecisionRectBei,
+                        x: 15 + RectX[i[0] + i[1]].start * 6080 * DecisionRectBei / RectX[i[0] + i[1]].s_sum + lencnt1 * tt + (dp * 6080 / ModLen + p[i] * 6080 / ModLen / 2) * DecisionRectBei,
+                        y: 70 + CCPP[RectX[i[0] + i[1]].x] * 36 * 9 / (Decision.length - 1) + 10
+                    },
+                    target: {
+                        // x: 15 + RectX[i[2] + i[3]].start * 6080 * DecisionRectBei / RectX[i[2] + i[3]].s_sum + RectX[i[2] + i[3]].n * ttt + (dpp * 6080 / ModLen + p[i] * 6080 / ModLen / 2) * DecisionRectBei,
+                        x: 15 + RectX[i[2] + i[3]].start * 6080 * DecisionRectBei / RectX[i[2] + i[3]].s_sum + lencnt2 * ttt + (dpp * 6080 / ModLen + p[i] * 6080 / ModLen / 2) * DecisionRectBei,
+                        y: 70 + CCPP[RectX[i[2] + i[3]].x] * 36 * 9 / (Decision.length - 1)
+                    }
+                }
                 dia_path.push(b);
             }
             // console.log(dia_path)
