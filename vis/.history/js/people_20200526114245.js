@@ -971,14 +971,14 @@ function PaintLine(p) {
     if (p == 0) ll = 50, rr = 15
     else ll = 60, rr = 70
 
-    // line_un.append('rect')
-    //     .attr('x', rr)
-    //     .attr('y', 2)
-    //     .attr('height', 20)
-    //     .attr('width', ll)
-    //     .attr('fill', 'black')
-    //     .attr('fill-opacity', 0.2)
-    //     .attr('rx', 10)
+    line_un.append('rect')
+        .attr('x', rr)
+        .attr('y', 2)
+        .attr('height', 20)
+        .attr('width', ll)
+        .attr('fill', 'black')
+        .attr('fill-opacity', 0.2)
+        .attr('rx', 10)
 }
 
 if (peo_g == 0 && judge_cir_line == 0 && d_num == 0) {
