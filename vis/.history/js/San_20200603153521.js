@@ -274,7 +274,7 @@ var PathCalc = function (p, n, x, num) {
 
             if (p[i][n].n == x) {
                 p_n[i] = p[i]
-
+                
 
                 for (var j = 1; j <= 11; ++j) {
 
@@ -373,7 +373,7 @@ function RectMove(data, d, num) {
     // if (d.x == 0) tt = 3 * steplen / 2;
     // if (d.x == 2 || d.x == 3 || d.x == 4 || d.x == 5 || d.x == 9) tt = steplen
     if (d.x == 9 && (num == 1 || num == 10))
-        orange_rect = Rect_g.append("rect")
+    orange_rect = Rect_g.append("rect")
         .attr("x", padding.left + d.x * rectStep)
         .attr("y", height - padding.top - 375 + d.start * bei + 3 * tt - 10)
         .attr("width", rectWidth)
@@ -382,17 +382,17 @@ function RectMove(data, d, num) {
         .attr("fill-opacity", 0.0)
         .attr("stroke", "orange")
         .attr("stroke-width", 3)
-    else
-
-        orange_rect = Rect_g.append("rect")
-        .attr("x", padding.left + d.x * rectStep)
-        .attr("y", height - padding.top - 375 + d.start * bei + d.n * tt - 10)
-        .attr("width", rectWidth)
-        .attr("height", (d.end - d.start) * bei)
-        .attr('fill', 'none')
-        .attr("fill-opacity", 0.0)
-        .attr("stroke", "orange")
-        .attr("stroke-width", 3)
+        else
+        
+    orange_rect = Rect_g.append("rect")
+    .attr("x", padding.left + d.x * rectStep)
+    .attr("y", height - padding.top - 375 + d.start * bei + d.n * tt - 10)
+    .attr("width", rectWidth)
+    .attr("height", (d.end - d.start) * bei)
+    .attr('fill', 'none')
+    .attr("fill-opacity", 0.0)
+    .attr("stroke", "orange")
+    .attr("stroke-width", 3)
     // console.log(d)
     var p_data = PathCalc(data, d.x, d.n, num);
     console.log(d)
@@ -417,9 +417,9 @@ function RectMove(data, d, num) {
     }
     // console.log(name_in);
 
-    // PaintDecisionLine(DecisionList, name_in);
+    PaintDecisionLine(DecisionList, name_in);
 
-    // PaintDecisionRect(DecisionList, name_in);
+    PaintDecisionRect(DecisionList, name_in);
 
 }
 
@@ -548,7 +548,7 @@ function RectOut(num) {
 //         .attr("d", LinePath(azsum))
 //         .attr("fill", "none")
 //         .attr("stroke-width", 1)
-//         .attr("stroke", 'red')
+//         .attr("stroke", '"#00FF00"')
 
 //     var xAxis = d3.svg.axis().scale(Xscale).ticks(20).tickFormat(d3.format("d")).orient("bottom");
 //     var yAxis = d3.svg.axis().scale(Yscale).ticks(0).tickFormat(d3.format("d")).orient("left"); //添加一个g用于放x轴
@@ -593,7 +593,7 @@ function RectOut(num) {
 //         // d 是 path data的缩写 将data数据传人
 //         .attr("d", area_generator(azsum)) // d = "M1,0L20,40L40,50L100,100L0,200"
 //         // 填充颜色
-//         .style("fill", "red")
+//         .style("fill", ""#00FF00"")
 //         .attr('fill-opacity', 0.3)
 
 // }
@@ -705,7 +705,7 @@ function PaintZhe(d1) {
             .attr("class", "axis")
             .attr("transform", "translate(" + 0 + "," + (Yscale(0)) + ")")
             .attr("stroke-width", 0.1)
-            // .attr('stroke', '#00FF00')
+            .attr('stroke', 'red')
             .call(xAxis)
             .append('text')
         // .text('轮数')
@@ -750,7 +750,7 @@ function PaintZhe(d1) {
             .attr('d', L_path(line_num_sum))
             .attr("fill", 'none')
             .attr('stroke-width', 0.1)
-            .attr('stroke', 'red')
+            .attr('stroke', '"#00FF00"')
             .attr("stroke-dasharray", function (d, i) {
                 // if(i==0){
                 return "5.5";
@@ -1010,7 +1010,7 @@ function PaintTypeZ(d, num = -1) {
         .attr('d', L_path(line_num_sum))
         .attr("fill", 'none')
         .attr('stroke-width', 0.1)
-        .attr('stroke', 'red')
+        .attr('stroke', '"#00FF00"')
         .attr("stroke-dasharray", function (d, i) {
             // if(i==0){
             return "5,5";
@@ -1178,7 +1178,7 @@ function PaintTypeZ(d, num = -1) {
 //         .attr("d", LinePath(azsum))
 //         .attr("fill", "none")
 //         .attr("stroke-width", 1)
-//         .attr("stroke", 'red')
+//         .attr("stroke", '"#00FF00"')
 
 //     var xAxis = d3.svg.axis().scale(Xscale).ticks(10).tickFormat(d3.format("d")).orient("bottom");
 //     var yAxis = d3.svg.axis().scale(Yscale).ticks(0).tickFormat(d3.format("d")).orient("left"); //添加一个g用于放x轴
@@ -1221,7 +1221,7 @@ function PaintTypeZ(d, num = -1) {
 //         // d 是 path data的缩写 将data数据传人
 //         .attr("d", area_generator(azsum)) // d = "M1,0L20,40L40,50L100,100L0,200"
 //         // 填充颜色
-//         .style("fill", "red")
+//         .style("fill", ""#00FF00"")
 //         .attr('fill-opacity', 0.3)
 
 // }
@@ -1748,25 +1748,25 @@ function PaintRect(num) {
                         else
                             return 1
                     })
-                // .on("click", d => {
-                //     if (Rect_data == -1) {
-                //         Rect_data = p;
-                //     }
-                //     RectMove(Rect_data, d, num)
-                // })
-                // .on("mouseover", d => {
-                //     tooltip.html("过程：" + title[d.x] + "</br>" + "状态：" + d.tip)
-                //         .style("left", (d3.event.pageX - 15) + "px")
-                //         .style("top", (d3.event.pageY + 20) + "px")
-                //         .style("opacity", 1.0)
-                // })
-                // .on("mousemove", d => {
-                //     tooltip.style("left", (d3.event.pageX - 15) + "px")
-                //         .style("top", (d3.event.pageY + 20) + "px")
-                // })
-                // .on("mouseout", d => {
-                //     tooltip.style("opacity", 0.0)
-                // })
+                    // .on("click", d => {
+                    //     if (Rect_data == -1) {
+                    //         Rect_data = p;
+                    //     }
+                    //     RectMove(Rect_data, d, num)
+                    // })
+                    // .on("mouseover", d => {
+                    //     tooltip.html("过程：" + title[d.x] + "</br>" + "状态：" + d.tip)
+                    //         .style("left", (d3.event.pageX - 15) + "px")
+                    //         .style("top", (d3.event.pageY + 20) + "px")
+                    //         .style("opacity", 1.0)
+                    // })
+                    // .on("mousemove", d => {
+                    //     tooltip.style("left", (d3.event.pageX - 15) + "px")
+                    //         .style("top", (d3.event.pageY + 20) + "px")
+                    // })
+                    // .on("mouseout", d => {
+                    //     tooltip.style("opacity", 0.0)
+                    // })
                 Rect_g.selectAll(".recta")
                     .data(Sankey_Rect)
                     .enter()
@@ -1997,7 +1997,7 @@ function PaintRect(num) {
                         var len;
                         len = line_linear(Math.abs(d.v)) / 2
                         if (d.v < 0)
-                            len = -len;
+                        len = -len;
                         // if (d.v >= 0)
                         // len = linearZ(d.v);
                         // else if (d.v <= 0)
@@ -2025,7 +2025,7 @@ function PaintRect(num) {
                         if (d.v >= 0)
                             return "red";
                         else
-                            return "#00FF00";
+                            return ""#00FF00"";
                     })
                     .attr("stroke-width", 1);
 
@@ -2674,20 +2674,20 @@ function Lun(num) {
         .on('click', (d, i) => {
             number = i + 1;
             PaintRect(i + 1)
-            RedLun(i + 1)
+            "#00FF00"Lun(i + 1)
             // Peo_gain_loss(number)
             DrawIceRectNum(i + 1);
         })
 }
 
-function RedLun(num) {
+function "#00FF00"Lun(num) {
     if (cirg != 0) cirg.remove();
     cirg = svg.append("g")
     // console.log(num)
     var scale = d3.scale.linear()
         .domain([0, 21])
         .range([50, 1500])
-    var red_ = cirg.append('g')
+    var "#00FF00"_ = cirg.append('g')
         .append('circle')
         .attr('cx', scale(num))
         .attr('cy', 25)

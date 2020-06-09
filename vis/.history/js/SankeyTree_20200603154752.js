@@ -14,7 +14,7 @@ var name_x = [];
 
 var k_in_num = 0
 
-var DecisionRectStep = 50;
+var DecisionRectStep = 35;
 var DecisionRectBei = 0.03;
 var DecisionBe = 87;
 // var TitleName = ['工作', '', '', '', '', '', '', '', '', '']
@@ -27,7 +27,7 @@ function PP() {
         .attr("width", widtha)
         .attr("height", 1600)
 
-    ksvg = d3.select("#select").append("svg")
+    ksvg = d3.select("#rectA").append("svg")
         .attr('id', 'SView2')
         .attr("width", widtha)
         .attr("height", 70)
@@ -70,8 +70,8 @@ function SelectDecision(num) {
             }
             DecisionList = temp;
 
-            // PaintDecisionLine(DecisionList, name_in);
-            // PaintDecisionRect(DecisionList, name_in);
+            PaintDecisionLine(DecisionList, name_in);
+            PaintDecisionRect(DecisionList, name_in);
         })
 
     cir___.push(KRect);
@@ -1019,6 +1019,6 @@ function PaintDecisionLine(Decision, people) {
     })
 }
 
-// PaintDecisionLine(-1, -1);
+PaintDecisionLine(-1, -1);
 
-// PaintDecisionRect(-1, -1);
+PaintDecisionRect(-1, -1);

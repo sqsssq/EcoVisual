@@ -29,7 +29,6 @@
     <script src="lib/node_modules/highcharts/modules/accessibility.js"></script>
     <script src="lib/node_modules/heatmap.js/build/heatmap.min.js"></script>
     <script src="lib/sank.js"></script>
-    <script src="lib/tsne.js"></script>
 </head>
 
 <body>
@@ -67,7 +66,6 @@
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;刷新：
                     <button type="button" id="clear_But" onclick="clear_pic(number)">刷新</button>
                 </span>
-                <div id="select"></div>
             </div>
         </div>
         <div id="CodeSelect" class="framework">
@@ -81,16 +79,17 @@
                 <button type="button" id="FindButton" onClick="getValue()">搜索</button> -->
             </div>
         </div>
-        <!-- <div id="ScatterVis" class="framework">
+        <div id="ScatterVis" class="framework">
             <div id="Word" class="frameworkTitle">
                 &nbsp;&nbsp;决策相似
             </div>
             <div class="frameworkBody">
                 <div id='rectA'></div>
+                <!-- <img src="s.png" width="379", height="300"> -->
                 <div id="Tsne">
                 </div>
             </div>
-        </div> -->
+        </div>
     </div>
     <div id="right" class="topFramework">
         <div id="tempVis1" class="framework">

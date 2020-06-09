@@ -274,7 +274,7 @@ var PathCalc = function (p, n, x, num) {
 
             if (p[i][n].n == x) {
                 p_n[i] = p[i]
-
+                
 
                 for (var j = 1; j <= 11; ++j) {
 
@@ -373,7 +373,7 @@ function RectMove(data, d, num) {
     // if (d.x == 0) tt = 3 * steplen / 2;
     // if (d.x == 2 || d.x == 3 || d.x == 4 || d.x == 5 || d.x == 9) tt = steplen
     if (d.x == 9 && (num == 1 || num == 10))
-        orange_rect = Rect_g.append("rect")
+    orange_rect = Rect_g.append("rect")
         .attr("x", padding.left + d.x * rectStep)
         .attr("y", height - padding.top - 375 + d.start * bei + 3 * tt - 10)
         .attr("width", rectWidth)
@@ -382,17 +382,17 @@ function RectMove(data, d, num) {
         .attr("fill-opacity", 0.0)
         .attr("stroke", "orange")
         .attr("stroke-width", 3)
-    else
-
-        orange_rect = Rect_g.append("rect")
-        .attr("x", padding.left + d.x * rectStep)
-        .attr("y", height - padding.top - 375 + d.start * bei + d.n * tt - 10)
-        .attr("width", rectWidth)
-        .attr("height", (d.end - d.start) * bei)
-        .attr('fill', 'none')
-        .attr("fill-opacity", 0.0)
-        .attr("stroke", "orange")
-        .attr("stroke-width", 3)
+        else
+        
+    orange_rect = Rect_g.append("rect")
+    .attr("x", padding.left + d.x * rectStep)
+    .attr("y", height - padding.top - 375 + d.start * bei + d.n * tt - 10)
+    .attr("width", rectWidth)
+    .attr("height", (d.end - d.start) * bei)
+    .attr('fill', 'none')
+    .attr("fill-opacity", 0.0)
+    .attr("stroke", "orange")
+    .attr("stroke-width", 3)
     // console.log(d)
     var p_data = PathCalc(data, d.x, d.n, num);
     console.log(d)
@@ -417,9 +417,9 @@ function RectMove(data, d, num) {
     }
     // console.log(name_in);
 
-    // PaintDecisionLine(DecisionList, name_in);
+    PaintDecisionLine(DecisionList, name_in);
 
-    // PaintDecisionRect(DecisionList, name_in);
+    PaintDecisionRect(DecisionList, name_in);
 
 }
 
@@ -705,7 +705,7 @@ function PaintZhe(d1) {
             .attr("class", "axis")
             .attr("transform", "translate(" + 0 + "," + (Yscale(0)) + ")")
             .attr("stroke-width", 0.1)
-            // .attr('stroke', '#00FF00')
+            .attr('stroke', '#00FF00')
             .call(xAxis)
             .append('text')
         // .text('轮数')
@@ -1632,7 +1632,7 @@ function PaintRect(num) {
                         return "black"
                     })
                     .attr("stroke-width", 0.5)
-                    .attr('stroke-opacity', 0.5)
+                    .attr('stroke-opacity', 0.1)
                     .attr("fill", d => {
                         // if (d.x != 11)
                         // return color[d.n];
@@ -1748,25 +1748,25 @@ function PaintRect(num) {
                         else
                             return 1
                     })
-                // .on("click", d => {
-                //     if (Rect_data == -1) {
-                //         Rect_data = p;
-                //     }
-                //     RectMove(Rect_data, d, num)
-                // })
-                // .on("mouseover", d => {
-                //     tooltip.html("过程：" + title[d.x] + "</br>" + "状态：" + d.tip)
-                //         .style("left", (d3.event.pageX - 15) + "px")
-                //         .style("top", (d3.event.pageY + 20) + "px")
-                //         .style("opacity", 1.0)
-                // })
-                // .on("mousemove", d => {
-                //     tooltip.style("left", (d3.event.pageX - 15) + "px")
-                //         .style("top", (d3.event.pageY + 20) + "px")
-                // })
-                // .on("mouseout", d => {
-                //     tooltip.style("opacity", 0.0)
-                // })
+                    // .on("click", d => {
+                    //     if (Rect_data == -1) {
+                    //         Rect_data = p;
+                    //     }
+                    //     RectMove(Rect_data, d, num)
+                    // })
+                    // .on("mouseover", d => {
+                    //     tooltip.html("过程：" + title[d.x] + "</br>" + "状态：" + d.tip)
+                    //         .style("left", (d3.event.pageX - 15) + "px")
+                    //         .style("top", (d3.event.pageY + 20) + "px")
+                    //         .style("opacity", 1.0)
+                    // })
+                    // .on("mousemove", d => {
+                    //     tooltip.style("left", (d3.event.pageX - 15) + "px")
+                    //         .style("top", (d3.event.pageY + 20) + "px")
+                    // })
+                    // .on("mouseout", d => {
+                    //     tooltip.style("opacity", 0.0)
+                    // })
                 Rect_g.selectAll(".recta")
                     .data(Sankey_Rect)
                     .enter()
@@ -1997,7 +1997,7 @@ function PaintRect(num) {
                         var len;
                         len = line_linear(Math.abs(d.v)) / 2
                         if (d.v < 0)
-                            len = -len;
+                        len = -len;
                         // if (d.v >= 0)
                         // len = linearZ(d.v);
                         // else if (d.v <= 0)
@@ -2023,9 +2023,9 @@ function PaintRect(num) {
                     })
                     .attr("stroke", d => {
                         if (d.v >= 0)
-                            return "red";
-                        else
                             return "#00FF00";
+                        else
+                            return "red";
                     })
                     .attr("stroke-width", 1);
 

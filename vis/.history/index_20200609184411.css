@@ -130,13 +130,13 @@ body {
 } */
 
 #DataView {
-    height: calc(30% - 10px);
+    height: calc(17% - 10px);
     width: calc(100% - 5px);
 }
 
 #CodeSelect {
     height: calc(25% - 10px);
-    width: calc(50% - 5px);
+    width: calc(60% - 5px);
 }
 
 #ScatterVis {
@@ -147,9 +147,6 @@ body {
 #TreeVis {
     height: calc(40% - 10px);
     width: calc(60% - 10px);
-        /* position: absolute;
-        left: -100px;
-        top: calc(60%); */
 }
 
 #SunVis {

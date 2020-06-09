@@ -70,8 +70,8 @@ function SelectDecision(num) {
             }
             DecisionList = temp;
 
-            // PaintDecisionLine(DecisionList, name_in);
-            // PaintDecisionRect(DecisionList, name_in);
+            PaintDecisionLine(DecisionList, name_in);
+            PaintDecisionRect(DecisionList, name_in);
         })
 
     cir___.push(KRect);

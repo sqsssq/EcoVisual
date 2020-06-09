@@ -217,7 +217,7 @@ function Paintjudge(name) {
             .attr('fill', 'none')
             .attr('stroke', '#0a3c75')
             .attr('stroke-width', 0.1)
-            .attr('stroke-opacity', 0.3)
+            .attr('stroke-opacity', 0.1)
             .attr('stroke-dasharray', 5.5)
 
         peo_g.selectAll('#x_line')
@@ -248,7 +248,7 @@ function Paintjudge(name) {
             .attr('fill', 'none')
             .attr('stroke', '#0a3c75')
             .attr('stroke-width', 0.1)
-            .attr('stroke-opacity', 0.3)
+            .attr('stroke-opacity', 0.4)
             .attr('stroke-dasharray', 5.5)
 
 
@@ -604,7 +604,7 @@ function Paintjudge_2(name) {
             .attr('fill', 'none')
             .attr('stroke', '#0a3c75')
             .attr('stroke-width', 0.1)
-            .attr('stroke-opacity', 0.3)
+            .attr('stroke-opacity', 0.4)
             .attr('stroke-dasharray', 5.5)
 
         peo_g.selectAll('#x_line')
@@ -635,7 +635,7 @@ function Paintjudge_2(name) {
             .attr('fill', 'none')
             .attr('stroke', '#0a3c75')
             .attr('stroke-width', 0.1)
-            .attr('stroke-opacity', 0.3)
+            .attr('stroke-opacity', 0.4)
             .attr('stroke-dasharray', 5.5)
         // peo_g.selectAll('#x_line')
         //     .attr('id', 'x_line')

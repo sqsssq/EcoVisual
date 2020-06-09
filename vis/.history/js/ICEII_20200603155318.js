@@ -5,7 +5,7 @@ color = ['#7cb5ec', '#434348', '#90ed7d', '#f7a35c', '#8085e9',
     '#f15c80', '#e4d354', '#8085e8', '#8d4653', '#91e8e1'
 ]
 
-var lxBei = 9
+var lxBei = 8.7
 
 var ice_svg = d3.select('#Sun').append('svg')
     .attr('width', width_ice)
@@ -562,8 +562,7 @@ function DrawIceRect() {
             .attr('stroke', 'black')
             .attr('stroke-width', 1)
             .attr('fill', d => {
-                // return colore(color_scalekr(d.shannon));
-                return 'none';
+                return colore(color_scalekr(d.shannon));
             })
 
         let line_r_data = [1, 2, 3];
@@ -582,7 +581,7 @@ function DrawIceRect() {
             })
             .attr('fill', 'none')
             .attr('stroke', 'black')
-            .attr('stroke-width', 0.5);
+            .attr('stroke-width', 1);
         rk = []
 
         for (let i = 0; i < r.length; ++i) {
@@ -632,7 +631,7 @@ function DrawIceRect() {
                 return cnt * width_ice / 6080;
             })
             .attr('height', d => {
-                return height_ice / 9.9;
+                return height_ice / 9;
                 // else return height_ice / (lxBei / 2);
             })
             .attr('width', d => {
@@ -776,7 +775,7 @@ function DrawIceRect() {
             })
             .attr('cy', (d, i) => {
                 // return i * 20 + 255
-                return 298;
+                return 317;
             })
             .attr('r', 5)
             .attr('fill', d => {
@@ -795,7 +794,7 @@ function DrawIceRect() {
                 return 455 + i * 45;
             })
             .attr('y', (d, i) => {
-                return 303;
+                return 322;
             })
             // .attr('r', 5)
             // .attr('fill', d => {
@@ -1104,13 +1103,13 @@ function DrawIceRectNum(num) {
         }
 
         // console.log(min, max);
-        // var colora = "#FFFFFF"
-        // var colorb = '#7cb5ec'
+        var colora = "#FFFFFF"
+        var colorb = '#7cb5ec'
 
-        // let colore = d3.interpolate(colora, colorb);
-        // var color_scalekr = d3.scale.linear()
-        //     .domain([krmin, krmax])
-        //     .range([0, 1])
+        let colore = d3.interpolate(colora, colorb);
+        var color_scalekr = d3.scale.linear()
+            .domain([krmin, krmax])
+            .range([0, 1])
         var ice_max = -999999
 
         console.log(r)
@@ -1167,11 +1166,11 @@ function DrawIceRectNum(num) {
             .attr('stroke', 'black')
             .attr('stroke-width', 1)
             .attr('fill', d => {
-                // if (d.shannon != 0) {
-                //     // console.log(d.shannon)
-                //     // console.log('k', color_scalekr(d.shannon))
-                //     return colore(color_scalekr(d.shannon));
-                // } else
+                if (d.shannon != 0) {
+                    // console.log(d.shannon)
+                    // console.log('k', color_scalekr(d.shannon))
+                    return colore(color_scalekr(d.shannon));
+                } else
                     return 'none';
             })
 
@@ -1224,7 +1223,7 @@ function DrawIceRectNum(num) {
                 return cnt * 20 * width_ice / 6080;
             })
             .attr('height', d => {
-                return height_ice / 9.9;
+                return height_ice / 9;
                 // else return height_ice / (lxBei / 2);
             })
             .attr('width', d => {
@@ -1254,7 +1253,7 @@ function DrawIceRectNum(num) {
             })
             .attr('fill', 'none')
             .attr('stroke', 'black')
-            .attr('stroke-width', 0.5);
+            .attr('stroke-width', 1);
 
         p_g.selectAll('#r_1')
             .attr('id', 'r_1').data(r)
@@ -1401,7 +1400,7 @@ function DrawIceRectNum(num) {
             })
             .attr('cy', (d, i) => {
                 // return i * 20 + 255
-                return 296;
+                return 317;
             })
             .attr('r', 5)
             .attr('fill', d => {
@@ -1420,7 +1419,7 @@ function DrawIceRectNum(num) {
                 return 455 + i * 45;
             })
             .attr('y', (d, i) => {
-                return 301;
+                return 322;
             })
             // .attr('r', 5)
             // .attr('fill', d => {

@@ -1,4 +1,4 @@
-var widthax = 171;
+var widthax = 379;
 var heightax = 171;
 // var padding = { top: 10, bottom: 10, left: 10, right: 10 }
 var K = 0;

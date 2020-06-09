@@ -5,7 +5,7 @@ color = ['#7cb5ec', '#434348', '#90ed7d', '#f7a35c', '#8085e9',
     '#f15c80', '#e4d354', '#8085e8', '#8d4653', '#91e8e1'
 ]
 
-var lxBei = 9
+var lxBei = 8.5
 
 var ice_svg = d3.select('#Sun').append('svg')
     .attr('width', width_ice)
@@ -518,7 +518,7 @@ function DrawIceRect() {
         ice_max = 1000;
         var line_scale = d3.scale.linear()
             .domain([0, Math.log2(ice_max)])
-            .range([0, height_ice / (lxBei / 1.9)])
+            .range([0, height_ice / (lxBei / 2)])
         // console.log(r)
 
         // var colora = "#FFFFFF"
@@ -529,7 +529,7 @@ function DrawIceRect() {
         //     .domain([0.5, 0.667])
         //     .range([0, 1])
 
-        // let colorx2 = d3.interpolate('#00FF00', 'red');
+        // let colorx2 = d3.interpolate('red', '#00FF00');
         // var color_scale2 = d3.scale.linear()
         //     .domain([-1, 1])
         //     .range([0, 1])
@@ -562,8 +562,7 @@ function DrawIceRect() {
             .attr('stroke', 'black')
             .attr('stroke-width', 1)
             .attr('fill', d => {
-                // return colore(color_scalekr(d.shannon));
-                return 'none';
+                return colore(color_scalekr(d.shannon));
             })
 
         let line_r_data = [1, 2, 3];
@@ -582,7 +581,7 @@ function DrawIceRect() {
             })
             .attr('fill', 'none')
             .attr('stroke', 'black')
-            .attr('stroke-width', 0.5);
+            .attr('stroke-width', 1);
         rk = []
 
         for (let i = 0; i < r.length; ++i) {
@@ -598,7 +597,7 @@ function DrawIceRect() {
             }
             rk.push({
                 n: r[i],
-                color: 'red',
+                color: '#00FF00',
                 width: high
             }, {
                 n: r[i],
@@ -606,7 +605,7 @@ function DrawIceRect() {
                 width: mid
             }, {
                 n: r[i],
-                color: '#00FF00',
+                color: 'red',
                 width: low
             })
         }
@@ -632,7 +631,7 @@ function DrawIceRect() {
                 return cnt * width_ice / 6080;
             })
             .attr('height', d => {
-                return height_ice / 9.9;
+                return height_ice / 9;
                 // else return height_ice / (lxBei / 2);
             })
             .attr('width', d => {
@@ -734,11 +733,11 @@ function DrawIceRect() {
                 .attr('fill', 'none')
                 .attr('stroke', d => {
                     // if (parseFloat(d[129]) > 0)
-                    //     return 'red';
+                    //     return '#00FF00';
                     // else
-                    //     return '#00FF00'
+                    //     return 'red'
                     if (parseInt(d["label"]) == 2) {
-                        return 'red'
+                        return '#00FF00'
                     }
                     if (parseInt(d["label"]) == 1) {
                         // if (parseInt(d[129]) >= 0)
@@ -747,7 +746,7 @@ function DrawIceRect() {
                         // return 'blue';
                     }
                     if (parseInt(d["label"]) == 0) {
-                        return '#00FF00';
+                        return 'red';
                     }
                 })
                 .attr('stroke-width', 0.1)
@@ -757,13 +756,13 @@ function DrawIceRect() {
 
         var tree_legend = [{
             name: '富裕',
-            color: 'red'
+            color: '#00FF00'
         }, {
             name: '中产',
             color: 'yellow'
         }, {
             name: '贫穷',
-            color: '#00FF00'
+            color: 'red'
         }]
 
         p_g.selectAll('#legend_cir')
@@ -776,7 +775,7 @@ function DrawIceRect() {
             })
             .attr('cy', (d, i) => {
                 // return i * 20 + 255
-                return 298;
+                return 317;
             })
             .attr('r', 5)
             .attr('fill', d => {
@@ -795,7 +794,7 @@ function DrawIceRect() {
                 return 455 + i * 45;
             })
             .attr('y', (d, i) => {
-                return 303;
+                return 322;
             })
             // .attr('r', 5)
             // .attr('fill', d => {
@@ -1104,13 +1103,13 @@ function DrawIceRectNum(num) {
         }
 
         // console.log(min, max);
-        // var colora = "#FFFFFF"
-        // var colorb = '#7cb5ec'
+        var colora = "#FFFFFF"
+        var colorb = '#7cb5ec'
 
-        // let colore = d3.interpolate(colora, colorb);
-        // var color_scalekr = d3.scale.linear()
-        //     .domain([krmin, krmax])
-        //     .range([0, 1])
+        let colore = d3.interpolate(colora, colorb);
+        var color_scalekr = d3.scale.linear()
+            .domain([krmin, krmax])
+            .range([0, 1])
         var ice_max = -999999
 
         console.log(r)
@@ -1123,7 +1122,7 @@ function DrawIceRectNum(num) {
         ice_max = 1000;
         var line_scale = d3.scale.linear()
             .domain([0, Math.log2(ice_max)])
-            .range([0, height_ice / (lxBei / 1.9)])
+            .range([0, height_ice / (lxBei / 2.1)])
         // console.log(r)
 
         var colora = "#FFFFFF"
@@ -1134,7 +1133,7 @@ function DrawIceRectNum(num) {
             .domain([0.5, 0.667])
             .range([0, 1])
 
-        let colorx2 = d3.interpolate('#00FF00', 'red');
+        let colorx2 = d3.interpolate('red', '#00FF00');
         var color_scale2 = d3.scale.linear()
             .domain([-1, 1])
             .range([0, 1])
@@ -1167,11 +1166,11 @@ function DrawIceRectNum(num) {
             .attr('stroke', 'black')
             .attr('stroke-width', 1)
             .attr('fill', d => {
-                // if (d.shannon != 0) {
-                //     // console.log(d.shannon)
-                //     // console.log('k', color_scalekr(d.shannon))
-                //     return colore(color_scalekr(d.shannon));
-                // } else
+                if (d.shannon != 0) {
+                    // console.log(d.shannon)
+                    // console.log('k', color_scalekr(d.shannon))
+                    return colore(color_scalekr(d.shannon));
+                } else
                     return 'none';
             })
 
@@ -1190,7 +1189,7 @@ function DrawIceRectNum(num) {
             }
             rk.push({
                 n: r[i],
-                color: 'red',
+                color: '#00FF00',
                 width: high
             }, {
                 n: r[i],
@@ -1198,7 +1197,7 @@ function DrawIceRectNum(num) {
                 width: mid
             }, {
                 n: r[i],
-                color: '#00FF00',
+                color: 'red',
                 width: low
             })
         }
@@ -1224,7 +1223,7 @@ function DrawIceRectNum(num) {
                 return cnt * 20 * width_ice / 6080;
             })
             .attr('height', d => {
-                return height_ice / 9.9;
+                return height_ice / 9;
                 // else return height_ice / (lxBei / 2);
             })
             .attr('width', d => {
@@ -1254,7 +1253,7 @@ function DrawIceRectNum(num) {
             })
             .attr('fill', 'none')
             .attr('stroke', 'black')
-            .attr('stroke-width', 0.5);
+            .attr('stroke-width', 1);
 
         p_g.selectAll('#r_1')
             .attr('id', 'r_1').data(r)
@@ -1363,7 +1362,7 @@ function DrawIceRectNum(num) {
                 .attr('fill', 'none')
                 .attr('stroke', d => {
                     if (parseInt(d["label"]) == 2) {
-                        return 'red'
+                        return '#00FF00'
                     }
                     if (parseInt(d["label"]) == 1) {
                         // if (parseInt(d[129]) >= 0)
@@ -1372,7 +1371,7 @@ function DrawIceRectNum(num) {
                         //     return 'blue';
                     }
                     if (parseInt(d["label"]) == 0) {
-                        return '#00FF00';
+                        return 'red';
                     }
                 })
                 .attr('stroke-width', 2)
@@ -1382,13 +1381,13 @@ function DrawIceRectNum(num) {
 
         var tree_legend = [{
             name: '富裕',
-            color: 'red'
+            color: '#00FF00'
         }, {
             name: '中产',
             color: 'yellow'
         }, {
             name: '贫穷',
-            color: '#00FF00'
+            color: 'red'
         }]
 
         p_g.selectAll('#legend_cir')
@@ -1401,7 +1400,7 @@ function DrawIceRectNum(num) {
             })
             .attr('cy', (d, i) => {
                 // return i * 20 + 255
-                return 296;
+                return 317;
             })
             .attr('r', 5)
             .attr('fill', d => {
@@ -1420,7 +1419,7 @@ function DrawIceRectNum(num) {
                 return 455 + i * 45;
             })
             .attr('y', (d, i) => {
-                return 301;
+                return 322;
             })
             // .attr('r', 5)
             // .attr('fill', d => {

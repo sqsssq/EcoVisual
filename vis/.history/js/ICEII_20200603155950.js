@@ -562,8 +562,7 @@ function DrawIceRect() {
             .attr('stroke', 'black')
             .attr('stroke-width', 1)
             .attr('fill', d => {
-                // return colore(color_scalekr(d.shannon));
-                return 'none';
+                return colore(color_scalekr(d.shannon));
             })
 
         let line_r_data = [1, 2, 3];
@@ -1104,13 +1103,13 @@ function DrawIceRectNum(num) {
         }
 
         // console.log(min, max);
-        // var colora = "#FFFFFF"
-        // var colorb = '#7cb5ec'
+        var colora = "#FFFFFF"
+        var colorb = '#7cb5ec'
 
-        // let colore = d3.interpolate(colora, colorb);
-        // var color_scalekr = d3.scale.linear()
-        //     .domain([krmin, krmax])
-        //     .range([0, 1])
+        let colore = d3.interpolate(colora, colorb);
+        var color_scalekr = d3.scale.linear()
+            .domain([krmin, krmax])
+            .range([0, 1])
         var ice_max = -999999
 
         console.log(r)
@@ -1167,11 +1166,11 @@ function DrawIceRectNum(num) {
             .attr('stroke', 'black')
             .attr('stroke-width', 1)
             .attr('fill', d => {
-                // if (d.shannon != 0) {
-                //     // console.log(d.shannon)
-                //     // console.log('k', color_scalekr(d.shannon))
-                //     return colore(color_scalekr(d.shannon));
-                // } else
+                if (d.shannon != 0) {
+                    // console.log(d.shannon)
+                    // console.log('k', color_scalekr(d.shannon))
+                    return colore(color_scalekr(d.shannon));
+                } else
                     return 'none';
             })
 

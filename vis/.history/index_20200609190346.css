@@ -146,10 +146,7 @@ body {
 
 #TreeVis {
     height: calc(40% - 10px);
-    width: calc(60% - 10px);
-        /* position: absolute;
-        left: -100px;
-        top: calc(60%); */
+    width: calc(100% - 10px);
 }
 
 #SunVis {

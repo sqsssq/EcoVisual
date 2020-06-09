@@ -27,7 +27,7 @@ function PP() {
         .attr("width", widtha)
         .attr("height", 1600)
 
-    ksvg = d3.select("#select").append("svg")
+    ksvg = d3.select("#rectA").append("svg")
         .attr('id', 'SView2')
         .attr("width", widtha)
         .attr("height", 70)
@@ -70,8 +70,8 @@ function SelectDecision(num) {
             }
             DecisionList = temp;
 
-            // PaintDecisionLine(DecisionList, name_in);
-            // PaintDecisionRect(DecisionList, name_in);
+            PaintDecisionLine(DecisionList, name_in);
+            PaintDecisionRect(DecisionList, name_in);
         })
 
     cir___.push(KRect);

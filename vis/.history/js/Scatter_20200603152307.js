@@ -1,4 +1,4 @@
-var widthax = 171;
+var widthax = 379;
 var heightax = 171;
 // var padding = { top: 10, bottom: 10, left: 10, right: 10 }
 var K = 0;
@@ -155,15 +155,14 @@ function ScatterPaint_gain_loss(coor, p, num, pf) {
         .attr('stroke', (d, i) => {
             //if (d.l == num)
             // return 
-            // if (d.label == 0)
-            //     return 'red'
-            // // return compute(linear(parseFloat(num_coor[i][91])))
-            // else if (d.label == 2)
-            //     // return '#00FF00'
-            //     return '#00FF00'
-            // else
-            //     return 'yellow'
-            return 'white'
+            if (d.label == 0)
+                return 'red'
+            // return compute(linear(parseFloat(num_coor[i][91])))
+            else if (d.label == 2)
+                // return '#00FF00'
+                return '#00FF00'
+            else
+                return 'yellow'
             // //else 'none';
             // if (coor[i]['xval'] <= 0)
             //     return 'red'
@@ -172,32 +171,32 @@ function ScatterPaint_gain_loss(coor, p, num, pf) {
             //     return '#00FF00'
             // return 'blue'
         })
-        .attr('stroke-width', 0.5)
+        .attr('stroke-width', 0.1)
         // .attr('fill-opacity', 0.3)
-        // .on("mouseover", function (d, i) {
-        //     // tooltip.html("Code: " + d.id + "</br>" + "Value: " + d.val)
-        //     //     .style("left", (d3.event.pageX - 15) + "px")
-        //     //     .style("top", (d3.event.pageY + 0) + "px")
-        //     //     .style("opacity", 1.0)
-        //     // console.log(d)
-        //     console.log(d)
-        //     d3.select(this)
-        //         .attr("fill", d => {
-        //             if (d.val > 0)
-        //                 return '#00FF00'
-        //             else
-        //                 return 'red'
-        //         })
-        //         .attr('fill-opacity', 1)
-        // })
-        // .on("mouseout", function (d, i) {
-        //     // if (k_in_num)
-        //     d3.select(this)
-        //         .attr("fill", d => {
-        //             return 'white';
-        //         });
-        //     // tooltip.style("opacity", 0.1)
-        // });
+        .on("mouseover", function (d, i) {
+            // tooltip.html("Code: " + d.id + "</br>" + "Value: " + d.val)
+            //     .style("left", (d3.event.pageX - 15) + "px")
+            //     .style("top", (d3.event.pageY + 0) + "px")
+            //     .style("opacity", 1.0)
+            // console.log(d)
+            console.log(d)
+            d3.select(this)
+                .attr("fill", d => {
+                    if (d.val > 0)
+                        return '#00FF00'
+                    else
+                        return 'red'
+                })
+                .attr('fill-opacity', 1)
+        })
+        .on("mouseout", function (d, i) {
+            // if (k_in_num)
+            d3.select(this)
+                .attr("fill", d => {
+                    return 'white';
+                });
+            // tooltip.style("opacity", 0.1)
+        });
     else {
         tcircle = kssvg.append('g').selectAll("circle")
             .data(coor)
@@ -245,33 +244,33 @@ function ScatterPaint_gain_loss(coor, p, num, pf) {
             })
             .attr('stroke-width', 0.1)
             // .attr('fill-opacity', 0.3)
-            // .on("mouseover", function (d, i) {
-            //     // tooltip.html("Code: " + d.id + "</br>" + "Value: " + d.val)
-            //     //     .style("left", (d3.event.pageX - 15) + "px")
-            //     //     .style("top", (d3.event.pageY + 0) + "px")
-            //     //     .style("opacity", 1.0)
-            //     // console.log(d)
-            //     d3.select(this)
-            //         .attr("fill", d => {
-            //             if (d.val > 0)
-            //                 return '#00FF00'
-            //             else
-            //                 return 'red'
-            //         })
-            //         .attr('fill-opacity', 1)
+            .on("mouseover", function (d, i) {
+                // tooltip.html("Code: " + d.id + "</br>" + "Value: " + d.val)
+                //     .style("left", (d3.event.pageX - 15) + "px")
+                //     .style("top", (d3.event.pageY + 0) + "px")
+                //     .style("opacity", 1.0)
+                // console.log(d)
+                d3.select(this)
+                    .attr("fill", d => {
+                        if (d.val > 0)
+                            return '#00FF00'
+                        else
+                            return 'red'
+                    })
+                    .attr('fill-opacity', 1)
 
-            // })
+            })
             // .on("mousemove", d => {
             //     // tooltip.style("left", (d3.event.pageX - 15) + "px")
             //     //     .style("top", (d3.event.pageY + 0) + "px")
             // })
-            // .on("mouseout", function (d, i) {
-            //     d3.select(this)
-            //         .attr("fill", d => {
-            //             return 'white';
-            //         });
-            //     // tooltip.style("opacity", 0.1)
-            // })
+            .on("mouseout", function (d, i) {
+                d3.select(this)
+                    .attr("fill", d => {
+                        return 'white';
+                    });
+                // tooltip.style("opacity", 0.1)
+            })
             .on('click', function (d, i) {
                 d3.select(this)
                     .attr('r', 5)

@@ -130,7 +130,7 @@ body {
 } */
 
 #DataView {
-    height: calc(30% - 10px);
+    height: calc(5% - 10px);
     width: calc(100% - 5px);
 }
 
@@ -147,9 +147,6 @@ body {
 #TreeVis {
     height: calc(40% - 10px);
     width: calc(60% - 10px);
-        /* position: absolute;
-        left: -100px;
-        top: calc(60%); */
 }
 
 #SunVis {

@@ -417,9 +417,9 @@ function RectMove(data, d, num) {
     }
     // console.log(name_in);
 
-    // PaintDecisionLine(DecisionList, name_in);
+    PaintDecisionLine(DecisionList, name_in);
 
-    // PaintDecisionRect(DecisionList, name_in);
+    PaintDecisionRect(DecisionList, name_in);
 
 }
 

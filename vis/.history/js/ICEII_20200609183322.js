@@ -562,8 +562,7 @@ function DrawIceRect() {
             .attr('stroke', 'black')
             .attr('stroke-width', 1)
             .attr('fill', d => {
-                // return colore(color_scalekr(d.shannon));
-                return 'none';
+                return colore(color_scalekr(d.shannon));
             })
 
         let line_r_data = [1, 2, 3];
