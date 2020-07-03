@@ -291,13 +291,14 @@ body {
 
 #clear_But {
     width: 80px;
-    height: 25px;
-    position: absolute;
+    height: 10px;
+    font-size: 5px;
+    /* position: absolute;
     top: 103px;
     left: 240px;
     font-size: 14px;
     border: 0px;
-    border-radius: 5px;
+    border-radius: 5px; */
 }
 
 #topt {
