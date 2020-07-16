@@ -52,7 +52,7 @@ function FinaceRect(num) {
                 }
             }
         }
-        // console.log((name_en))
+        console.log((name_en))
         lineData.sort(function (a, b) {
             return -parseFloat(b['129']) + parseFloat(a['129']);
         })
@@ -88,10 +88,10 @@ function FinaceRect(num) {
             .append('text')
             // .attr("transform", "rotate(-90)") //text旋转-90°
             .attr("text-anchor", "end") //字体尾部对齐
+            .attr('font-size', 1)
             .attr("dx", "4.5em")
             .attr("dy", "-4em") //沿y轴平移一个字体的大小;
-            .text('收益值🔃')
-            .attr('font-size', 20)
+            .text('收益值')
 
 
         rect_line = rg_line.selectAll('#rlll')
@@ -177,17 +177,17 @@ function FinaceRect(num) {
                         return 1;
                     }
                 })
-                // rect_circle.attr('opacity', (x, y) => {
-                //     if (x.code != d.code) {
-                //         for (k in select_name) {
-                //             if (select_name[k] == x.code)
-                //                 return 1;
-                //         }
-                //         return 0.1;
-                //     } else {
-                //         return 1;
-                //     }
-                // })
+                rect_circle.attr('opacity', (x, y) => {
+                    if (x.code != d.code) {
+                        for (k in select_name) {
+                            if (select_name[k] == x.code)
+                                return 1;
+                        }
+                        return 0.1;
+                    } else {
+                        return 1;
+                    }
+                })
             })
             .on('mouseout', (d, i) => {
                 // if (select_name.length == 0)
@@ -234,17 +234,17 @@ function FinaceRect(num) {
                         return 0.1;
                     })
                 }
-                // if (select_name.length == 0)
-                //     rect_circle.attr('opacity', 1);
-                // else {
-                //     rect_circle.attr('opacity', (x, y) => {
-                //         for (k in select_name) {
-                //             if (select_name[k] == x.code)
-                //                 return 1;
-                //         }
-                //         return 0.1;
-                //     })
-                // }
+                if (select_name.length == 0)
+                    rect_circle.attr('opacity', 1);
+                else {
+                    rect_circle.attr('opacity', (x, y) => {
+                        for (k in select_name) {
+                            if (select_name[k] == x.code)
+                                return 1;
+                        }
+                        return 0.1;
+                    })
+                }
             })
             .on('click', (d, i) => {
                 console.log(d);
@@ -260,59 +260,33 @@ function FinaceRect(num) {
                 Paintjudge_2(select_name);
             })
 
-        var linePath = d3.svg.line()
-            .x(function (d, i) {
-                return l_x_scale(d[0]) + 2;
+
+        rect_circle = rg_line.selectAll('#rccc')
+            .attr('id', 'rccc')
+            .data(lineData)
+            .enter()
+            .append('circle')
+            .attr('cx', (d, i) => {
+                return l_x_scale(i) + 2;
             })
-            .y(function (d, i) {
-                return lllll(d[1]);
-            });
-
-        let zdata = new Array();
-        for (let i in lineData) {
-            zdata.push([parseInt(i), parseFloat(name_en[lineData[i].code].val)]);
-        }
-
-        // console.log(zdata)
-
-        rect_z = rg_line
-        // .select('#zp')
-        //     .attr('id', 'zp')
-            // .data(zdata)
-            // .enter()
-            .append('path')
-            .attr('d', linePath(zdata))
-            .attr('fill', 'none')
-            .attr('stroke-width', 0.5)
+            .attr('cy', (d, i) => {
+                if (parseFloat(name_en[d.code].val) > 0)
+                    return 0 - l_rect_scale(Math.abs(parseFloat(name_en[d.code].val)));
+                else
+                    return l_rect_scale(Math.abs(parseFloat(name_en[d.code].val)))
+            })
+            .attr('r', 1.5)
+            .attr('fill', (d, i) => {
+                if (parseInt(name_en[d.code].label) == 0) {
+                    return '#00FF00';
+                } else if (parseInt(name_en[d.code].label) == 1) {
+                    return 'yellow';
+                } else {
+                    return 'red';
+                }
+            })
             .attr('stroke', 'black')
-
-
-        // rect_circle = rg_line.selectAll('#rccc')
-        //     .attr('id', 'rccc')
-        //     .data(lineData)
-        //     .enter()
-        //     .append('circle')
-        //     .attr('cx', (d, i) => {
-        //         return l_x_scale(i) + 2;
-        //     })
-        //     .attr('cy', (d, i) => {
-        //         // if (parseFloat(name_en[d.code].val) > 0)
-        //         //     return 0 - l_rect_scale(Math.abs(parseFloat(name_en[d.code].val)));
-        //         // else
-        //         return lllll((parseFloat(name_en[d.code].val)))
-        //     })
-        //     .attr('r', 1.5)
-        //     .attr('fill', (d, i) => {
-        //         if (parseInt(name_en[d.code].label) == 0) {
-        //             return '#00FF00';
-        //         } else if (parseInt(name_en[d.code].label) == 1) {
-        //             return 'yellow';
-        //         } else {
-        //             return 'red';
-        //         }
-        //     })
-        //     .attr('stroke', 'black')
-        //     .attr('stroke-width', 0.5)
+            .attr('stroke-width', 0.5)
 
 
         // rect_line.attr('opacity', 0.1)

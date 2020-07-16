@@ -187,7 +187,6 @@ function PaintRactIn() {
                     //     Cir_3.member.push(pdata[i]);
                     // }
                 }
-                // console.log(Cir_2)
 
                 for (let j in Cir_1) {
                     if (typeof (Dec_1[parseInt(Cir_1[j].main) * 100 + parseInt(Cir_1[j].Decision[Cir_1[j].main])]) == 'undefined') {
@@ -200,22 +199,20 @@ function PaintRactIn() {
                         Dec_2[parseInt(Cir_2[j].main) * 100 + parseInt(Cir_2[j].Decision[Cir_2[j].main])] = 0;
                     }
                     Dec_2[parseInt(Cir_2[j].main) * 100 + parseInt(Cir_2[j].Decision[Cir_2[j].main])] += Cir_2[j].member.length;
-                    if (typeof (cal_1[parseInt(Cir_2[j].mid) * 1000000 + parseInt(Cir_2[j].Decision[Cir_2[j].mid]) * 10000 + parseInt(Cir_2[j].main) * 100 + parseInt(Cir_2[j].Decision[Cir_2[j].main])]) == 'undefined') {
-                        cal_1[parseInt(Cir_2[j].mid) * 1000000 + parseInt(Cir_2[j].Decision[Cir_2[j].mid]) * 10000 + parseInt(Cir_2[j].main) * 100 + parseInt(Cir_2[j].Decision[Cir_2[j].main])] = 0;
+                    if (typeof (cal_1[parseInt(Cir_2[j].mid) * 100000 + parseInt(Cir_2[j].Decision[Cir_2[j].mid]) * 1000 + parseInt(Cir_2[j].main) * 100 + parseInt(Cir_2[j].Decision[Cir_2[j].main])]) == 'undefined') {
+                        cal_1[parseInt(Cir_2[j].mid) * 100000 + parseInt(Cir_2[j].Decision[Cir_2[j].mid]) * 1000 + parseInt(Cir_2[j].main) * 100 + parseInt(Cir_2[j].Decision[Cir_2[j].main])] = 0;
                     }
-                    // if (parseInt(Cir_2[j].main) * 100 == 0)
-                    // console.log([parseInt(Cir_2[j].mid) * 1000000 + parseInt(Cir_2[j].Decision[Cir_2[j].mid]) * 10000 + parseInt(Cir_2[j].main) * 100 + parseInt(Cir_2[j].Decision[Cir_2[j].main])]);
-                    cal_1[parseInt(Cir_2[j].mid) * 1000000 + parseInt(Cir_2[j].Decision[Cir_2[j].mid]) * 10000 + parseInt(Cir_2[j].main) * 100 + parseInt(Cir_2[j].Decision[Cir_2[j].main])] += Cir_2[j].member.length;
+                    cal_1[parseInt(Cir_2[j].mid) * 100000 + parseInt(Cir_2[j].Decision[Cir_2[j].mid]) * 1000 + parseInt(Cir_2[j].main) * 100 + parseInt(Cir_2[j].Decision[Cir_2[j].main])] += Cir_2[j].member.length;
                 }
                 for (let j in Cir_3) {
                     if (typeof (Dec_3[parseInt(Cir_3[j].main) * 100 + parseInt(Cir_3[j].Decision[Cir_3[j].main])]) == 'undefined') {
                         Dec_3[parseInt(Cir_3[j].main) * 100 + parseInt(Cir_3[j].Decision[Cir_3[j].main])] = 0;
                     }
                     Dec_3[parseInt(Cir_3[j].main) * 100 + parseInt(Cir_3[j].Decision[Cir_3[j].main])] += Cir_3[j].member.length;
-                    if (typeof (cal_2[parseInt(Cir_3[j].mid) * 1000000 + parseInt(Cir_3[j].Decision[Cir_3[j].mid]) * 10000 + parseInt(Cir_3[j].main) * 100 + parseInt(Cir_3[j].Decision[Cir_3[j].main])]) == 'undefined') {
-                        cal_2[parseInt(Cir_3[j].mid) * 1000000 + parseInt(Cir_3[j].Decision[Cir_3[j].mid]) * 10000 + parseInt(Cir_3[j].main) * 100 + parseInt(Cir_3[j].Decision[Cir_3[j].main])] = 0;
+                    if (typeof (cal_2[parseInt(Cir_3[j].mid) * 100000 + parseInt(Cir_3[j].Decision[Cir_3[j].mid]) * 1000 + parseInt(Cir_3[j].main) * 100 + parseInt(Cir_3[j].Decision[Cir_3[j].main])]) == 'undefined') {
+                        cal_2[parseInt(Cir_3[j].mid) * 100000 + parseInt(Cir_3[j].Decision[Cir_3[j].mid]) * 1000 + parseInt(Cir_3[j].main) * 100 + parseInt(Cir_3[j].Decision[Cir_3[j].main])] = 0;
                     }
-                    cal_2[parseInt(Cir_3[j].mid) * 1000000 + parseInt(Cir_3[j].Decision[Cir_3[j].mid]) * 10000 + parseInt(Cir_3[j].main) * 100 + parseInt(Cir_3[j].Decision[Cir_3[j].main])] += Cir_3[j].member.length;
+                    cal_2[parseInt(Cir_3[j].mid) * 100000 + parseInt(Cir_3[j].Decision[Cir_3[j].mid]) * 1000 + parseInt(Cir_3[j].main) * 100 + parseInt(Cir_3[j].Decision[Cir_3[j].main])] += Cir_3[j].member.length;
                 }
             }
             // console.log(Dec_1)
@@ -261,10 +258,10 @@ function PaintRactIn() {
                 .append('rect')
                 .attr('x', 30)
                 .attr('y', (d, i) => {
-                    // console.log(d)
+                    console.log(d)
                     if (d != 0) {
                         let ks = Sum(dx_1, 0, i);
-                        // console.log(ks)
+                        console.log(ks)
                         return scale_1(ks) + 10;
                     }
                     // console.log(ks);
@@ -281,13 +278,12 @@ function PaintRactIn() {
                 })
                 .attr('fill-opacity', 0.3)
                 .attr('stroke', d => {
-                    
                     if (d != 0)
-                        return color(d.Decision);
+                        return 'black';
                     else
                         return 'none'
                 })
-                .attr('stroke-width', 1)
+                .attr('stroke-width', 0.3)
 
             var scale_2 = d3.scale.linear()
                 .domain([0, Sum(dx_1, 0, dx_1.length)])
@@ -318,9 +314,8 @@ function PaintRactIn() {
                 })
                 .attr('fill-opacity', 0.3)
                 .attr('stroke', d => {
-
                     if (d != 0)
-                        return color(d.Decision);
+                        return 'black';
                     else
                         return 'none'
                 })
@@ -359,7 +354,7 @@ function PaintRactIn() {
                 .attr('fill-opacity', 0.3)
                 .attr('stroke', d => {
                     if (d != 0)
-                        return color(d.Decision);
+                        return 'black';
                     else
                         return 'none'
                 })
@@ -391,8 +386,6 @@ function PaintRactIn() {
             for (let i in cal_1) {
                 cnt++
                 // console.log(i)
-                if (cal_1[i] == 0)
-                    continue;
                 var k1 = 0,
                     k2 = 0;
                 // console.log('i = ', i)
@@ -403,10 +396,7 @@ function PaintRactIn() {
                         // console.log('j < i', 1002 < 102)
                         // console.log(j)
                     }
-                    let kr1 = i % 10000,
-                        kr2 = j % 10000;
-                    // console.log(kr1, kr2)
-                    if (kr2 < kr1 || (parseInt(j) < parseInt(i) && kr1 == kr2)) {
+                    if (j % 100 < i % 100 || (j % 100 == i % 100 && parseInt(j) < parseInt(i))) {
                         k2 += cal_1[j];
                         // console.log(222)
                         // console.log('j = ', j)
@@ -423,40 +413,28 @@ function PaintRactIn() {
                     },
                     weight: krscale(cal_1[i])
                 })
-                // if (cnt == 10) break;
+                // if (cnt) break
             }
             // console.log(dia)
-            // console.log(dx_2)
             for (let i in cal_2) {
-                cnt = 0;
+                cnt++
                 // console.log(i)
                 var k1 = 0,
                     k2 = 0;
-                // k1 += Sum(dx_2, 0, parseInt(parseInt(i) / 1000000) - 1)
-                let Dec = parseInt(parseInt(i) / 1000000);
-                let res = parseInt((parseInt(i) % 1000000) / 10000);
-                for (let j in dx_2) {
-                    if (dx_2[j].Decision < Dec || (dx_2[j].Decision == Dec && dx_2[j].result < res)) {
-                        k1 += dx_2[j].val;
-                    }
-                }
-                // console.log(Sum(dx_2, 0, parseInt(parseInt(i) / 1000000) - 1))
+                k1 += Sum(Dec_2, 0, parseInt(i) / 100 - 1)
                 // console.log('i = ', i)
                 for (let j in cal_2) {
                     // console.log('j = ', j)
                     // console.log('i = ', i)
                     // console.log('j == i', parseInt(j) / 100 == parseInt(i) / 100)
                     // console.log(parseInt(j) / 100)
-                    if (parseInt(parseInt(j) / 10000) == parseInt(parseInt(i) / 10000) && parseInt(j) < parseInt(i)) {
+                    if (parseInt(parseInt(j) / 100) == parseInt(parseInt(i) / 100) && parseInt(j) < parseInt(i)) {
                         k1 += cal_2[j];
                         // console.log(111)
                         // console.log('j < i', 1002 < 102)
                         // console.log(j)
                     }
-                    let kr1 = i % 10000,
-                        kr2 = j % 10000;
-                    // console.log(kr1, kr2)
-                    if (kr2 < kr1 || (parseInt(j) < parseInt(i) && kr1 == kr2)) {
+                    if (j % 100 < i % 100 || (j % 100 == i % 100 && parseInt(j) < parseInt(i))) {
                         k2 += cal_2[j];
                         // console.log(222)
                         // console.log('j = ', j)
@@ -468,14 +446,13 @@ function PaintRactIn() {
                         y: 30 + RectInWidth + RectInStep
                     },
                     target: {
-                        x: krscale(k2) + krscale(cal_2[i]) / 2 + 10 + 10,
+                        x: krscale(k2) + krscale(cal_2[i]) / 2 + 10,
                         y: 30 + RectInStep * 2
                     },
                     weight: krscale(cal_2[i])
                 })
                 // if (cnt) break
             }
-            // console.log(dia_path)
 
 
             R_svg.selectAll('#dia_g_r')
@@ -494,55 +471,6 @@ function PaintRactIn() {
                     return d.weight;
                 })
                 .attr('stroke-opacity', 0.1)
-
-
-            var titlex = ['初始财富', '工作', '健康投资', '财产保险', '借贷机会', '投资', '风险投资', '负面冲击', '买彩票', '生病', '失业']
-            R_svg.selectAll('#dia_g_rect')
-                .attr('id', 'dia_g_rect')
-                .data(titlex)
-                .enter()
-                .append('rect')
-                .attr('x', (d, i) => {
-                    if (i > 1 && i <= 5) {
-                        return 10 + 62 * (i - 1) + 40;
-                    } else if(i > 5 && i <= 9) {
-                        return 10 + 62 * (i - 2) + 80;
-                    } else if (i > 9) {
-                        return 10 + 62 * (i - 3) + 120;
-                    }
-                    return 10 + 62 * i;
-                })
-                .attr('y', 280)
-                .attr('height', 15)
-                .attr('width', 15)
-                .attr('fill', (d, i) => {
-                    return color(i);
-                })
-                .attr('fill-opacity', 0.3);
-
-            R_svg.selectAll('#dia_g_t')
-                .attr('id', 'dia_g_t')
-                .data(titlex)
-                .enter()
-                .append('text')
-                .attr('x', (d, i) => {
-                    if (i > 1 && i <= 5) {
-                        return 22 + 62 * (i - 1) + 40;
-                    } else if(i > 5 && i <= 9) {
-                        return 22 + 62 * (i - 2) + 80;
-                    } else if (i > 9) {
-                        return 22 + 62 * (i - 3) + 120;
-                    }
-                    return 22 + 62 * i;
-                })
-                .attr('dx', 3)
-                .attr('dy', 10)
-                .attr('font-family', 'kaiti')
-                .attr('y', 280)
-                .attr("font-size", 12)
-                .text(d => {
-                    return d;
-                })
         })
     })
 }

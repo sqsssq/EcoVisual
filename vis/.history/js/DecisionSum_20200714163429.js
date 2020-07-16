@@ -281,13 +281,12 @@ function PaintRactIn() {
                 })
                 .attr('fill-opacity', 0.3)
                 .attr('stroke', d => {
-                    
                     if (d != 0)
-                        return color(d.Decision);
+                        return 'black';
                     else
                         return 'none'
                 })
-                .attr('stroke-width', 1)
+                .attr('stroke-width', 0.3)
 
             var scale_2 = d3.scale.linear()
                 .domain([0, Sum(dx_1, 0, dx_1.length)])
@@ -318,9 +317,8 @@ function PaintRactIn() {
                 })
                 .attr('fill-opacity', 0.3)
                 .attr('stroke', d => {
-
                     if (d != 0)
-                        return color(d.Decision);
+                        return 'black';
                     else
                         return 'none'
                 })
@@ -359,7 +357,7 @@ function PaintRactIn() {
                 .attr('fill-opacity', 0.3)
                 .attr('stroke', d => {
                     if (d != 0)
-                        return color(d.Decision);
+                        return 'black';
                     else
                         return 'none'
                 })
@@ -392,7 +390,7 @@ function PaintRactIn() {
                 cnt++
                 // console.log(i)
                 if (cal_1[i] == 0)
-                    continue;
+                continue;
                 var k1 = 0,
                     k2 = 0;
                 // console.log('i = ', i)
@@ -426,7 +424,7 @@ function PaintRactIn() {
                 // if (cnt == 10) break;
             }
             // console.log(dia)
-            // console.log(dx_2)
+            console.log(dx_2)
             for (let i in cal_2) {
                 cnt = 0;
                 // console.log(i)
@@ -436,7 +434,7 @@ function PaintRactIn() {
                 let Dec = parseInt(parseInt(i) / 1000000);
                 let res = parseInt((parseInt(i) % 1000000) / 10000);
                 for (let j in dx_2) {
-                    if (dx_2[j].Decision < Dec || (dx_2[j].Decision == Dec && dx_2[j].result < res)) {
+                    if (dx_2[j].Decision <= Dec && dx_2[j].result < res) {
                         k1 += dx_2[j].val;
                     }
                 }
@@ -494,55 +492,6 @@ function PaintRactIn() {
                     return d.weight;
                 })
                 .attr('stroke-opacity', 0.1)
-
-
-            var titlex = ['初始财富', '工作', '健康投资', '财产保险', '借贷机会', '投资', '风险投资', '负面冲击', '买彩票', '生病', '失业']
-            R_svg.selectAll('#dia_g_rect')
-                .attr('id', 'dia_g_rect')
-                .data(titlex)
-                .enter()
-                .append('rect')
-                .attr('x', (d, i) => {
-                    if (i > 1 && i <= 5) {
-                        return 10 + 62 * (i - 1) + 40;
-                    } else if(i > 5 && i <= 9) {
-                        return 10 + 62 * (i - 2) + 80;
-                    } else if (i > 9) {
-                        return 10 + 62 * (i - 3) + 120;
-                    }
-                    return 10 + 62 * i;
-                })
-                .attr('y', 280)
-                .attr('height', 15)
-                .attr('width', 15)
-                .attr('fill', (d, i) => {
-                    return color(i);
-                })
-                .attr('fill-opacity', 0.3);
-
-            R_svg.selectAll('#dia_g_t')
-                .attr('id', 'dia_g_t')
-                .data(titlex)
-                .enter()
-                .append('text')
-                .attr('x', (d, i) => {
-                    if (i > 1 && i <= 5) {
-                        return 22 + 62 * (i - 1) + 40;
-                    } else if(i > 5 && i <= 9) {
-                        return 22 + 62 * (i - 2) + 80;
-                    } else if (i > 9) {
-                        return 22 + 62 * (i - 3) + 120;
-                    }
-                    return 22 + 62 * i;
-                })
-                .attr('dx', 3)
-                .attr('dy', 10)
-                .attr('font-family', 'kaiti')
-                .attr('y', 280)
-                .attr("font-size", 12)
-                .text(d => {
-                    return d;
-                })
         })
     })
 }

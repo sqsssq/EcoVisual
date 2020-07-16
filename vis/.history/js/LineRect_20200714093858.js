@@ -273,7 +273,7 @@ function FinaceRect(num) {
             zdata.push([parseInt(i), parseFloat(name_en[lineData[i].code].val)]);
         }
 
-        // console.log(zdata)
+        console.log(zdata)
 
         rect_z = rg_line
         // .select('#zp')

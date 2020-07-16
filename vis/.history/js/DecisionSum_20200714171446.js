@@ -287,7 +287,7 @@ function PaintRactIn() {
                     else
                         return 'none'
                 })
-                .attr('stroke-width', 1)
+                .attr('stroke-width', 0.3)
 
             var scale_2 = d3.scale.linear()
                 .domain([0, Sum(dx_1, 0, dx_1.length)])
@@ -503,14 +503,7 @@ function PaintRactIn() {
                 .enter()
                 .append('rect')
                 .attr('x', (d, i) => {
-                    if (i > 1 && i <= 5) {
-                        return 10 + 62 * (i - 1) + 40;
-                    } else if(i > 5 && i <= 9) {
-                        return 10 + 62 * (i - 2) + 80;
-                    } else if (i > 9) {
-                        return 10 + 62 * (i - 3) + 120;
-                    }
-                    return 10 + 62 * i;
+                    return 20 + 55 * i;
                 })
                 .attr('y', 280)
                 .attr('height', 15)
@@ -526,20 +519,13 @@ function PaintRactIn() {
                 .enter()
                 .append('text')
                 .attr('x', (d, i) => {
-                    if (i > 1 && i <= 5) {
-                        return 22 + 62 * (i - 1) + 40;
-                    } else if(i > 5 && i <= 9) {
-                        return 22 + 62 * (i - 2) + 80;
-                    } else if (i > 9) {
-                        return 22 + 62 * (i - 3) + 120;
-                    }
-                    return 22 + 62 * i;
+                    return 32 + 55 * i;
                 })
                 .attr('dx', 3)
                 .attr('dy', 10)
                 .attr('font-family', 'kaiti')
                 .attr('y', 280)
-                .attr("font-size", 12)
+                .attr("font-size", 10)
                 .text(d => {
                     return d;
                 })

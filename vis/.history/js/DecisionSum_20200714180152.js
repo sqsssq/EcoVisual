@@ -504,13 +504,13 @@ function PaintRactIn() {
                 .append('rect')
                 .attr('x', (d, i) => {
                     if (i > 1 && i <= 5) {
-                        return 10 + 62 * (i - 1) + 40;
+                        return 20 + 62 * (i - 1) + 40;
                     } else if(i > 5 && i <= 9) {
-                        return 10 + 62 * (i - 2) + 80;
+                        return 20 + 62 * (i - 2) + 80;
                     } else if (i > 9) {
-                        return 10 + 62 * (i - 3) + 120;
+                        return 20 + 62 * (i - 3) + 120;
                     }
-                    return 10 + 62 * i;
+                    return 20 + 62 * i;
                 })
                 .attr('y', 280)
                 .attr('height', 15)
@@ -527,13 +527,13 @@ function PaintRactIn() {
                 .append('text')
                 .attr('x', (d, i) => {
                     if (i > 1 && i <= 5) {
-                        return 22 + 62 * (i - 1) + 40;
+                        return 32 + 62 * (i - 1) + 40;
                     } else if(i > 5 && i <= 9) {
-                        return 22 + 62 * (i - 2) + 80;
+                        return 32 + 62 * (i - 2) + 80;
                     } else if (i > 9) {
-                        return 22 + 62 * (i - 3) + 120;
+                        return 32 + 62 * (i - 3) + 120;
                     }
-                    return 22 + 62 * i;
+                    return 32 + 62 * i;
                 })
                 .attr('dx', 3)
                 .attr('dy', 10)

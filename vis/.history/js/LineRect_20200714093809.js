@@ -88,10 +88,10 @@ function FinaceRect(num) {
             .append('text')
             // .attr("transform", "rotate(-90)") //text旋转-90°
             .attr("text-anchor", "end") //字体尾部对齐
+            .attr('font-size', 20)
             .attr("dx", "4.5em")
             .attr("dy", "-4em") //沿y轴平移一个字体的大小;
             .text('收益值🔃')
-            .attr('font-size', 20)
 
 
         rect_line = rg_line.selectAll('#rlll')
@@ -273,7 +273,7 @@ function FinaceRect(num) {
             zdata.push([parseInt(i), parseFloat(name_en[lineData[i].code].val)]);
         }
 
-        // console.log(zdata)
+        console.log(zdata)
 
         rect_z = rg_line
         // .select('#zp')

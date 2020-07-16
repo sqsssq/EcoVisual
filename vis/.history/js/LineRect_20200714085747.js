@@ -88,10 +88,10 @@ function FinaceRect(num) {
             .append('text')
             // .attr("transform", "rotate(-90)") //text旋转-90°
             .attr("text-anchor", "end") //字体尾部对齐
+            .attr('font-size', 1)
             .attr("dx", "4.5em")
             .attr("dy", "-4em") //沿y轴平移一个字体的大小;
-            .text('收益值🔃')
-            .attr('font-size', 20)
+            .text('收益值')
 
 
         rect_line = rg_line.selectAll('#rlll')
@@ -262,7 +262,7 @@ function FinaceRect(num) {
 
         var linePath = d3.svg.line()
             .x(function (d, i) {
-                return l_x_scale(d[0]) + 2;
+                return l_x_scale(d[0]);
             })
             .y(function (d, i) {
                 return lllll(d[1]);
@@ -273,17 +273,18 @@ function FinaceRect(num) {
             zdata.push([parseInt(i), parseFloat(name_en[lineData[i].code].val)]);
         }
 
-        // console.log(zdata)
+        console.log(zdata)
 
-        rect_z = rg_line
-        // .select('#zp')
-        //     .attr('id', 'zp')
-            // .data(zdata)
-            // .enter()
+        rect_z = rg_line.selectAll('#zp')
+            .attr('id', 'zp')
+            .data(zdata)
+            .enter()
             .append('path')
-            .attr('d', linePath(zdata))
+            .attr('d', (d, i) => {
+                return linePath(d);
+            })
             .attr('fill', 'none')
-            .attr('stroke-width', 0.5)
+            .attr('stroke-width', 3)
             .attr('stroke', 'black')
 
 

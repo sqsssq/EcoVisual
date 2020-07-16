@@ -281,13 +281,12 @@ function PaintRactIn() {
                 })
                 .attr('fill-opacity', 0.3)
                 .attr('stroke', d => {
-                    
                     if (d != 0)
-                        return color(d.Decision);
+                        return 'black';
                     else
                         return 'none'
                 })
-                .attr('stroke-width', 1)
+                .attr('stroke-left', 0)
 
             var scale_2 = d3.scale.linear()
                 .domain([0, Sum(dx_1, 0, dx_1.length)])
@@ -317,13 +316,12 @@ function PaintRactIn() {
                     return color(d.Decision)
                 })
                 .attr('fill-opacity', 0.3)
-                .attr('stroke', d => {
-
-                    if (d != 0)
-                        return color(d.Decision);
-                    else
-                        return 'none'
-                })
+                // .attr('stroke', d => {
+                //     if (d != 0)
+                //         return 'black';
+                //     else
+                //         return 'none'
+                // })
                 .attr('stroke-width', 0.3)
 
             var scale_3 = d3.scale.linear()
@@ -358,9 +356,9 @@ function PaintRactIn() {
                 })
                 .attr('fill-opacity', 0.3)
                 .attr('stroke', d => {
-                    if (d != 0)
-                        return color(d.Decision);
-                    else
+                    // if (d != 0)
+                    //     return 'black';
+                    // else
                         return 'none'
                 })
                 .attr('stroke-width', 0.3)
@@ -503,14 +501,7 @@ function PaintRactIn() {
                 .enter()
                 .append('rect')
                 .attr('x', (d, i) => {
-                    if (i > 1 && i <= 5) {
-                        return 10 + 62 * (i - 1) + 40;
-                    } else if(i > 5 && i <= 9) {
-                        return 10 + 62 * (i - 2) + 80;
-                    } else if (i > 9) {
-                        return 10 + 62 * (i - 3) + 120;
-                    }
-                    return 10 + 62 * i;
+                    return 20 + 50 * i;
                 })
                 .attr('y', 280)
                 .attr('height', 15)
@@ -519,30 +510,6 @@ function PaintRactIn() {
                     return color(i);
                 })
                 .attr('fill-opacity', 0.3);
-
-            R_svg.selectAll('#dia_g_t')
-                .attr('id', 'dia_g_t')
-                .data(titlex)
-                .enter()
-                .append('text')
-                .attr('x', (d, i) => {
-                    if (i > 1 && i <= 5) {
-                        return 22 + 62 * (i - 1) + 40;
-                    } else if(i > 5 && i <= 9) {
-                        return 22 + 62 * (i - 2) + 80;
-                    } else if (i > 9) {
-                        return 22 + 62 * (i - 3) + 120;
-                    }
-                    return 22 + 62 * i;
-                })
-                .attr('dx', 3)
-                .attr('dy', 10)
-                .attr('font-family', 'kaiti')
-                .attr('y', 280)
-                .attr("font-size", 12)
-                .text(d => {
-                    return d;
-                })
         })
     })
 }

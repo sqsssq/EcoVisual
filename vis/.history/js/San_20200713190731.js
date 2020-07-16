@@ -443,17 +443,17 @@ var LinePaint = function (path, dia, color) {
                     return 1;
                 }
             })
-            // rect_circle.attr('opacity', (x, y) => {
-            //     if (x.code != d.code) {
-            //         for (k in select_name) {
-            //             if (select_name[k] == x.code)
-            //                 return 1;
-            //         }
-            //         return 0.1;
-            //     } else {
-            //         return 1;
-            //     }
-            // })
+            rect_circle.attr('opacity', (x, y) => {
+                if (x.code != d.code) {
+                    for (k in select_name) {
+                        if (select_name[k] == x.code)
+                            return 1;
+                    }
+                    return 0.1;
+                } else {
+                    return 1;
+                }
+            })
         })
         .on('mouseout', (d, i) => {
             LineName.attr('stroke-opacity', (x) => {
@@ -489,17 +489,17 @@ var LinePaint = function (path, dia, color) {
                     return 0.1;
                 })
             }
-            // if (select_name.length == 0)
-            //     rect_circle.attr('opacity', 1);
-            // else {
-            //     rect_circle.attr('opacity', (x, y) => {
-            //         for (k in select_name) {
-            //             if (select_name[k] == x.code)
-            //                 return 1;
-            //         }
-            //         return 0.1;
-            //     })
-            // }
+            if (select_name.length == 0)
+                rect_circle.attr('opacity', 1);
+            else {
+                rect_circle.attr('opacity', (x, y) => {
+                    for (k in select_name) {
+                        if (select_name[k] == x.code)
+                            return 1;
+                    }
+                    return 0.1;
+                })
+            }
         })
         .on('click', (d, i) => {
             console.log(d);
