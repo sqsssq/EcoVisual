@@ -1,5 +1,5 @@
-var widtha = 613;
-var heighta = 480;
+var widtha = 298;
+var heighta = 298;
 // var padding = { top: 10, bottom: 10, left: 10, right: 10 }
 var K = 0;
 var r = 0
@@ -206,28 +206,18 @@ PP()
 
 // }
 
-function ScatterPaint_gain_loss(coor, p, num, pf, rectdata) {
+function ScatterPaint_gain_loss(coor, p, num, pf) {
     // PP()
     // for (var i in coor) {
     //     coor[i]['val'] = parseFloat(num_coor[i][91])
     // }
 
     // console.log(coor)
-    // console.log(rectdata)
 
     var tooltip = d3.select("body")
         .append("div")
         .attr("class", "tooltipx")
         .style("opacity", 0.0)
-
-    var NameValue = new Object();
-
-    for (var i in rectdata) {
-        // console.log(i);
-        NameValue[rectdata[i].code] = rectdata[i][12];
-    }
-
-    console.log(NameValue)
 
     if (tcircle != 0) tcircle.remove()
     if (r != 0) r.remove()
@@ -256,10 +246,10 @@ function ScatterPaint_gain_loss(coor, p, num, pf, rectdata) {
     var yAxisWidth = heighta;
     var xScale = d3.scale.linear()
         .domain([min_x, max_x])
-        .range([30, xAxisWidth - 5]);
+        .range([10, xAxisWidth - 5]);
     var yScale = d3.scale.linear()
         .domain([min_y, max_y])
-        .range([yAxisWidth - 30, 5]);
+        .range([yAxisWidth - 10, 2]);
 
     // var h_line = [-25, 25, -50, 50, min_x, max_x],
     //     s_line = [-25, 25, -50, 50, min_y, max_y]
@@ -336,7 +326,7 @@ function ScatterPaint_gain_loss(coor, p, num, pf, rectdata) {
     var linear = d3.scale.linear()
         .domain([-550, 550])
         .range([0, 1]);
-    if (p == -1){
+    if (p == -1)
         tcircle = ssvg.append('g').selectAll("circle")
         .data(coor)
         .enter()
@@ -349,14 +339,7 @@ function ScatterPaint_gain_loss(coor, p, num, pf, rectdata) {
             // else
             //     return '#00FF00'
             // else return 'none'
-            // console.log(d)
-
-            if (NameValue[d.id] == 2)
-                return "#D8483E";
-            else if (NameValue[d.id] == 1) {
-                return "#F3AC2A";
-            } else
-                return "#41CA77";
+            return 'white'
         })
         // .attr("fill-opacity", 0.5)
         .attr("id", "circleid")
@@ -371,13 +354,12 @@ function ScatterPaint_gain_loss(coor, p, num, pf, rectdata) {
         .attr('stroke', (d, i) => {
             //if (d.l == num)
             // return 
-            return 'red';
-            // if (d.val <= 0)
-            //     return 'red'
-            // // return compute(linear(parseFloat(num_coor[i][91])))
-            // else
-            //     // return '#00FF00'
-            //     return 'green'
+            if (d.val <= 0)
+                return 'red'
+            // return compute(linear(parseFloat(num_coor[i][91])))
+            else
+                // return '#00FF00'
+                return 'green'
             // //else 'none';
             // if (coor[i]['xval'] <= 0)
             //     return 'red'
@@ -388,120 +370,30 @@ function ScatterPaint_gain_loss(coor, p, num, pf, rectdata) {
         })
         .attr('stroke-width', 0.1)
         // .attr('fill-opacity', 0.3)
-        // .on("mouseover", function (d, i) {
-        //     // tooltip.html("Code: " + d.id + "</br>" + "Value: " + d.val)
-        //     //     .style("left", (d3.event.pageX - 15) + "px")
-        //     //     .style("top", (d3.event.pageY + 0) + "px")
-        //     //     .style("opacity", 1.0)
-        //     // console.log(d)
-        //     console.log(d)
-        //     d3.select(this)
-        //         .attr("fill", d => {
-        //             if (d.val > 0)
-        //                 return '#00FF00'
-        //             else
-        //                 return 'red'
-        //         })
-        //         .attr('fill-opacity', 1)
-        // })
-        // .on("mouseout", function (d, i) {
-        //     // if (k_in_num)
-        //     d3.select(this)
-        //         .attr("fill", d => {
-        //             return 'white';
-        //         });
-        //     // tooltip.style("opacity", 0.1)
-        // });
-        var brush = d3.svg.brush()
-            .x(xScale)
-            .y(yScale)
-            .extent([
-                [0, 0],
-                [0, 0]
-            ])
-            .on("brush", brushed)
-
-        // console.log(coor)
-
-        var name_brush = {};
-
-        function brushed() {
-            var extent = brush.extent();
-            var xmin = extent[0][0];
-            var xmax = extent[1][0];
-            var ymin = extent[0][1];
-            var ymax = extent[1][1];
-
-            // console.log(ymin)
-            // console.log(ymax)
-            // console.log(xmax)
-            // console.log(xmin)
-            // console.log(coor[0])
-            var nnnnn = []
-            let identity = []
-            for (var i in coor) {
-                if (coor[i].x >= xmin && coor[i].x <= xmax && coor[i].y >= ymin && coor[i].y <= ymax) {
-                    name_brush[coor[i].id] = 1;
-                    nnnnn.push(coor[i].id)
-                    identity.push(coor[i]);
-                }
-            }
-
-            // console.log(nnnnn)
-            // console.log(name_brush[nnnnn[0]])
-
-            // if (K == 0) {
-            var coor_p = {}
-
-            for (var i in pf) {
-                // console.log(pf[i][0])
-                if (name_brush[pf[i][0].id] == 1) {
-                    coor_p[i] = pf[i];
-                }
-            }
-
-            // console.log(coor_p)
-            // console.log(coor)
-
-            var coor_path = PathCalc(coor_p, -1, -1);
-            // console.log()
-
-            // console.log(coor_path[1])
-
-            // var n__ = []
-            // for (var i in coor_path[1]) {
-            //     n__.push(i)
-            // }
-
-            // OrRect(n__, color[flag])
-
-            if (LineName != 0) LineName.remove();
-
-            LinePaint_2(coor_path[0], coor_path[2], color[1])
-            // K = 1;
-            // }
-            if (identity.length != 0)
-                d3.csv('data/box.csv', function (d1) {
-                    d = []
-                    for (let i in d1) {
-                        if (parseInt(d1[i].biao) == num)
-                            d.push(d1[i])
-                    }
-                    // PaintTypeZ(d, name_brush);
+        .on("mouseover", function (d, i) {
+            // tooltip.html("Code: " + d.id + "</br>" + "Value: " + d.val)
+            //     .style("left", (d3.event.pageX - 15) + "px")
+            //     .style("top", (d3.event.pageY + 0) + "px")
+            //     .style("opacity", 1.0)
+            // console.log(d)
+            console.log(d)
+            d3.select(this)
+                .attr("fill", d => {
+                    if (d.val > 0)
+                        return '#00FF00'
+                    else
+                        return 'red'
                 })
-
-            // console.log(flag)
-
-
-
-        }
-
-        // console.log(flag)
-        r = ssvg.append("g")
-            .call(brush)
-            .selectAll("rect")
-            .style("fill-opacity", 0.3)
-    }
+                .attr('fill-opacity', 1)
+        })
+        .on("mouseout", function (d, i) {
+            // if (k_in_num)
+            d3.select(this)
+                .attr("fill", d => {
+                    return 'white';
+                });
+            // tooltip.style("opacity", 0.1)
+        });
     else {
         tcircle = ssvg.append('g').selectAll("circle")
             .data(coor)
@@ -685,14 +577,14 @@ function ScatterPaint_gain_loss(coor, p, num, pf, rectdata) {
             // K = 1;
             // }
             if (identity.length != 0)
-                d3.csv('data/box.csv', function (d1) {
-                    d = []
-                    for (let i in d1) {
-                        if (parseInt(d1[i].biao) == num)
-                            d.push(d1[i])
-                    }
-                    PaintTypeZ(d, name_brush);
-                })
+            d3.csv('data/box.csv', function(d1) {
+                d = []
+                for (let i in d1) {
+                    if (parseInt(d1[i].biao) == num)
+                        d.push(d1[i])
+                }
+                PaintTypeZ(d, name_brush);
+            })
 
             // console.log(flag)
 

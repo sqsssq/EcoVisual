@@ -1,5 +1,5 @@
 //#region define
-var width = 1296,
+var width = 996,
     height = 480;
 
 var padding = {
@@ -23,7 +23,7 @@ var steplen = 10
 
 var number = 1;
 
-var rectStep = 102;
+var rectStep = 82;
 var rectWidth = 40;
 var LineName = 0;
 var Line_Name = 0;

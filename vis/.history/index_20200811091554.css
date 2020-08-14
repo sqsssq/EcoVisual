@@ -228,12 +228,8 @@ body {
 }
 
 #ScatterVis {
-    height: 328px;
-    width: 298px;
-    
-    position: absolute;
-    left: 0px;
-    top: 0px;
+    height: (50px);
+    width: (10px);
 }
 
 #TreeVis {
@@ -265,9 +261,9 @@ body {
     width: calc(100% - 10px); */
     position: absolute;
     /* right: 5px; */
-    left: 0px;
+    left: 300px;
     /* width: 1520px; */
-    width: 1293px;
+    width: 993px;
 }
 
 
@@ -292,8 +288,8 @@ body {
 #Tsne {
     width: 100%;
     height: 83%;
-    /* overflow-x: hidden;
-    overflow-y: scroll; */
+    overflow-x: hidden;
+    overflow-y: scroll;
     /* border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px; */
     /* background-image: url('fin.png'); */

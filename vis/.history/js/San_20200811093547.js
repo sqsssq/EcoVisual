@@ -1,5 +1,5 @@
 //#region define
-var width = 1296,
+var width = 996,
     height = 480;
 
 var padding = {
@@ -23,7 +23,7 @@ var steplen = 10
 
 var number = 1;
 
-var rectStep = 102;
+var rectStep = 82;
 var rectWidth = 40;
 var LineName = 0;
 var Line_Name = 0;
@@ -2229,13 +2229,13 @@ function PaintTypeZ(d, num = -1) {
 function PaintRect(num) {
     // 导入数据
     var coorp = 'data/ts/' + (num).toString() + '.json';
-    // console.log(coorp)
+    console.log(coorp)
     d3.csv("data/box.csv", function (d1) {
         // d3.json(coorp, function (coor) {
-        d3.json(coorp, function (coork) {
+        d3.json('data/ScatterF.json', function (coork) {
             d3.csv("data/box_calc.csv", function (RectInData) {
                 // console.log(RectInData)
-                var coor = coork;
+                var coor = coork[num];
 
                 if (Rect_g != 0) Rect_g.remove()
                 if (text_g != 0) text_g.remove()

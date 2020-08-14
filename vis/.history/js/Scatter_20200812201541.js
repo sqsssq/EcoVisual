@@ -336,7 +336,7 @@ function ScatterPaint_gain_loss(coor, p, num, pf, rectdata) {
     var linear = d3.scale.linear()
         .domain([-550, 550])
         .range([0, 1]);
-    if (p == -1){
+    if (p == -1)
         tcircle = ssvg.append('g').selectAll("circle")
         .data(coor)
         .enter()
@@ -412,96 +412,6 @@ function ScatterPaint_gain_loss(coor, p, num, pf, rectdata) {
         //         });
         //     // tooltip.style("opacity", 0.1)
         // });
-        var brush = d3.svg.brush()
-            .x(xScale)
-            .y(yScale)
-            .extent([
-                [0, 0],
-                [0, 0]
-            ])
-            .on("brush", brushed)
-
-        // console.log(coor)
-
-        var name_brush = {};
-
-        function brushed() {
-            var extent = brush.extent();
-            var xmin = extent[0][0];
-            var xmax = extent[1][0];
-            var ymin = extent[0][1];
-            var ymax = extent[1][1];
-
-            // console.log(ymin)
-            // console.log(ymax)
-            // console.log(xmax)
-            // console.log(xmin)
-            // console.log(coor[0])
-            var nnnnn = []
-            let identity = []
-            for (var i in coor) {
-                if (coor[i].x >= xmin && coor[i].x <= xmax && coor[i].y >= ymin && coor[i].y <= ymax) {
-                    name_brush[coor[i].id] = 1;
-                    nnnnn.push(coor[i].id)
-                    identity.push(coor[i]);
-                }
-            }
-
-            // console.log(nnnnn)
-            // console.log(name_brush[nnnnn[0]])
-
-            // if (K == 0) {
-            var coor_p = {}
-
-            for (var i in pf) {
-                // console.log(pf[i][0])
-                if (name_brush[pf[i][0].id] == 1) {
-                    coor_p[i] = pf[i];
-                }
-            }
-
-            // console.log(coor_p)
-            // console.log(coor)
-
-            var coor_path = PathCalc(coor_p, -1, -1);
-            // console.log()
-
-            // console.log(coor_path[1])
-
-            // var n__ = []
-            // for (var i in coor_path[1]) {
-            //     n__.push(i)
-            // }
-
-            // OrRect(n__, color[flag])
-
-            if (LineName != 0) LineName.remove();
-
-            LinePaint_2(coor_path[0], coor_path[2], color[1])
-            // K = 1;
-            // }
-            if (identity.length != 0)
-                d3.csv('data/box.csv', function (d1) {
-                    d = []
-                    for (let i in d1) {
-                        if (parseInt(d1[i].biao) == num)
-                            d.push(d1[i])
-                    }
-                    // PaintTypeZ(d, name_brush);
-                })
-
-            // console.log(flag)
-
-
-
-        }
-
-        // console.log(flag)
-        r = ssvg.append("g")
-            .call(brush)
-            .selectAll("rect")
-            .style("fill-opacity", 0.3)
-    }
     else {
         tcircle = ssvg.append('g').selectAll("circle")
             .data(coor)

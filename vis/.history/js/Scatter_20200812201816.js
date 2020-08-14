@@ -487,7 +487,7 @@ function ScatterPaint_gain_loss(coor, p, num, pf, rectdata) {
                         if (parseInt(d1[i].biao) == num)
                             d.push(d1[i])
                     }
-                    // PaintTypeZ(d, name_brush);
+                    PaintTypeZ(d, name_brush);
                 })
 
             // console.log(flag)

@@ -1,5 +1,5 @@
 //#region define
-var width = 1296,
+var width = 996,
     height = 480;
 
 var padding = {
@@ -2228,14 +2228,33 @@ function PaintTypeZ(d, num = -1) {
 
 function PaintRect(num) {
     // 导入数据
-    var coorp = 'data/ts/' + (num).toString() + '.json';
-    // console.log(coorp)
+    var coorp;
+    if (num == 1) coorp = "data/Scatter/1.json";
+    if (num == 2) coorp = "data/Scatter/2.json";
+    if (num == 3) coorp = "data/Scatter/3.json";
+    if (num == 4) coorp = "data/Scatter/4.json";
+    if (num == 5) coorp = "data/Scatter/5.json";
+    if (num == 6) coorp = "data/Scatter/6.json";
+    if (num == 7) coorp = "data/Scatter/7.json";
+    if (num == 8) coorp = "data/Scatter/8.json";
+    if (num == 9) coorp = "data/Scatter/9.json";
+    if (num == 10) coorp = "data/Scatter/10.json";
+    if (num == 11) coorp = "data/Scatter/11.json";
+    if (num == 12) coorp = "data/Scatter/12.json";
+    if (num == 13) coorp = "data/Scatter/13.json";
+    if (num == 14) coorp = "data/Scatter/14.json";
+    if (num == 15) coorp = "data/Scatter/15.json";
+    if (num == 16) coorp = "data/Scatter/16.json";
+    if (num == 17) coorp = "data/Scatter/17.json";
+    if (num == 18) coorp = "data/Scatter/18.json";
+    if (num == 19) coorp = "data/Scatter/19.json";
+    if (num == 20) coorp = "data/Scatter/20.json";
     d3.csv("data/box.csv", function (d1) {
         // d3.json(coorp, function (coor) {
-        d3.json(coorp, function (coork) {
+        d3.json('data/ScatterF.json', function (coork) {
             d3.csv("data/box_calc.csv", function (RectInData) {
                 // console.log(RectInData)
-                var coor = coork;
+                var coor = coork[num];
 
                 if (Rect_g != 0) Rect_g.remove()
                 if (text_g != 0) text_g.remove()
@@ -3077,7 +3096,7 @@ function PaintRect(num) {
 
                 // // return p;
                 // ScatterPaint(coor, p, num)
-                ScatterPaint_gain_loss(coor, firstjudge, num, p, RectInnerData);
+                // ScatterPaint_gain_loss(coor, firstjudge, num, p, RectInnerData, DecisionListScatter);
                 // firstjudge = 1;
             })
         })

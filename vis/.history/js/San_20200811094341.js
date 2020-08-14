@@ -1,5 +1,5 @@
 //#region define
-var width = 1296,
+var width = 126,
     height = 480;
 
 var padding = {
