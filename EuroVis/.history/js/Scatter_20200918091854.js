@@ -1099,11 +1099,7 @@ function Rader(data, x, y, zoom) {
         .classed('webs', true);
 
     for (let i in data.vlen) {
-        let vsum = 0;
-        for (let k in data.vlen[i]) {
-            vsum += data.vlen[i][k];
-        }
-        // console.log(vsum);
+        console.log(Math.sum(data.vlen[i]));
         for (var k = level; k > 0; k--) {
             var r = radius / level * k;
             var x = r * Math.sin(i * onePiece),

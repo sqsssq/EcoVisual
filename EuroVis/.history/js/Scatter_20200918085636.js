@@ -1062,7 +1062,6 @@ function Rader(data, x, y, zoom) {
     console.log(data)
     // 设定一些方便计算的常量
     var radius = 80 * zoom,
-        linelen = 50 * zoom,
         // 指标的个数，即fieldNames的长度
         total = 7,
         // 需要将网轴分成几级，即网轴上从小到大有多少个正多边形
@@ -1097,20 +1096,39 @@ function Rader(data, x, y, zoom) {
     // 绘制网轴
     var webs = main.append('g')
         .classed('webs', true);
-
-    for (let i in data.vlen) {
-        let vsum = 0;
-        for (let k in data.vlen[i]) {
-            vsum += data.vlen[i][k];
-        }
-        // console.log(vsum);
-        for (var k = level; k > 0; k--) {
-            var r = radius / level * k;
-            var x = r * Math.sin(i * onePiece),
-                y = r * Math.cos(i * onePiece);
-        }
-    }
-
+    // console.log(polygons.webs)
+    // webs
+    //     .append('circle')
+    //     .attr('cx', 0)
+    //     .attr('cy', 0)
+    //     .attr('r', radius)
+    //     .attr('stroke', 'gray')
+    //     .attr('fill-opacity', 0)
+    //     .attr('stroke-dasharray', 5);
+    // webs
+    //     .append('circle')
+    //     .attr('cx', 0)
+    //     .attr('cy', 0)
+    //     .attr('r', radius * 3 / 4)
+    //     .attr('stroke', 'gray')
+    //     .attr('fill-opacity', 0)
+    //     .attr('stroke-dasharray', 5);
+    // webs
+    //     .append('circle')
+    //     .attr('cx', 0)
+    //     .attr('cy', 0)
+    //     .attr('r', radius * 2 / 4)
+    //     .attr('stroke', 'gray')
+    //     .attr('fill-opacity', 0)
+    //     .attr('stroke-dasharray', 5);
+    // webs
+    //     .append('circle')
+    //     .attr('cx', 0)
+    //     .attr('cy', 0)
+    //     .attr('r', radius / 4)
+    //     .attr('stroke', 'gray')
+    //     .attr('fill-opacity', 0)
+    //     .attr('stroke-dasharray', 5);
     webs.selectAll('polygon')
         .data(polygons.webs)
         .enter()
