@@ -1062,7 +1062,7 @@ function Rader(data, x, y, zoom) {
     console.log(data)
     // 设定一些方便计算的常量
     var radius = 80 * zoom,
-        linelen = 30 * zoom,
+        linelen = 50 * zoom,
         lineWid = 5 * zoom,
         // 指标的个数，即fieldNames的长度
         total = 7,

@@ -821,7 +821,7 @@ function ScatterPaint_gain_loss() {
         })
     })
 }
-// ScatterPaint_gain_loss();
+ScatterPaint_gain_loss();
 var scatterlinein = 0;
 
 // function scatterline(name) {
@@ -1062,8 +1062,8 @@ function Rader(data, x, y, zoom) {
     console.log(data)
     // 设定一些方便计算的常量
     var radius = 80 * zoom,
-        linelen = 30 * zoom,
-        lineWid = 5 * zoom,
+        linelen = 50 * zoom,
+        lineWid = 10 * zoom,
         // 指标的个数，即fieldNames的长度
         total = 7,
         // 需要将网轴分成几级，即网轴上从小到大有多少个正多边形
@@ -1079,6 +1079,7 @@ function Rader(data, x, y, zoom) {
         webs: [],
         webPoints: []
     };
+    var liner = main.append('g')
 
     for (var k = level; k > 0; k--) {
         var webs = '',
@@ -1092,16 +1093,16 @@ function Rader(data, x, y, zoom) {
                 x: x,
                 y: y
             });
-            // if (i == 0) {
-            //     liner.append('line')
-            //         .attr('x1', x)
-            //         .attr('y1', y - lineWid / 2)
-            //         .attr('x2', x + linelen)
-            //         .attr('y2', y - lineWid / 2)
-            //         .attr('fill', 'none')
-            //         .attr('stroke', getColor(k))
-            //         .attr('stroke-width', lineWid);
-            // }
+            if (i == 0) {
+                liner.append('line')
+                .attr('x1', x)
+                .attr('y1', y - lineWid / 2)
+                .attr('x2', x + linelen)
+                .attr('y2', y - lineWid / 2)
+                .attr('fill', 'none')
+                .attr('stroke', getColor(k))
+                .attr('stroke-width', lineWid);
+            }
         }
         polygons.webs.push(webs);
         polygons.webPoints.push(webPoints);
@@ -1201,6 +1202,7 @@ function Rader(data, x, y, zoom) {
             .attr('fill', function (d, index) {
                 return getColor(i);
             })
+            .attr('fill-opacity', 0.2);
         // 绘制雷达图区域下的点 
         // var circles = area.append('g')
         //     .classed('circles', true);
@@ -1219,64 +1221,6 @@ function Rader(data, x, y, zoom) {
         //     .attr('stroke', function (d, index) {
         //         return getColor(i);
         //     });
-    }
-
-
-    var liner = main.append('g')
-
-    for (var k = level; k > 0; k--) {
-        var webs = '',
-            webPoints = [];
-        var r = radius / level * k;
-
-        for (var i = 0; i < total; i++) {
-            var line_sum = 0;
-            for (var j = 0; j < level; ++j) {
-                line_sum += data.vlen[i][j];
-            }
-            var x = r * Math.sin(i * onePiece),
-                y = r * Math.cos(i * onePiece);
-            // webs += x + ',' + y + ' ';
-            // webPoints.push({
-            //     x: x,
-            //     y: y
-            // });
-            let len = linelen / 2 * (data.vlen[i][3 - k] / line_sum),
-                x_ = 0,
-                y_ = 0;
-            if (i == 0) {
-                liner.append('line')
-                    .attr('x1', x - len)
-                    .attr('y1', y)
-                    .attr('x2', x + len)
-                    .attr('y2', y)
-                    .attr('fill', 'none')
-                    .attr('stroke', getColor(k))
-                    .attr('stroke-width', lineWid);
-            }
-            else {
-                y_ = len * Math.abs(x) / Math.sqrt(x * x + y * y);
-                x_ = len * Math.abs(y) / Math.sqrt(x * x + y * y);
-                if (x > 0 && y > 0) {
-                    x_ = -x_;
-                } else if (x < 0 && y > 0) {
-                    x_ = -x_;
-                    y_ = -y_;
-                } else if (x < 0 && y < 0) {
-                    y_ = -y_;
-                }
-                liner.append('line')
-                    .attr('x1', x - x_)
-                    .attr('y1', y - y_)
-                    .attr('x2', x + x_)
-                    .attr('y2', y + y_)
-                    .attr('fill', 'none')
-                    .attr('stroke', getColor(k))
-                    .attr('stroke-width', lineWid);
-            }
-        }
-        // polygons.webs.push(webs);
-        // polygons.webPoints.push(webPoints);
     }
     // 计算文字标签坐标
     // var textPoints = [];
@@ -1471,4 +1415,3 @@ function DrawGlyph() {
 
     })
 }
-DrawGlyph()

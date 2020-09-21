@@ -1062,8 +1062,8 @@ function Rader(data, x, y, zoom) {
     console.log(data)
     // 设定一些方便计算的常量
     var radius = 80 * zoom,
-        linelen = 30 * zoom,
-        lineWid = 5 * zoom,
+        linelen = 50 * zoom,
+        lineWid = 10 * zoom,
         // 指标的个数，即fieldNames的长度
         total = 7,
         // 需要将网轴分成几级，即网轴上从小到大有多少个正多边形
@@ -1241,39 +1241,26 @@ function Rader(data, x, y, zoom) {
             //     x: x,
             //     y: y
             // });
-            let len = linelen / 2 * (data.vlen[i][3 - k] / line_sum),
-                x_ = 0,
-                y_ = 0;
+            let x_ = linelen / 2 * (data.vlen[i][3 - k] / line_sum),
+                y_ = y;
             if (i == 0) {
                 liner.append('line')
-                    .attr('x1', x - len)
-                    .attr('y1', y)
-                    .attr('x2', x + len)
-                    .attr('y2', y)
-                    .attr('fill', 'none')
-                    .attr('stroke', getColor(k))
-                    .attr('stroke-width', lineWid);
-            }
-            else {
-                y_ = len * Math.abs(x) / Math.sqrt(x * x + y * y);
-                x_ = len * Math.abs(y) / Math.sqrt(x * x + y * y);
-                if (x > 0 && y > 0) {
-                    x_ = -x_;
-                } else if (x < 0 && y > 0) {
-                    x_ = -x_;
-                    y_ = -y_;
-                } else if (x < 0 && y < 0) {
-                    y_ = -y_;
-                }
-                liner.append('line')
                     .attr('x1', x - x_)
-                    .attr('y1', y - y_)
+                    .attr('y1', y - lineWid / 2)
                     .attr('x2', x + x_)
-                    .attr('y2', y + y_)
+                    .attr('y2', y - lineWid / 2)
                     .attr('fill', 'none')
                     .attr('stroke', getColor(k))
                     .attr('stroke-width', lineWid);
-            }
+            } 
+            // else {
+            //     let x2 = x,
+            //         y2 = y,
+            //         x_ = ;
+            //     // if (x > 0 && y > 0) {
+
+            //     // }
+            // }
         }
         // polygons.webs.push(webs);
         // polygons.webPoints.push(webPoints);
