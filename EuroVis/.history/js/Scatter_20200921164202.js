@@ -1486,7 +1486,7 @@ function DrawGlyph() {
 
     })
 }
-DrawGlyph()
+ScatterPaint_gain_loss()
 
 function DrawForce() {
     d3.json("data/ts/20200831db.json").then((coor) => {

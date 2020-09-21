@@ -420,7 +420,7 @@ var LinePaint = function (path, dia, color) {
         })
         .attr("stroke-width", 0.7)
         .attr('stroke-opacity', 0.1));
-    // console.log(dia)
+    console.log(dia)
 
     // var diagonal = d3.svg.diagonal()
     //     .projection(d => {

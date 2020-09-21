@@ -1134,13 +1134,14 @@ function Rader(data, x, y, zoom) {
         }
     }
 
-    webs.selectAll('polygon')
-        .data(polygons.webs)
-        .enter()
-        .append('polygon')
-        .attr('points', function (d) {
-            return d;
-        });
+    // webs.selectAll('polygon')
+    //     .data(polygons.webs)
+    //     .enter()
+    //     .append('polygon')
+    //     .attr('points', function (d) {
+    //         return d;
+    //     });
+    
     // console.log(polygons.webPoints[0])
     // 添加纵轴
     var lines = main.append('g')

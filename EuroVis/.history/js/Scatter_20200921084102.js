@@ -15,7 +15,6 @@ var name_x = [];
 var k_in_num = 0;
 let glyphRader = 0;
 var kmain = new Array();
-var force_g = 0;
 // var main = 0;
 // var zoom = d3.behavior.zoom().scaleExtent([1, 8]).on("zoom", zoomed);
 
@@ -126,7 +125,7 @@ function DrawHeat() {
     //     heatmapInstance.remove();
     //     heatmapInstance = 0;
     // }
-    d3.json('data/ts/alldriving.json').then((HeatD) => {
+    d3.json('data/ts/alldriving.json', function (HeatD) {
         // console.log(HeatD)
 
         if (tcircle != 0) {
@@ -148,11 +147,6 @@ function DrawHeat() {
         if (glyphRader != 0) {
             glyphRader.remove();
             glyphRader = 0;
-        }
-
-        if (force_g != 0) {
-            force_g.remove();
-            force_g = 0;
         }
 
         data = HeatD
@@ -208,14 +202,14 @@ function DrawHeat() {
 
         // var xAxisWidth = widtha - padding.right;
         // var yAxisWidth = heighta - padding.bottom;
-        // var xScale = d3.scaleLinear()
+        // var xScale = d3.scale.linear()
         //     .domain([d3.min(data, function (d) {
         //         return parseFloat(d.x);
         //     }), d3.max(data, function (d) {
         //         return parseFloat(d.x);
         //     })])
         //     .range([padding.left, xAxisWidth]);
-        // var yScale = d3.scaleLinear()
+        // var yScale = d3.scale.linear()
         //     .domain([d3.min(data, function (d) {
         //         return parseFloat(d.y);
         //     }), d3.max(data, function (d) {
@@ -235,10 +229,10 @@ function DrawHeat() {
 
         var xAxisWidth = widtha;
         var yAxisWidth = heighta;
-        var xScale = d3.scaleLinear()
+        var xScale = d3.scale.linear()
             .domain([min_xx, max_xx])
             .range([50, xAxisWidth - 50]);
-        var yScale = d3.scaleLinear()
+        var yScale = d3.scale.linear()
             .domain([min_yy, max_yy])
             .range([50, yAxisWidth - 50]);
 
@@ -318,11 +312,6 @@ function ScatterPaint_gain_loss() {
                 kmain = new Array();
             }
 
-            if (force_g != 0) {
-                force_g.remove();
-                force_g = 0;
-            }
-
             // if (main != 0) {
             //     main.remove();
             //     main = 0;
@@ -371,11 +360,11 @@ function ScatterPaint_gain_loss() {
 
             var xAxisWidth = widtha;
             var yAxisWidth = heighta;
-            var xScale = d3.scaleLinear()
+            var xScale = d3.scale.linear()
                 .domain([min_x, max_x])
                 .range([50, xAxisWidth - 50]);
 
-            var yScale = d3.scaleLinear()
+            var yScale = d3.scale.linear()
                 .domain([min_y, max_y])
                 .range([50, yAxisWidth - 50]);
 
@@ -451,7 +440,7 @@ function ScatterPaint_gain_loss() {
 
             var compute = d3.interpolate(a, b);
 
-            var linear = d3.scaleLinear()
+            var linear = d3.scale.linear()
                 .domain([-550, 550])
                 .range([0, 1]);
             // if (p == -1) {
@@ -531,96 +520,96 @@ function ScatterPaint_gain_loss() {
             //         });
             //     // tooltip.style("opacity", 0.1)
             // });
-            // var brush = d3.svg.brush()
-            //     .x(xScale)
-            //     .y(yScale)
-            //     .extent([
-            //         [0, 0],
-            //         [0, 0]
-            //     ])
-            //     .on("brush", brushed)
+            var brush = d3.svg.brush()
+                .x(xScale)
+                .y(yScale)
+                .extent([
+                    [0, 0],
+                    [0, 0]
+                ])
+                .on("brush", brushed)
 
-            // // console.log(coor)
+            // console.log(coor)
 
-            // var name_brush = {};
+            var name_brush = {};
 
-            // function brushed() {
-            //     var extent = brush.extent();
-            //     var xmin = extent[0][0];
-            //     var xmax = extent[1][0];
-            //     var ymin = extent[0][1];
-            //     var ymax = extent[1][1];
+            function brushed() {
+                var extent = brush.extent();
+                var xmin = extent[0][0];
+                var xmax = extent[1][0];
+                var ymin = extent[0][1];
+                var ymax = extent[1][1];
 
-            //     // console.log(ymin)
-            //     // console.log(ymax)
-            //     // console.log(xmax)
-            //     // console.log(xmin)
-            //     // console.log(coor[0])
-            //     var nnnnn = []
-            //     let identity = []
-            //     for (var i in coor) {
-            //         if (coor[i].x >= xmin && coor[i].x <= xmax && coor[i].y >= ymin && coor[i].y <= ymax) {
-            //             name_brush[coor[i].id] = 1;
-            //             nnnnn.push(coor[i].id)
-            //             identity.push(coor[i]);
-            //         }
-            //     }
+                // console.log(ymin)
+                // console.log(ymax)
+                // console.log(xmax)
+                // console.log(xmin)
+                // console.log(coor[0])
+                var nnnnn = []
+                let identity = []
+                for (var i in coor) {
+                    if (coor[i].x >= xmin && coor[i].x <= xmax && coor[i].y >= ymin && coor[i].y <= ymax) {
+                        name_brush[coor[i].id] = 1;
+                        nnnnn.push(coor[i].id)
+                        identity.push(coor[i]);
+                    }
+                }
 
-            //     // console.log(nnnnn)
-            //     // console.log(name_brush[nnnnn[0]])
+                // console.log(nnnnn)
+                // console.log(name_brush[nnnnn[0]])
 
-            //     // if (K == 0) {
-            //     var coor_p = {}
+                // if (K == 0) {
+                var coor_p = {}
 
-            //     for (var i in pf) {
-            //         // console.log(pf[i][0])
-            //         if (name_brush[pf[i][0].id] == 1) {
-            //             coor_p[i] = pf[i];
-            //         }
-            //     }
+                for (var i in pf) {
+                    // console.log(pf[i][0])
+                    if (name_brush[pf[i][0].id] == 1) {
+                        coor_p[i] = pf[i];
+                    }
+                }
 
-            //     // console.log(coor_p)
-            //     // console.log(coor)
+                // console.log(coor_p)
+                // console.log(coor)
 
-            //     var coor_path = PathCalc(coor_p, -1, -1);
-            //     // console.log()
+                var coor_path = PathCalc(coor_p, -1, -1);
+                // console.log()
 
-            //     // console.log(coor_path[1])
+                // console.log(coor_path[1])
 
-            //     // var n__ = []
-            //     // for (var i in coor_path[1]) {
-            //     //     n__.push(i)
-            //     // }
+                // var n__ = []
+                // for (var i in coor_path[1]) {
+                //     n__.push(i)
+                // }
 
-            //     // OrRect(n__, color[flag])
+                // OrRect(n__, color[flag])
 
-            //     if (LineName != 0) LineName.remove();
+                if (LineName != 0) LineName.remove();
 
-            //     LinePaint_2(coor_path[0], coor_path[2], color[1])
-            //     // K = 1;
-            //     // }
-            //     if (identity.length != 0)
-            //         d3.csv('data/box.csv').then((d1) => {
-            //             d = []
-            //             for (let i in d1) {
-            //                 if (parseInt(d1[i].biao) == num)
-            //                     d.push(d1[i])
-            //             }
-            //             // PaintTypeZ(d, name_brush);
-            //         })
+                LinePaint_2(coor_path[0], coor_path[2], color[1])
+                // K = 1;
+                // }
+                if (identity.length != 0)
+                    d3.csv('data/box.csv').then((d1) => {
+                        d = []
+                        for (let i in d1) {
+                            if (parseInt(d1[i].biao) == num)
+                                d.push(d1[i])
+                        }
+                        // PaintTypeZ(d, name_brush);
+                    })
 
-            //     // console.log(flag)
+                // console.log(flag)
 
 
 
-            // }
+            }
 
-            // // console.log(flag)
-            // r = ssvg.append("g")
-            //     .call(brush)
-            //     .selectAll("rect")
-            //     .style("fill-opacity", 0.3)
-            // // } else {
+            // console.log(flag)
+            r = ssvg.append("g")
+                .call(brush)
+                .selectAll("rect")
+                .style("fill-opacity", 0.3)
+            // } else {
             //     tcircle = ssvg.append('g').selectAll("circle")
             //         .data(coor)
             //         .enter()
@@ -886,10 +875,10 @@ var scatterlinein = 0;
 
 //         var xAxisWidth = widtha;
 //         var yAxisWidth = heighta;
-//         var xScale = d3.scaleLinear()
+//         var xScale = d3.scale.linear()
 //             .domain([min_x, max_x])
 //             .range([30, xAxisWidth - 5]);
-//         var yScale = d3.scaleLinear()
+//         var yScale = d3.scale.linear()
 //             .domain([min_y, max_y])
 //             .range([yAxisWidth - 30, 5]);
 
@@ -965,7 +954,7 @@ var scatterlinein = 0;
 
 //         var compute = d3.interpolate(a, b);
 
-//         var linear = d3.scaleLinear()
+//         var linear = d3.scale.linear()
 //             .domain([-550, 550])
 //             .range([0, 1]);
 
@@ -1070,10 +1059,10 @@ function Rader(data, x, y, zoom) {
     let main = ssvg.append('g')
         .classed('main', true)
         .attr('transform', "translate(" + x + ',' + (y) + ')');
-    // console.log(data)
+    console.log(data)
     // 设定一些方便计算的常量
     var radius = 80 * zoom,
-        linelen = 50 * zoom,
+        linelen = 30 * zoom,
         lineWid = 5 * zoom,
         // 指标的个数，即fieldNames的长度
         total = 7,
@@ -1264,7 +1253,8 @@ function Rader(data, x, y, zoom) {
                     .attr('fill', 'none')
                     .attr('stroke', getColor(k))
                     .attr('stroke-width', lineWid);
-            } else {
+            }
+            else {
                 y_ = len * Math.abs(x) / Math.sqrt(x * x + y * y);
                 x_ = len * Math.abs(y) / Math.sqrt(x * x + y * y);
                 if (x > 0 && y > 0) {
@@ -1339,11 +1329,6 @@ function DrawGlyph() {
                 kmain = new Array();
             }
 
-            if (force_g != 0) {
-                force_g.remove();
-                force_g = 0;
-            }
-
             heatmapInstance.setData({
                 max: 0,
                 data: []
@@ -1362,10 +1347,10 @@ function DrawGlyph() {
 
             var xAxisWidth = widtha;
             var yAxisWidth = heighta;
-            var xScale = d3.scaleLinear()
+            var xScale = d3.scale.linear()
                 .domain([min_x, max_x])
                 .range([50, xAxisWidth - 50]);
-            var yScale = d3.scaleLinear()
+            var yScale = d3.scale.linear()
                 .domain([min_y, max_y])
                 .range([50, yAxisWidth - 50]);
 
@@ -1444,7 +1429,7 @@ function DrawGlyph() {
                     [10, 20, 30, 40, 50, 60, 70, 80]
                 ]
             };
-            let linescale = d3.scaleLinear()
+            let linescale = d3.scale.linear()
                 .domain([mainmin, mainmax])
                 .range([0.3, 1])
             for (let i in dicpos) {
@@ -1487,329 +1472,3 @@ function DrawGlyph() {
     })
 }
 DrawGlyph()
-
-function DrawForce() {
-    d3.json("data/ts/20200831db.json").then((coor) => {
-        d3.csv('data/box_calc.csv').then((rectdata) => {
-            // console.log(gdata);
-            if (tcircle != 0) {
-                tcircle.remove();
-                tcircle = 0;
-            }
-            if (r != 0) {
-                r.remove();
-                r = 0;
-            }
-
-            if (kmain.length != 0) {
-                for (let i in kmain) {
-                    kmain[i].remove();
-                }
-                kmain = new Array();
-            }
-
-            if (glyphRader != 0) {
-                glyphRader.remove();
-                glyphRader = 0;
-            }
-
-            if (force_g != 0) {
-                force_g.remove();
-                force_g = 0;
-            }
-
-            force_g = ssvg.append('g');
-            
-            // console.log(coor)
-
-            let nodes = new Array();
-            for (let i = 0; i <= 24; ++i) {
-                nodes.push({
-                    name: i
-                });
-            }
-
-            let edges = new Array();
-            let ed = new Object();
-            for (let i = 0; i <= 24; ++i) {
-                for (let j = 0; j <= 24; ++j) {
-                    if (j >= i) {
-                        ed[i * 100 + j] = {
-                            source: i,
-                            target: j,
-                            relation: "",
-                            value: 0
-                        }
-                        ed[j * 100 + i] = ed[i * 100 + j];
-                    }
-                }
-            }
-
-            let nameData = new Object();
-            for (let i in coor) {
-                if (typeof (nameData[coor[i].id]) == 'undefined') {
-                    nameData[coor[i].id] = new Array();
-                }
-                nameData[coor[i].id].push(coor[i]);
-            }
-
-            for (let i in nameData) {
-                for (let j = 0; j < 19; ++j) {
-                    ed[nameData[i][j].label * 100 + nameData[i][j + 1].label].value++;
-                }
-            }
-
-            let valuemax = -1;
-            let valuemin = 9000;
-
-            for (let i = 0; i <= 24; ++i) {
-                for (let j = 0; j <= 24; ++j) {
-                    if (j >= i && ed[i * 100 + j].value != 0 && ed[i * 100 + j].value > 10) {
-                        if (valuemax < ed[i * 100 + j].value) {
-                            valuemax = ed[i * 100 + j].value;
-                        }
-                        if (valuemin > ed[i * 100 + j].value) {
-                            valuemin = ed[i * 100 + j].value;
-                        }
-                        // console.log(ed[i * 100 + j]);
-                        edges.push(ed[i * 100 + j])
-                    }
-                }
-            }
-
-            var valueScale = d3.scaleLinear()
-            .domain([valuemin, valuemax])
-            .range([5, 1]);
-
-            var widScale = d3.scaleLinear()
-            .domain([valuemin, valuemax])
-            .range([1, 10]);
-
-            //准备数据
-            // var nodes = [{
-            //         name: "湖南邵阳"
-            //     },
-            //     {
-            //         name: "山东莱州"
-            //     },
-            //     {
-            //         name: "广东阳江"
-            //     },
-            //     {
-            //         name: "山东枣庄"
-            //     },
-            //     {
-            //         name: "泽"
-            //     },
-            //     {
-            //         name: "恒"
-            //     },
-            //     {
-            //         name: "鑫"
-            //     },
-            //     {
-            //         name: "明山"
-            //     },
-            //     {
-            //         name: "班长"
-            //     }
-            // ];
-
-            // var edges = [{
-            //         source: 0,
-            //         target: 4,
-            //         relation: "籍贯",
-            //         value: 1.3
-            //     },
-            //     {
-            //         source: 4,
-            //         target: 5,
-            //         relation: "舍友",
-            //         value: 1
-            //     },
-            //     {
-            //         source: 4,
-            //         target: 6,
-            //         relation: "舍友",
-            //         value: 1
-            //     },
-            //     {
-            //         source: 4,
-            //         target: 7,
-            //         relation: "舍友",
-            //         value: 1
-            //     },
-            //     {
-            //         source: 1,
-            //         target: 6,
-            //         relation: "籍贯",
-            //         value: 2
-            //     },
-            //     {
-            //         source: 2,
-            //         target: 5,
-            //         relation: "籍贯",
-            //         value: 0.9
-            //     },
-            //     {
-            //         source: 3,
-            //         target: 7,
-            //         relation: "籍贯",
-            //         value: 1
-            //     },
-            //     {
-            //         source: 5,
-            //         target: 6,
-            //         relation: "同学",
-            //         value: 1.6
-            //     },
-            //     {
-            //         source: 6,
-            //         target: 7,
-            //         relation: "朋友",
-            //         value: 0.7
-            //     },
-            //     {
-            //         source: 6,
-            //         target: 8,
-            //         relation: "职责",
-            //         value: 2
-            //     }
-            // ];
-            //设置一个color的颜色比例尺，为了让不同的扇形呈现不同的颜色
-            var colorScale = d3.scaleOrdinal()
-                .domain(d3.range(nodes.length))
-                .range(d3.schemeCategory20);
-
-            //新建一个力导向图
-            var forceSimulation = d3.forceSimulation()
-                .force("link", d3.forceLink())
-                .force("charge", d3.forceManyBody())
-                .force("center", d3.forceCenter());;
-
-            //初始化力导向图，也就是传入数据
-            //生成节点数据
-            forceSimulation.nodes(nodes)
-                .on("tick", ticked); //这个函数很重要，后面给出具体实现和说明
-            //生成边数据
-            forceSimulation.force("link")
-                .links(edges)
-                .distance(function (d) { //每一边的长度
-                    // return d.value * 1;
-                    return valueScale(d.value) * 80;
-                })
-            //设置图形的中心位置	
-            forceSimulation.force("center")
-                .x(widtha / 2)
-                .y(heighta / 2);
-            //在浏览器的控制台输出
-            console.log(nodes);
-            console.log(edges);
-
-            //有了节点和边的数据后，我们开始绘制
-            //绘制边
-            var links = force_g.append("g")
-                .selectAll("line")
-                .data(edges)
-                .enter()
-                .append("line")
-                .attr("stroke", function (d, i) {
-                    // console.log(d)
-                    return colorScale(i);
-                })
-                .attr("stroke-width", (d, i) => {
-                    return widScale(d.value);
-                });
-            var linksText = force_g.append("g")
-                .selectAll("text")
-                .data(edges)
-                .enter()
-                .append("text")
-                .text(function (d) {
-                    return d.relation;
-                })
-
-            //绘制节点
-            //老规矩，先为节点和节点上的文字分组
-            var gs = force_g.selectAll(".circleText")
-                .data(nodes)
-                .enter()
-                .append("g")
-                .attr("transform", function (d, i) {
-                    var cirX = d.x;
-                    var cirY = d.y;
-                    return "translate(" + cirX + "," + cirY + ")";
-                })
-                .call(d3.drag()
-                    .on("start", started)
-                    .on("drag", dragged)
-                    .on("end", ended)
-                );
-
-            //绘制节点
-            gs.append("circle")
-                .attr("r", 10)
-                .attr("fill", function (d, i) {
-                    return colorScale(i);
-                })
-            //文字
-            gs.append("text")
-                .attr("x", -10)
-                .attr("y", -20)
-                .attr("dy", 10)
-                .text(function (d) {
-                    return d.name;
-                })
-
-            function ticked() {
-                links
-                    .attr("x1", function (d) {
-                        return d.source.x;
-                    })
-                    .attr("y1", function (d) {
-                        return d.source.y;
-                    })
-                    .attr("x2", function (d) {
-                        return d.target.x;
-                    })
-                    .attr("y2", function (d) {
-                        return d.target.y;
-                    });
-
-                linksText
-                    .attr("x", function (d) {
-                        return (d.source.x + d.target.x) / 2;
-                    })
-                    .attr("y", function (d) {
-                        return (d.source.y + d.target.y) / 2;
-                    });
-
-                gs
-                    .attr("transform", function (d) {
-                        return "translate(" + d.x + "," + d.y + ")";
-                    });
-            }
-
-            function started(d) {
-                if (!d3.event.active) {
-                    forceSimulation.alphaTarget(0.8).restart();
-                }
-                d.fx = d.x;
-                d.fy = d.y;
-            }
-
-            function dragged(d) {
-                d.fx = d3.event.x;
-                d.fy = d3.event.y;
-            }
-
-            function ended(d) {
-                if (!d3.event.active) {
-                    forceSimulation.alphaTarget(0);
-                }
-                d.fx = null;
-                d.fy = null;
-            }
-        })
-    })
-}

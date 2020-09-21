@@ -150,11 +150,6 @@ function DrawHeat() {
             glyphRader = 0;
         }
 
-        if (force_g != 0) {
-            force_g.remove();
-            force_g = 0;
-        }
-
         data = HeatD
 
         var points = []
@@ -316,11 +311,6 @@ function ScatterPaint_gain_loss() {
                     kmain[i].remove();
                 }
                 kmain = new Array();
-            }
-
-            if (force_g != 0) {
-                force_g.remove();
-                force_g = 0;
             }
 
             // if (main != 0) {
@@ -1339,11 +1329,6 @@ function DrawGlyph() {
                 kmain = new Array();
             }
 
-            if (force_g != 0) {
-                force_g.remove();
-                force_g = 0;
-            }
-
             heatmapInstance.setData({
                 max: 0,
                 data: []
@@ -1486,7 +1471,7 @@ function DrawGlyph() {
 
     })
 }
-DrawGlyph()
+DrawForce()
 
 function DrawForce() {
     d3.json("data/ts/20200831db.json").then((coor) => {
@@ -1520,7 +1505,7 @@ function DrawForce() {
 
             force_g = ssvg.append('g');
             
-            // console.log(coor)
+            console.log(coor)
 
             let nodes = new Array();
             for (let i = 0; i <= 24; ++i) {
@@ -1564,24 +1549,19 @@ function DrawForce() {
 
             for (let i = 0; i <= 24; ++i) {
                 for (let j = 0; j <= 24; ++j) {
-                    if (j >= i && ed[i * 100 + j].value != 0 && ed[i * 100 + j].value > 10) {
+                    if (j >= i && ed[i * 100 + j].value != 0) {
                         if (valuemax < ed[i * 100 + j].value) {
                             valuemax = ed[i * 100 + j].value;
                         }
                         if (valuemin > ed[i * 100 + j].value) {
                             valuemin = ed[i * 100 + j].value;
                         }
-                        // console.log(ed[i * 100 + j]);
                         edges.push(ed[i * 100 + j])
                     }
                 }
             }
 
             var valueScale = d3.scaleLinear()
-            .domain([valuemin, valuemax])
-            .range([5, 1]);
-
-            var widScale = d3.scaleLinear()
             .domain([valuemin, valuemax])
             .range([1, 10]);
 
@@ -1679,7 +1659,7 @@ function DrawForce() {
             //设置一个color的颜色比例尺，为了让不同的扇形呈现不同的颜色
             var colorScale = d3.scaleOrdinal()
                 .domain(d3.range(nodes.length))
-                .range(d3.schemeCategory20);
+                .range(d3.schemeCategory10);
 
             //新建一个力导向图
             var forceSimulation = d3.forceSimulation()
@@ -1696,7 +1676,7 @@ function DrawForce() {
                 .links(edges)
                 .distance(function (d) { //每一边的长度
                     // return d.value * 1;
-                    return valueScale(d.value) * 80;
+                    return valueScale(d.value) * 100;
                 })
             //设置图形的中心位置	
             forceSimulation.force("center")
@@ -1718,7 +1698,7 @@ function DrawForce() {
                     return colorScale(i);
                 })
                 .attr("stroke-width", (d, i) => {
-                    return widScale(d.value);
+                    return valueScale(d.value);
                 });
             var linksText = force_g.append("g")
                 .selectAll("text")

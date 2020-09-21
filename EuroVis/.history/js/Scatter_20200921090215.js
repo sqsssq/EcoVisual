@@ -15,7 +15,6 @@ var name_x = [];
 var k_in_num = 0;
 let glyphRader = 0;
 var kmain = new Array();
-var force_g = 0;
 // var main = 0;
 // var zoom = d3.behavior.zoom().scaleExtent([1, 8]).on("zoom", zoomed);
 
@@ -148,11 +147,6 @@ function DrawHeat() {
         if (glyphRader != 0) {
             glyphRader.remove();
             glyphRader = 0;
-        }
-
-        if (force_g != 0) {
-            force_g.remove();
-            force_g = 0;
         }
 
         data = HeatD
@@ -316,11 +310,6 @@ function ScatterPaint_gain_loss() {
                     kmain[i].remove();
                 }
                 kmain = new Array();
-            }
-
-            if (force_g != 0) {
-                force_g.remove();
-                force_g = 0;
             }
 
             // if (main != 0) {
@@ -1070,7 +1059,7 @@ function Rader(data, x, y, zoom) {
     let main = ssvg.append('g')
         .classed('main', true)
         .attr('transform', "translate(" + x + ',' + (y) + ')');
-    // console.log(data)
+    console.log(data)
     // 设定一些方便计算的常量
     var radius = 80 * zoom,
         linelen = 50 * zoom,
@@ -1339,11 +1328,6 @@ function DrawGlyph() {
                 kmain = new Array();
             }
 
-            if (force_g != 0) {
-                force_g.remove();
-                force_g = 0;
-            }
-
             heatmapInstance.setData({
                 max: 0,
                 data: []
@@ -1489,7 +1473,7 @@ function DrawGlyph() {
 DrawGlyph()
 
 function DrawForce() {
-    d3.json("data/ts/20200831db.json").then((coor) => {
+    d3.json("data/ts/20200831db.json").then((gdata) => {
         d3.csv('data/box_calc.csv').then((rectdata) => {
             // console.log(gdata);
             if (tcircle != 0) {
@@ -1501,6 +1485,7 @@ function DrawForce() {
                 r = 0;
             }
 
+
             if (kmain.length != 0) {
                 for (let i in kmain) {
                     kmain[i].remove();
@@ -1511,304 +1496,6 @@ function DrawForce() {
             if (glyphRader != 0) {
                 glyphRader.remove();
                 glyphRader = 0;
-            }
-
-            if (force_g != 0) {
-                force_g.remove();
-                force_g = 0;
-            }
-
-            force_g = ssvg.append('g');
-            
-            // console.log(coor)
-
-            let nodes = new Array();
-            for (let i = 0; i <= 24; ++i) {
-                nodes.push({
-                    name: i
-                });
-            }
-
-            let edges = new Array();
-            let ed = new Object();
-            for (let i = 0; i <= 24; ++i) {
-                for (let j = 0; j <= 24; ++j) {
-                    if (j >= i) {
-                        ed[i * 100 + j] = {
-                            source: i,
-                            target: j,
-                            relation: "",
-                            value: 0
-                        }
-                        ed[j * 100 + i] = ed[i * 100 + j];
-                    }
-                }
-            }
-
-            let nameData = new Object();
-            for (let i in coor) {
-                if (typeof (nameData[coor[i].id]) == 'undefined') {
-                    nameData[coor[i].id] = new Array();
-                }
-                nameData[coor[i].id].push(coor[i]);
-            }
-
-            for (let i in nameData) {
-                for (let j = 0; j < 19; ++j) {
-                    ed[nameData[i][j].label * 100 + nameData[i][j + 1].label].value++;
-                }
-            }
-
-            let valuemax = -1;
-            let valuemin = 9000;
-
-            for (let i = 0; i <= 24; ++i) {
-                for (let j = 0; j <= 24; ++j) {
-                    if (j >= i && ed[i * 100 + j].value != 0 && ed[i * 100 + j].value > 10) {
-                        if (valuemax < ed[i * 100 + j].value) {
-                            valuemax = ed[i * 100 + j].value;
-                        }
-                        if (valuemin > ed[i * 100 + j].value) {
-                            valuemin = ed[i * 100 + j].value;
-                        }
-                        // console.log(ed[i * 100 + j]);
-                        edges.push(ed[i * 100 + j])
-                    }
-                }
-            }
-
-            var valueScale = d3.scaleLinear()
-            .domain([valuemin, valuemax])
-            .range([5, 1]);
-
-            var widScale = d3.scaleLinear()
-            .domain([valuemin, valuemax])
-            .range([1, 10]);
-
-            //准备数据
-            // var nodes = [{
-            //         name: "湖南邵阳"
-            //     },
-            //     {
-            //         name: "山东莱州"
-            //     },
-            //     {
-            //         name: "广东阳江"
-            //     },
-            //     {
-            //         name: "山东枣庄"
-            //     },
-            //     {
-            //         name: "泽"
-            //     },
-            //     {
-            //         name: "恒"
-            //     },
-            //     {
-            //         name: "鑫"
-            //     },
-            //     {
-            //         name: "明山"
-            //     },
-            //     {
-            //         name: "班长"
-            //     }
-            // ];
-
-            // var edges = [{
-            //         source: 0,
-            //         target: 4,
-            //         relation: "籍贯",
-            //         value: 1.3
-            //     },
-            //     {
-            //         source: 4,
-            //         target: 5,
-            //         relation: "舍友",
-            //         value: 1
-            //     },
-            //     {
-            //         source: 4,
-            //         target: 6,
-            //         relation: "舍友",
-            //         value: 1
-            //     },
-            //     {
-            //         source: 4,
-            //         target: 7,
-            //         relation: "舍友",
-            //         value: 1
-            //     },
-            //     {
-            //         source: 1,
-            //         target: 6,
-            //         relation: "籍贯",
-            //         value: 2
-            //     },
-            //     {
-            //         source: 2,
-            //         target: 5,
-            //         relation: "籍贯",
-            //         value: 0.9
-            //     },
-            //     {
-            //         source: 3,
-            //         target: 7,
-            //         relation: "籍贯",
-            //         value: 1
-            //     },
-            //     {
-            //         source: 5,
-            //         target: 6,
-            //         relation: "同学",
-            //         value: 1.6
-            //     },
-            //     {
-            //         source: 6,
-            //         target: 7,
-            //         relation: "朋友",
-            //         value: 0.7
-            //     },
-            //     {
-            //         source: 6,
-            //         target: 8,
-            //         relation: "职责",
-            //         value: 2
-            //     }
-            // ];
-            //设置一个color的颜色比例尺，为了让不同的扇形呈现不同的颜色
-            var colorScale = d3.scaleOrdinal()
-                .domain(d3.range(nodes.length))
-                .range(d3.schemeCategory20);
-
-            //新建一个力导向图
-            var forceSimulation = d3.forceSimulation()
-                .force("link", d3.forceLink())
-                .force("charge", d3.forceManyBody())
-                .force("center", d3.forceCenter());;
-
-            //初始化力导向图，也就是传入数据
-            //生成节点数据
-            forceSimulation.nodes(nodes)
-                .on("tick", ticked); //这个函数很重要，后面给出具体实现和说明
-            //生成边数据
-            forceSimulation.force("link")
-                .links(edges)
-                .distance(function (d) { //每一边的长度
-                    // return d.value * 1;
-                    return valueScale(d.value) * 80;
-                })
-            //设置图形的中心位置	
-            forceSimulation.force("center")
-                .x(widtha / 2)
-                .y(heighta / 2);
-            //在浏览器的控制台输出
-            console.log(nodes);
-            console.log(edges);
-
-            //有了节点和边的数据后，我们开始绘制
-            //绘制边
-            var links = force_g.append("g")
-                .selectAll("line")
-                .data(edges)
-                .enter()
-                .append("line")
-                .attr("stroke", function (d, i) {
-                    // console.log(d)
-                    return colorScale(i);
-                })
-                .attr("stroke-width", (d, i) => {
-                    return widScale(d.value);
-                });
-            var linksText = force_g.append("g")
-                .selectAll("text")
-                .data(edges)
-                .enter()
-                .append("text")
-                .text(function (d) {
-                    return d.relation;
-                })
-
-            //绘制节点
-            //老规矩，先为节点和节点上的文字分组
-            var gs = force_g.selectAll(".circleText")
-                .data(nodes)
-                .enter()
-                .append("g")
-                .attr("transform", function (d, i) {
-                    var cirX = d.x;
-                    var cirY = d.y;
-                    return "translate(" + cirX + "," + cirY + ")";
-                })
-                .call(d3.drag()
-                    .on("start", started)
-                    .on("drag", dragged)
-                    .on("end", ended)
-                );
-
-            //绘制节点
-            gs.append("circle")
-                .attr("r", 10)
-                .attr("fill", function (d, i) {
-                    return colorScale(i);
-                })
-            //文字
-            gs.append("text")
-                .attr("x", -10)
-                .attr("y", -20)
-                .attr("dy", 10)
-                .text(function (d) {
-                    return d.name;
-                })
-
-            function ticked() {
-                links
-                    .attr("x1", function (d) {
-                        return d.source.x;
-                    })
-                    .attr("y1", function (d) {
-                        return d.source.y;
-                    })
-                    .attr("x2", function (d) {
-                        return d.target.x;
-                    })
-                    .attr("y2", function (d) {
-                        return d.target.y;
-                    });
-
-                linksText
-                    .attr("x", function (d) {
-                        return (d.source.x + d.target.x) / 2;
-                    })
-                    .attr("y", function (d) {
-                        return (d.source.y + d.target.y) / 2;
-                    });
-
-                gs
-                    .attr("transform", function (d) {
-                        return "translate(" + d.x + "," + d.y + ")";
-                    });
-            }
-
-            function started(d) {
-                if (!d3.event.active) {
-                    forceSimulation.alphaTarget(0.8).restart();
-                }
-                d.fx = d.x;
-                d.fy = d.y;
-            }
-
-            function dragged(d) {
-                d.fx = d3.event.x;
-                d.fy = d3.event.y;
-            }
-
-            function ended(d) {
-                if (!d3.event.active) {
-                    forceSimulation.alphaTarget(0);
-                }
-                d.fx = null;
-                d.fy = null;
             }
         })
     })

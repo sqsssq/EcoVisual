@@ -1486,7 +1486,7 @@ function DrawGlyph() {
 
     })
 }
-DrawGlyph()
+ScatterPaint_gain_loss()
 
 function DrawForce() {
     d3.json("data/ts/20200831db.json").then((coor) => {
@@ -1571,7 +1571,7 @@ function DrawForce() {
                         if (valuemin > ed[i * 100 + j].value) {
                             valuemin = ed[i * 100 + j].value;
                         }
-                        // console.log(ed[i * 100 + j]);
+                        console.log(ed[i * 100 + j]);
                         edges.push(ed[i * 100 + j])
                     }
                 }
@@ -1579,7 +1579,7 @@ function DrawForce() {
 
             var valueScale = d3.scaleLinear()
             .domain([valuemin, valuemax])
-            .range([5, 1]);
+            .range([10, 1]);
 
             var widScale = d3.scaleLinear()
             .domain([valuemin, valuemax])
@@ -1696,7 +1696,7 @@ function DrawForce() {
                 .links(edges)
                 .distance(function (d) { //每一边的长度
                     // return d.value * 1;
-                    return valueScale(d.value) * 80;
+                    return valueScale(d.value) * 100;
                 })
             //设置图形的中心位置	
             forceSimulation.force("center")

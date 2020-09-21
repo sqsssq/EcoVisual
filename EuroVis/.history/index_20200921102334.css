@@ -406,9 +406,8 @@ body {
 }
 .button-f {
     float: right;
-    /* color: black; */
+    color: black;
     height: 27px;
-    background-color: #0a3c75;
     /* position: absolute;
     top: 430px;
     left: 250px; */

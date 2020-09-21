@@ -150,11 +150,6 @@ function DrawHeat() {
             glyphRader = 0;
         }
 
-        if (force_g != 0) {
-            force_g.remove();
-            force_g = 0;
-        }
-
         data = HeatD
 
         var points = []
@@ -316,11 +311,6 @@ function ScatterPaint_gain_loss() {
                     kmain[i].remove();
                 }
                 kmain = new Array();
-            }
-
-            if (force_g != 0) {
-                force_g.remove();
-                force_g = 0;
             }
 
             // if (main != 0) {
@@ -1070,7 +1060,7 @@ function Rader(data, x, y, zoom) {
     let main = ssvg.append('g')
         .classed('main', true)
         .attr('transform', "translate(" + x + ',' + (y) + ')');
-    // console.log(data)
+    console.log(data)
     // 设定一些方便计算的常量
     var radius = 80 * zoom,
         linelen = 50 * zoom,
@@ -1339,11 +1329,6 @@ function DrawGlyph() {
                 kmain = new Array();
             }
 
-            if (force_g != 0) {
-                force_g.remove();
-                force_g = 0;
-            }
-
             heatmapInstance.setData({
                 max: 0,
                 data: []
@@ -1489,7 +1474,7 @@ function DrawGlyph() {
 DrawGlyph()
 
 function DrawForce() {
-    d3.json("data/ts/20200831db.json").then((coor) => {
+    d3.json("data/ts/20200831db.json").then((gdata) => {
         d3.csv('data/box_calc.csv').then((rectdata) => {
             // console.log(gdata);
             if (tcircle != 0) {
@@ -1519,167 +1504,102 @@ function DrawForce() {
             }
 
             force_g = ssvg.append('g');
-            
-            // console.log(coor)
-
-            let nodes = new Array();
-            for (let i = 0; i <= 24; ++i) {
-                nodes.push({
-                    name: i
-                });
-            }
-
-            let edges = new Array();
-            let ed = new Object();
-            for (let i = 0; i <= 24; ++i) {
-                for (let j = 0; j <= 24; ++j) {
-                    if (j >= i) {
-                        ed[i * 100 + j] = {
-                            source: i,
-                            target: j,
-                            relation: "",
-                            value: 0
-                        }
-                        ed[j * 100 + i] = ed[i * 100 + j];
-                    }
-                }
-            }
-
-            let nameData = new Object();
-            for (let i in coor) {
-                if (typeof (nameData[coor[i].id]) == 'undefined') {
-                    nameData[coor[i].id] = new Array();
-                }
-                nameData[coor[i].id].push(coor[i]);
-            }
-
-            for (let i in nameData) {
-                for (let j = 0; j < 19; ++j) {
-                    ed[nameData[i][j].label * 100 + nameData[i][j + 1].label].value++;
-                }
-            }
-
-            let valuemax = -1;
-            let valuemin = 9000;
-
-            for (let i = 0; i <= 24; ++i) {
-                for (let j = 0; j <= 24; ++j) {
-                    if (j >= i && ed[i * 100 + j].value != 0 && ed[i * 100 + j].value > 10) {
-                        if (valuemax < ed[i * 100 + j].value) {
-                            valuemax = ed[i * 100 + j].value;
-                        }
-                        if (valuemin > ed[i * 100 + j].value) {
-                            valuemin = ed[i * 100 + j].value;
-                        }
-                        // console.log(ed[i * 100 + j]);
-                        edges.push(ed[i * 100 + j])
-                    }
-                }
-            }
-
-            var valueScale = d3.scaleLinear()
-            .domain([valuemin, valuemax])
-            .range([5, 1]);
-
-            var widScale = d3.scaleLinear()
-            .domain([valuemin, valuemax])
-            .range([1, 10]);
 
             //准备数据
-            // var nodes = [{
-            //         name: "湖南邵阳"
-            //     },
-            //     {
-            //         name: "山东莱州"
-            //     },
-            //     {
-            //         name: "广东阳江"
-            //     },
-            //     {
-            //         name: "山东枣庄"
-            //     },
-            //     {
-            //         name: "泽"
-            //     },
-            //     {
-            //         name: "恒"
-            //     },
-            //     {
-            //         name: "鑫"
-            //     },
-            //     {
-            //         name: "明山"
-            //     },
-            //     {
-            //         name: "班长"
-            //     }
-            // ];
+            var nodes = [{
+                    name: "湖南邵阳"
+                },
+                {
+                    name: "山东莱州"
+                },
+                {
+                    name: "广东阳江"
+                },
+                {
+                    name: "山东枣庄"
+                },
+                {
+                    name: "泽"
+                },
+                {
+                    name: "恒"
+                },
+                {
+                    name: "鑫"
+                },
+                {
+                    name: "明山"
+                },
+                {
+                    name: "班长"
+                }
+            ];
 
-            // var edges = [{
-            //         source: 0,
-            //         target: 4,
-            //         relation: "籍贯",
-            //         value: 1.3
-            //     },
-            //     {
-            //         source: 4,
-            //         target: 5,
-            //         relation: "舍友",
-            //         value: 1
-            //     },
-            //     {
-            //         source: 4,
-            //         target: 6,
-            //         relation: "舍友",
-            //         value: 1
-            //     },
-            //     {
-            //         source: 4,
-            //         target: 7,
-            //         relation: "舍友",
-            //         value: 1
-            //     },
-            //     {
-            //         source: 1,
-            //         target: 6,
-            //         relation: "籍贯",
-            //         value: 2
-            //     },
-            //     {
-            //         source: 2,
-            //         target: 5,
-            //         relation: "籍贯",
-            //         value: 0.9
-            //     },
-            //     {
-            //         source: 3,
-            //         target: 7,
-            //         relation: "籍贯",
-            //         value: 1
-            //     },
-            //     {
-            //         source: 5,
-            //         target: 6,
-            //         relation: "同学",
-            //         value: 1.6
-            //     },
-            //     {
-            //         source: 6,
-            //         target: 7,
-            //         relation: "朋友",
-            //         value: 0.7
-            //     },
-            //     {
-            //         source: 6,
-            //         target: 8,
-            //         relation: "职责",
-            //         value: 2
-            //     }
-            // ];
+            var edges = [{
+                    source: 0,
+                    target: 4,
+                    relation: "籍贯",
+                    value: 1.3
+                },
+                {
+                    source: 4,
+                    target: 5,
+                    relation: "舍友",
+                    value: 1
+                },
+                {
+                    source: 4,
+                    target: 6,
+                    relation: "舍友",
+                    value: 1
+                },
+                {
+                    source: 4,
+                    target: 7,
+                    relation: "舍友",
+                    value: 1
+                },
+                {
+                    source: 1,
+                    target: 6,
+                    relation: "籍贯",
+                    value: 2
+                },
+                {
+                    source: 2,
+                    target: 5,
+                    relation: "籍贯",
+                    value: 0.9
+                },
+                {
+                    source: 3,
+                    target: 7,
+                    relation: "籍贯",
+                    value: 1
+                },
+                {
+                    source: 5,
+                    target: 6,
+                    relation: "同学",
+                    value: 1.6
+                },
+                {
+                    source: 6,
+                    target: 7,
+                    relation: "朋友",
+                    value: 0.7
+                },
+                {
+                    source: 6,
+                    target: 8,
+                    relation: "职责",
+                    value: 2
+                }
+            ];
             //设置一个color的颜色比例尺，为了让不同的扇形呈现不同的颜色
             var colorScale = d3.scaleOrdinal()
                 .domain(d3.range(nodes.length))
-                .range(d3.schemeCategory20);
+                .range(d3.schemeCategory10);
 
             //新建一个力导向图
             var forceSimulation = d3.forceSimulation()
@@ -1695,8 +1615,7 @@ function DrawForce() {
             forceSimulation.force("link")
                 .links(edges)
                 .distance(function (d) { //每一边的长度
-                    // return d.value * 1;
-                    return valueScale(d.value) * 80;
+                    return d.value * 300;
                 })
             //设置图形的中心位置	
             forceSimulation.force("center")
@@ -1717,9 +1636,7 @@ function DrawForce() {
                     // console.log(d)
                     return colorScale(i);
                 })
-                .attr("stroke-width", (d, i) => {
-                    return widScale(d.value);
-                });
+                .attr("stroke-width", 1);
             var linksText = force_g.append("g")
                 .selectAll("text")
                 .data(edges)
