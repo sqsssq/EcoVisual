@@ -1067,7 +1067,6 @@ function getColor(idx) {
 }
 
 function Rader(data, x, y, zoom) {
-    // console.log(number)
     let main = ssvg.append('g')
         .classed('main', true)
         .attr('transform', "translate(" + x + ',' + (y) + ')');
@@ -1214,26 +1213,6 @@ function Rader(data, x, y, zoom) {
             })
             .attr('fill', function (d, index) {
                 return getColor(i);
-            })
-            .on('mouseover', (d, i) => {
-                console.log(data);
-                var nameDict = new Object();
-                for (let i in data.people) {
-                    if (data.people[i].l == number)
-                        nameDict[data.people[i].id] = 1;
-                }
-                for (let i in PeoLine) {
-                    // console.log(i);
-                    if (nameDict[i] != 1)
-                    PeoLine[i].attr("opacity", 0);
-                }
-            })
-            .on('mouseout', (d, i) => {
-                for (let i in PeoLine) {
-                    // console.log(i);
-                    // if (nameDict[i] != 1)
-                    PeoLine[i].attr("opacity", 1);
-                }
             })
         // 绘制雷达图区域下的点 
         // var circles = area.append('g')
@@ -1505,8 +1484,7 @@ function DrawGlyph() {
                         [0, 0, 0, 0],
                         [0, 0, 0, 0],
                         [0, 0, 0, 0]
-                    ],
-                    people: new Array()
+                    ]
                 })
             }
 
@@ -1519,11 +1497,9 @@ function DrawGlyph() {
                 for (let j = 1; j <= 7; ++j) {
                     dicpos[gdata[i].label].deci[j][parseInt(rectdata[i][j])]++;
                 }
-                dicpos[gdata[i].label].people.push(gdata[i]);
             }
 
-            // console.log(dicpos[1]);
-
+            // console.log(dicpos);
             let mainmin = 99999;
             let mainmax = 0;
 
@@ -1595,8 +1571,7 @@ function DrawGlyph() {
                 var kdata = {
                     fieldNames: ['wealth', 'work', 'health', 'insurance', 'loan', 'investment', 'risk'],
                     values: [v],
-                    vlen: vlen,
-                    people: dicpos[i].people
+                    vlen: vlen
                 }
                 // console.log(v);
                 kmain.push(Rader(kdata, Math.round(xScale(dicpos[i].x_avg), 5), Math.round(yScale(dicpos[i].y_avg), 5), linescale(dicpos[i].cnt)));
@@ -1639,10 +1614,6 @@ function DrawForce() {
                 force_g.remove();
                 force_g = 0;
             }
-            heatmapInstance.setData({
-                max: 0,
-                data: []
-            });
 
             force_g = ssvg.append('g');
 

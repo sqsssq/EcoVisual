@@ -1219,20 +1219,11 @@ function Rader(data, x, y, zoom) {
                 console.log(data);
                 var nameDict = new Object();
                 for (let i in data.people) {
-                    if (data.people[i].l == number)
-                        nameDict[data.people[i].id] = 1;
+                    // if (data.people[i])
+                    nameDict[data.people[i].id] = 1;
                 }
                 for (let i in PeoLine) {
-                    // console.log(i);
-                    if (nameDict[i] != 1)
-                    PeoLine[i].attr("opacity", 0);
-                }
-            })
-            .on('mouseout', (d, i) => {
-                for (let i in PeoLine) {
-                    // console.log(i);
-                    // if (nameDict[i] != 1)
-                    PeoLine[i].attr("opacity", 1);
+                    console.log(i);
                 }
             })
         // 绘制雷达图区域下的点 

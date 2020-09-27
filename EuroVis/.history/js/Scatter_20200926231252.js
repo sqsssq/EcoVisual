@@ -1228,13 +1228,7 @@ function Rader(data, x, y, zoom) {
                     PeoLine[i].attr("opacity", 0);
                 }
             })
-            .on('mouseout', (d, i) => {
-                for (let i in PeoLine) {
-                    // console.log(i);
-                    // if (nameDict[i] != 1)
-                    PeoLine[i].attr("opacity", 1);
-                }
-            })
+            
         // 绘制雷达图区域下的点 
         // var circles = area.append('g')
         //     .classed('circles', true);

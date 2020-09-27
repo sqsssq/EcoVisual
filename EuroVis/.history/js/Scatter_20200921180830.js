@@ -126,7 +126,7 @@ function DrawHeat() {
     //     heatmapInstance.remove();
     //     heatmapInstance = 0;
     // }
-    d3.json('data/ts/20200831db.json').then((HeatD) => {
+    d3.json('data/ts/alldriving.json').then((HeatD) => {
         // console.log(HeatD)
 
         if (tcircle != 0) {
@@ -1067,7 +1067,6 @@ function getColor(idx) {
 }
 
 function Rader(data, x, y, zoom) {
-    // console.log(number)
     let main = ssvg.append('g')
         .classed('main', true)
         .attr('transform', "translate(" + x + ',' + (y) + ')');
@@ -1201,81 +1200,59 @@ function Rader(data, x, y, zoom) {
         });
 
     // TODO: Rader area 重画雷达区域
-    for (var i = 0; i < areasData.length; i++) {
-        // 依次循环每个雷达图区域
-        var area = areas.select('.area' + (i + 1)),
-            areaData = areasData[i];
-        // 绘制雷达图区域下的多边形
-        // console.log(areaData)
-        area.append('polygon')
-            .attr('points', areaData.polygon)
-            .attr('stroke', function (d, index) {
-                return getColor(i);
-            })
-            .attr('fill', function (d, index) {
-                return getColor(i);
-            })
-            .on('mouseover', (d, i) => {
-                console.log(data);
-                var nameDict = new Object();
-                for (let i in data.people) {
-                    if (data.people[i].l == number)
-                        nameDict[data.people[i].id] = 1;
-                }
-                for (let i in PeoLine) {
-                    // console.log(i);
-                    if (nameDict[i] != 1)
-                    PeoLine[i].attr("opacity", 0);
-                }
-            })
-            .on('mouseout', (d, i) => {
-                for (let i in PeoLine) {
-                    // console.log(i);
-                    // if (nameDict[i] != 1)
-                    PeoLine[i].attr("opacity", 1);
-                }
-            })
-        // 绘制雷达图区域下的点 
-        // var circles = area.append('g')
-        //     .classed('circles', true);
-        // circles.selectAll('circle')
-        //     .data(areaData.points)
-        //     .enter()
-        //     .append('circle')
-        //     .attr('cx', function (d) {
-        //         return d.x;
-        //     })
-        //     .attr('cy', function (d) {
-        //         return d.y;
-        //     })
-        //     .attr('r', 2)
-        //     .attr('stroke-width', 0.3)
-        //     .attr('stroke', function (d, index) {
-        //         return getColor(i);
-        //     });
-    }
+    // for (var i = 0; i < areasData.length; i++) {
+    //     // 依次循环每个雷达图区域
+    //     var area = areas.select('.area' + (i + 1)),
+    //         areaData = areasData[i];
+    //     // 绘制雷达图区域下的多边形
+    //     // console.log(areaData)
+    //     area.append('polygon')
+    //         .attr('points', areaData.polygon)
+    //         .attr('stroke', function (d, index) {
+    //             return getColor(i);
+    //         })
+    //         .attr('fill', function (d, index) {
+    //             return getColor(i);
+    //         })
+    //     // 绘制雷达图区域下的点 
+    //     // var circles = area.append('g')
+    //     //     .classed('circles', true);
+    //     // circles.selectAll('circle')
+    //     //     .data(areaData.points)
+    //     //     .enter()
+    //     //     .append('circle')
+    //     //     .attr('cx', function (d) {
+    //     //         return d.x;
+    //     //     })
+    //     //     .attr('cy', function (d) {
+    //     //         return d.y;
+    //     //     })
+    //     //     .attr('r', 2)
+    //     //     .attr('stroke-width', 0.3)
+    //     //     .attr('stroke', function (d, index) {
+    //     //         return getColor(i);
+    //     //     });
+    // }
 
 
     var liner = main.append('g')
 
     var line_generator= d3.line()
     .x(function (d,i) {
-        return d.x;
+        return scale_x(i);
     })
     .y(function (d) {
-        return (d.y);
+        return scale_y(d);
     })
     .curve(d3.curveMonotoneX)
 
     var area_generator= d3.area()
     .x(function (d,i) {
-        return (d.x);
+        return scale_x(i);
     })
-    .y0(function (d, i) {
-        return d.y0;
-    })
+    .y0(g_height)
     .y1(function (d) {
-        return (d.y);
+        return scale_y(d);
     })
     .curve(d3.curveMonotoneX)
 
@@ -1284,20 +1261,18 @@ function Rader(data, x, y, zoom) {
         var line_area_dataA = new Array();
         var line_area_dataB = new Array();
 
-        // if (i == 1 || i == 2) {
+        if (i == 1 || i == 2) {
             for (k = level; k > 0; k--) {
                 var r = radius / level * (k - 0.5);
                 var x = r * Math.sin(i * onePiece),
                     y = r * Math.cos(i * onePiece);
                 line_area_dataA.push({
                     x: x,
-                    y: y,
-                    y0: y
+                    y: y
                 });
                 line_area_dataB.push({
                     x: x,
-                    y: y,
-                    y0: y
+                    y: y
                 })
             }
 
@@ -1306,13 +1281,11 @@ function Rader(data, x, y, zoom) {
                 y = r * Math.cos(i * onePiece);
             line_area_dataA.push({
                 x: x,
-                y: y,
-                y0: y
+                y: y
             });
             line_area_dataB.push({
                 x: x,
-                y: y,
-                y0: y
+                y: y
             })
 
             for (var k = level; k > 0; k--) {
@@ -1332,14 +1305,14 @@ function Rader(data, x, y, zoom) {
                     x_ = 0,
                     y_ = 0;
                 if (i == 0) {
-                    // liner.append('line')
-                    //     .attr('x1', x - len)
-                    //     .attr('y1', y)
-                    //     .attr('x2', x + len)
-                    //     .attr('y2', y)
-                    //     .attr('fill', 'none')
-                    //     .attr('stroke', getColor(k))
-                    //     .attr('stroke-width', lineWid);
+                    liner.append('line')
+                        .attr('x1', x - len)
+                        .attr('y1', y)
+                        .attr('x2', x + len)
+                        .attr('y2', y)
+                        .attr('fill', 'none')
+                        .attr('stroke', getColor(k))
+                        .attr('stroke-width', lineWid);
                 } else {
                     y_ = len * Math.abs(x) / Math.sqrt(x * x + y * y);
                     x_ = len * Math.abs(y) / Math.sqrt(x * x + y * y);
@@ -1351,26 +1324,24 @@ function Rader(data, x, y, zoom) {
                     } else if (x < 0 && y < 0) {
                         y_ = -y_;
                     }
-                    // liner.append('line')
-                    //     .attr('x1', x - x_)
-                    //     .attr('y1', y - y_)
-                    //     .attr('x2', x + x_)
-                    //     .attr('y2', y + y_)
-                    //     .attr('fill', 'none')
-                    //     .attr('stroke', getColor(k))
-                    //     .attr('stroke-width', lineWid);
+                    liner.append('line')
+                        .attr('x1', x - x_)
+                        .attr('y1', y - y_)
+                        .attr('x2', x + x_)
+                        .attr('y2', y + y_)
+                        .attr('fill', 'none')
+                        .attr('stroke', getColor(k))
+                        .attr('stroke-width', lineWid);
                     line_area_dataA.push({
                         x: x + x_,
-                        y: y + y_,
-                        y0: y
+                        y: y + y_
                     });
                     line_area_dataB.push({
                         x: x - x_,
-                        y: y - y_,
-                        y0: y
+                        y: y - y_
                     });
                 }
-            // }
+            }
         }
 
         line_area_dataA.sort((a, b) => {
@@ -1381,28 +1352,11 @@ function Rader(data, x, y, zoom) {
             return a.x - b.x;
         })
 
-        // liner.append('path')
-        // .attr('d', area_generator(line_area_dataA))
-        // .attr('fill', 'steelblue');
+        liner.append('path')
+        .attr('d', area_generator(line_area_dataA))
+        .attr('fill', 'steelblue');
 
-        // liner.append('path')
-        // .attr('d', area_generator(line_area_dataB))
-        // .attr('fill', 'steelblue');
-
-        // liner.append('path')
-        // .attr('d', line_generator(line_area_dataA))
-        // .attr('fill', 'node')
-        // .attr('stroke', 'black')
-        // .attr('stroke-width', 1);
-
-        // liner.append('path')
-        // .attr('d', line_generator(line_area_dataB))
-        // .attr('fill', 'node')
-        // .attr('stroke', 'black')
-        // .attr('stroke-width', 1);
-        // console.log(line_area_dataA)
-
-
+        console.log(line_area_dataA)
         // polygons.webs.push(webs);
         // polygons.webPoints.push(webPoints);
     }
@@ -1505,8 +1459,7 @@ function DrawGlyph() {
                         [0, 0, 0, 0],
                         [0, 0, 0, 0],
                         [0, 0, 0, 0]
-                    ],
-                    people: new Array()
+                    ]
                 })
             }
 
@@ -1519,11 +1472,9 @@ function DrawGlyph() {
                 for (let j = 1; j <= 7; ++j) {
                     dicpos[gdata[i].label].deci[j][parseInt(rectdata[i][j])]++;
                 }
-                dicpos[gdata[i].label].people.push(gdata[i]);
             }
 
-            // console.log(dicpos[1]);
-
+            // console.log(dicpos);
             let mainmin = 99999;
             let mainmax = 0;
 
@@ -1595,14 +1546,13 @@ function DrawGlyph() {
                 var kdata = {
                     fieldNames: ['wealth', 'work', 'health', 'insurance', 'loan', 'investment', 'risk'],
                     values: [v],
-                    vlen: vlen,
-                    people: dicpos[i].people
+                    vlen: vlen
                 }
                 // console.log(v);
                 kmain.push(Rader(kdata, Math.round(xScale(dicpos[i].x_avg), 5), Math.round(yScale(dicpos[i].y_avg), 5), linescale(dicpos[i].cnt)));
                 // console.log(Math.round(xScale(dicpos[i].y_avg), 5));
                 // Rader(data, Math.round(xScale(dicpos[i].x_avg), 5), 0);
-                // break;
+                break;
             }
         })
 
@@ -1639,10 +1589,6 @@ function DrawForce() {
                 force_g.remove();
                 force_g = 0;
             }
-            heatmapInstance.setData({
-                max: 0,
-                data: []
-            });
 
             force_g = ssvg.append('g');
 

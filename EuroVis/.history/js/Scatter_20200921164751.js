@@ -126,7 +126,7 @@ function DrawHeat() {
     //     heatmapInstance.remove();
     //     heatmapInstance = 0;
     // }
-    d3.json('data/ts/20200831db.json').then((HeatD) => {
+    d3.json('data/ts/alldriving.json').then((HeatD) => {
         // console.log(HeatD)
 
         if (tcircle != 0) {
@@ -1067,7 +1067,6 @@ function getColor(idx) {
 }
 
 function Rader(data, x, y, zoom) {
-    // console.log(number)
     let main = ssvg.append('g')
         .classed('main', true)
         .attr('transform', "translate(" + x + ',' + (y) + ')');
@@ -1095,7 +1094,7 @@ function Rader(data, x, y, zoom) {
     for (var k = level; k > 0; k--) {
         var webs = '',
             webPoints = [];
-        var r = (radius * 7 / 6) / level * k;
+        var r = radius / level * k;
         for (var i = 0; i < total; i++) {
             var x = r * Math.sin(i * onePiece),
                 y = r * Math.cos(i * onePiece);
@@ -1199,8 +1198,6 @@ function Rader(data, x, y, zoom) {
         .attr('class', function (d, i) {
             return 'area' + (i + 1);
         });
-
-    // TODO: Rader area 重画雷达区域
     for (var i = 0; i < areasData.length; i++) {
         // 依次循环每个雷达图区域
         var area = areas.select('.area' + (i + 1)),
@@ -1214,26 +1211,6 @@ function Rader(data, x, y, zoom) {
             })
             .attr('fill', function (d, index) {
                 return getColor(i);
-            })
-            .on('mouseover', (d, i) => {
-                console.log(data);
-                var nameDict = new Object();
-                for (let i in data.people) {
-                    if (data.people[i].l == number)
-                        nameDict[data.people[i].id] = 1;
-                }
-                for (let i in PeoLine) {
-                    // console.log(i);
-                    if (nameDict[i] != 1)
-                    PeoLine[i].attr("opacity", 0);
-                }
-            })
-            .on('mouseout', (d, i) => {
-                for (let i in PeoLine) {
-                    // console.log(i);
-                    // if (nameDict[i] != 1)
-                    PeoLine[i].attr("opacity", 1);
-                }
             })
         // 绘制雷达图区域下的点 
         // var circles = area.append('g')
@@ -1258,151 +1235,56 @@ function Rader(data, x, y, zoom) {
 
     var liner = main.append('g')
 
-    var line_generator= d3.line()
-    .x(function (d,i) {
-        return d.x;
-    })
-    .y(function (d) {
-        return (d.y);
-    })
-    .curve(d3.curveMonotoneX)
+    for (var k = level; k > 0; k--) {
+        var webs = '',
+            webPoints = [];
+        var r = radius / level * k;
 
-    var area_generator= d3.area()
-    .x(function (d,i) {
-        return (d.x);
-    })
-    .y0(function (d, i) {
-        return d.y0;
-    })
-    .y1(function (d) {
-        return (d.y);
-    })
-    .curve(d3.curveMonotoneX)
-
-    for (var i = 0; i < total; i++) {
-        var line_sum = 0;
-        var line_area_dataA = new Array();
-        var line_area_dataB = new Array();
-
-        // if (i == 1 || i == 2) {
-            for (k = level; k > 0; k--) {
-                var r = radius / level * (k - 0.5);
-                var x = r * Math.sin(i * onePiece),
-                    y = r * Math.cos(i * onePiece);
-                line_area_dataA.push({
-                    x: x,
-                    y: y,
-                    y0: y
-                });
-                line_area_dataB.push({
-                    x: x,
-                    y: y,
-                    y0: y
-                })
+        for (var i = 0; i < total; i++) {
+            var line_sum = 0;
+            for (var j = 0; j < level; ++j) {
+                line_sum += data.vlen[i][j];
             }
-
-            var r = radius / level * (3 + 0.5);
             var x = r * Math.sin(i * onePiece),
                 y = r * Math.cos(i * onePiece);
-            line_area_dataA.push({
-                x: x,
-                y: y,
-                y0: y
-            });
-            line_area_dataB.push({
-                x: x,
-                y: y,
-                y0: y
-            })
-
-            for (var k = level; k > 0; k--) {
-                var r = radius / level * k;
-
-                for (var j = 0; j < level; ++j) {
-                    line_sum += data.vlen[i][j];
+            // webs += x + ',' + y + ' ';
+            // webPoints.push({
+            //     x: x,
+            //     y: y
+            // });
+            let len = linelen / 2 * (data.vlen[i][3 - k] / line_sum),
+                x_ = 0,
+                y_ = 0;
+            if (i == 0) {
+                liner.append('line')
+                    .attr('x1', x - len)
+                    .attr('y1', y)
+                    .attr('x2', x + len)
+                    .attr('y2', y)
+                    .attr('fill', 'none')
+                    .attr('stroke', getColor(k))
+                    .attr('stroke-width', lineWid);
+            } else {
+                y_ = len * Math.abs(x) / Math.sqrt(x * x + y * y);
+                x_ = len * Math.abs(y) / Math.sqrt(x * x + y * y);
+                if (x > 0 && y > 0) {
+                    x_ = -x_;
+                } else if (x < 0 && y > 0) {
+                    x_ = -x_;
+                    y_ = -y_;
+                } else if (x < 0 && y < 0) {
+                    y_ = -y_;
                 }
-                var x = r * Math.sin(i * onePiece),
-                    y = r * Math.cos(i * onePiece);
-                // webs += x + ',' + y + ' ';
-                // webPoints.push({
-                //     x: x,
-                //     y: y
-                // });
-                let len = linelen / 2 * (data.vlen[i][3 - k] / line_sum),
-                    x_ = 0,
-                    y_ = 0;
-                if (i == 0) {
-                    // liner.append('line')
-                    //     .attr('x1', x - len)
-                    //     .attr('y1', y)
-                    //     .attr('x2', x + len)
-                    //     .attr('y2', y)
-                    //     .attr('fill', 'none')
-                    //     .attr('stroke', getColor(k))
-                    //     .attr('stroke-width', lineWid);
-                } else {
-                    y_ = len * Math.abs(x) / Math.sqrt(x * x + y * y);
-                    x_ = len * Math.abs(y) / Math.sqrt(x * x + y * y);
-                    if (x > 0 && y > 0) {
-                        x_ = -x_;
-                    } else if (x < 0 && y > 0) {
-                        x_ = -x_;
-                        y_ = -y_;
-                    } else if (x < 0 && y < 0) {
-                        y_ = -y_;
-                    }
-                    // liner.append('line')
-                    //     .attr('x1', x - x_)
-                    //     .attr('y1', y - y_)
-                    //     .attr('x2', x + x_)
-                    //     .attr('y2', y + y_)
-                    //     .attr('fill', 'none')
-                    //     .attr('stroke', getColor(k))
-                    //     .attr('stroke-width', lineWid);
-                    line_area_dataA.push({
-                        x: x + x_,
-                        y: y + y_,
-                        y0: y
-                    });
-                    line_area_dataB.push({
-                        x: x - x_,
-                        y: y - y_,
-                        y0: y
-                    });
-                }
-            // }
+                liner.append('line')
+                    .attr('x1', x - x_)
+                    .attr('y1', y - y_)
+                    .attr('x2', x + x_)
+                    .attr('y2', y + y_)
+                    .attr('fill', 'none')
+                    .attr('stroke', getColor(k))
+                    .attr('stroke-width', lineWid);
+            }
         }
-
-        line_area_dataA.sort((a, b) => {
-            return a.x - b.x;
-        })
-
-        line_area_dataB.sort((a, b) => {
-            return a.x - b.x;
-        })
-
-        // liner.append('path')
-        // .attr('d', area_generator(line_area_dataA))
-        // .attr('fill', 'steelblue');
-
-        // liner.append('path')
-        // .attr('d', area_generator(line_area_dataB))
-        // .attr('fill', 'steelblue');
-
-        // liner.append('path')
-        // .attr('d', line_generator(line_area_dataA))
-        // .attr('fill', 'node')
-        // .attr('stroke', 'black')
-        // .attr('stroke-width', 1);
-
-        // liner.append('path')
-        // .attr('d', line_generator(line_area_dataB))
-        // .attr('fill', 'node')
-        // .attr('stroke', 'black')
-        // .attr('stroke-width', 1);
-        // console.log(line_area_dataA)
-
-
         // polygons.webs.push(webs);
         // polygons.webPoints.push(webPoints);
     }
@@ -1505,8 +1387,7 @@ function DrawGlyph() {
                         [0, 0, 0, 0],
                         [0, 0, 0, 0],
                         [0, 0, 0, 0]
-                    ],
-                    people: new Array()
+                    ]
                 })
             }
 
@@ -1519,11 +1400,9 @@ function DrawGlyph() {
                 for (let j = 1; j <= 7; ++j) {
                     dicpos[gdata[i].label].deci[j][parseInt(rectdata[i][j])]++;
                 }
-                dicpos[gdata[i].label].people.push(gdata[i]);
             }
 
-            // console.log(dicpos[1]);
-
+            // console.log(dicpos);
             let mainmin = 99999;
             let mainmax = 0;
 
@@ -1595,8 +1474,7 @@ function DrawGlyph() {
                 var kdata = {
                     fieldNames: ['wealth', 'work', 'health', 'insurance', 'loan', 'investment', 'risk'],
                     values: [v],
-                    vlen: vlen,
-                    people: dicpos[i].people
+                    vlen: vlen
                 }
                 // console.log(v);
                 kmain.push(Rader(kdata, Math.round(xScale(dicpos[i].x_avg), 5), Math.round(yScale(dicpos[i].y_avg), 5), linescale(dicpos[i].cnt)));
@@ -1639,13 +1517,9 @@ function DrawForce() {
                 force_g.remove();
                 force_g = 0;
             }
-            heatmapInstance.setData({
-                max: 0,
-                data: []
-            });
 
             force_g = ssvg.append('g');
-
+            
             // console.log(coor)
 
             let nodes = new Array();
@@ -1704,12 +1578,12 @@ function DrawForce() {
             }
 
             var valueScale = d3.scaleLinear()
-                .domain([valuemin, valuemax])
-                .range([5, 1]);
+            .domain([valuemin, valuemax])
+            .range([5, 1]);
 
             var widScale = d3.scaleLinear()
-                .domain([valuemin, valuemax])
-                .range([1, 10]);
+            .domain([valuemin, valuemax])
+            .range([1, 10]);
 
             //准备数据
             // var nodes = [{
