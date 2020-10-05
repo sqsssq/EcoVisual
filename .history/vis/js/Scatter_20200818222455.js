@@ -12,7 +12,7 @@ var ScattermyChart;
 
 var name_x = [];
 
-var k_in_num = 0;
+var k_in_num = 0
 // var zoom = d3.behavior.zoom().scaleExtent([1, 8]).on("zoom", zoomed);
 
 // function zoomed() {

@@ -473,14 +473,13 @@ var LinePaint = function (path, dia, color) {
                 })
             }
 
-            // scatterline(d.code);
+            scatterline(d.code);
 
             for (let kname in PeoLine) {
                 if (kname != d.code) {
                     PeoLine[kname].attr("stroke-opacity", 0);
                 } else {
                     PeoLine[kname].attr("stroke-opacity", 1);
-                    PeoCir[kname].attr('fill-opacity', 1);
                 }
             }
             // rect_line.attr('opacity', (x, y) => {
@@ -528,7 +527,6 @@ var LinePaint = function (path, dia, color) {
                 //     PeoLine[kname].attr("stroke-opacity", 0);
                 // } else {
                 PeoLine[kname].attr("stroke-opacity", 0.1);
-                PeoCir[kname].attr('fill-opacity', 0);
                 // }
             }
             

@@ -1250,21 +1250,12 @@ function Rader(data, x, y, zoom) {
     var nameDictIn = new Object();
     for (let i in data.people) {
         // if (data.people[i].l == number)
-        if (typeof (nameDictIn[data.people[i].id]) == "undefined") {
+        if (typeof (nameDictIn[data.people[i].id]) == "undefinded") {
             nameDictIn[data.people[i].id] = new Object();
         }
-        // console.log(nameDictIn[data.people[i].id]);
         nameDictIn[data.people[i].id][parseInt(data.people[i]['l']) - 1] = 1;
         nameDict[data.people[i].id] = 1;
     }
-
-    var p_name_cnt = 0;
-
-    for (let i in PeoLine) {
-        nameNum[i] = p_name_cnt;
-        p_name_cnt++;
-    }
-    console.log(nameDictIn)
 
     // TODO: Rader area 重画雷达区域
     for (var i = 0; i < areasData.length; i++) {
@@ -1282,22 +1273,12 @@ function Rader(data, x, y, zoom) {
                 return getColor(i);
             })
             .on('mouseover', (d, i) => {
-                // console.log(data);
+                console.log(data);
                 for (let i in PeoLine) {
                     // console.log(i);
                     if (nameDict[i] != 1) {
                         PeoLine[i].attr("opacity", 0);
                     }
-                }
-                for (let k in nameDict) {
-                    PeoCir[k].attr('fill-opacity', (d, i) => {
-                        if (nameDictIn[k][i] == 1) {
-                            // console.log(i);
-                            return 1;
-                        } else {
-                            return 0;
-                        }
-                    })
                 }
             })
             .on('mouseout', (d, i) => {
@@ -1305,7 +1286,6 @@ function Rader(data, x, y, zoom) {
                     // console.log(i);
                     // if (nameDict[i] != 1)
                     PeoLine[i].attr("opacity", 1);
-                    PeoCir[i].attr('fill-opacity', 0);
                 }
             })
         // 绘制雷达图区域下的点 

@@ -473,14 +473,13 @@ var LinePaint = function (path, dia, color) {
                 })
             }
 
-            // scatterline(d.code);
+            scatterline(d.code);
 
             for (let kname in PeoLine) {
                 if (kname != d.code) {
                     PeoLine[kname].attr("stroke-opacity", 0);
                 } else {
                     PeoLine[kname].attr("stroke-opacity", 1);
-                    PeoCir[kname].attr('fill-opacity', 1);
                 }
             }
             // rect_line.attr('opacity', (x, y) => {
@@ -528,16 +527,15 @@ var LinePaint = function (path, dia, color) {
                 //     PeoLine[kname].attr("stroke-opacity", 0);
                 // } else {
                 PeoLine[kname].attr("stroke-opacity", 0.1);
-                PeoCir[kname].attr('fill-opacity', 0);
                 // }
             }
             
-            // scatterlinein.attr('fill-opacity', 0);
-            // if (scatterlinein != 0) {
-            //     scatterlinein.attr('fill-opacity', 0);
-            //     scatterlinein.remove();
-            //     scatterlinein = 0;
-            // }
+            scatterlinein.attr('fill-opacity', 0);
+            if (scatterlinein != 0) {
+                scatterlinein.attr('fill-opacity', 0);
+                scatterlinein.remove();
+                scatterlinein = 0;
+            }
             // if (select_name.length == 0)
             //     rect_line.attr('opacity', 1);
             // else {
@@ -561,21 +559,20 @@ var LinePaint = function (path, dia, color) {
             //     //     })
             //     // }
         })
-    .on('click', (d, i) => {
-        console.log(d);
-        // if (select_name.length == 0)
-        //     select_name.push(d.code);
-        // else {
-        //     if (d_num == 1) {
-        //         select_name.push(d.code);
-        //     } else {
-        //         select_name[0] = d.code;
-        //     }
-        // }
-        // Paintjudge_2(select_name);
-        // scatterline(select_name[0]);
-        scatterline(d.code);
-    })
+    // .on('click', (d, i) => {
+    //     console.log(d);
+    //     if (select_name.length == 0)
+    //         select_name.push(d.code);
+    //     else {
+    //         if (d_num == 1) {
+    //             select_name.push(d.code);
+    //         } else {
+    //             select_name[0] = d.code;
+    //         }
+    //     }
+    //     Paintjudge_2(select_name);
+    //     scatterline(select_name[0]);
+    // })
 
 }
 

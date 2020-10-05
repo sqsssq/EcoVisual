@@ -1290,12 +1290,10 @@ function Rader(data, x, y, zoom) {
                     }
                 }
                 for (let k in nameDict) {
-                    PeoCir[k].attr('fill-opacity', (d, i) => {
+                    PeoCir[k].attr('opacity', (d, i) => {
+                        console.log(i);
                         if (nameDictIn[k][i] == 1) {
-                            // console.log(i);
                             return 1;
-                        } else {
-                            return 0;
                         }
                     })
                 }
@@ -1305,7 +1303,6 @@ function Rader(data, x, y, zoom) {
                     // console.log(i);
                     // if (nameDict[i] != 1)
                     PeoLine[i].attr("opacity", 1);
-                    PeoCir[i].attr('fill-opacity', 0);
                 }
             })
         // 绘制雷达图区域下的点 

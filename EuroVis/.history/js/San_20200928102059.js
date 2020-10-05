@@ -473,14 +473,13 @@ var LinePaint = function (path, dia, color) {
                 })
             }
 
-            // scatterline(d.code);
+            scatterline(d.code);
 
             for (let kname in PeoLine) {
                 if (kname != d.code) {
                     PeoLine[kname].attr("stroke-opacity", 0);
                 } else {
                     PeoLine[kname].attr("stroke-opacity", 1);
-                    PeoCir[kname].attr('fill-opacity', 1);
                 }
             }
             // rect_line.attr('opacity', (x, y) => {
@@ -494,88 +493,83 @@ var LinePaint = function (path, dia, color) {
             //         return 1;
             //     }
         })
-        //     // rect_circle.attr('opacity', (x, y) => {
-        //     //     if (x.code != d.code) {
-        //     //         for (k in select_name) {
-        //     //             if (select_name[k] == x.code)
-        //     //                 return 1;
-        //     //         }
-        //     //         return 0.1;
-        //     //     } else {
-        //     //         return 1;
-        //     //     }
-        //     // })
-        // })
-        .on('mouseout', (d, i) => {
-            LineName.attr('stroke-opacity', (x) => {
-                // if (select_name.length == 0)
-                //     return 0.1;
-                // for (let k in select_name) {
-                //     if (select_name[k] == x.code) {
-                //         return 1;
-                //     }
-                // }
-                // return 0;
+    //     // rect_circle.attr('opacity', (x, y) => {
+    //     //     if (x.code != d.code) {
+    //     //         for (k in select_name) {
+    //     //             if (select_name[k] == x.code)
+    //     //                 return 1;
+    //     //         }
+    //     //         return 0.1;
+    //     //     } else {
+    //     //         return 1;
+    //     //     }
+    //     // })
+    // })
+    .on('mouseout', (d, i) => {
+        LineName.attr('stroke-opacity', (x) => {
+            // if (select_name.length == 0)
+            //     return 0.1;
+            // for (let k in select_name) {
+            //     if (select_name[k] == x.code) {
+            //         return 1;
+            //     }
+            // }
+            // return 0;
+            return 0.1;
+        })
+        for (k in Line_Name) {
+            Line_Name[k].attr('stroke-opacity', (x) => {
                 return 0.1;
             })
-            for (k in Line_Name) {
-                Line_Name[k].attr('stroke-opacity', (x) => {
-                    return 0.1;
-                })
-            }
-            for (let kname in PeoLine) {
-                // if (kname != d.code) {
-                //     PeoLine[kname].attr("stroke-opacity", 0);
-                // } else {
+        }
+        for (let kname in PeoLine) {
+            // if (kname != d.code) {
+            //     PeoLine[kname].attr("stroke-opacity", 0);
+            // } else {
                 PeoLine[kname].attr("stroke-opacity", 0.1);
-                PeoCir[kname].attr('fill-opacity', 0);
-                // }
-            }
-            
-            // scatterlinein.attr('fill-opacity', 0);
-            // if (scatterlinein != 0) {
-            //     scatterlinein.attr('fill-opacity', 0);
-            //     scatterlinein.remove();
-            //     scatterlinein = 0;
             // }
-            // if (select_name.length == 0)
-            //     rect_line.attr('opacity', 1);
-            // else {
-            //     rect_line.attr('opacity', (x, y) => {
-            //         for (k in select_name) {
-            //             if (select_name[k] == x.code)
-            //                 return 1;
-            //         }
-            //         return 0.1;
-            //     })
-            // }
-            //     // if (select_name.length == 0)
-            //     //     rect_circle.attr('opacity', 1);
-            //     // else {
-            //     //     rect_circle.attr('opacity', (x, y) => {
-            //     //         for (k in select_name) {
-            //     //             if (select_name[k] == x.code)
-            //     //                 return 1;
-            //     //         }
-            //     //         return 0.1;
-            //     //     })
-            //     // }
-        })
-    .on('click', (d, i) => {
-        console.log(d);
+        }
+        if (scatterlinein != 0) {
+            scatterlinein.remove();
+            scatterlinein = 0;
+        }
         // if (select_name.length == 0)
-        //     select_name.push(d.code);
+        //     rect_line.attr('opacity', 1);
         // else {
-        //     if (d_num == 1) {
-        //         select_name.push(d.code);
-        //     } else {
-        //         select_name[0] = d.code;
-        //     }
+        //     rect_line.attr('opacity', (x, y) => {
+        //         for (k in select_name) {
+        //             if (select_name[k] == x.code)
+        //                 return 1;
+        //         }
+        //         return 0.1;
+        //     })
         // }
-        // Paintjudge_2(select_name);
-        // scatterline(select_name[0]);
-        scatterline(d.code);
+    //     // if (select_name.length == 0)
+    //     //     rect_circle.attr('opacity', 1);
+    //     // else {
+    //     //     rect_circle.attr('opacity', (x, y) => {
+    //     //         for (k in select_name) {
+    //     //             if (select_name[k] == x.code)
+    //     //                 return 1;
+    //     //         }
+    //     //         return 0.1;
+    //     //     })
+    //     // }
     })
+    // .on('click', (d, i) => {
+    //     console.log(d);
+    //     if (select_name.length == 0)
+    //         select_name.push(d.code);
+    //     else {
+    //         if (d_num == 1) {
+    //             select_name.push(d.code);
+    //         } else {
+    //             select_name[0] = d.code;
+    //         }
+    //     }
+    //     Paintjudge_2(select_name);
+    //     scatterline(select_name[0]);
+    // })
 
 }
 

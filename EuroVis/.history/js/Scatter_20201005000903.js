@@ -1292,7 +1292,7 @@ function Rader(data, x, y, zoom) {
                 for (let k in nameDict) {
                     PeoCir[k].attr('fill-opacity', (d, i) => {
                         if (nameDictIn[k][i] == 1) {
-                            // console.log(i);
+                            console.log(i);
                             return 1;
                         } else {
                             return 0;

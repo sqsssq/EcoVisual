@@ -1264,7 +1264,6 @@ function Rader(data, x, y, zoom) {
         nameNum[i] = p_name_cnt;
         p_name_cnt++;
     }
-    console.log(nameDictIn)
 
     // TODO: Rader area 重画雷达区域
     for (var i = 0; i < areasData.length; i++) {
@@ -1289,23 +1288,17 @@ function Rader(data, x, y, zoom) {
                         PeoLine[i].attr("opacity", 0);
                     }
                 }
-                for (let k in nameDict) {
-                    PeoCir[k].attr('fill-opacity', (d, i) => {
-                        if (nameDictIn[k][i] == 1) {
-                            // console.log(i);
-                            return 1;
-                        } else {
-                            return 0;
-                        }
-                    })
-                }
+                // for (let i in nameDict) {
+                //     console.log(i);
+                //     console.log(nameNum[i]);
+                //     PeoLine[i].attr('opacity', 0);
+                // }
             })
             .on('mouseout', (d, i) => {
                 for (let i in PeoLine) {
                     // console.log(i);
                     // if (nameDict[i] != 1)
                     PeoLine[i].attr("opacity", 1);
-                    PeoCir[i].attr('fill-opacity', 0);
                 }
             })
         // 绘制雷达图区域下的点 
