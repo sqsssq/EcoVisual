@@ -554,7 +554,7 @@ function Paintjudge_sum() {
                         // return 'black';
                         return color_kgggg[peopleTreat[d.id]];
                     })
-                    .attr('stroke-opacity', 0.1)
+                    .attr('stroke-opacity', 0.5)
                 PeoCir[line_data[peo_num][0].id] = peo_g.selectAll("#peo_c")
                     .attr("id", 'peo_c')
                     .data(circle_data[peo_num])
