@@ -13,7 +13,7 @@ function getValue() {
     var input = document.getElementById("textId"); //通过id获取文本框对象
     // alert(input.value);//通过文本框对象获取value值
     var value = input.value;
-    // console.log(value)
+    console.log(value)
 
     tcircle.style("fill-opacity", d => {
             console.log(d.id)
@@ -197,5 +197,3 @@ function getValue() {
                                                                                                                                                                 })
                                                                                                                                                             })
                                                                                                                                                                                                                                     }
-
-
