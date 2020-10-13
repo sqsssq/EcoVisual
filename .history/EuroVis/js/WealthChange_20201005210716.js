@@ -571,7 +571,7 @@ function Paintjudge_sum() {
                             d.y = -600;
                         return p_yscale(d.y);
                     })
-                    .attr('r', 2)
+                    .attr('r', 3)
                     .attr('fill', 'red')
                     .attr('fill-opacity', 0);
 

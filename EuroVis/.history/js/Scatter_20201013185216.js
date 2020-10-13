@@ -1136,7 +1136,6 @@ function Rader(data, x, y, zoom) {
         webs: [],
         webPoints: []
     };
-    var outCircleRadius = radius * 7 / 6;
 
     for (var k = level; k > 0; k--) {
         var webs = '',
@@ -1513,14 +1512,7 @@ function Rader(data, x, y, zoom) {
         .attr('r', (80 / 3.5) * zoom)
         .attr('stroke-width', 1)
         .attr('fill', 'white')
-        .attr('stroke', 'gray');
-    liner.append('circle')
-        .attr('cx', 0)
-        .attr('cy', 0)
-        .attr('r', outCircleRadius)
-        .attr('stroke-width', 1)
-        .attr('fill', 'none')
-        .attr('stroke', 'gray');
+        .attr('stroke', 'gray')
     return main;
 }
 

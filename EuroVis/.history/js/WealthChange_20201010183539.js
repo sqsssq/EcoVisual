@@ -14,7 +14,7 @@ var lc_p_g = 0;
 lc_p_g = peo_svg.append('g')
 
 var peo_g = 0;
-var background_g = 0;
+var background_g;
 
 var nam = 0;
 // var color = ['#00a676', '#f9c80e', '#3abeff', '#df19c1', '#ff206e', '#f08700', '#0091c9', '#2fe9b3', '#2f8fe9', '#c32fe9', '#e92f9c', '#2E8B57', '#e4e92f', '#FFFACD']

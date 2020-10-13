@@ -1515,12 +1515,12 @@ function Rader(data, x, y, zoom) {
         .attr('fill', 'white')
         .attr('stroke', 'gray');
     liner.append('circle')
-        .attr('cx', 0)
-        .attr('cy', 0)
-        .attr('r', outCircleRadius)
-        .attr('stroke-width', 1)
-        .attr('fill', 'none')
-        .attr('stroke', 'gray');
+    .attr('cx', 0)
+    .attr('cy', 0)
+    .attr('r', outCircleRadius)
+    .attr('stroke-width', 1)
+    .attr('fill', 'none')
+    .attr('stroke', 'gray');
     return main;
 }
 
