@@ -1,0 +1,192 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>vis</title>
+
+    <link href="index.css" rel="stylesheet" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta http-equiv="X-UA-Compatible" content="ie=edge"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+        integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+        crossorigin="" />
+    <script src="lib/echarts.min.js"></script>
+    <script src="lib/js/jquery.min.js"></script>
+    <link rel="stylesheet" href="lib/js/jquery-ui.css" />
+    <!-- <script src="https://code.jquery.com/jquery.js"></script> -->
+    <!-- <link rel="stylesheet" href="lib/node_modules/bootstrap/dist/css/bootstrap.min.css"> -->
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="lib/js/jquery.min.js"></script>
+    <script src="lib/js/jquery-ui.js"></script>
+    <script src="http://d3js.org/d3.v4.min.js"></script>
+    <script src="http://d3js.org/d3.v5.min.js"></script>
+    <!-- <script src="lib/d3.v4.min.js"></script> -->
+    <!-- <script src="http://d3js.org/d3.v3.min.js"></script> -->
+    <!-- <script src="lib/d3/d3.min.js"></script> -->
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <script src="lib/jquery.min.js"></script>
+    <script src="lib/jquery.js"></script>
+    <script src="lib/jquery.SuperSlide.2.1.1.js"></script>
+    <script src="lib/node_modules/highcharts/highcharts.js"></script>
+    <script src="lib/node_modules/highcharts/highcharts-more.js"></script>
+    <script src="lib/node_modules/highcharts/modules/sunburst.js"></script>
+    <script src="lib/node_modules/highcharts/modules/exporting.js"></script>
+    <script src="lib/node_modules/highcharts/modules/export-data.js"></script>
+    <script src="lib/node_modules/highcharts/modules/accessibility.js"></script>
+    <script src="lib/node_modules/heatmap.js/build/heatmap.min.js"></script>
+    <!-- <script src="lib/node_modules/bootstrap/dist/js/bootstrap.min.js"></script> -->
+    <!-- <script src="lib/sank.js"></script>
+    <script src="lib/tsne.js"></script> -->
+    
+</head>
+
+<body>
+    <!-- <div class="container"> -->
+    <!-- <div id="left" class="topFramework"> -->
+    <!-- <div id="DataView" class="framework">
+                <div id="Word" class="frameworkTitle">
+                    &nbsp;&nbsp;数据
+                </div>
+                <div class="frameworkBody">
+                    <span id="DataD">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;情境模拟与真实努力任务实验</br></span>
+                    <span id="DataA">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;参与人数：304&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实验轮数：20&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实验环节：14</br></span>
+                    <span id="DataA">&nbsp;&nbsp;选择轮数：&nbsp;
+                        <select id="Lun_select" onclick="get()">
+                            <option value="1">第1轮</option>
+                            <option value="2">第2轮</option>
+                            <option value="3">第3轮</option>
+                            <option value="4">第4轮</option>
+                            <option value="5">第5轮</option>
+                            <option value="6">第6轮</option>
+                            <option value="7">第7轮</option>
+                            <option value="8">第8轮</option>
+                            <option value="9">第9轮</option>
+                            <option value="10">第10轮</option>
+                            <option value="11">第11轮</option>
+                            <option value="12">第12轮</option>
+                            <option value="13">第13轮</option>
+                            <option value="14">第14轮</option>
+                            <option value="15">第15轮</option>
+                            <option value="16">第16轮</option>
+                            <option value="17">第17轮</option>
+                            <option value="18">第18轮</option>
+                            <option value="19">第19轮</option>
+                            <option value="20">第20轮</option>
+                        </select>
+                        
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <button type="button" id="clear_But" class="btn btn-success" onclick="">运行</button>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </span>
+                    <div id="select"></div>
+                </div>
+            </div> -->
+    <!-- <div id="CodeSelect" class="framework">
+                <div id="mainB" class="frameworkTitle">
+                </div>
+                    <div id="JqScroll"></div>
+                </div>
+            </div> -->
+    <!-- <div id="LineView" class="framework">
+                <div id="Word" class="frameworkTitle">
+                    &nbsp;&nbsp;财富排名
+                </div>
+                <div id="LineSvg" class="frameworkBody"></div>
+            </div> -->
+    <!-- <div id="RectView" class="framework">
+        <div id="Word" class="frameworkTitle">
+            &nbsp; &nbsp;决策分类
+        </div>
+        <div id="RectV"></div>
+    </div> -->
+    <div id="ScatterView" class="framework">
+        <div id="Word" class="frameworkTitle">
+            &nbsp;&nbsp;Decision similarity
+            <!-- <div class="btn-group" role="group" aria-label="..."> -->
+            <button class="button-f" onclick="DrawForce()">Force</button>
+            <button class="button-f" onclick="DrawGlyph()">Glyph</button>
+            <button class="button-f" onclick="DrawHeat()">Heat</button>
+            <button class="button-f" onclick="ScatterPaint_gain_loss()">Scatter</button>
+            <!-- </div> -->
+        </div>
+        <div class="frameworkBody">
+            <div id="Tsne">
+            </div>
+        </div>
+    </div>
+    <div id="DataView" class="framework">
+        <div id="Word" class="frameworkTitle">
+            &nbsp;&nbsp;Scenario Simulation and Real Effort Task Experiment
+        </div>
+        <div class="frameworkBody">
+            <!-- <input id="ex2" type="text" class="span2" value="" data-slider-min="10" data-slider-max="1000" data-slider-step="5" data-slider-value="[250,450]"/>  -->
+            <!-- <div class="btn-group" role="group" aria-label="...">
+                <button type="button" class="btn btn-default" onclick="ScatterPaint_gain_loss()">Scatter</button>
+                <button type="button" class="btn btn-default" onclick="DrawHeat()">Heat</button>
+                <button type="button" class="btn btn-default" onclick="DrawGlyph()">glyph</button>
+                <button type="button" class="btn btn-default" onclick="DrawForce()">force</button>
+            </div> -->
+        </div>
+    </div>
+    <!-- </div> -->
+    <!-- <div id="right" class="topFramework"> -->
+    <div id="tempVis1" class="framework">
+        <!-- <div id="SankeyViewB"> -->
+        <div id="mainA" class="frameworkTitle">
+            <!-- &nbsp;&nbsp;情境模拟与真实努力任务实验
+                    <button type="button"  id="clear_But" onclick="clear_pic(number)">刷新</button> -->
+        </div>
+        <div class="frameworkBody">
+            <div id="chart"></div>
+
+        </div>
+    </div>
+    <div id="AnaView" class="framework">
+        <div id="Word" class="frameworkTitle">
+            &nbsp; Wealth change
+        </div>
+        <div id="AnaLineView" class="frameworkBody">
+        </div>
+    </div>
+    <!-- <div id="TreeVis" class="framework">
+        <div id="experise" class="frameworkTitle">
+
+        </div>
+        <div class="frameworkBody">
+            <div id="Tree"></div>
+        </div>
+    </div> -->
+    <!-- <div id="SunVis" class="framework">
+        <div id="sumk" class="frameworkTitle">
+        </div>
+        <div id="Sun" class="frameworkBody">
+            <div id="Ins"></div>
+        </div>
+    </div> -->
+    <!-- </div> -->
+    <script src="js/WealthChange.js"></script>
+    <script src="js/Scatter.js"></script>
+    <!-- <script src="js/SankeyTree.js"></script> -->
+    <script src="js/San.js"></script>
+    <!-- <script src="js/codeselect.js"></script> -->
+    <script src="js/Lun_select.js"></script>
+    <!-- <script src="js/people.js"></script> -->
+    <!-- <script src="js/people2.js"></script> -->
+    <!-- <script src="js/Icicle.js"></script> -->
+    <!-- <script src="js/fame.js"></script> -->
+    <!-- <script src="js/ICEIII.js"></script> -->
+    <!-- <script src="js/LineRect.js"></script> -->
+    <!-- <script src="js/DecisionSum.js"></script> -->
+    <script src="js/cir_line_select.js"></script>
+</body>
+
+
+</html>
