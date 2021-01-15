@@ -53,13 +53,6 @@ function DrawMatrix(select_treat) {
                             data[i]['type'].push(parseInt(data2[i][j]));
                             data[i]['pie'].push(1);
                         }
-                        if (parseInt(data[i]['biao']) == 10 && parseInt(data[i]['129']) > 0) {
-                            filter[data[i].code] = 1;
-                        }
-                    }
-                    console.log(filter)
-                    for (let i = 0; i < data.length; ++i) {
-                        // if (filter[data[i].code]) continue;
                         if (parseInt(data[i]['biao']) == 20) {
                             if (select_treat != -1 && treat[data[i].code] != select_treat)
                                 continue;
@@ -69,7 +62,7 @@ function DrawMatrix(select_treat) {
                             });
                         }
                     }
-                    console.log(value);
+                    // console.log(data);
                     let name = new Object();
                     let type = new Object();
                     let typeCnt = new Object();
@@ -134,7 +127,7 @@ function DrawMatrix(select_treat) {
 
                     let wScale = d3.scaleLinear()
                         .domain([-600, 600])
-                        .range([-10, 10]);
+                        .range([-2, 2]);
 
                     for (let i = 0; i < data.length; ++i) {
                         if (isNaN(parseInt(name[data[i].code])))
@@ -171,4 +164,4 @@ function DrawMatrix(select_treat) {
         })
     })
 }
-DrawMatrix(2);
+DrawMatrix(4);

@@ -171,4 +171,4 @@ function DrawMatrix(select_treat) {
         })
     })
 }
-DrawMatrix(2);
+DrawMatrix(1);

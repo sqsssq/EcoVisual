@@ -7,16 +7,15 @@ svg = d3.select("#container").append("svg")
     .attr("width", width)
     .attr("height", height);
 
-function DrawMatrix(select_treat) {
+function DrawMatrix() {
     d3.csv("data/box_calc_rank.csv").then((data) => {
         d3.csv("data/fpmtype3.csv").then((data2) => {
             d3.csv("data/fpm01.csv").then((data3) => {
                 d3.csv("data/treatment.csv").then((treatment) => {
                     // console.log(data3);
                     let treat = new Object();
-                    for (let i = 0; i < treatment.length; ++i) {
-                        // console.log(i);
-                        treat[treatment[i].code] = parseInt(treatment[i].treat);
+                    for (let i in treatment) {
+                        console.log(i);
                     }
                     let similar = new Object();
                     for (let i = 0; i < data3.length; ++i) {
@@ -33,7 +32,6 @@ function DrawMatrix(select_treat) {
                     var color = ['#c32fe9', '#e4e92f', '#2fe9b3', '#2f8fe9', '#2E8B57', '#e92f', '#FFFACD'];
 
                     let value = new Array();
-                    let filter = new Object();
                     for (let i = 0; i < data.length; ++i) {
                         data[i]['type'] = new Array();
                         data[i]['pie'] = new Array();
@@ -53,23 +51,14 @@ function DrawMatrix(select_treat) {
                             data[i]['type'].push(parseInt(data2[i][j]));
                             data[i]['pie'].push(1);
                         }
-                        if (parseInt(data[i]['biao']) == 10 && parseInt(data[i]['129']) > 0) {
-                            filter[data[i].code] = 1;
-                        }
-                    }
-                    console.log(filter)
-                    for (let i = 0; i < data.length; ++i) {
-                        // if (filter[data[i].code]) continue;
                         if (parseInt(data[i]['biao']) == 20) {
-                            if (select_treat != -1 && treat[data[i].code] != select_treat)
-                                continue;
                             value.push({
                                 v: parseFloat(data[i]['129']),
                                 code: data[i].code
                             });
                         }
                     }
-                    console.log(value);
+                    // console.log(data);
                     let name = new Object();
                     let type = new Object();
                     let typeCnt = new Object();
@@ -105,22 +94,20 @@ function DrawMatrix(select_treat) {
                     for (let i in value) {
                         name[value[i].code] = parseInt(i);
                     }
-                    console.log(name)
+                    // console.log(name)
 
-                    for (let i in value) {
-                        // if (i == 304) break;
+                    for (let i = 0; i < data.length; ++i) {
+                        if (i == 304) break;
                         // name[data[i].code] = i;
                         svg.append('text')
                             .attr('x', 20)
-                            .attr('y', (parseInt(i) + 1) * 20)
+                            .attr('y', (i + 1) * 20)
                             .attr('font-size', 10)
-                            .text(value[i].code);
+                            .text(data[i].code);
                     }
                     for (let i in typeCnt) {
                         for (let j in typeCnt[i]) {
                             // console.log(j);
-                            if (isNaN(parseInt(name[i])))
-                                continue;
                             svg.append('line')
                                 .attr('x1', 60 + (j) * 20 + 6 + 20)
                                 .attr('y1', 20 * (name[i] + 1) - 3)
@@ -134,11 +121,9 @@ function DrawMatrix(select_treat) {
 
                     let wScale = d3.scaleLinear()
                         .domain([-600, 600])
-                        .range([-10, 10]);
+                        .range([-2, 2]);
 
                     for (let i = 0; i < data.length; ++i) {
-                        if (isNaN(parseInt(name[data[i].code])))
-                            continue;
                         let arc = d3.arc()
                             .innerRadius(4 + wScale(parseFloat(data[i]['129'])))
                             .outerRadius(6 + wScale(parseFloat(data[i]['129'])));
@@ -171,4 +156,4 @@ function DrawMatrix(select_treat) {
         })
     })
 }
-DrawMatrix(2);
+DrawMatrix();

@@ -59,7 +59,7 @@ function DrawMatrix(select_treat) {
                     }
                     console.log(filter)
                     for (let i = 0; i < data.length; ++i) {
-                        // if (filter[data[i].code]) continue;
+                        if (filter[data[i].code]) continue;
                         if (parseInt(data[i]['biao']) == 20) {
                             if (select_treat != -1 && treat[data[i].code] != select_treat)
                                 continue;
@@ -171,4 +171,4 @@ function DrawMatrix(select_treat) {
         })
     })
 }
-DrawMatrix(2);
+DrawMatrix(4);
