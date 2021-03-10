@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{
+            text-align: center;
+        }
+        svg{
+            background:#ddd;
+        }
+    </style>
+</head>
+<body>
+    <h1>SVG 鼠标点击动态绘制可拖动的圆</h1>
+    <svg id="s9" width="500" height="400"></svg>
+    <script>
+        s9.onmousedown = function (ev) {
+            var ce = ev||event;
+            var cx = ce.offsetX;
+            var cy = ce.offsetY;
+            console.log(ev.target.id);
+            if (ev.target.id!='c') createCircle(cx, cy);
+        };
+        function createCircle(px,py){
+            var c = document.createElementNS('http://www.w3.org/2000/svg','circle');
+            c.setAttribute('id',"c");
+            c.setAttribute('r',"5");
+            c.setAttribute('cx',px);
+            c.setAttribute('cy',py);
+            c.setAttribute('fill','rgb(255,0,0)');
+            c.setAttribute('stroke-width','1');
+            c.setAttribute('stroke','black');
+            c.onmousedown = function () {
+                drag(c);
+            };
+            c.onmouseup = function(){
+                //console.log("up");
+                s9.onmousemove=null;
+            };
+            s9.appendChild(c);
+        }
+ 
+        function drag(c){
+            s9.onmousemove = function (ev) {
+                //console.log("move");
+                var e = ev||event;
+                var x = e.offsetX || e.layerX;
+                var y = e.offsetY || e.layerY;
+                c.setAttribute('cx',''+x);
+                c.setAttribute('cy',''+y);
+ 
+            }
+ 
+        };
+ 
+ 
+ 
+ 
+    </script>
+ 
+ 
+</body>
+</html>

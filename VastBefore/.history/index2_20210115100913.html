@@ -1,0 +1,139 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>vis</title>
+
+    <link href="index2.css" rel="stylesheet" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta http-equiv="X-UA-Compatible" content="ie=edge"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+        integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+        crossorigin="" />
+    <script src="lib/echarts.min.js"></script>
+    <script src="lib/js/jquery.min.js"></script>
+    <link rel="stylesheet" href="lib/js/jquery-ui.css" />
+    <!-- <script src="https://code.jquery.com/jquery.js"></script> -->
+    <!-- <link rel="stylesheet" href="lib/node_modules/bootstrap/dist/css/bootstrap.min.css"> -->
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="lib/js/jquery.min.js"></script>
+    <script src="lib/js/jquery-ui.js"></script>
+    <script src="http://d3js.org/d3.v4.min.js"></script>
+    <script src="http://d3js.org/d3.v5.min.js"></script>
+    <script src="https://d3js.org/d3-path.v2.min.js"></script>
+    <script src="https://d3js.org/d3-chord.v2.min.js"></script>
+    <!-- <script src="lib/d3.v4.min.js"></script> -->
+    <!-- <script src="http://d3js.org/d3.v3.min.js"></script> -->
+    <!-- <script src="lib/d3/d3.min.js"></script> -->
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <script src="lib/jquery.min.js"></script>
+    <script src="lib/jquery.js"></script>
+    <script src="lib/jquery.SuperSlide.2.1.1.js"></script>
+    <script src="lib/node_modules/highcharts/highcharts.js"></script>
+    <script src="lib/node_modules/highcharts/highcharts-more.js"></script>
+    <script src="lib/node_modules/highcharts/modules/sunburst.js"></script>
+    <script src="lib/node_modules/highcharts/modules/exporting.js"></script>
+    <script src="lib/node_modules/highcharts/modules/export-data.js"></script>
+    <script src="lib/node_modules/highcharts/modules/accessibility.js"></script>
+    <script src="lib/node_modules/heatmap.js/build/heatmap.min.js"></script>
+    <link rel="stylesheet" href="lib/node_modules/bootstrap-slider/dist/css/bootstrap-slider.min.css">
+    <script src="lib/node_modules/bootstrap-slider/dist/bootstrap-slider.min.js"></script>
+    <link rel="stylesheet" href="lib/jquery-ui.css">
+    <script src="lib/jquery-ui.js"></script>
+
+</head>
+
+<body>
+    <div id="ScatterView" class="framework">
+        <div id="Word" class="frameworkTitle">
+            &nbsp;&nbsp;Decision similarity
+        </div>
+        <div class="frameworkBody">
+            <div id="Tsne">
+            </div>
+        </div>
+    </div>
+
+    <div id="GlyphView" class="framework">
+        <div id="Word" class="frameworkTitle">
+            &nbsp;&nbsp;Decision similarity
+        </div>
+        <div id="DecisionGlyph" class="frameworkBody">
+        </div>
+    </div>
+
+    <div id="DataView" class="framework">
+        <div id="Word" class="frameworkTitle">
+            &nbsp;&nbsp;Control panel
+        </div>
+        <div class="frameworkBody">
+            <br>
+            <p>
+                circle: <div id="slider-range" style="left: 45px; top: -25px;height: 12px; width: 190px"></div>
+                <!-- <input type="text" name="" id="timex"> -->
+                <input type="text" id="timex" style="border:0; color:#f6931f; font-weight:bold;">
+            </p>
+            
+            <p>
+                line: <div id="slider-line" style="left: 45px; top: -25px;height: 12px; width: 190px"></div>
+                <!-- <input type="text" name="" id="timex"> -->
+                <input type="text" id="timea" style="border:0; color:#f6931f; font-weight:bold;">
+            </p>
+            
+            <p>
+                pie: <div id="slider-pie" style="left: 45px; top: -25px;height: 12px; width: 190px"></div>
+                <!-- <input type="text" name="" id="timex"> -->
+                <input type="text" id="timeb" style="border:0; color:#f6931f; font-weight:bold;">
+            </p>
+            <p>
+                all: <div id="slider-all" style="left: 45px; top: -25px;height: 12px; width: 190px"></div>
+                <!-- <input type="text" name="" id="timex"> -->
+                <input type="text" id="timec" style="border:0; color:#f6931f; font-weight:bold;">
+            </p>
+        </div>
+    </div>
+
+    <div id="tempVis1" class="framework">
+        <div id="mainA" class="frameworkTitle">
+        </div>
+        <div class="frameworkBody">
+            <div id="chart"></div>
+
+        </div>
+    </div>
+    <div id="AnaView" class="framework">
+        <div id="Word" class="frameworkTitle">
+            &nbsp; Wealth change
+        </div>
+        <div id="AnaLineView" class="frameworkBody">
+        </div>
+    </div>
+    <script src="js/WealthChange.js"></script>
+    <script src="js/Scatter.js"></script>
+    <!-- <script src="js/chord.js"></script> -->
+    <!-- <script src="js/SankeyTree.js"></script> -->
+    <script src="js/San.js"></script>
+    <!-- <script src="js/codeselect.js"></script> -->
+    <script src="js/Lun_select.js"></script>
+    <!-- <script src="js/people.js"></script> -->
+    <!-- <script src="js/people2.js"></script> -->
+    <!-- <script src="js/Icicle.js"></script> -->
+    <!-- <script src="js/fame.js"></script> -->
+    <!-- <script src="js/ICEIII.js"></script> -->
+    <!-- <script src="js/LineRect.js"></script> -->
+    <!-- <script src="js/DecisionSum.js"></script> -->
+    <script src="js/cir_line_select.js"></script>
+    <script src="js/DecisionGlyph.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+
+</html>

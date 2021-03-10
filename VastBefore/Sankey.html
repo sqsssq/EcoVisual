@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- <!-- <script src="data/sanley_data.js"></script> -->
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <!-- <!-- <script src="http://d3js.org/d3.v3.min.js"></script> -->
+    <!-- <script src="lib/d3-sankey/d3-sankey.js"></script> -->
+
+    <script src="lib/d3-sankey-util.js"></script>
+    <script src="lib/d3-sankey/d3-sankey.js"></script>
+
+    <style type="text/css">
+        html {
+            height: 100%;
+            width: 100%;
+            /* overflow: hidden; */
+        }
+
+        body {
+            margin: 0%;
+            height: 100%;
+            width: 100%;
+            background-color: rgb(255, 255, 255);
+        }
+
+        /* .tooltip {
+    font-family: simsun;
+    font-size: 16px;
+    width: 120;
+    height: auto;
+    position: absolute;
+    text-align: center;
+    border-style: solid;
+    border-width: 1px;
+    background-color: white;
+    border-radius: 5px;
+} */
+
+        .tooltip {
+            position: absolute;
+            width: 120px;
+            height: auto;
+            text-align: center;
+            font-family: simsum;
+            font-size: 14px;
+            color: white;
+            background-color: black;
+            border-width: 2px solid black;
+            border-radius: 5px;
+        }
+
+        .tooltipx {
+            position: absolute;
+            width: 120px;
+            height: auto;
+            text-align: center;
+            font-family: simsum;
+            font-size: 14px;
+            color: white;
+            background-color: black;
+            border-width: 2px solid black;
+            border-radius: 5px;
+        }
+
+        .tooltip:after {
+            content: '';
+            position: absolute;
+            bottom: 100%;
+            left: 20%;
+            margin-left: -8px;
+            width: 0;
+            height: 0;
+            border-bottom: 12px solid #000000;
+            border-right: 12px solid transparent;
+            border-left: 12px solid transparent;
+        }
+
+        #Tree {
+            height: 209px;
+            width: 471px;
+            background-color: white;
+        }
+
+        .topFramework {
+            float: left;
+        }
+
+        #left {
+            height: 100%;
+            width: 20%;
+        }
+
+        #right {
+            height: 100%;
+            width: 80%;
+        }
+
+        .framework {
+            margin-top: 5px;
+            margin-left: 5px;
+            float: left;
+            background-color: #fff;
+            border: solid 1px transparent;
+            border-color: #ddd
+        }
+
+        .frameworkTitle {
+            height: 30px;
+            width: 100%;
+            /* background-color: darkgray; */
+            /* background-color: rgb(180, 180, 180); */
+            /* background-color: #dfdede; */
+            border: solid;
+            border-width: 0px;
+            border-top-left-radius: 3px;
+            border-top-right-radius: 3px;
+            border-bottom: solid 1px transparent;
+            /* padding: 8px 15px; */
+            font-size: 18px;
+            font-weight: 100;
+            border-color: #ddd;
+            background-color: #f5f5f5;
+            color: #444;
+            padding: 1px
+        }
+
+        .frameworkBody {
+            height: calc(100% - 35px);
+            width: 100%;
+            background-color: white;
+            border: solid;
+            border-width: 0px;
+            border-bottom-left-radius: 3px;
+            border-bottom-right-radius: 3px;
+        }
+
+        #DataView {
+            height: calc(17% - 10px);
+            width: calc(100% - 5px);
+        }
+
+        #CodeSelect {
+            height: calc(43.4% - 10px);
+            width: calc(100% - 5px);
+        }
+
+        #ScatterVis {
+            height: calc(39.5% - 5px);
+            width: calc(100% - 5px);
+        }
+
+        #TreeVis {
+            height: calc(40% - 10px);
+            width: calc(60% - 10px);
+        }
+
+        #SunVis {
+            height: calc(40% - 10px);
+            width: calc(40% - 5px);
+        }
+
+        #Sun {
+            height: calc(100% - 35px);
+            width: 100%;
+        }
+
+        #tempVis1 {
+            height: calc(60% - 10px);
+            width: calc(100% - 10px);
+        }
+
+
+        #tempVis2 {
+            height: calc(40% - 10px);
+            width: calc(50% - 10px);
+        }
+
+        #tempVis3 {
+            height: calc(100% - 10px);
+            width: calc(100% - 10px);
+        }
+
+        #Tsne {
+            width: 100%;
+            height: 100%;
+            background-image: url('fin.png');
+            background-repeat: no-repeat;
+            /* background-position: center; */
+            /* background-attachment: fixed; */
+        }
+
+        .node {
+            font: 12px sans-serif;
+        }
+
+        .link {
+            fill: none;
+            /* stroke: #ccc; */
+            /* stroke-width: 1.5px; */
+        }
+
+        #chart {
+            width: 100%;
+            height: 100%;
+        }
+
+        #Word {
+            /* font-size: 120%; */
+            color: rgb(27, 27, 27);
+            font-weight: 500;
+        }
+
+        #SankeyViewB {
+            height: 30px;
+            width: 100%;
+
+            color: whitesmoke;
+            font-size: 140%;
+            height: 30px;
+            width: 100%;
+            /* background-color: rgb(180, 180, 180); */
+            background-color: #0a3c75;
+            border: solid;
+            border-width: 0px;
+            border-top-left-radius: 3px;
+            border-top-right-radius: 3px;
+
+        }
+
+        #textId {
+            height: 30px;
+            width: 200px;
+            position: absolute;
+            top: 430px;
+            left: 20px;
+            font-size: 25px;
+        }
+
+        #FindButton {
+            height: 35px;
+            width: 100px;
+            position: absolute;
+            top: 430px;
+            left: 250px;
+            border-radius: 3px;
+            font-size: 20px;
+        }
+
+        #DataD {
+            font-size: 20px;
+            line-height: 35px;
+            text-align: center;
+        }
+
+        #DataA {
+            font-size: 15px;
+            line-height: 30px
+        }
+
+        .axis path,
+        .axis line {
+            fill: none;
+            stroke: black;
+            stroke-width: 0.3;
+            shape-rendering: crispEdges;
+        }
+
+        .axis text {
+            font-family: sans-serif;
+            font-size: 11px;
+        }
+
+        #JqScroll {
+            border: 1px solid none;
+            border-bottom-left-radius: 3px;
+            border-bottom-right-radius: 3px;
+            width: 100%;
+            height: 100%;
+            overflow: scroll;
+        }
+
+        #JqTitle {
+            border: 1px solid white;
+            width: 100%;
+            height: 7%;
+        }
+
+        #Lun_select {
+            /* border: 0.1px solid black; */
+            width: 80px;
+            height: 25px;
+            position: absolute;
+            top: 105px;
+            left: 90px;
+        }
+
+        #clear_But {
+            width: 80px;
+            height: 25px;
+            position: absolute;
+            top: 103px;
+            left: 240px;
+            font-size: 14px;
+            border: 0px;
+            border-radius: 5px;
+        }
+
+        #topt {
+            position: fixed;
+            top: 0;
+            z-index: 1;
+        }
+
+        /* css 代码  */
+        .highcharts-figure,
+        .highcharts-data-table table {
+            min-width: 320px;
+            max-width: 800px;
+            margin: 1em auto;
+        }
+
+        #container {
+            /* height: 300px; */
+            height: calc(100% - 35px)
+        }
+
+        .controls {
+            text-align: right;
+            /* margin-bottom: 1rem; */
+            /* padding: 0 0px; */
+        }
+
+        .controls small {
+            opacity: 0.5;
+            line-height: 1.5rem;
+            font-size: 0.8rem;
+        }
+
+        .button-row {
+
+            text-align: right;
+            font-size: 0;
+            margin-left: 0.5rem;
+            white-space: nowrap;
+        }
+
+        .button-row button {
+            font-size: 1rem;
+            background: #f8f8f8;
+            transition: background 150ms;
+            border: 1px solid #999;
+            display: inline-block;
+            font-size: 12pt;
+            line-height: 16pt;
+            margin-left: -1px;
+            color: #555;
+        }
+
+        .button-row button:first-child {
+            border-top-left-radius: 0.3em;
+            border-bottom-left-radius: 0.3em;
+        }
+
+        .button-row button:last-child {
+            border-top-right-radius: 0.3em;
+            border-bottom-right-radius: 0.3em;
+        }
+
+        .button-row button[disabled] {
+            background: rgb(124, 181, 236);
+            color: white;
+            ;
+        }
+
+        .button-row button:hover {
+            background: #ccc;
+            outline: none;
+        }
+
+        .highcharts-data-table table {
+            font-family: Verdana, sans-serif;
+            border-collapse: collapse;
+            border: 1px solid #EBEBEB;
+            margin: 10px auto;
+            text-align: center;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .highcharts-data-table caption {
+            padding: 1em 0;
+            font-size: 1.2em;
+            color: #555;
+        }
+
+        .highcharts-data-table th {
+            font-weight: 600;
+            padding: 0.5em;
+        }
+
+        .highcharts-data-table td,
+        .highcharts-data-table th,
+        .highcharts-data-table caption {
+            padding: 0.5em;
+        }
+
+        .highcharts-data-table thead tr,
+        .highcharts-data-table tr:nth-child(even) {
+            background: #f8f8f8;
+        }
+
+        .highcharts-data-table tr:hover {
+            background: #f1f7ff;
+        }
+
+        /*chrome--------------------------------------------start*/
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            background: #ffffff;
+            border-radius: 8px;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: rgb(201, 201, 202);
+            border-radius: 8px;
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgb(162, 162, 163);
+        }
+
+        .el-menu::-webkit-scrollbar,
+        .el-table__body-wrapper::-webkit-scrollbar {
+            display: none;
+        }
+
+        .el-menu:hover::-webkit-scrollbar,
+        .el-table__body-wrapper:hover::-webkit-scrollbar {
+            display: block;
+        }
+
+        /*chrome--------------------------------------------end*/
+    </style>
+</head>
+
+<body>
+    <div id="chart"></div>
+
+    <script text='javascript'>
+        var width = 1540,
+            height = 480;
+
+        var padding = {
+            top: 20,
+            right: 20,
+            bottom: 20,
+            left: 20
+        };
+
+        svg = d3.select("#chart").append("svg")
+            .attr("width", width)
+            .attr("height", height)
+        zg = svg.append("g")
+            .attr("class", "zhe")
+            .attr("transform", "translate(" + 0 + "," + -18 + ")")
+
+        d3.csv('data/clean.csv', function (d1) {
+
+            d3.json('data/boxplot.json', function (dx) {
+                console.log(d1)
+
+                p = d1;
+                // for (var i in d1) {
+                //     if (d1[i].biao == '6')
+                //         p.push(d1[i]);
+                // }
+
+                pa = []
+                var xmin = 999,
+                    xmax = -999;
+                var ymin = 999,
+                    ymax = -999;
+
+                let xx = [];
+                let yy = [];
+                for (var i = 0; i <= 201; ++i) {
+                    xx.push(0);
+                    yy.push(0);
+                }
+                console.log(parseInt(0.9))
+                for (let i in p) {
+                    if (parseFloat(p[i]['cashNet']) < -100 || parseFloat(p[i]['cashNet']) > 100)
+                        continue;
+                    xx[parseInt(p[i]['cashNet']) + 100] += parseInt(p[i]['HATE']);
+                    yy[parseInt(p[i]['cashNet']) + 100]++;
+                    
+                }
+
+                for (var i = 0; i <= 200; ++i) {
+                    if (!yy[i]) continue;
+                    pa.push({"x": i - 100, "y": Math.round(parseFloat(xx[i] / yy[i]), 2)})
+                    xmin = Math.min(xmin, i - 100);
+                    xmax = Math.max(xmax, i - 100);
+                    ymin = Math.min(ymin, parseFloat(xx[i] / yy[i]));
+                    ymax = Math.max(ymax, parseFloat(xx[i] / yy[i]));
+                }
+
+                console.log(pa)
+
+                pa.sort(function (a, b) {
+                    return a.x - b.x;
+                })
+
+                var zmin = -600,
+                    zmax = 600
+
+                var Xscale = d3.scale.linear()
+                    .domain([parseInt(xmin), parseInt(xmax)])
+                    .range([50, 1000])
+                var Yscale = d3.scale.linear()
+                    .domain([parseInt(0), parseInt(6)])
+                    .range([height - 10, height - 306]);
+
+
+                var xAxis = d3.svg.axis().scale(Xscale).ticks(20).tickFormat(d3.format("d")).orient(
+                    "bottom");
+                var yAxis = d3.svg.axis().scale(Yscale).ticks(2).tickFormat(d3.format("d")).orient(
+                    "left"); //添加一个g用于放x轴
+                zg.append("g")
+                    .attr("class", "axis")
+                    .attr("transform", "translate(" + 0 + "," + (470) + ")")
+                    .attr("stroke-width", 0.1)
+                    .attr('stroke', 'black')
+                    .call(xAxis)
+                    .append('text')
+                // .text('轮数')
+                // .attr("transform", "rotate(-90)") //text旋转-90°
+                // .attr("text-anchor", "end") //字体尾部对齐
+                // .attr("dx", "121em")
+                // .attr("dy", "0.5em") //沿y轴平移一个字体的大小
+                zg.append("g")
+                    .attr("class", "axis")
+                    .attr("transform", "translate(" + 50 + "," + 0 + ")")
+                    .call(yAxis)
+                    .append('text')
+                    // .text('收益')
+                    .attr("transform", "rotate(-90)") //text旋转-90°
+                    .attr("text-anchor", "end") //字体尾部对齐
+                    .attr("dx", "-2em")
+                    .attr("dy", "1em") //沿y轴平移一个字体的大小;
+
+                // var L_path = d3.svg.line()
+                //     .x(d => {
+                //         return Xscale(d.x)
+                //     })
+                //     .y(d => {
+                //         return Yscale(d.y)
+                //     })
+
+                // zg.selectAll('#lp')
+                //     .attr('id', 'lp')
+                //     .data(pa)
+                //     .enter()
+                //     .append('path')
+                //     .attr('d', L_path(pa))
+                //     .attr("fill", 'none')
+                //     .attr('stroke-width', 0.1)
+                //     .attr('stroke', 'red')
+
+                zg.selectAll('#sp')
+                .attr('id', 'sp')
+                .data(p)
+                .enter()
+                .append('circle')
+                .attr('cx', d => {
+                    if (parseInt(d.cashNet) >= -100 && parseInt(d.cashNet) <= 100)
+                    return Xscale(parseFloat(d.cashNet));
+                })
+                .attr('cy', d => {
+                    if (parseInt(d.cashNet) >= -100 && parseInt(d.cashNet) <= 100)
+                    return Yscale(parseFloat(d.HATE));
+                })
+                .attr('r', 1)
+                // .attr("stroke-dasharray", function (d, i) {
+                //     // if(i==0){
+                //     return "5,5";
+
+                // });
+
+                // zg.selectAll("#rl")
+                //     .attr("id", "rl")
+                //     .data(line_)
+                //     .enter()
+                //     .append("line")
+                //     .attr("x1", (d, i) => {
+                //         return Xscale(d[0] - 0.1)
+                //     })
+                //     .attr("y1", d => {
+                //         return Yscale(d[1])
+                //     })
+                //     .attr("x2", (d, i) => {
+                //         return Xscale(d[0] + 0.1)
+                //     })
+                //     .attr("y2", d => {
+                //         return Yscale(d[1])
+                //     })
+                //     .attr("stroke", d => {
+                //         return "blue";
+                //     })
+                //     .attr("stroke-width", 0.5);
+
+                // zg.selectAll("#rl")
+                //     .attr("id", "rl")
+                //     .data(l__)
+                //     .enter()
+                //     .append("line")
+                //     .attr("x1", (d, i) => {
+                //         return Xscale(d.x1)
+                //     })
+                //     .attr("y1", d => {
+                //         return Yscale(d.y1)
+                //     })
+                //     .attr("x2", (d, i) => {
+                //         return Xscale(d.x2)
+                //     })
+                //     .attr("y2", d => {
+                //         return Yscale(d.y2)
+                //     })
+                //     .attr("stroke", d => {
+                //         return "blue";
+                //     })
+                //     .attr("stroke-width", 0.5);
+            })
+        })
+    </script>
+</body>
+
+</html>

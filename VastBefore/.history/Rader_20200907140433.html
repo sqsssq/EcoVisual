@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>雷达图</title>
+    <style>
+        .container {
+            margin: 30px auto;
+            width: 600px;
+            height: 300px;
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <svg width="100%" height="100%"></svg>
+    </div>
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script>
+        window.onload = function () {
+            var width = 600,
+                height = 300;
+            // 创建一个分组用来组合要画的图表元素
+            var main = d3.select('.container svg').append('g')
+                .classed('main', true)
+                .attr('transform', "translate(" + width / 2 + ',' + height / 2 + ')');
+
+        };
+
+        function getColor(idx) {
+            var palette = [
+                '#2ec7c9', '#b6a2de', '#5ab1ef', '#ffb980', '#d87a80',
+                '#8d98b3', '#e5cf0d', '#97b552', '#95706d', '#dc69aa',
+                '#07a2a4', '#9a7fd1', '#588dd5', '#f5994e', '#c05050',
+                '#59678c', '#c9ab00', '#7eb00a', '#6f5553', '#c14089'
+            ]
+            return palette[idx % palette.length];
+        }
+    </script>
+</body>
+
+</html>

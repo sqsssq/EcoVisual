@@ -1,0 +1,49 @@
+html {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+body {
+    margin: 0%;
+    height: 100%;
+    width: 100%;
+    background-color: rgb(247, 242, 242);
+}
+
+.ScatterVis {
+    /* margin-right: 5px; */
+    /* margin-top: 5px; */
+    margin: 2.5px;
+    float: left;
+    height: 310px;
+    width: 380px;
+    background-color: rgb(235, 238, 238);
+}
+
+#Tsne {
+    height: 100%;
+    width: 100%;
+}
+
+#Tsne1 {
+    height: 100%;
+    width: 100%;
+}
+#Tsne2 {
+    height: 100%;
+    width: 100%;
+}
+#Tsne3 {
+    height: 100%;
+    width: 100%;
+}
+
+#Tsne4 {
+    height: 100%;
+    width: 100%;
+}
+#Tsne5 {
+    height: 100%;
+    width: 100%;
+}

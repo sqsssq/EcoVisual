@@ -1,0 +1,1 @@
+const heightIndividual = document.getElementById()
