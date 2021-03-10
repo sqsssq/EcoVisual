@@ -41,8 +41,8 @@ def preprocess(url):
     namespace = []
     for i in range(len(data['code'])):
         list_data = []
-        for k, v in enumerate(data.keys()[1:-1]):
-            name = list(data.iloc()[0])[1:-1]
+        for k, v in enumerate(data.keys()[2:-1]):
+            name = list(data.iloc()[i])[2:-1]
             list_data.append(v + str(name[k]))
         predata.append(list_data)
         l = {
