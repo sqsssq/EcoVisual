@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="21eb4345-f50d-4413-af42-fa02b9fb85d4" name="Default Changelist" comment="2020/10/26_v1">
-      <change beforePath="$PROJECT_DIR$/../Vast" beforeDir="false" afterPath="$PROJECT_DIR$/../Vast" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Visual Analytics of Economic Behavior Patterns in a Virtual Experimental Environment/VastJs/PatternIndividual.js" beforeDir="false" afterPath="$PROJECT_DIR$/../Visual Analytics of Economic Behavior Patterns in a Virtual Experimental Environment/VastJs/PatternIndividual.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Visual Analytics of Economic Behavior Patterns in a Virtual Experimental Environment/VastJs/PatternScatter.js" beforeDir="false" afterPath="$PROJECT_DIR$/../Visual Analytics of Economic Behavior Patterns in a Virtual Experimental Environment/VastJs/PatternScatter.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Visual Analytics of Economic Behavior Patterns in a Virtual Experimental Environment/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/../Visual Analytics of Economic Behavior Patterns in a Virtual Experimental Environment/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Visual Analytics of Economic Behavior Patterns in a Virtual Experimental Environment/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Visual Analytics of Economic Behavior Patterns in a Virtual Experimental Environment/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FileProcess.py" beforeDir="false" afterPath="$PROJECT_DIR$/FileProcess.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/doc2vec.model" beforeDir="false" afterPath="$PROJECT_DIR$/doc2vec.model" afterDir="false" />
@@ -17,13 +20,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/get_DBscan.py">
+        <entry file="file://$PROJECT_DIR$/PATA.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="209">
-              <caret line="17" column="25" selection-start-line="17" selection-start-column="25" selection-end-line="17" selection-end-column="25" />
-              <folding>
-                <element signature="e#120#154#0" expanded="true" />
-              </folding>
+            <state>
+              <caret column="20" selection-start-column="20" selection-end-column="20" />
             </state>
           </provider>
         </entry>
@@ -31,8 +31,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/FileProcess.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="570">
-              <caret line="34" column="24" selection-start-line="34" selection-start-column="24" selection-end-line="34" selection-end-column="24" />
+            <state relative-caret-position="852">
+              <caret line="50" column="41" selection-start-line="50" selection-start-column="41" selection-end-line="50" selection-end-column="41" />
               <folding>
                 <element signature="e#122#155#0" expanded="true" />
               </folding>
@@ -43,31 +43,10 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="15" selection-start-line="15" selection-end-line="15" />
+            <state relative-caret-position="266">
+              <caret line="14" column="54" lean-forward="true" selection-start-line="14" selection-start-column="54" selection-end-line="14" selection-end-column="54" />
               <folding>
                 <element signature="e#116#134#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/get_tSNE.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="152">
-              <caret line="8" selection-start-line="8" selection-end-line="8" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/getdoc2vec.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="646">
-              <caret line="36" column="18" selection-start-line="36" selection-start-column="18" selection-end-line="36" selection-end-column="18" />
-              <folding>
-                <element signature="e#0#11#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -96,16 +75,17 @@
         <option value="$PROJECT_DIR$/getdoc2vec.py" />
         <option value="$PROJECT_DIR$/get_tSNE.py" />
         <option value="$PROJECT_DIR$/get_DBscan.py" />
+        <option value="$PROJECT_DIR$/PATA.py" />
         <option value="$PROJECT_DIR$/FileProcess.py" />
         <option value="$PROJECT_DIR$/index.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="552" />
-    <option name="y" value="27" />
-    <option name="width" value="1290" />
-    <option name="height" value="687" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="2610" />
+    <option name="y" value="375" />
+    <option name="width" value="860" />
+    <option name="height" value="458" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -179,6 +159,28 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="PATA" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="getDoc" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/PATA.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="get_DBscan" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="getDoc" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -227,6 +229,7 @@
       <list>
         <item itemvalue="Python.index" />
         <item itemvalue="Python.FileProcess" />
+        <item itemvalue="Python.PATA" />
         <item itemvalue="Python.get_DBscan" />
       </list>
     </recent_temporary>
@@ -248,6 +251,10 @@
       <workItem from="1604310283916" duration="40000" />
       <workItem from="1614327358578" duration="1731000" />
       <workItem from="1615169216226" duration="924000" />
+      <workItem from="1615439992796" duration="1192000" />
+      <workItem from="1615594719890" duration="1417000" />
+      <workItem from="1615798485069" duration="3343000" />
+      <workItem from="1615811113363" duration="2964000" />
     </task>
     <task id="LOCAL-00001" summary="2020/10/26_v1">
       <created>1603674483838</created>
@@ -260,18 +267,17 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12699000" />
+    <option name="totallyTimeSpent" value="21615000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1295" height="695" extended-state="7" />
-    <editor active="true" />
+    <frame x="1912" y="-8" width="2576" height="1416" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18446602" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1252485" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" x="324" y="186" width="1271" height="668" id="Run" order="2" type="FLOATING" weight="0.3280142" />
+      <window_info active="true" anchor="bottom" x="2390" y="689" width="1116" height="392" id="Run" order="2" type="FLOATING" visible="true" weight="0.3280142" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -285,7 +291,7 @@
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="SciView" order="3" weight="0.3296" />
+      <window_info anchor="right" id="SciView" order="3" visible="true" weight="0.32922465" />
       <window_info anchor="right" id="Database" order="4" />
       <window_info anchor="right" id="aiXcoder" order="5" />
     </layout>
@@ -322,8 +328,9 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/getDoc$get_DBscan.coverage" NAME="get_DBscan Coverage Results" MODIFIED="1603674173532" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/getDoc$FileProcess.coverage" NAME="FileProcess Coverage Results" MODIFIED="1603676050455" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/getDoc$index.coverage" NAME="index Coverage Results" MODIFIED="1614327861340" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/getDoc$FileProcess.coverage" NAME="FileProcess Coverage Results" MODIFIED="1615802121362" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/getDoc$PATA.coverage" NAME="PATA Coverage Results" MODIFIED="1615607800039" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/getDoc$index.coverage" NAME="index Coverage Results" MODIFIED="1615818151526" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/data.csv">
@@ -338,16 +345,6 @@
           <caret line="17" column="25" selection-start-line="17" selection-start-column="25" selection-end-line="17" selection-end-column="25" />
           <folding>
             <element signature="e#120#154#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/FileProcess.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="570">
-          <caret line="34" column="24" selection-start-line="34" selection-start-column="24" selection-end-line="34" selection-end-column="24" />
-          <folding>
-            <element signature="e#122#155#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -369,10 +366,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/PATA.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="20" selection-start-column="20" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FileProcess.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="852">
+          <caret line="50" column="41" selection-start-line="50" selection-start-column="41" selection-end-line="50" selection-end-column="41" />
+          <folding>
+            <element signature="e#122#155#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/index.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="15" selection-start-line="15" selection-end-line="15" />
+        <state relative-caret-position="266">
+          <caret line="14" column="54" lean-forward="true" selection-start-line="14" selection-start-column="54" selection-end-line="14" selection-end-column="54" />
           <folding>
             <element signature="e#116#134#0" expanded="true" />
           </folding>

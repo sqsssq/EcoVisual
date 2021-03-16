@@ -8,8 +8,8 @@ import getdoc2vec
 import get_tSNE
 import get_DBscan
 
-predata, namespace = FileProcess.preprocess('data.csv')
+predata, namespace = FileProcess.preprocess(r'D:\DeskTop\dataFile\use5.csv')
 DocData = getdoc2vec.do_doc2vec(predata)
 TsneData = get_tSNE.getTsneData(DocData, namespace)
 DBscanData = get_DBscan.getDbscanData(TsneData)
-FileProcess.write_json('20210226.json', DBscanData)
+# FileProcess.write_json('20210315x.json', DBscanData)

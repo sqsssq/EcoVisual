@@ -37,19 +37,30 @@ def preprocess(url):
     # for x, v in enumerate(list(data.iloc()[0])[1:-1]):
     #     print(x, v)
     # print(list(data.iloc()[0])[-1])
+    namespacex = ['work', 'health_impact', 'repay', 'loan', 'invest', 'venture', 'insurance', 'lottery', 'impact',
+                 'health_impact', 'preference', 'patience']
     predata = []
     namespace = []
-    for i in range(len(data['code'])):
+    for i in range(len(data[data.keys()[0]])):
         list_data = []
-        for k, v in enumerate(data.keys()[2:-1]):
-            name = list(data.iloc()[i])[2:-1]
-            list_data.append(v + str(name[k]))
+        # for k, v in enumerate(data.keys()[2:-1]):
+        #     name = list(data.iloc()[i])[2:-1]
+        #     list_data.append(v + str(name[k]))
+        for v in namespacex:
+            # print(data[v + '_profit_type'])
+            d = str(data[v + '_type'][i])
+            # d = str(data['cash_before_' + v + '_type'][i]) + str(data[v + '_type'][i]) + str(data[v + '_profit_type'][i])
+            list_data.append(d)
         predata.append(list_data)
         l = {
             'id': list(data.iloc()[i])[0],
-            'l': list(data.iloc()[i])[-1]
+            'l': list(data.iloc()[i])[1]
         }
         namespace.append(l.copy())
+    print(predata)
 
     print('Finish PreProcess')
     return predata, namespace
+
+
+# preprocess(r'D:\DeskTop\dataFile\use5.csv')
