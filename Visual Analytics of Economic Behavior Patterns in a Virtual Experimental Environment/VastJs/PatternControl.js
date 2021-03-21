@@ -1,8 +1,8 @@
 const controlSvg = d3.select('#control')
     .append('svg')
     .attr("width", document.getElementById('control').offsetWidth)
-    .attr('height', (document.getElementById('control').offsetHeight - 30))
-    .attr('transform', `translate(0, ${(document.getElementById('control').offsetHeight - 50) * 0.2 + 60})`)
+    .attr('height', (document.getElementById('control').offsetHeight - 30 + 20))
+    .attr('transform', `translate(0, ${(document.getElementById('control').offsetHeight - 50) * 0.2 + 55})`)
 
 for (let i = 0; i < lineLegendType.length; ++i) {
     // console.log(lineLegend[i]);
@@ -31,13 +31,13 @@ controlSvg
     .attr('transform', `rotate(25, ${i * 40 + 15}, ${10})`);
 
 // function start() {
-    drawWealthLine();
-    DrawScatter(0);
+    // drawWealthLine();
+    DrawScatter(1);
     DrawAxis();
 // }
 // drawWealthCircle([{
 //     id: 'pva278uh',
 //     lun: 12
 // }], 1)
-$("#ex2").slider({})
+var bts = $("#ex2").slider({})
 // $("#ex12c").slider({ id: "slider12c", min: 0, max: 10, range: true, value: [3, 7] });
