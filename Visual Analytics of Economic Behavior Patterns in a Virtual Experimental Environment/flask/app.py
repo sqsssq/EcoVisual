@@ -8,9 +8,21 @@ from flask import Flask, jsonify, request
 from flask_cors import *
 import fpm
 import normlize
+import get_DBscan
+import pandas as pd
+import json
 
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
+
+
+# 读文件
+def read_json(add):
+    with open(add, 'rt', encoding="utf-8") as f:
+        cr = json.load(f)
+    f.close()
+    return cr
+
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -36,6 +48,21 @@ def x():
         ans = normlize.testIn(float(post_data['a']), float(post_data["b"]), float(post_data["c"]))
         return jsonify({
             'data': ans
+        })
+
+
+@app.route('/dbscan', methods=["GET", "POST"])
+def DB_data():
+    if request.method == "POST":
+        post_data = request.values
+        eps = post_data['eps']
+        r = post_data['r']
+        ts = read_json("1-20all.json")
+        print(r)
+        print(eps)
+        res = get_DBscan.getDbscanData(ts, float(eps), float(r))
+        return jsonify({
+            'data': res
         })
 
 
