@@ -270,12 +270,10 @@ body {
 #navBar {
     background-color: rgba(55, 59, 64, 1);
     /* background-color: rgba(0, 0, 0, 0.8); */
-    /* padding-left: 36%; */
-    /* text-algin: center; */
-    text-align: center;
+    padding-left: 36%;
     font-weight: bold;
     color: white;
-    font-size: 28px;
+    font-size: 30px;
     height: calc(6%);
     padding-top: 1%;
     font-family: Georgia;

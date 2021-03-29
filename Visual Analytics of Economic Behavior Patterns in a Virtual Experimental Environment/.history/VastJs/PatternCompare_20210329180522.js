@@ -71,7 +71,7 @@ function drawPattern(move_x, move_y, selectData, flag) {
                 }
                 peopleHistory[data[i].code]['start' + data[i].biao] = parseFloat(data[i]['start']);
                 peopleHistory[data[i].code]['end' + data[i].biao] = parseFloat(data[i]['end']);
-                peopleHistory[data[i].code]['net' + data[i].biao] = parseFloat(data[i]['realprofit']);
+                peopleHistory[data[i].code]['net' + data[i].biao] = parseFloat(data[i]['profit']);
 
                 peopleHistory[data[i].code][data[i].biao] = new Array();
                 for (let j in lineLegend) {
@@ -333,7 +333,7 @@ function drawPattern(move_x, move_y, selectData, flag) {
             //     .range([0.1, 5]);
             let w_scale = d3.scaleLinear()
                 .domain([0, 100])
-                .range([2, 5]);
+                .range([0, 5]);
             let type_code = new Object();
             let lineType_code = new Array();
             let type_data = new Array();
@@ -503,7 +503,7 @@ function drawPattern(move_x, move_y, selectData, flag) {
             let min_profit = 99999;
             for (let i in selectData) {
                 timeLine[parseInt(selectData[i].lun) - 1]++;
-                profitLine[parseInt(selectData[i].lun) - 1] += parseFloat(selectData[i].profit);
+                profitLine[parseInt(selectData[i].lun) - 1] += parseFloat(selectData[i].realprofit);
                 // console.log(selectData[i].profit, selectData[i].lun);
                 max_people = Math.max(max_people, timeLine[parseInt(selectData[i].lun) - 1]);
             }

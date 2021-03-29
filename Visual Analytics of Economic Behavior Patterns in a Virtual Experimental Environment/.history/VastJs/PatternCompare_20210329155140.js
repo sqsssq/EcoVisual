@@ -1,7 +1,7 @@
 // var lineLegend = ['Work', 'Health', 'Insurance', 'Loan', 'Investment', 'Risk', 'Disaster', 'Lottery', 'Ill', 'Unemployed', 'URPI'];
 var lineLegend = ['Work', 'Health', 'Repay', 'Loan', 'Investment', 'Venture', 'Insurance', 'Lottery', 'Disaster', 'Ill', 'Preference', 'Patience'];
 var lineLegendType = ['Work', 'Health Investment', 'Repayment', 'Loan', 'Investment', 'Venture', 'Insurance', 'Lottery', 'Disaster', 'Illness', 'Risk Preference', 'Intertemporal Choice'];
-var lineLegendType_2 = ['Work', 'Health Invest', 'Repayment', 'Loan', 'Investment', 'Venture', 'Insurance', 'Lottery', 'Disease', 'Illness', 'Risk Prefer', 'Patience'];
+var lineLegendType_2 = ['Work', 'Heal', 'Rep', 'Loan', 'Inv', 'Vent', 'Ins', 'Lot', 'Dis', 'Ill', 'Risk', 'Pat'];
 var lineNameLegend = [
     ['Employment', 'Unemployment'],
     ['No', 'Low', 'High'],
@@ -71,7 +71,7 @@ function drawPattern(move_x, move_y, selectData, flag) {
                 }
                 peopleHistory[data[i].code]['start' + data[i].biao] = parseFloat(data[i]['start']);
                 peopleHistory[data[i].code]['end' + data[i].biao] = parseFloat(data[i]['end']);
-                peopleHistory[data[i].code]['net' + data[i].biao] = parseFloat(data[i]['realprofit']);
+                peopleHistory[data[i].code]['net' + data[i].biao] = parseFloat(data[i]['profit']);
 
                 peopleHistory[data[i].code][data[i].biao] = new Array();
                 for (let j in lineLegend) {
@@ -328,12 +328,9 @@ function drawPattern(move_x, move_y, selectData, flag) {
                 }
             }
             // console.log(line_type_width);
-            // let w_scale = d3.scaleLinear()
-            //     .domain([line_min, line_max])
-            //     .range([0.1, 5]);
             let w_scale = d3.scaleLinear()
-                .domain([0, 100])
-                .range([2, 5]);
+                .domain([line_min, line_max])
+                .range([0.1, 5]);
             let type_code = new Object();
             let lineType_code = new Array();
             let type_data = new Array();
@@ -420,7 +417,7 @@ function drawPattern(move_x, move_y, selectData, flag) {
                 })
                 .attr("fill", "none")
                 .attr("stroke", 'steelblue')
-                .attr("stroke-width", (d, i) => w_scale(type_w[i] > 100 ? 100 : type_w[i]))
+                .attr("stroke-width", (d, i) => w_scale(type_w[i]))
                 .attr('stroke-opacity', (d, i) => (type_w[i] == type_code[lineType_code[i]] ? 1 : 0.5));
 
             // 零线

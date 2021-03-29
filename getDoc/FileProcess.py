@@ -58,8 +58,8 @@ def preprocess(url):
     for i in range(len(data[data.keys()[0]])):
         round = int(data["subsession.round_number"][i])
         # 限制条件
-        if round < 1 or round > 10:
-            continue
+        # if round < 1 or round > 10:
+        #     continue
         print(round)
         list_data = []
         # for k, v in enumerate(data.keys()[2:-1]):
@@ -70,8 +70,9 @@ def preprocess(url):
             # d = str(data[v + '_type'][i])
             if name_select[k] == 0:
                 continue
-            d = str(data['cash_before_' + v + '_type'][i]) + v + str(
-                data[v + '_type'][i]) + str(data[v + '_profit_type'][i])
+            # d = str(data['cash_before_' + v + '_type'][i]) + v + str(
+            #     data[v + '_type'][i]) + str(data[v + '_profit_type'][i])
+            # d = v + str(data[v + '_type'][i])
             list_data.append(str(data['cash_before_' + v + '_type'][i]))
             list_data.append(v + str(data[v + '_type'][i]))
             list_data.append(str(data[v + '_profit_type'][i]))

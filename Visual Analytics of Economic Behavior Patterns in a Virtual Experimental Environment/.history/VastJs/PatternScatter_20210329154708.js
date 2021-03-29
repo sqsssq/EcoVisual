@@ -898,7 +898,7 @@ function DrawAxis(scatter_data, flag) {
             })
             .on('mouseover', d => {
                 // drawFlowerMove(d.code, d.lun);
-                if (selectPeople[d.code + d.lun]) {
+
                 axisCircle.attr('r', x => {
                     if (x == d) return 10;
                     else {
@@ -925,7 +925,6 @@ function DrawAxis(scatter_data, flag) {
                             else return 'gray';
                         })
                 }
-            }
 
                 // console.log(d3.select("#people_cir_" + d.code + d.lun)._groups[0][0]);
                 // console.log(d3.select("#people_cir_" + d.code + d.lun).attr("fill"));

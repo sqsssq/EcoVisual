@@ -333,7 +333,7 @@ function drawPattern(move_x, move_y, selectData, flag) {
             //     .range([0.1, 5]);
             let w_scale = d3.scaleLinear()
                 .domain([0, 100])
-                .range([2, 5]);
+                .range([1, 5]);
             let type_code = new Object();
             let lineType_code = new Array();
             let type_data = new Array();

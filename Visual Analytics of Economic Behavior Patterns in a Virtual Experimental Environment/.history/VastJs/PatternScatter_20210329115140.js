@@ -666,7 +666,7 @@ function DrawAxis(scatter_data, flag) {
             // console.log(item);
             label_id_round[item.id + item.l] = item.label;
         })
-        // console.log(label_id_round);
+        console.log(label_id_round);
         let tx = document.getElementById('se1').value;
         let ty = document.getElementById('se2').value;
         let tk = document.getElementById('se3').value;
@@ -897,8 +897,7 @@ function DrawAxis(scatter_data, flag) {
                 } else return 0.1;
             })
             .on('mouseover', d => {
-                // drawFlowerMove(d.code, d.lun);
-                if (selectPeople[d.code + d.lun]) {
+                drawFlowerMove(d.code, d.lun);
                 axisCircle.attr('r', x => {
                     if (x == d) return 10;
                     else {
@@ -925,7 +924,6 @@ function DrawAxis(scatter_data, flag) {
                             else return 'gray';
                         })
                 }
-            }
 
                 // console.log(d3.select("#people_cir_" + d.code + d.lun)._groups[0][0]);
                 // console.log(d3.select("#people_cir_" + d.code + d.lun).attr("fill"));
@@ -934,7 +932,7 @@ function DrawAxis(scatter_data, flag) {
             })
             .on('mouseout', d => {
                 // d3.select('#lineWWW').remove();
-                // d3.selectAll("#pie_gMove").remove();
+                d3.selectAll("#pie_gMove").remove();
                 axisCircle.attr('r', x => {
                     if (selectPeople[x.code + x.lun]) {
                         // console.log(d.code + d.lun);
@@ -1554,7 +1552,7 @@ function DrawAxisPattern(scatter_data) {
             // console.log(item);
             label_id_round[item.id + item.l] = item.label;
         })
-        // console.log(label_id_round);
+        console.log(label_id_round);
         let tx = document.getElementById('se1').value;
         let ty = document.getElementById('se2').value;
         let tk = document.getElementById('se3').value;

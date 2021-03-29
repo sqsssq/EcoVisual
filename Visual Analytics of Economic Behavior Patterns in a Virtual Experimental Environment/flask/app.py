@@ -32,6 +32,13 @@ def read_json(add):
     return cr
 
 
+# 写文件
+def write_json(add, arr):
+    with open(add, 'a', encoding='utf-8', newline='') as f:
+        json.dump(arr, f)
+    f.close()
+    return
+
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -67,9 +74,11 @@ def DB_data():
         r = post_data['r']
         add = post_data['add']
         ts = read_json("data/" + add)
+        # ts = read_json("data/20210329_1.json")
         print(r)
         print(eps)
         res = get_DBscan.getDbscanData(ts, float(eps), float(r))
+        # write_json('4.json', res)
         return jsonify({
             'data': res
         })

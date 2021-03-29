@@ -1,10 +1,10 @@
 const controlSvg = d3.select('#control')
     .append('svg')
     .attr("width", document.getElementById('control').offsetWidth)
-    .attr('height', (document.getElementById('control').offsetHeight - 100))
+    .attr('height', (document.getElementById('control').offsetHeight - 150))
     .attr('transform', `translate(0, ${(document.getElementById('control').offsetHeight - 50) * 0.2 + 55})`)
 
-let nowStep = 59;
+let nowStep = 48;
 
 for (let i = 0; i < lineLegendType_2.length; ++i) {
     // console.log(lineLegend[i]);
@@ -24,13 +24,13 @@ let i = lineLegend.length;
 controlSvg
     // .append('g')
     .append('text')
-    .attr('x', i * nowStep + 10)
+    .attr('x', i * 48 + 10)
     .attr('y', 10)
     .text('All')
     .attr('font-size', 15)
     .attr('font-weight', 'bold')
     .attr('font-family', 'Georgia')
-    .attr('transform', `rotate(25, ${i * nowStep + 10}, ${10})`);
+    .attr('transform', `rotate(25, ${i * 48 + 10}, ${10})`);
 
 
 // function start() {
