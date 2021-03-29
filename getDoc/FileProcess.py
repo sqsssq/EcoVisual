@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-03-15 22:22:19
-LastEditTime: 2021-03-18 17:39:54
+LastEditTime: 2021-03-28 16:16:34
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: \getDoc\FileProcess.py
@@ -56,6 +56,11 @@ def preprocess(url):
     predata = []
     namespace = []
     for i in range(len(data[data.keys()[0]])):
+        round = int(data["subsession.round_number"][i])
+        # 限制条件
+        if round < 1 or round > 10:
+            continue
+        print(round)
         list_data = []
         # for k, v in enumerate(data.keys()[2:-1]):
         #     name = list(data.iloc()[i])[2:-1]
@@ -80,4 +85,4 @@ def preprocess(url):
     return predata, namespace
 
 
-# preprocess(r'D:\DeskTop\dataFile\use5.csv')
+preprocess(r'use5.csv')

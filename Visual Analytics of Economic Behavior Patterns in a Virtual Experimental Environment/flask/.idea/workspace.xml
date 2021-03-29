@@ -6,11 +6,11 @@
       <change beforePath="$PROJECT_DIR$/../VastJs/PatternControl.js" beforeDir="false" afterPath="$PROJECT_DIR$/../VastJs/PatternControl.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../VastJs/PatternIndividual.js" beforeDir="false" afterPath="$PROJECT_DIR$/../VastJs/PatternIndividual.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../VastJs/PatternScatter.js" beforeDir="false" afterPath="$PROJECT_DIR$/../VastJs/PatternScatter.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../index.css" beforeDir="false" afterPath="$PROJECT_DIR$/../index.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../getDoc/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../getDoc/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../getDoc/doc2vec.model" beforeDir="false" afterPath="$PROJECT_DIR$/../../getDoc/doc2vec.model" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../getDoc/index.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../getDoc/index.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../getDoc/FileProcess.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../getDoc/FileProcess.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -23,11 +23,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="627">
-              <caret line="60" column="16" lean-forward="true" selection-start-line="60" selection-start-column="16" selection-end-line="60" selection-end-column="16" />
-              <folding>
-                <element signature="e#118#159#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="1026">
+              <caret line="69" column="16" selection-start-line="69" selection-start-column="16" selection-end-line="69" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -35,8 +32,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/get_DBscan.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="266">
-              <caret line="68" lean-forward="true" selection-start-line="68" selection-end-line="68" />
+            <state relative-caret-position="453">
+              <caret line="68" selection-start-line="68" selection-end-line="68" />
             </state>
           </provider>
         </entry>
@@ -280,6 +277,7 @@
       <workItem from="1613813923665" duration="1491000" />
       <workItem from="1614170860744" duration="599000" />
       <workItem from="1616399202837" duration="4803000" />
+      <workItem from="1616921742815" duration="469000" />
     </task>
     <task id="LOCAL-00001" summary="2020/01/19_v1">
       <created>1611038233849</created>
@@ -292,12 +290,12 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="47039000" />
+    <option name="totallyTimeSpent" value="47508000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1912" y="-8" width="2576" height="1416" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.065580286" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.065977745" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -408,18 +406,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="627">
-          <caret line="60" column="16" lean-forward="true" selection-start-line="60" selection-start-column="16" selection-end-line="60" selection-end-column="16" />
-          <folding>
-            <element signature="e#118#159#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="1026">
+          <caret line="69" column="16" selection-start-line="69" selection-start-column="16" selection-end-line="69" selection-end-column="16" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/get_DBscan.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="68" lean-forward="true" selection-start-line="68" selection-end-line="68" />
+        <state relative-caret-position="453">
+          <caret line="68" selection-start-line="68" selection-end-line="68" />
         </state>
       </provider>
     </entry>
