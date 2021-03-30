@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="20edc151-a045-4691-bb38-fd00d6c7d959" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../VastJs/PatternIndividual.js" beforeDir="false" afterPath="$PROJECT_DIR$/../VastJs/PatternIndividual.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../getDoc/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../getDoc/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../getDoc/FileProcess.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../getDoc/FileProcess.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../getDoc/doc2vec.model" beforeDir="false" afterPath="$PROJECT_DIR$/../../getDoc/doc2vec.model" afterDir="false" />
@@ -19,8 +19,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="985">
-              <caret line="81" column="24" lean-forward="true" selection-start-line="81" selection-start-column="24" selection-end-line="81" selection-end-column="24" />
+            <state relative-caret-position="890">
+              <caret line="76" column="37" selection-start-line="76" selection-start-column="37" selection-end-line="76" selection-end-column="37" />
             </state>
           </provider>
         </entry>
@@ -28,7 +28,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/get_DBscan.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-174">
+            <state relative-caret-position="1178">
               <caret line="68" selection-start-line="68" selection-end-line="68" />
             </state>
           </provider>
@@ -280,6 +280,7 @@
       <workItem from="1616399202837" duration="4803000" />
       <workItem from="1616921742815" duration="469000" />
       <workItem from="1616979165523" duration="6131000" />
+      <workItem from="1617071178140" duration="630000" />
     </task>
     <task id="LOCAL-00001" summary="2020/01/19_v1">
       <created>1611038233849</created>
@@ -292,12 +293,13 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="53639000" />
+    <option name="totallyTimeSpent" value="54269000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1912" y="-8" width="2576" height="1416" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.066375196" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.066772655" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -406,17 +408,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/get_DBscan.py">
+    <entry file="file://$PROJECT_DIR$/app.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-174">
-          <caret line="68" selection-start-line="68" selection-end-line="68" />
+        <state relative-caret-position="890">
+          <caret line="76" column="37" selection-start-line="76" selection-start-column="37" selection-end-line="76" selection-end-column="37" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app.py">
+    <entry file="file://$PROJECT_DIR$/get_DBscan.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="985">
-          <caret line="81" column="24" lean-forward="true" selection-start-line="81" selection-start-column="24" selection-end-line="81" selection-end-column="24" />
+        <state relative-caret-position="1178">
+          <caret line="68" selection-start-line="68" selection-end-line="68" />
         </state>
       </provider>
     </entry>

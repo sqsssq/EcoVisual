@@ -51,7 +51,7 @@ def preprocess(url):
         'patience'
     ]
     name_select = [
-        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+        1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0
     ]
     predata = []
     namespace = []

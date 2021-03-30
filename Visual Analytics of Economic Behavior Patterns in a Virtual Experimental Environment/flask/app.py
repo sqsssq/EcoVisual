@@ -74,7 +74,7 @@ def DB_data():
         r = post_data['r']
         add = post_data['add']
         ts = read_json("data/" + add)
-        # ts = read_json("data/20210329_1.json")
+        # ts = read_json("data/1-20top7.json")
         print(r)
         print(eps)
         res = get_DBscan.getDbscanData(ts, float(eps), float(r))
