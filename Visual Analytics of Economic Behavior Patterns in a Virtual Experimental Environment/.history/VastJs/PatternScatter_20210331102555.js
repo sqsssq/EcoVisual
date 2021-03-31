@@ -338,8 +338,8 @@ function DrawScatter(flag, scatter_data) {
         this.profit_min_Scale = d3.scaleLinear()
             .domain([0, -100])
             .range([1, 10]);
-        this.computeMax = d3.interpolate('rgba(7, 151, 71, 0.4)', 'rgba(7, 151, 71, 1)');
-        this.computeMin = d3.interpolate('rgba(255,102,102, 0.4)', 'rgba(255,102,102, 1)');
+        this.computeMax = d3.interpolate('#98FB98', 'green');
+        this.computeMin = d3.interpolate('#FFC0CB', 'red');
 
         // const colorScale = d3.scaleLog()
         // .domain([0, 0 - min_start, max_start - min_start])
@@ -364,10 +364,6 @@ function DrawScatter(flag, scatter_data) {
                         return this.computeMax(Math.log10(this.start_max_Scale(d.start > 400 ? 400 : d.start)));
                     if (d.start <= 0)
                         return this.computeMin(Math.log10(this.start_min_Scale(d.start)))
-                    if (d.start > 0)
-                        return 'rgba(7, 151, 71, 1)'
-                    else
-                    return 'rgba(255,102,102, 1)';
                     // console.log()
                     // if (d.start > 0)
                     // console.log(Math.log10(start_max_Scale(d.start)), start_max_Scale(d.start))
@@ -382,10 +378,6 @@ function DrawScatter(flag, scatter_data) {
                         return this.computeMin(Math.log10(this.profit_min_Scale(d.profit < -100 ? -100 : d.profit)))
 
                     }
-                    if (d.profit > 0)
-                        return 'rgba(7, 151, 71, 1)'
-                    else
-                    return 'rgba(255,102,102, 1)';
                     // if (d.profit > 0) return 'green';
                     // else return 'red';
                 }

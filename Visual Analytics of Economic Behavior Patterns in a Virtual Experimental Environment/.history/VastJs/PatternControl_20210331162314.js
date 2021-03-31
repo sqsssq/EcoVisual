@@ -4,7 +4,7 @@ const controlSvg = d3.select('#control')
     .attr('height', (document.getElementById('control').offsetHeight - 120))
     .attr('transform', `translate(0, ${(document.getElementById('control').offsetHeight - 50) * 0.2 + 75})`)
 
-let nowStep = 57;
+let nowStep = 58;
 
 for (let i = 0; i < lineLegendType_2.length; ++i) {
     // console.log(lineLegend[i]);

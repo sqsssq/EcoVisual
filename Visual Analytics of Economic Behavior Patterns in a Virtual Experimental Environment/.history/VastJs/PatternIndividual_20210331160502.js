@@ -933,7 +933,7 @@ function flowerGlyph(pie_data, decisionList, max_gain) {
     glyph_g.append('rect')
         .attr("x", -5)
         .attr("y", -15)
-        .attr("width", 2 * (flower_outer) + 90)
+        .attr("width", 2 * (flower_outer) + 100)
         .attr("height", 2 * (flower_outer + 20) + 20)
         .attr("fill", "none")
         .attr("stroke", "gray")

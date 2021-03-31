@@ -933,14 +933,14 @@ function flowerGlyph(pie_data, decisionList, max_gain) {
     glyph_g.append('rect')
         .attr("x", -5)
         .attr("y", -15)
-        .attr("width", 2 * (flower_outer) + 90)
+        .attr("width", 2 * (flower_outer + 100) - 50)
         .attr("height", 2 * (flower_outer + 20) + 20)
         .attr("fill", "none")
         .attr("stroke", "gray")
         .attr("stroke-dasharray", 5.5);
 
     const flower_glyph_g = glyph_g.append("g")
-        .attr("transform", `translate(${(flower_outer + 50)}, ${(flower_outer + 20)}) rotate(-105, 0, 0)`)
+        .attr("transform", `translate(${(flower_outer + 100)}, ${(flower_outer + 20)}) rotate(-105, 0, 0)`)
     flower_glyph_g.append("g")
         // .attr("transform", `translate(${(flower_outer + 20)}, ${(flower_outer + 20)}) rotate(-105, 0, 0)`)
         .selectAll("#pie_glyph_graph")
@@ -976,7 +976,7 @@ function flowerGlyph(pie_data, decisionList, max_gain) {
         // console.log(i, count_type_array[i], lineNameLegend[i][count_type_array[i] - 1])
 
         glyph_g.append("g")
-            .attr("transform", `translate(${(flower_outer + 50)}, ${(flower_outer + 20)})`).append('text')
+            .attr("transform", `translate(${(flower_outer + 100)}, ${(flower_outer + 20)})`).append('text')
             .attr('x', x2)
             .attr('y', y2)
             .attr('text-anchor', 'middle')
@@ -985,7 +985,7 @@ function flowerGlyph(pie_data, decisionList, max_gain) {
             // .attr('font-weight', 'bold')
             // .attr('dx', i >= 4 && i <= 8 ? '0.5m' : (i == 9 || i == 3 ? 0 : '-0.5em'))
             // .attr('dy', i <= 6 ? '-0.1em' : '0.5em')
-            .attr("dx", i == 0 ? '-0.5em' : 0)
+            // .attr("dx", i == 0 ? '-2em' : 0)
             .text(lineNameLegend[i][decisionList[i]]);
     }
     flower_glyph_g.selectAll("#pie_glyph_graph")

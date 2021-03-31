@@ -338,8 +338,8 @@ function DrawScatter(flag, scatter_data) {
         this.profit_min_Scale = d3.scaleLinear()
             .domain([0, -100])
             .range([1, 10]);
-        this.computeMax = d3.interpolate('rgba(7, 151, 71, 0.4)', 'rgba(7, 151, 71, 1)');
-        this.computeMin = d3.interpolate('rgba(255,102,102, 0.4)', 'rgba(255,102,102, 1)');
+        this.computeMax = d3.interpolate('#98FB98', 'green');
+        this.computeMin = d3.interpolate('#FFC0CB', 'red');
 
         // const colorScale = d3.scaleLog()
         // .domain([0, 0 - min_start, max_start - min_start])
@@ -360,10 +360,10 @@ function DrawScatter(flag, scatter_data) {
                 if (flag == 0)
                     return color_for_DBScan[d.label];
                 if (flag == 1) {
-                    if (d.start > 0)
-                        return this.computeMax(Math.log10(this.start_max_Scale(d.start > 400 ? 400 : d.start)));
-                    if (d.start <= 0)
-                        return this.computeMin(Math.log10(this.start_min_Scale(d.start)))
+                    // if (d.start > 0)
+                    //     return this.computeMax(Math.log10(this.start_max_Scale(d.start > 400 ? 400 : d.start)));
+                    // if (d.start <= 0)
+                    //     return this.computeMin(Math.log10(this.start_min_Scale(d.start)))
                     if (d.start > 0)
                         return 'rgba(7, 151, 71, 1)'
                     else
@@ -375,13 +375,13 @@ function DrawScatter(flag, scatter_data) {
                     // else return 'red';
                 }
                 if (flag == 2) {
-                    if (d.profit > 0) {
-                        return this.computeMax(Math.log10(this.profit_max_Scale(d.profit > 200 ? 200 : d.profit)));
+                    // if (d.profit > 0) {
+                    //     return this.computeMax(Math.log10(this.profit_max_Scale(d.profit > 200 ? 200 : d.profit)));
 
-                    } else {
-                        return this.computeMin(Math.log10(this.profit_min_Scale(d.profit < -100 ? -100 : d.profit)))
+                    // } else {
+                    //     return this.computeMin(Math.log10(this.profit_min_Scale(d.profit < -100 ? -100 : d.profit)))
 
-                    }
+                    // }
                     if (d.profit > 0)
                         return 'rgba(7, 151, 71, 1)'
                     else

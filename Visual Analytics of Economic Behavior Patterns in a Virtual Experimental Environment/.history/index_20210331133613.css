@@ -40,9 +40,9 @@ body {
     border-width: 1px;
     border-color: rgb(237, 237, 238);
 
-    -webkit-box-shadow: 0px 3px 3px 2px #bdbaba;
-    -moz-box-shadow: 0px 3px 3px 2px #bdbaba;
-    box-shadow: 0px 3px 3px 2px #bdbaba;
+    -webkit-box-shadow: 0px 2px 2px 1px #bdbaba;
+    -moz-box-shadow: 0px 2px 2px 1px #bdbaba;
+    box-shadow: 0px 2px 2px 1px #bdbaba;
 }
 
 
@@ -58,7 +58,7 @@ body {
     position: absolute;
     top: calc(20px + 6%);
     left: calc(24% + 30px);
-    width: calc(76% - 50px);
+    width: calc(76% - 50px - 0.5%);
     height: calc(42% - 30px - 0.5%);
 }
 
@@ -66,15 +66,15 @@ body {
     position: absolute;
     top: calc(48% + 10px);
     left: calc(24% + 30px);
-    width: calc(76% - 50px);
-    height: calc(52% - 30px);
+    width: calc(76% - 50px - 0.5%);
+    height: calc(52% - 30px - 0.5%);
 }
 
 #right {
     position: absolute;
     top: calc(3px);
     left: calc(86% + 9px);
-    width: calc(14% - 12px);
+    width: calc(14% - 12px - 0.5%);
     height: calc(70% - 0.5%);
 }
 
@@ -91,7 +91,7 @@ body {
     top: calc(58% + 10px);
     left: calc(20px);
     width: calc(24% - 10px - 0.5%);
-    height: calc(42% - 30px);
+    height: calc(42% - 30px - 0.5%);
 }
 
 

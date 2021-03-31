@@ -52,8 +52,7 @@ function drawWealthCircle(select_data, type) {
 }
 
 // const color_wealth = ['#18472C', '#009543', '#A6DEC1', 'orange', 'rgb(240, 189, 134)', 'rgb(243, 96, 102)']
-// const color_wealth = ['#18472C', '#009543', '#A6DEC1', '#ffc07b', '#ff9966', '#ff6666'];
-const color_wealth = ['rgba(7, 151, 71, 1)', 'rgba(7, 151, 71, 0.7)', 'rgba(7, 151, 71, 0.4)', 'rgba(255,102,102, 0.4)', 'rgba(255,102,102, 0.7)', 'rgba(255,102,102, 1)'];
+const color_wealth = ['#18472C', '#009543', '#A6DEC1', '#ffc07b', '#ff9966', '#ff6666'];
 
 let max_wealth_max = 0;
 let max_wealth_array = new Array();
@@ -417,18 +416,18 @@ function drawWealthLine() {
 const sum_max_gain = 0;
 var select_people_num = 0;
 
-// d3.csv('data/newdata_for_line.csv').then(wealth_data => {
-//     let name = new Object();
-//     for (let i in wealth_data) {
-//         name[wealth_data[i].code] = 1;
-//     }
-//     console.log(name);
-//     for (let i in name) {
+d3.csv('data/newdata_for_line.csv').then(wealth_data => {
+    let name = new Object();
+    for (let i in wealth_data) {
+        name[wealth_data[i].code] = 1;
+    }
+    console.log(name);
+    for (let i in name) {
 
-//         drawPersonalHorizon(i);
-//         // break;
-//     }
-// })
+        drawPersonalHorizon(i);
+        // break;
+    }
+})
 
 function drawFlower(code, select_round) {
     d3.csv('data/newdata_for_line.csv').then(wealth_data => {
@@ -556,7 +555,7 @@ function drawFlower(code, select_round) {
         this.flowerOuter = 40;
         const flowerScale = d3.scaleLinear()
             .domain([0, max_gain])
-            .range([this.flowerInner + 1.5, this.flowerOuter]);
+            .range([this.flowerInner + 10, this.flowerOuter]);
         // console.log(max_gain);
 
         const pie = d3.pie();
@@ -811,7 +810,7 @@ function drawFlowerMove(code, select_round) {
         this.flowerOuter = 40;
         const flowerScale = d3.scaleLinear()
             .domain([0, max_gain])
-            .range([this.flowerInner + 1.5, this.flowerOuter]);
+            .range([this.flowerInner + 10, this.flowerOuter]);
         // console.log(max_gain);
 
         const pie = d3.pie();
@@ -931,16 +930,15 @@ function flowerGlyph(pie_data, decisionList, max_gain) {
         .attr("class", 'svgBorder')
         .attr("transform", `translate(${this.x_scale_wealth(2) - (flower_outer + 20)}, ${this.margin.top})`)
     glyph_g.append('rect')
-        .attr("x", -5)
-        .attr("y", -15)
-        .attr("width", 2 * (flower_outer) + 90)
-        .attr("height", 2 * (flower_outer + 20) + 20)
+        .attr("x", 0)
+        .attr("y", 0)
+        .attr("width", 2 * (flower_outer + 100))
+        .attr("height", 2 * (flower_outer + 20))
         .attr("fill", "none")
-        .attr("stroke", "gray")
-        .attr("stroke-dasharray", 5.5);
+        .attr("stroke", "none");
 
     const flower_glyph_g = glyph_g.append("g")
-        .attr("transform", `translate(${(flower_outer + 50)}, ${(flower_outer + 20)}) rotate(-105, 0, 0)`)
+        .attr("transform", `translate(${(flower_outer + 100)}, ${(flower_outer + 20)}) rotate(-105, 0, 0)`)
     flower_glyph_g.append("g")
         // .attr("transform", `translate(${(flower_outer + 20)}, ${(flower_outer + 20)}) rotate(-105, 0, 0)`)
         .selectAll("#pie_glyph_graph")
@@ -976,7 +974,7 @@ function flowerGlyph(pie_data, decisionList, max_gain) {
         // console.log(i, count_type_array[i], lineNameLegend[i][count_type_array[i] - 1])
 
         glyph_g.append("g")
-            .attr("transform", `translate(${(flower_outer + 50)}, ${(flower_outer + 20)})`).append('text')
+            .attr("transform", `translate(${(flower_outer + 100)}, ${(flower_outer + 20)})`).append('text')
             .attr('x', x2)
             .attr('y', y2)
             .attr('text-anchor', 'middle')
@@ -985,7 +983,7 @@ function flowerGlyph(pie_data, decisionList, max_gain) {
             // .attr('font-weight', 'bold')
             // .attr('dx', i >= 4 && i <= 8 ? '0.5m' : (i == 9 || i == 3 ? 0 : '-0.5em'))
             // .attr('dy', i <= 6 ? '-0.1em' : '0.5em')
-            .attr("dx", i == 0 ? '-0.5em' : 0)
+            .attr("dx", i == 0 ? '-2em' : 0)
             .text(lineNameLegend[i][decisionList[i]]);
     }
     flower_glyph_g.selectAll("#pie_glyph_graph")
@@ -1038,7 +1036,7 @@ function globalWealth() {
     const horizon_height = ((heightFlower - 24) / 4 - 20) / 12;
     const flowerScale = d3.scaleLinear()
         .domain([0, max_wealth_max])
-        .range([this.flowerInner + 1.5, this.flowerOuter]);
+        .range([this.flowerInner + 10, this.flowerOuter]);
     let people_scale = d3.scaleLinear()
         .domain([0, max_wealth_max])
         .range([0, -horizon_height * 3]);
@@ -1161,7 +1159,7 @@ function personalWealth() {
         if (max_wealth_array[i] == 'a') continue;
         const flowerScale = d3.scaleLinear()
             .domain([0, max_wealth_array[i]])
-            .range([this.flowerInner + 1.5, this.flowerOuter]);
+            .range([this.flowerInner + 10, this.flowerOuter]);
         let people_scale = d3.scaleLinear()
             .domain([0, max_wealth_array[i]])
             .range([0, -horizon_height * 3]);
@@ -1288,11 +1286,11 @@ function drawPersonalHorizon(code, cnt, round) {
             .attr('height', (heightFlower - 24) / 4)
             .attr('class', 'framework')
             .attr('transform', `translate(10, 0)`)
-        // .on('click', d => {
-        //     d3.select('#pie_g1').remove();
-        //     drawFlower(code);
-        //     console.log(code);
-        // })
+        .on('click', d => {
+            d3.select('#pie_g0').remove();
+            drawFlower(code);
+            console.log(code);
+        })
         // .on('mouseover', d => {
         //     for (let i = 1; i <= select_people_num; ++i) {
         //         d3.select('#pie_g' + i.toString()).attr('opacity', (i == parseInt(cnt) + 1 ? 1 : 0));
@@ -1535,85 +1533,85 @@ function drawPersonalHorizon(code, cnt, round) {
             drawHorizonR(horizon_data[i], max_gain, 4, ((heightFlower - 24) / 4 - 20) / 12 * parseInt(i) + 9, pie_g, select_people_num - 1);
         }
         pie_g.append('rect').attr('x', 4).attr('y', 9).attr('height', (heightFlower - 24) / 4 - 20).attr('width', widthHorizonMain - 30 - 10).attr('fill', 'white').attr("fill-opacity", 0).attr('stroke', 'black').attr('stroke-width', 1)
-            .on('mouseover', d => {
-                // con
-                for (let i = 1; i <= select_people_num; ++i) {
-                    d3.select('#pie_g' + i.toString()).attr('opacity', (i == parseInt(cnt) + 1 ? 1 : 0));
-                    // DrawScatterLine(code);
-                    d3.select("#outCircle" + (i - 1).toString()).attr("stroke-opacity", 1);
-                }
-                DrawScatterLine(code);
-                // console.log(selectPeople[code + round], code + round)
-                d3.selectAll('#curve' + (selectPeople[code + round].cnt).toString())
-                    .attr('stroke-opacity', x => {
-                        // console.log()
-                        if (x[0].id == code && parseInt(x[0].round) == parseInt(round)) return 1;
-                        else return 0.1;
-                    })
-                    .attr('stroke', x => {
-                        // console.log()
-                        if (x[0].id == code && parseInt(x[0].round) == parseInt(round)) return 'steelblue';
-                        else return 'gray';
-                    })
-            })
-            .on('mouseout', d => {
-                d3.selectAll("#lineWWW").remove()
-                for (let i = 1; i <= select_people_num; ++i) {
-                    d3.select("#pie_g" + i.toString()).attr('opacity', 1);
-                    d3.select("#outCircle" + (i - 1).toString()).attr('stroke-opacity', 0);
-                }
-                d3.selectAll('#curve' + (selectPeople[code + round].cnt).toString())
-                    .attr('stroke-opacity', x => {
-                        // console.log()
-                        // if (x[0].id == code && parseInt(x[0].round) == parseInt(round)) return 1;
-                        // else return 0.1;
-                        return 1;
-                    })
-                    .attr('stroke', x => {
-                        // console.log()
-                        // if (x[0].id == code && parseInt(x[0].round) == parseInt(round)) return 'steelblue';
-                        // else return 'gray';
-                        return "steelblue";
-                    })
-            })
-            .on("click", d => {
-                console.log("del");
-                d3.selectAll("#lineWWW").remove()
-                d3.select('#sel' + (parseInt(cnt) + 1).toString()).remove();
-                d3.select('#horizonSvg' + (parseInt(cnt) + 1).toString()).remove();
-                d3.select('#pie_g' + (parseInt(cnt) + 1).toString()).remove();
-                d3.select('#weal' + (parseInt(cnt) + 1).toString()).remove();
-                max_wealth_array[cnt] = 'a';
-                max_wealth_max = -9999;
-                max_receive_array[parseInt(cnt)] = 'a';
-                min_receive_array[parseInt(cnt)] = 'a';
-                max_receive = -9999;
-                min_receive = 9999;
-                for (let i = 0; i < max_receive_array.length; ++i) {
-                    if (max_receive_array[i] == 'a') continue;
-                    max_wealth_max = Math.max(max_wealth_max, max_wealth_array[i]);
-                    max_receive = Math.max(max_receive, max_receive_array[i]);
-                    min_receive = Math.min(min_receive, min_receive_array[i]);
-                }
-                d3.selectAll("#lineWWW").remove()
-                for (let i = 1; i <= select_people_num; ++i) {
-                    d3.select("#pie_g" + i.toString()).attr('opacity', 1);
-                    d3.select("#outCircle" + (i - 1).toString()).attr('stroke-opacity', 0);
-                }
-                d3.selectAll('#curve' + (selectPeople[code + round].cnt).toString())
-                    .attr('stroke-opacity', x => {
-                        // console.log()
-                        // if (x[0].id == code && parseInt(x[0].round) == parseInt(round)) return 1;
-                        // else return 0.1;
-                        return 1;
-                    })
-                    .attr('stroke', x => {
-                        // console.log()
-                        // if (x[0].id == code && parseInt(x[0].round) == parseInt(round)) return 'steelblue';
-                        // else return 'gray';
-                        return "steelblue";
-                    })
-            });
+            // .on('mouseover', d => {
+            //     // con
+            //     for (let i = 1; i <= select_people_num; ++i) {
+            //         d3.select('#pie_g' + i.toString()).attr('opacity', (i == parseInt(cnt) + 1 ? 1 : 0));
+            //         // DrawScatterLine(code);
+            //         d3.select("#outCircle" + (i - 1).toString()).attr("stroke-opacity", 1);
+            //     }
+            //     DrawScatterLine(code);
+            //     // console.log(selectPeople[code + round], code + round)
+            //     d3.selectAll('#curve' + (selectPeople[code + round].cnt).toString())
+            //         .attr('stroke-opacity', x => {
+            //             // console.log()
+            //             if (x[0].id == code && parseInt(x[0].round) == parseInt(round)) return 1;
+            //             else return 0.1;
+            //         })
+            //         .attr('stroke', x => {
+            //             // console.log()
+            //             if (x[0].id == code && parseInt(x[0].round) == parseInt(round)) return 'steelblue';
+            //             else return 'gray';
+            //         })
+            // })
+            // .on('mouseout', d => {
+            //     d3.selectAll("#lineWWW").remove()
+            //     for (let i = 1; i <= select_people_num; ++i) {
+            //         d3.select("#pie_g" + i.toString()).attr('opacity', 1);
+            //         d3.select("#outCircle" + (i - 1).toString()).attr('stroke-opacity', 0);
+            //     }
+            //     d3.selectAll('#curve' + (selectPeople[code + round].cnt).toString())
+            //         .attr('stroke-opacity', x => {
+            //             // console.log()
+            //             // if (x[0].id == code && parseInt(x[0].round) == parseInt(round)) return 1;
+            //             // else return 0.1;
+            //             return 1;
+            //         })
+            //         .attr('stroke', x => {
+            //             // console.log()
+            //             // if (x[0].id == code && parseInt(x[0].round) == parseInt(round)) return 'steelblue';
+            //             // else return 'gray';
+            //             return "steelblue";
+            //         })
+            // })
+            // .on("click", d => {
+            //     console.log("del");
+            //     d3.selectAll("#lineWWW").remove()
+            //     d3.select('#sel' + (parseInt(cnt) + 1).toString()).remove();
+            //     d3.select('#horizonSvg' + (parseInt(cnt) + 1).toString()).remove();
+            //     d3.select('#pie_g' + (parseInt(cnt) + 1).toString()).remove();
+            //     d3.select('#weal' + (parseInt(cnt) + 1).toString()).remove();
+            //     max_wealth_array[cnt] = 'a';
+            //     max_wealth_max = -9999;
+            //     max_receive_array[parseInt(cnt)] = 'a';
+            //     min_receive_array[parseInt(cnt)] = 'a';
+            //     max_receive = -9999;
+            //     min_receive = 9999;
+            //     for (let i = 0; i < max_receive_array.length; ++i) {
+            //         if (max_receive_array[i] == 'a') continue;
+            //         max_wealth_max = Math.max(max_wealth_max, max_wealth_array[i]);
+            //         max_receive = Math.max(max_receive, max_receive_array[i]);
+            //         min_receive = Math.min(min_receive, min_receive_array[i]);
+            //     }
+            //     d3.selectAll("#lineWWW").remove()
+            //     for (let i = 1; i <= select_people_num; ++i) {
+            //         d3.select("#pie_g" + i.toString()).attr('opacity', 1);
+            //         d3.select("#outCircle" + (i - 1).toString()).attr('stroke-opacity', 0);
+            //     }
+            //     d3.selectAll('#curve' + (selectPeople[code + round].cnt).toString())
+            //         .attr('stroke-opacity', x => {
+            //             // console.log()
+            //             // if (x[0].id == code && parseInt(x[0].round) == parseInt(round)) return 1;
+            //             // else return 0.1;
+            //             return 1;
+            //         })
+            //         .attr('stroke', x => {
+            //             // console.log()
+            //             // if (x[0].id == code && parseInt(x[0].round) == parseInt(round)) return 'steelblue';
+            //             // else return 'gray';
+            //             return "steelblue";
+            //         })
+            // });
     });
 }
 
@@ -1639,14 +1637,12 @@ function drawHorizonR(roundCount, max_num, move_x, move_y, compare_g, id) {
     let color_scale = d3.scaleOrdinal()
         .domain([0, 1, 2])
         // .range(['orange', 'rgb(240, 189, 134)', 'rgb(243, 96, 102)'])
-        // .range(['#ffc07b', '#ff9966', '#ff6666'])
-        .range(['rgba(255,102,102, 0.4)', 'rgba(255,102,102, 0.7)', 'rgba(255,102,102, 1)'])
+        .range(['#ffc07b', '#ff9966', '#ff6666'])
     let color_scale_2 = d3.scaleOrdinal()
-        .domain([2, 1, 0])
+        .domain([0, 1, 2])
         // .range(['#90EE90', '#00FF00', '#006400'])
-        // .range(['#A6DEC1', '#009543', '#18472C'])
+        .range(['#A6DEC1', '#009543', '#18472C'])
         // '#18472C', '#009543', '#A6DEC1'
-        .range(['rgba(7, 151, 71, 1)', 'rgba(7, 151, 71, 0.7)', 'rgba(7, 151, 71, 0.4)']);
     var area_generator = d3.area()
         .x(function (d, i) {
             return x_scale(i + 1);

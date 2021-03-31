@@ -4,7 +4,7 @@ var lineLegendType = ['Work', 'Health Investment', 'Repayment', 'Loan', 'Investm
 var lineLegendType_2 = ['Work', 'Health Invest', 'Repayment', 'Loan', 'Investment', 'Venture', 'Insurance', 'Lottery', 'Disease', 'Illness', 'Risk Prefer', 'Patience'];
 var lineNameLegend = [
     // ['Employment', 'Unemployment'],
-    ['Work', 'No job'],
+    ['work', 'no work'],
     ['No', 'Low', 'High'],
     ['No', 'Yes'],
     ['No', 'Yes'],

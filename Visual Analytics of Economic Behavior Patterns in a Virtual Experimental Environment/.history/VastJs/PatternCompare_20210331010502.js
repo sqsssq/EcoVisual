@@ -3,8 +3,7 @@ var lineLegend = ['Work', 'Health', 'Repay', 'Loan', 'Investment', 'Venture', 'I
 var lineLegendType = ['Work', 'Health Investment', 'Repayment', 'Loan', 'Investment', 'Venture', 'Insurance', 'Lottery', 'Disaster', 'Illness', 'Risk Preference', 'Intertemporal Choice'];
 var lineLegendType_2 = ['Work', 'Health Invest', 'Repayment', 'Loan', 'Investment', 'Venture', 'Insurance', 'Lottery', 'Disease', 'Illness', 'Risk Prefer', 'Patience'];
 var lineNameLegend = [
-    // ['Employment', 'Unemployment'],
-    ['Work', 'No job'],
+    ['Employment', 'Unemployment'],
     ['No', 'Low', 'High'],
     ['No', 'Yes'],
     ['No', 'Yes'],
@@ -101,7 +100,7 @@ function drawPattern(move_x, move_y, selectData, flag) {
             let compare_g = svgGantt.append('g').attr('id', 'g' + move_x.toString());
             let p_g = compare_g.append('g');
             // console.log(typeColor[countType - 1])
-            p_g.append('rect').attr('x', 0).attr('y', 0).attr('width', c_width).attr('height', 32).attr("fill", "#D4E4FD");
+            p_g.append('rect').attr('x', 0).attr('y', 0).attr('width', c_width).attr('height', 32).attr("fill", "rgb(210, 229, 236)");
             p_g.append('text').text("Pattern " + (countType - 1).toString()).attr('dx', '0.5em').attr('dy', '1.2em').attr('font-family', 'STHeiti').attr('font-size', 19).attr('font-weight', 'bold');
             drawWealthLegend(countType - 2, flag);
             // let c_width = (widthGantt - 5 * 10) / 4;
@@ -989,7 +988,7 @@ function drawArea(paint_g, timeLine, profitLine, max_people, max_profit, min_pro
     }
 }
 
-// drawPattern(0, 10, [{
-//     id: 'pva278uh',
-//     lun: 12
-// }]);
+drawPattern(0, 10, [{
+    id: 'pva278uh',
+    lun: 12
+}]);
